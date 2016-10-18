@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Icons/code_blocks.png</file>
+        <file>Icons/meld.png</file>
+        <file>Icons/copy32x32.png</file>
+        <file>Icons/qtcreator.png</file>
+        <file>Icons/android-logo.png</file>
+        <file>Icons/KitKatLogo.png</file>
+        <file>Icons/linux-logo.jpg</file>
+        <file>Icons/u-boot-logo.png</file>
+        <file>Icons/buildroot.jpg</file>
+        <file>Icons/micro-sd.jpg</file>
+    </qresource>
+</RCC>
