@@ -367,6 +367,33 @@ void NOVAembed::on_GenerateFileSystem_pushButton_clicked()
     else
         update_status_bar("File System Creation error");
 }
+
+
+/* External file systems */
+void NOVAembed::on_ExtFS_Write_uSD_pushButton_clicked()
+{
+    QFile scriptfile("/tmp/script");
+    update_status_bar("Creating file system "+ui->NewFileSystemSelectedlineEdit->text()+" ...");
+
+    if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
+    {
+        update_status_bar("Unable to create /tmp/script");
+        return;
+    }
+    QTextStream out(&scriptfile);
+    out << QString("#!/bin/sh\n");
+    out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
+    out << QString("./flashP_ExtFs /dev/"+ui->ExtFS_uSD_Device_comboBox->currentText()+" /Devel/NOVAsom_SDK/ExternalFileSystems/"+ ui->ExtFS_comboBox->currentText()+" > /Devel/NOVAsom_SDK/Logs/extfs_log \n");
+    out << QString("echo $? > /tmp/result\n");
+    scriptfile.close();
+    if ( run_script() == 0)
+    {
+        update_status_bar("Finished");
+    }
+    else
+        update_status_bar("File System Creation error");
+}
+
 /*****************************************************************************************************************************************************************************************/
 /*                                                                             BKF Tab END                                                                                               */
 /*****************************************************************************************************************************************************************************************/

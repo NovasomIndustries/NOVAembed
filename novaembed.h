@@ -301,6 +301,8 @@ private slots:
 
     void on_GenerateFileSystem_pushButton_clicked();
 
+    void on_ExtFS_Write_uSD_pushButton_clicked();
+
 private:
     Ui::NOVAembed *ui;
 };
