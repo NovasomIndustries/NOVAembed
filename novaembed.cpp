@@ -171,6 +171,32 @@ void NOVAembed::compile_NewFileSystemFileSystemConfigurationcomboBox()
     ui->NewFileSystemConfigurationcomboBox->setCurrentIndex(1);
 }
 
+void NOVAembed::compile_ExtFS_comboBox()
+{
+    QString str;
+    QDir ExternalFileSystemsDir("/Devel/NOVAsom_SDK/ExternalFileSystems");
+    str = "*";
+
+    QStringList ExternalFileSystemsnameFilter(str);
+    QStringList ExternalFileSystemsfilesList = ExternalFileSystemsDir.entryList(ExternalFileSystemsnameFilter);
+
+    for(int i=0;i<ExternalFileSystemsfilesList.count();i++)
+        ui->ExtFS_comboBox->removeItem(i);
+    qDebug() << "Start of external file system list";
+    for(int i=0;i<ExternalFileSystemsfilesList.count();i++)
+    {
+        str = ExternalFileSystemsfilesList[i];
+        if (( str != ".") && (str != ".."))
+        {
+            qDebug() << str;
+            ui->ExtFS_comboBox->addItem(str);
+        }
+    }
+    ui->ExtFS_comboBox->setCurrentIndex(0);
+    qDebug() << "End of external file system list";
+
+}
+
 void NOVAembed:: local_sleep(int ms)
 {
     struct timespec ts = { ms / 1000, (ms % 1000) * 1000 * 1000 };
@@ -221,6 +247,7 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->Board_comboBox->setCurrentText(_Board_comboBox);
         ui->UserPartition_comboBox->setCurrentText(NumberOfUserPartitions);
         compile_NewFileSystemFileSystemConfigurationcomboBox();
+        compile_ExtFS_comboBox();
         update_status_bar("BKF");
         ui->UserPartition1Size_lineEdit->setText(UserPartition1Size);
         ui->UserPartition2Size_lineEdit->setText(UserPartition2Size);

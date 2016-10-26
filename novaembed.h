@@ -34,6 +34,7 @@ private slots:
     void P_load_BSPF_File(QString fileName);
     void U_load_BSPF_File(QString fileName);
     void compile_NewFileSystemFileSystemConfigurationcomboBox();
+    void compile_ExtFS_comboBox();
     void local_sleep(int ms);
     int run_script(void);
     int update_status_bar(QString StatusBarContent);

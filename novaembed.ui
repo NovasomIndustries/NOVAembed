@@ -891,41 +891,6 @@
          <height>21</height>
         </rect>
        </property>
-       <item>
-        <property name="text">
-         <string>ArchLinux</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>GeexBox</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>OpenMandriva_LX2015</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>OpenSuse_12.3_DarthMouth</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>OpenWrt_14.07</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>OpenWrt_15.05</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Ubuntu_14.10</string>
-        </property>
-       </item>
       </widget>
       <widget class="QLabel" name="label_118">
        <property name="geometry">
