@@ -10,5 +10,12 @@
         <file>Icons/u-boot-logo.png</file>
         <file>Icons/buildroot.jpg</file>
         <file>Icons/micro-sd.jpg</file>
+        <file>Icons/ArchLinux.png</file>
+        <file>Icons/GeexBox.png</file>
+        <file>Icons/OpenMandriva_LX2015.png</file>
+        <file>Icons/OpenSuse_12.3_DarthMouth.png</file>
+        <file>Icons/OpenWrt_14.07.png</file>
+        <file>Icons/OpenWrt_15.05.png</file>
+        <file>Icons/Ubuntu_14.10.png</file>
     </qresource>
 </RCC>

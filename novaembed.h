@@ -304,6 +304,8 @@ private slots:
 
     void on_ExtFS_Write_uSD_pushButton_clicked();
 
+    void on_ExtFS_comboBox_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::NOVAembed *ui;
 };

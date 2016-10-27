@@ -394,6 +394,14 @@ void NOVAembed::on_ExtFS_Write_uSD_pushButton_clicked()
         update_status_bar("File System Creation error");
 }
 
+
+void NOVAembed::on_ExtFS_comboBox_currentIndexChanged(const QString &arg1)
+{
+    QPixmap fspixmap (":/Icons/"+arg1+".png");
+    ui->FileSystemLogo->setPixmap(fspixmap);
+    //qDebug() << "Pixmap :/Icons/"+arg1+".png";
+}
+
 /*****************************************************************************************************************************************************************************************/
 /*                                                                             BKF Tab END                                                                                               */
 /*****************************************************************************************************************************************************************************************/

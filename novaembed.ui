@@ -226,7 +226,7 @@
         <x>10</x>
         <y>250</y>
         <width>341</width>
-        <height>311</height>
+        <height>241</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -261,7 +261,7 @@
        <property name="geometry">
         <rect>
          <x>240</x>
-         <y>270</y>
+         <y>200</y>
          <width>90</width>
          <height>21</height>
         </rect>
@@ -297,7 +297,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>240</y>
+         <y>180</y>
          <width>101</width>
          <height>21</height>
         </rect>
@@ -310,7 +310,7 @@
        <property name="geometry">
         <rect>
          <x>150</x>
-         <y>150</y>
+         <y>140</y>
          <width>181</width>
          <height>21</height>
         </rect>
@@ -364,7 +364,7 @@
        <property name="geometry">
         <rect>
          <x>240</x>
-         <y>180</y>
+         <y>160</y>
          <width>90</width>
          <height>21</height>
         </rect>
@@ -400,7 +400,7 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>150</y>
+         <y>140</y>
          <width>111</width>
          <height>16</height>
         </rect>
@@ -441,7 +441,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>270</y>
+         <y>200</y>
          <width>101</width>
          <height>21</height>
         </rect>
@@ -633,7 +633,7 @@
         <x>360</x>
         <y>250</y>
         <width>331</width>
-        <height>211</height>
+        <height>241</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -668,7 +668,7 @@
        <property name="geometry">
         <rect>
          <x>170</x>
-         <y>180</y>
+         <y>200</y>
          <width>99</width>
          <height>21</height>
         </rect>
@@ -848,14 +848,14 @@
      <widget class="QFrame" name="frame_32">
       <property name="geometry">
        <rect>
-        <x>770</x>
+        <x>920</x>
         <y>80</y>
-        <width>471</width>
-        <height>251</height>
+        <width>321</width>
+        <height>161</height>
        </rect>
       </property>
       <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::Panel</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
@@ -863,7 +863,7 @@
       <widget class="QLabel" name="label_117">
        <property name="geometry">
         <rect>
-         <x>180</x>
+         <x>100</x>
          <y>0</y>
          <width>121</width>
          <height>20</height>
@@ -885,7 +885,7 @@
       <widget class="QComboBox" name="ExtFS_comboBox">
        <property name="geometry">
         <rect>
-         <x>290</x>
+         <x>80</x>
          <y>30</y>
          <width>151</width>
          <height>21</height>
@@ -895,9 +895,9 @@
       <widget class="QLabel" name="label_118">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>10</x>
          <y>30</y>
-         <width>61</width>
+         <width>51</width>
          <height>20</height>
         </rect>
        </property>
@@ -911,7 +911,7 @@
       <widget class="QComboBox" name="ExtFS_uSD_Device_comboBox">
        <property name="geometry">
         <rect>
-         <x>290</x>
+         <x>80</x>
          <y>50</y>
          <width>85</width>
          <height>21</height>
@@ -941,14 +941,52 @@
       <widget class="QPushButton" name="ExtFS_Write_uSD_pushButton">
        <property name="geometry">
         <rect>
-         <x>290</x>
-         <y>70</y>
+         <x>80</x>
+         <y>130</y>
          <width>99</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
         <string>Write uSD</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_120">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Device</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="FileSystemLogo">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>20</y>
+         <width>64</width>
+         <height>64</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="novaembedresources.qrc">:/Icons/ArchLinux.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </widget>

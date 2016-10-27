@@ -182,18 +182,21 @@ void NOVAembed::compile_ExtFS_comboBox()
 
     for(int i=0;i<ExternalFileSystemsfilesList.count();i++)
         ui->ExtFS_comboBox->removeItem(i);
-    qDebug() << "Start of external file system list";
+    //qDebug() << "Start of external file system list";
     for(int i=0;i<ExternalFileSystemsfilesList.count();i++)
     {
         str = ExternalFileSystemsfilesList[i];
         if (( str != ".") && (str != ".."))
         {
-            qDebug() << str;
+            //qDebug() << str;
             ui->ExtFS_comboBox->addItem(str);
         }
     }
     ui->ExtFS_comboBox->setCurrentIndex(0);
-    qDebug() << "End of external file system list";
+    QPixmap fspixmap (":/Icons/"+ui->ExtFS_comboBox->currentText()+".png");
+    ui->FileSystemLogo->setPixmap(fspixmap);
+    //qDebug() << "Pixmap :/Icons/"+ui->ExtFS_comboBox->currentText()+".png";
+    //qDebug() << "End of external file system list";
 
 }
 
@@ -365,3 +368,4 @@ void NOVAembed::on_tab_currentChanged(int index)
 /*****************************************************************************************************************************************************************************************/
 /*                                                                          Top tab switches END                                                                                         */
 /*****************************************************************************************************************************************************************************************/
+
