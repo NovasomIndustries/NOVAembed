@@ -151,9 +151,20 @@ void NOVAembed::compile_NewFileSystemFileSystemConfigurationcomboBox()
     QString str;
     QDir BuildrootDir("/Devel/NOVAsom_SDK/Utils/Configurations");
     if (ui->Board_comboBox->currentText() == "P Series")
+    {
         str = "PClass_Buildroot_*.config";
+        ui->warning_label->setVisible(false);
+    }
     else if (ui->Board_comboBox->currentText() == "S Series")
+    {
         str = "SClass_Buildroot_*.config";
+        ui->warning_label->setVisible(true);
+    }
+    else if (ui->Board_comboBox->currentText() == "U Series")
+    {
+        str = "UClass_Buildroot_*.config";
+        ui->warning_label->setVisible(true);
+    }
     else
         str = "Buildroot_*.config";
 
