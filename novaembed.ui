@@ -155,8 +155,8 @@
       <widget class="QPushButton" name="KernelCompile_pushButton">
        <property name="geometry">
         <rect>
-         <x>230</x>
-         <y>120</y>
+         <x>170</x>
+         <y>90</y>
          <width>90</width>
          <height>21</height>
         </rect>
@@ -168,7 +168,7 @@
       <widget class="QPushButton" name="KernelXconfig_pushButton">
        <property name="geometry">
         <rect>
-         <x>190</x>
+         <x>170</x>
          <y>70</y>
          <width>90</width>
          <height>21</height>
@@ -181,9 +181,9 @@
       <widget class="QPushButton" name="KernelReCompile_pushButton">
        <property name="geometry">
         <rect>
-         <x>60</x>
+         <x>170</x>
          <y>120</y>
-         <width>99</width>
+         <width>91</width>
          <height>21</height>
         </rect>
        </property>
@@ -298,7 +298,7 @@
         <rect>
          <x>10</x>
          <y>180</y>
-         <width>141</width>
+         <width>151</width>
          <height>21</height>
         </rect>
        </property>
@@ -309,9 +309,9 @@
       <widget class="QLineEdit" name="NewFileSystemSelectedlineEdit">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>140</x>
          <y>140</y>
-         <width>181</width>
+         <width>191</width>
          <height>21</height>
         </rect>
        </property>
@@ -376,9 +376,9 @@
       <widget class="QComboBox" name="NewFileSystemConfigurationcomboBox">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>140</x>
          <y>120</y>
-         <width>181</width>
+         <width>191</width>
          <height>21</height>
         </rect>
        </property>
@@ -442,7 +442,7 @@
         <rect>
          <x>10</x>
          <y>200</y>
-         <width>141</width>
+         <width>151</width>
          <height>21</height>
         </rect>
        </property>
@@ -1106,7 +1106,7 @@
         <rect>
          <x>170</x>
          <y>200</y>
-         <width>99</width>
+         <width>91</width>
          <height>21</height>
         </rect>
        </property>
@@ -1119,7 +1119,7 @@
         <rect>
          <x>170</x>
          <y>50</y>
-         <width>85</width>
+         <width>91</width>
          <height>21</height>
         </rect>
        </property>
@@ -1144,7 +1144,7 @@
         <rect>
          <x>10</x>
          <y>50</y>
-         <width>131</width>
+         <width>161</width>
          <height>20</height>
         </rect>
        </property>
@@ -1180,7 +1180,7 @@
         <rect>
          <x>10</x>
          <y>80</y>
-         <width>111</width>
+         <width>131</width>
          <height>20</height>
         </rect>
        </property>
@@ -1196,7 +1196,7 @@
         <rect>
          <x>10</x>
          <y>100</y>
-         <width>111</width>
+         <width>131</width>
          <height>20</height>
         </rect>
        </property>
@@ -1240,7 +1240,7 @@
         <rect>
          <x>170</x>
          <y>130</y>
-         <width>85</width>
+         <width>91</width>
          <height>21</height>
         </rect>
        </property>
@@ -1270,7 +1270,7 @@
         <rect>
          <x>10</x>
          <y>130</y>
-         <width>31</width>
+         <width>41</width>
          <height>20</height>
         </rect>
        </property>
@@ -1328,13 +1328,18 @@
          <height>21</height>
         </rect>
        </property>
+       <item>
+        <property name="text">
+         <string>No External File System</string>
+        </property>
+       </item>
       </widget>
       <widget class="QLabel" name="label_118">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>30</y>
-         <width>61</width>
+         <width>71</width>
          <height>20</height>
         </rect>
        </property>
@@ -1342,7 +1347,7 @@
         <string>File System</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QComboBox" name="ExtFS_uSD_Device_comboBox">
@@ -1393,7 +1398,7 @@
         <rect>
          <x>10</x>
          <y>50</y>
-         <width>31</width>
+         <width>51</width>
          <height>20</height>
         </rect>
        </property>
@@ -1401,7 +1406,7 @@
         <string>Device</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QLabel" name="FileSystemLogo">
