@@ -306,6 +306,9 @@ private slots:
 
     void on_ExtFS_comboBox_currentIndexChanged(const QString &arg1);
 
+
+    void on_ThisIsReferenceServer_checkBox_clicked(bool checked);
+
 private:
     Ui::NOVAembed *ui;
 };

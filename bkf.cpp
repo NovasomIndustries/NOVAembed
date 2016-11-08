@@ -13,6 +13,7 @@
 #include <QDesktopServices>
 //#include <QHostInfo>
 #include <QDirIterator>
+#include <QNetworkInterface>
 
 extern  QString FileSystemName;
 extern  QString DeployedFileSystemName;
@@ -114,7 +115,7 @@ void NOVAembed::on_KernelXconfig_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
-        update_status_bar("Finished");
+        update_status_bar("Kernel configured succesfully");
     else
         update_status_bar("Configuration error");
 }
@@ -137,7 +138,7 @@ void NOVAembed::on_KernelCompile_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
-        update_status_bar("Finished");
+        update_status_bar("Kernel built succesfully");
     else
         update_status_bar("Build error");
 }
@@ -160,7 +161,7 @@ void NOVAembed::on_KernelReCompile_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
-        update_status_bar("Finished");
+        update_status_bar("Kernel re-built succesfully");
     else
         update_status_bar("Build error");
 }
@@ -193,7 +194,7 @@ void NOVAembed::on_LaunchMenuConfig_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
-        update_status_bar("Finished");
+        update_status_bar("Buildroot Configuration Finished");
     else
         update_status_bar("Configuration error");
 }
@@ -217,13 +218,65 @@ void NOVAembed::on_LaunchBusyboxMenuConfig_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
-        update_status_bar("Finished");
+        update_status_bar("Busybox Configuration Finished");
     else
         update_status_bar("Configuration error");
 }
 
+void NOVAembed::on_ThisIsReferenceServer_checkBox_clicked(bool checked)
+{
+    QString IP;
+
+    ui->iperror_label->setVisible(false);
+
+    if ( checked == false )
+    {
+        ui->REFERENCE_SERVER_label->setEnabled(true);
+        ui->REFERENCE_SERVER_lineEdit->setEnabled(true);
+        IP=ui->REFERENCE_SERVER_lineEdit->text();
+    }
+    else
+    {
+        ui->REFERENCE_SERVER_label->setEnabled(false);
+        ui->REFERENCE_SERVER_lineEdit->setEnabled(false);
+        QNetworkInterface eth1Ip = QNetworkInterface::interfaceFromName("enp0s3");
+        QList<QNetworkAddressEntry> entries = eth1Ip.addressEntries();
+        if (!entries.isEmpty()) {
+            QNetworkAddressEntry entry = entries.first();
+            IP=entry.ip().toString();
+            qDebug() << IP;
+        }
+        else
+            qDebug() << "IP not found";
+    }
+    ui->REFERENCE_SERVER_lineEdit->setText(IP);
+
+}
+
 void NOVAembed::on_FileSystemDeploy_pushButton_clicked()
 {
+    QHostAddress myIP;
+    QString IP=ui->REFERENCE_SERVER_lineEdit->text();
+
+    if( myIP.setAddress(ui->REFERENCE_SERVER_lineEdit->text()) )
+    {
+        qDebug()<<"Valid IP Address";
+        ui->iperror_label->setVisible(false);
+        QString command = "echo \"REFERENCE_SERVER="+IP+"\" > /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"/board/novasis/NOVAsomP/Init/etc/default_init/sysconfig/system_vars";
+        QByteArray ba = command.toLatin1();
+        const char *c_str2 = ba.data();
+        qDebug() << c_str2;
+        system(c_str2);
+    }
+    else
+    {
+        qDebug()<<"Invalid IP address";
+        ui->iperror_label->setVisible(true);
+        update_status_bar("Invalid IP address");
+
+        return;
+    }
+
     QFile scriptfile("/tmp/script");
     update_status_bar("Compiling "+FileSystemName+" ...");
 
@@ -241,7 +294,7 @@ void NOVAembed::on_FileSystemDeploy_pushButton_clicked()
     scriptfile.close();
     if ( run_script() == 0)
     {
-        update_status_bar("Finished");
+        update_status_bar("File system "+FileSystemName+" deployed");
         DeployedFileSystemName = FileSystemName;
         storeNOVAembed_ini();
     }
@@ -309,6 +362,8 @@ void NOVAembed::on_uSD_Device_comboBox_currentIndexChanged(const QString &arg1)
 void NOVAembed::on_Write_uSD_pushButton_clicked()
 {
     /*uSD_Device_comboBox*/
+
+
     uSD_Device = ui->uSD_Device_comboBox->currentText();
     QFile scriptfile("/tmp/script");
     update_status_bar("Writing uSD ...");
@@ -331,7 +386,7 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     scriptfile.close();
     if ( run_script() == 0)
     {
-        update_status_bar("Finished");
+        update_status_bar("uSD successfully written");
         DeployedFileSystemName = FileSystemName;
         storeNOVAembed_ini();
     }
@@ -360,7 +415,7 @@ void NOVAembed::on_GenerateFileSystem_pushButton_clicked()
     scriptfile.close();
     if ( run_script() == 0)
     {
-        update_status_bar("Finished");
+        update_status_bar("File System "+FileSystemName+" generated succesfully");
         DeployedFileSystemName = FileSystemName;
         storeNOVAembed_ini();
     }
@@ -388,7 +443,7 @@ void NOVAembed::on_ExtFS_Write_uSD_pushButton_clicked()
     scriptfile.close();
     if ( run_script() == 0)
     {
-        update_status_bar("Finished");
+        update_status_bar("File System "+ui->ExtFS_comboBox->currentText()+" written");
     }
     else
         update_status_bar("File System Creation error");

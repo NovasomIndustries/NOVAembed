@@ -263,6 +263,14 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->UserPartition_comboBox->setCurrentText(NumberOfUserPartitions);
         compile_NewFileSystemFileSystemConfigurationcomboBox();
         compile_ExtFS_comboBox();
+
+        on_ThisIsReferenceServer_checkBox_clicked(true);
+        ui->iperror_label->setVisible(false);
+        ui->REFERENCE_SERVER_label->setEnabled(false);
+        ui->REFERENCE_SERVER_lineEdit->setEnabled(false);
+        ui->ThisIsReferenceServer_checkBox->setChecked(true);
+
+
         update_status_bar("BKF");
         ui->UserPartition1Size_lineEdit->setText(UserPartition1Size);
         ui->UserPartition2Size_lineEdit->setText(UserPartition2Size);
@@ -291,8 +299,6 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->uSD_Device_comboBox->setCurrentText(uSD_Device);
         break;
     case 2 : // BSP Factory
-
-
         if (CurrentBSPF_Tab == "P BSP Factory")
         {
             ui->P_SATA_checkBox->setChecked(false);
@@ -370,9 +376,8 @@ void NOVAembed::on_tab_currentChanged(int index)
                 if ( base != "" )
                     ui->P_Current_BSPF_File_label->setText(base+".bspf");
                 update_status_bar("BSP Factory : Loaded file "+Last_P_BSPFactoryFile);
-            }        }
-
-
+            }
+        }
         break;
     }
 }
