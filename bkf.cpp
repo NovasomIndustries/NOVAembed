@@ -262,9 +262,14 @@ void NOVAembed::on_FileSystemDeploy_pushButton_clicked()
     {
         qDebug()<<"Valid IP Address";
         ui->iperror_label->setVisible(false);
-        QString command = "echo \"REFERENCE_SERVER="+IP+"\" > /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"/board/novasis/NOVAsomP/Init/etc/default_init/sysconfig/system_vars";
-        QByteArray ba = command.toLatin1();
-        const char *c_str2 = ba.data();
+        QString command1 = "echo \"REFERENCE_SERVER="+IP+"\" > /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"/board/novasis/NOVAsomP/Init/etc/default_init/sysconfig/system_vars";
+        QByteArray ba1 = command1.toLatin1();
+        const char *c_str1 = ba1.data();
+        qDebug() << c_str1;
+        system(c_str1);
+        QString command2 = "echo \"REFERENCE_SERVER="+IP+"\" > /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"/board/novasis/NOVAsomP/Init/etc/sysconfig/system_vars";
+        QByteArray ba2 = command2.toLatin1();
+        const char *c_str2 = ba2.data();
         qDebug() << c_str2;
         system(c_str2);
     }

@@ -221,6 +221,7 @@ void NOVAembed:: local_sleep(int ms)
 int NOVAembed::run_script(void)
 {
     update_status_bar("Running ...");
+    this->setCursor(Qt::WaitCursor);
 
     system("rm -f /tmp/result");
     system("chmod 777 /tmp/script");
