@@ -302,15 +302,15 @@ void NOVAembed::on_FileSystemDeploy_pushButton_clicked()
     }
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
-    out << QString("cd /Devel/NOVAsom_SDK/FileSystem/"+FileSystemName+"\n");
+    out << QString("cd /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"\n");
     out << QString("make  > /Devel/NOVAsom_SDK/Logs/FileSystem_umake.log\n");
     out << QString("echo $? > /tmp/result\n");
 
     scriptfile.close();
     if ( run_script() == 0)
     {
-        update_status_bar("File system "+FileSystemName+" deployed");
-        DeployedFileSystemName = FileSystemName;
+        update_status_bar("File system "+ui->FileSystemSelectedlineEdit->text()+" deployed");
+        DeployedFileSystemName = FileSystemName = ui->FileSystemSelectedlineEdit->text();
         storeNOVAembed_ini();
     }
     else
@@ -430,8 +430,8 @@ void NOVAembed::on_GenerateFileSystem_pushButton_clicked()
     scriptfile.close();
     if ( run_script() == 0)
     {
-        update_status_bar("File System "+FileSystemName+" generated succesfully");
-        DeployedFileSystemName = FileSystemName;
+        update_status_bar("File System "+ui->NewFileSystemSelectedlineEdit->text()+" generated succesfully");
+        DeployedFileSystemName = FileSystemName = ui->NewFileSystemSelectedlineEdit->text();
         storeNOVAembed_ini();
     }
     else
