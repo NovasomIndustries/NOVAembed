@@ -179,6 +179,11 @@ void NOVAembed::on_SelectFileSystem_pushButton_clicked()
 
 void NOVAembed::on_LaunchMenuConfig_pushButton_clicked()
 {
+    if ( ui->FileSystemSelectedlineEdit->text() == "")
+    {
+       update_status_bar("File system name is empty");
+       return;
+    }
     update_status_bar("Configuring "+FileSystemName+" ...");
     QFile scriptfile("/tmp/script");
     if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
@@ -203,6 +208,11 @@ void NOVAembed::on_LaunchMenuConfig_pushButton_clicked()
 
 void NOVAembed::on_LaunchBusyboxMenuConfig_pushButton_clicked()
 {
+    if ( ui->FileSystemSelectedlineEdit->text() == "")
+    {
+       update_status_bar("File system name is empty");
+       return;
+    }
     update_status_bar("Configuring "+FileSystemName+" ...");
     QFile scriptfile("/tmp/script");
     if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
