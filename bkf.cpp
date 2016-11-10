@@ -381,7 +381,7 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
 
     uSD_Device = ui->uSD_Device_comboBox->currentText();
     QFile scriptfile("/tmp/script");
-    update_status_bar("Writing uSD ...");
+    update_status_bar("Writing uSD with "+FileSystemName+" ...");
 
     if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
     {
@@ -401,7 +401,7 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     scriptfile.close();
     if ( run_script() == 0)
     {
-        update_status_bar("uSD successfully written");
+        update_status_bar("uSD successfully written, file system is "+FileSystemName);
         DeployedFileSystemName = FileSystemName;
         storeNOVAembed_ini();
     }

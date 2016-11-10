@@ -154,17 +154,14 @@ void NOVAembed::compile_NewFileSystemFileSystemConfigurationcomboBox()
     if (ui->Board_comboBox->currentText() == "P Series")
     {
         str = "PClass_Buildroot_*.config";
-        ui->warning_label->setVisible(false);
     }
     else if (ui->Board_comboBox->currentText() == "S Series")
     {
         str = "SClass_Buildroot_*.config";
-        ui->warning_label->setVisible(true);
     }
     else if (ui->Board_comboBox->currentText() == "U Series")
     {
         str = "UClass_Buildroot_*.config";
-        ui->warning_label->setVisible(true);
     }
     else
         str = "Buildroot_*.config";
@@ -220,7 +217,7 @@ void NOVAembed:: local_sleep(int ms)
 
 int NOVAembed::run_script(void)
 {
-    update_status_bar("Running ...");
+    //update_status_bar("Running ...");
     this->setCursor(Qt::WaitCursor);
 
     system("rm -f /tmp/result");
