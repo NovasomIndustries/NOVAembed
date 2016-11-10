@@ -62,8 +62,6 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
     /* now show tools again */
     ui->tab->insertTab(3,TOOL_stab,"Tools");
 
-    //ui->Board_comboBox->setCurrentText(arg1);
-
     compile_NewFileSystemFileSystemConfigurationcomboBox();
 
     storeNOVAembed_ini();

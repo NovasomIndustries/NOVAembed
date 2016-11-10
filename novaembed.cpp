@@ -154,14 +154,20 @@ void NOVAembed::compile_NewFileSystemFileSystemConfigurationcomboBox()
     if (ui->Board_comboBox->currentText() == "P Series")
     {
         str = "PClass_Buildroot_*.config";
+        ui->Video_comboBox->setVisible(true);
+        ui->BootLoaderVisible_label->setVisible(true);
     }
     else if (ui->Board_comboBox->currentText() == "S Series")
     {
         str = "SClass_Buildroot_*.config";
+        ui->Video_comboBox->setVisible(true);
+        ui->BootLoaderVisible_label->setVisible(true);
     }
     else if (ui->Board_comboBox->currentText() == "U Series")
     {
         str = "UClass_Buildroot_*.config";
+        ui->Video_comboBox->setVisible(false);
+        ui->BootLoaderVisible_label->setVisible(false);
     }
     else
         str = "Buildroot_*.config";
