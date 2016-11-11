@@ -232,7 +232,7 @@ int NOVAembed::run_script(void)
 
     QFile file("/tmp/result");
     while( file.open(QIODevice::ReadOnly) == false )
-        local_sleep(10000);
+        local_sleep(100);
     QTextStream stream(&file);
     QString content = stream.readAll();
     file.close();
@@ -390,3 +390,24 @@ void NOVAembed::on_tab_currentChanged(int index)
 /*                                                                          Top tab switches END                                                                                         */
 /*****************************************************************************************************************************************************************************************/
 
+
+void NOVAembed::on_CheckUpdate_pushButton_clicked()
+{
+    QFile scriptfile("/tmp/script");
+    if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
+    {
+        update_status_bar("Unable to create /tmp/script");
+        return;
+    }
+    QTextStream out(&scriptfile);
+    out << QString("#!/bin/sh\n");
+    out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
+    out << QString("./CheckGitHubRepo\n");
+    out << QString("echo $? > /tmp/result\n");
+
+    scriptfile.close();
+    if ( run_script() >= 0)
+        update_status_bar("Update succesfull");
+    else
+        update_status_bar("Update error");
+}

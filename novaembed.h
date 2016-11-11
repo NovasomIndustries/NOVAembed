@@ -309,6 +309,8 @@ private slots:
 
     void on_ThisIsReferenceServer_checkBox_clicked(bool checked);
 
+    void on_CheckUpdate_pushButton_clicked();
+
 private:
     Ui::NOVAembed *ui;
 };
