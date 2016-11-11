@@ -301,7 +301,12 @@ void NOVAembed::on_FileSystemDeploy_pushButton_clicked()
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"\n");
-    out << QString("make  > /Devel/NOVAsom_SDK/Logs/FileSystem_umake.log\n");
+    if ( ui->Board_comboBox->currentText() == "S Series")
+        out << QString("make  > /Devel/NOVAsom_SDK/Logs/FileSystem_Smake.log\n");
+    if ( ui->Board_comboBox->currentText() == "P Series")
+        out << QString("make > /Devel/NOVAsom_SDK/Logs/FileSystem_Pmake.log\n");
+    if ( ui->Board_comboBox->currentText() == "U Series")
+        out << QString("make > /Devel/NOVAsom_SDK/Logs/FileSystem_Umake.log\n");
     out << QString("echo $? > /tmp/result\n");
 
     scriptfile.close();
