@@ -223,7 +223,6 @@ void NOVAembed:: local_sleep(int ms)
 
 int NOVAembed::run_script(void)
 {
-    //update_status_bar("Running ...");
     this->setCursor(Qt::WaitCursor);
 
     system("rm -f /tmp/result");
@@ -238,6 +237,8 @@ int NOVAembed::run_script(void)
     file.close();
     content.chop(1);
     this->setCursor(Qt::ArrowCursor);
+    //qDebug() << content;
+
     return content.toInt();
 }
 
@@ -393,6 +394,8 @@ void NOVAembed::on_tab_currentChanged(int index)
 
 void NOVAembed::on_CheckUpdate_pushButton_clicked()
 {
+    update_status_bar("Checking updates");
+
     QFile scriptfile("/tmp/script");
     if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
     {
@@ -406,8 +409,21 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
     out << QString("echo $? > /tmp/result\n");
 
     scriptfile.close();
-    if ( run_script() >= 0)
-        update_status_bar("Update succesfull");
+    int result = run_script();
+    if (  result >= 0)
+    {
+        //qDebug() << result;
+        if ( result > 0 )
+        {
+            QString s = QString::number(result);
+            if ( result > 1 )
+                update_status_bar("Found "+s+" updates, system updated");
+            else
+                update_status_bar("Found "+s+" update, system updated");
+        }
+        else
+            update_status_bar("No updates found");
+    }
     else
         update_status_bar("Update error");
 }
