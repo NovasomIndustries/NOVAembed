@@ -20,7 +20,6 @@
 
 QString Version = "1.0.4.1 rc2";
 
-
 QString FileSystemName = "";
 QString DeployedFileSystemName = "";
 QString FileSystemConfigName = "";
