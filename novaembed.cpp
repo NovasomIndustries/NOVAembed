@@ -32,6 +32,7 @@ QString UserPartition2Size = "";
 QString uSD_Device = "";
 QString CurrentBSPF_Tab = "";
 
+
 extern  void storeNOVAembed_ini();
 QWidget *PBSP_stab,*UBSP_stab,*SBSP_stab,*TOOL_stab;
 
