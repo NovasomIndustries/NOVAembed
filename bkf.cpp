@@ -57,7 +57,7 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
 
     ui->tab->removeTab(2);
     ui->tab->insertTab(2,current_stab,CurrentBSPF_Tab);
-    qDebug() << CurrentBSPF_Tab;
+    //qDebug() << CurrentBSPF_Tab;
 
     /* now show tools again */
     ui->tab->insertTab(3,TOOL_stab,"Tools");
@@ -252,7 +252,7 @@ void NOVAembed::on_ThisIsReferenceServer_checkBox_clicked(bool checked)
         if (!entries.isEmpty()) {
             QNetworkAddressEntry entry = entries.first();
             IP=entry.ip().toString();
-            qDebug() << IP;
+            //qDebug() << IP;
         }
         else
             qDebug() << "IP not found";
@@ -268,25 +268,19 @@ void NOVAembed::on_FileSystemDeploy_pushButton_clicked()
 
     if( myIP.setAddress(ui->REFERENCE_SERVER_lineEdit->text()) )
     {
-        qDebug()<<"Valid IP Address";
+        //qDebug()<<"Valid IP Address";
         ui->iperror_label->setVisible(false);
-        QString command1 = "echo \"REFERENCE_SERVER="+IP+"\" > /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"/board/novasis/NOVAsomP/Init/etc/default_init/sysconfig/system_vars";
+        QString command1 = "echo \"REFERENCE_SERVER="+IP+"\" > /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"/board/novasis/NOVAsomP/Init/etc/sysconfig/system_vars";
         QByteArray ba1 = command1.toLatin1();
         const char *c_str1 = ba1.data();
-        qDebug() << c_str1;
+        //qDebug() << 1_str2;
         system(c_str1);
-        QString command2 = "echo \"REFERENCE_SERVER="+IP+"\" > /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"/board/novasis/NOVAsomP/Init/etc/sysconfig/system_vars";
-        QByteArray ba2 = command2.toLatin1();
-        const char *c_str2 = ba2.data();
-        qDebug() << c_str2;
-        system(c_str2);
     }
     else
     {
-        qDebug()<<"Invalid IP address";
+        //qDebug()<<"Invalid IP address";
         ui->iperror_label->setVisible(true);
         update_status_bar("Invalid IP address");
-
         return;
     }
 
@@ -332,7 +326,7 @@ void NOVAembed::on_UserPartition_comboBox_currentIndexChanged(const QString &arg
                 ui->UserPartition1Size_lineEdit->setVisible(false);
                 ui->label_79->setVisible(false);
                 ui->UserPartition2Size_lineEdit->setVisible(false);
-                qDebug() << "NumberOfUserPartitions :"+NumberOfUserPartitions;
+                //qDebug() << "NumberOfUserPartitions :"+NumberOfUserPartitions;
 
     }
     if ( NumberOfUserPartitions == "1")
@@ -341,7 +335,7 @@ void NOVAembed::on_UserPartition_comboBox_currentIndexChanged(const QString &arg
                 ui->UserPartition1Size_lineEdit->setVisible(true);
                 ui->label_79->setVisible(false);
                 ui->UserPartition2Size_lineEdit->setVisible(false);
-                qDebug() << "NumberOfUserPartitions :"+NumberOfUserPartitions;
+                //qDebug() << "NumberOfUserPartitions :"+NumberOfUserPartitions;
     }
     if ( NumberOfUserPartitions == "2")
     {
@@ -349,7 +343,7 @@ void NOVAembed::on_UserPartition_comboBox_currentIndexChanged(const QString &arg
                 ui->UserPartition1Size_lineEdit->setVisible(true);
                 ui->label_79->setVisible(true);
                 ui->UserPartition2Size_lineEdit->setVisible(true);
-                qDebug() << "NumberOfUserPartitions :"+NumberOfUserPartitions;
+                //qDebug() << "NumberOfUserPartitions :"+NumberOfUserPartitions;
     }
     storeNOVAembed_ini();
 }
@@ -358,7 +352,7 @@ void NOVAembed::on_UserPartition_comboBox_currentIndexChanged(const QString &arg
 void NOVAembed::on_UserPartition1Size_lineEdit_textChanged(const QString &arg1)
 {
     UserPartition1Size = arg1;
-    qDebug() << "UserPartition1Size :"+UserPartition1Size;
+    //qDebug() << "UserPartition1Size :"+UserPartition1Size;
     storeNOVAembed_ini();
 }
 
@@ -366,21 +360,23 @@ void NOVAembed::on_UserPartition1Size_lineEdit_textChanged(const QString &arg1)
 void NOVAembed::on_UserPartition2Size_lineEdit_textChanged(const QString &arg1)
 {
     UserPartition2Size = arg1;
-    qDebug() << "UserPartition2Size :"+UserPartition2Size;
+    //qDebug() << "UserPartition2Size :"+UserPartition2Size;
     storeNOVAembed_ini();
 }
 
 void NOVAembed::on_uSD_Device_comboBox_currentIndexChanged(const QString &arg1)
 {
     uSD_Device = arg1;
-    qDebug() << "uSD_Device :"+uSD_Device;
+    //qDebug() << "uSD_Device :"+uSD_Device;
     storeNOVAembed_ini();
 }
 
 void NOVAembed::on_Write_uSD_pushButton_clicked()
 {
     /*uSD_Device_comboBox*/
-
+    QString BoardModel;
+    QString LcdFile;
+    QString sdl_dtb,q_dtb;
 
     uSD_Device = ui->uSD_Device_comboBox->currentText();
     QFile scriptfile("/tmp/script");
@@ -391,17 +387,64 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
         update_status_bar("Unable to create /tmp/script");
         return;
     }
+
+    if ( ui->Board_comboBox->currentText() == "S Series")
+        BoardModel = "NOVAsomS";
+    if ( ui->Board_comboBox->currentText() == "P Series")
+        BoardModel = "NOVAsomP";
+    if ( ui->Board_comboBox->currentText() == "U Series")
+        BoardModel = "NOVAsomU";
+
+    if ( ui->Video_comboBox->currentText() == "HDMI 1920x1080 ( FHD )")
+    {
+       LcdFile="NOVAsomParams_HDMI_1920x1080" ;
+       sdl_dtb="imx6sdl-novasomP_hdmi.dtb";
+       q_dtb="imx6q-novasomP_hdmi.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "HDMI 1280x720 ( HD )")
+    {
+        LcdFile="NOVAsomParams_HDMI_1280x720" ;
+        sdl_dtb="imx6sdl-novasomP.dtb";
+        q_dtb="imx6q-novasomP.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "LVDS 1920x1080 ( Dual Channel FHD )")
+    {
+        LcdFile="NOVAsomParams_LVDS_1920x10802CH" ;
+        sdl_dtb="imx6sdl-novasomP_lvds.dtb";
+        q_dtb="imx6q-novasomP_lvds.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "LVDS 1366x768")
+    {
+        LcdFile="NOVAsomParams_LVDS_1366x768" ;
+        sdl_dtb="imx6sdl-novasomP_lvds.dtb";
+        q_dtb="imx6q-novasomP_lvds.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "LVDS 1024x600")
+    {
+        LcdFile="NOVAsomParams_LVDS_1024x768" ;
+        sdl_dtb="imx6sdl-novasomP_lvds.dtb";
+        q_dtb="imx6q-novasomP_lvds.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "LVDS 800x600")
+    {
+        LcdFile="NOVAsomParams_LVDS_800x600" ;
+    }
+    sdl_dtb="imx6sdl-novasomP_lvds.dtb";
+    q_dtb="imx6q-novasomP_lvds.dtb";
+    if ( ui->Video_comboBox->currentText() == "LVDS 800x480")
+    {
+        LcdFile="NOVAsomParams_LVDS_800x480" ;
+        sdl_dtb="imx6sdl-novasomP_lvds.dtb";
+        q_dtb="imx6q-novasomP_lvds.dtb";
+    }
+
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
-    if ( ui->Board_comboBox->currentText() == "S Series")
-        out << QString("./flashS "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+"> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
-    if ( ui->Board_comboBox->currentText() == "P Series")
-        out << QString("./flashP "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" > /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
-    if ( ui->Board_comboBox->currentText() == "U Series")
-        out << QString("./flashU "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" > /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
+    out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" "+LcdFile+" > /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
     out << QString("echo $? > /tmp/result\n");
     scriptfile.close();
+
     if ( run_script() == 0)
     {
         update_status_bar("uSD successfully written, file system is "+FileSystemName);
@@ -411,8 +454,6 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     else
         update_status_bar("Write error");
 }
-
-
 
 
 void NOVAembed::on_GenerateFileSystem_pushButton_clicked()

@@ -1303,12 +1303,17 @@
        </item>
        <item>
         <property name="text">
-         <string>LVDS 1280x720 ( HD )</string>
+         <string>LVDS 1366x768</string>
         </property>
        </item>
        <item>
         <property name="text">
          <string>LVDS 1024x600</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 800x600</string>
         </property>
        </item>
        <item>
