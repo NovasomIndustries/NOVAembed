@@ -1308,6 +1308,11 @@
        </item>
        <item>
         <property name="text">
+         <string>LVDS 1024x768</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>LVDS 1024x600</string>
         </property>
        </item>

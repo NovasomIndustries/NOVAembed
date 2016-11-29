@@ -381,7 +381,6 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
 {
     /*uSD_Device_comboBox*/
     QString BoardModel;
-    QString LcdFile;
     QString sdl_dtb,q_dtb;
 
     uSD_Device = ui->uSD_Device_comboBox->currentText();
@@ -395,62 +394,73 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     }
 
     if ( ui->Board_comboBox->currentText() == "S Series")
+    {
         BoardModel = "NOVAsomS";
+        sdl_dtb="imx6sdl-novasomS";
+        q_dtb="imx6q-novasomS";
+    }
     if ( ui->Board_comboBox->currentText() == "P Series")
+    {
         BoardModel = "NOVAsomP";
+        sdl_dtb="imx6sdl-novasomP";
+        q_dtb="imx6q-novasomP";
+    }
     if ( ui->Board_comboBox->currentText() == "U Series")
+    {
         BoardModel = "NOVAsomU";
+        sdl_dtb="imx6sdl-novasomU";
+        q_dtb="imx6q-novasomU";
+
+    }
 
     if ( ui->Video_comboBox->currentText() == "HDMI 1920x1080 ( FHD )")
     {
-       LcdFile="NOVAsomParams_HDMI_1920x1080" ;
-       sdl_dtb="imx6sdl-novasomP_hdmi.dtb";
-       q_dtb="imx6q-novasomP_hdmi.dtb";
+       sdl_dtb=sdl_dtb+"_hdmi_1920x1080.dtb";
+       q_dtb=q_dtb+"_hdmi_1920x1080.dtb";
     }
     if ( ui->Video_comboBox->currentText() == "HDMI 1280x720 ( HD )")
     {
-        LcdFile="NOVAsomParams_HDMI_1280x720" ;
-        sdl_dtb="imx6sdl-novasomP.dtb";
-        q_dtb="imx6q-novasomP.dtb";
+        sdl_dtb=sdl_dtb+"_hdmi_1280x720.dtb";
+        q_dtb=q_dtb+"_hdmi_1280x720.dtb";
     }
     if ( ui->Video_comboBox->currentText() == "LVDS 1920x1080 ( Dual Channel FHD )")
     {
-        LcdFile="NOVAsomParams_LVDS_1920x10802CH" ;
-        sdl_dtb="imx6sdl-novasomP_lvds.dtb";
-        q_dtb="imx6q-novasomP_lvds.dtb";
+        sdl_dtb=sdl_dtb+"_lvds_1920x1080.dtb";
+        q_dtb=q_dtb+"_lvds_1920x1080.dtb";
     }
     if ( ui->Video_comboBox->currentText() == "LVDS 1366x768")
     {
-        LcdFile="NOVAsomParams_LVDS_1366x768" ;
-        sdl_dtb="imx6sdl-novasomP_lvds.dtb";
-        q_dtb="imx6q-novasomP_lvds.dtb";
+        sdl_dtb=sdl_dtb+"_lvds_1366x768.dtb";
+        q_dtb=q_dtb+"_lvds_1366x768.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "LVDS 1024x768")
+    {
+        sdl_dtb=sdl_dtb+"_lvds_1024x768.dtb";
+        q_dtb=q_dtb+"_lvds_1024x768.dtb";
     }
     if ( ui->Video_comboBox->currentText() == "LVDS 1024x600")
     {
-        LcdFile="NOVAsomParams_LVDS_1024x768" ;
-        sdl_dtb="imx6sdl-novasomP_lvds.dtb";
-        q_dtb="imx6q-novasomP_lvds.dtb";
+        sdl_dtb=sdl_dtb+"_lvds_1024x600.dtb";
+        q_dtb=q_dtb+"_lvds_1024x600.dtb";
     }
     if ( ui->Video_comboBox->currentText() == "LVDS 800x600")
     {
-        LcdFile="NOVAsomParams_LVDS_800x600" ;
+        sdl_dtb=sdl_dtb+"_lvds_800x600.dtb";
+        q_dtb=q_dtb+"_lvds_800x600.dtb";
     }
-    sdl_dtb="imx6sdl-novasomP_lvds.dtb";
-    q_dtb="imx6q-novasomP_lvds.dtb";
     if ( ui->Video_comboBox->currentText() == "LVDS 800x480")
     {
-        LcdFile="NOVAsomParams_LVDS_800x480" ;
-        sdl_dtb="imx6sdl-novasomP_lvds.dtb";
-        q_dtb="imx6q-novasomP_lvds.dtb";
+        sdl_dtb=sdl_dtb+"_lvds_800x480.dtb";
+        q_dtb=q_dtb+"_lvds_800x480.dtb";
     }
 
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
-    out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" "+LcdFile+" > /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
+    out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" > /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
     out << QString("echo $? > /tmp/result\n");
     scriptfile.close();
-
+    return;
     if ( run_script() == 0)
     {
         update_status_bar("uSD successfully written, file system is "+FileSystemName);
