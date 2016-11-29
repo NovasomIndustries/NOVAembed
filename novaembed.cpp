@@ -31,6 +31,7 @@ QString UserPartition1Size = "";
 QString UserPartition2Size = "";
 QString uSD_Device = "";
 QString CurrentBSPF_Tab = "";
+QString CurrentVideo = "";
 
 
 extern  void storeNOVAembed_ini();
@@ -67,6 +68,7 @@ NOVAembed::NOVAembed(QWidget *parent) :
         UserPartition2Size = settings->value( strKey + "UserPartition2Size", "r").toString();
         uSD_Device = settings->value( strKey + "uSD_Device", "r").toString();
         CurrentBSPF_Tab = settings->value( strKey + "CurrentBSPF_Tab", "r").toString();
+        CurrentVideo = settings->value( strKey + "CurrentVideo", "r").toString();
     }
     ui->setupUi(this);
 
@@ -144,6 +146,7 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("UserPartition2Size="+UserPartition2Size+"\n");
     out << QString("uSD_Device="+uSD_Device+"\n");
     out << QString("CurrentBSPF_Tab="+CurrentBSPF_Tab+"\n");
+    out << QString("CurrentVideo="+CurrentVideo+"\n");
 
     file.close();
 }
@@ -266,6 +269,7 @@ void NOVAembed::on_tab_currentChanged(int index)
     case 1 : // BKF Tab
         /* File system config files */
         ui->Board_comboBox->setCurrentText(_Board_comboBox);
+        ui->Video_comboBox->setCurrentText(CurrentVideo);
         ui->UserPartition_comboBox->setCurrentText(NumberOfUserPartitions);
         compile_NewFileSystemFileSystemConfigurationcomboBox();
         compile_ExtFS_comboBox();
@@ -428,3 +432,4 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
     else
         update_status_bar("Update error");
 }
+

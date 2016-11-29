@@ -24,8 +24,9 @@ extern  QString NumberOfUserPartitions;
 extern  QString UserPartition1Size;
 extern  QString UserPartition2Size;
 extern  QString uSD_Device;
-
 extern  QString CurrentBSPF_Tab;
+extern  QString CurrentVideo;
+
 extern  QWidget *PBSP_stab,*UBSP_stab,*SBSP_stab,*TOOL_stab;
 QWidget *current_stab;
 
@@ -33,6 +34,11 @@ QWidget *current_stab;
 /*                                                                               BKF Tab                                                                                                 */
 /*****************************************************************************************************************************************************************************************/
 
+void NOVAembed::on_Video_comboBox_currentIndexChanged(const QString &arg1)
+{
+    CurrentVideo = arg1;
+    storeNOVAembed_ini();
+}
 
 void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
 {

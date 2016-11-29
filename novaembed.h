@@ -311,6 +311,8 @@ private slots:
 
     void on_CheckUpdate_pushButton_clicked();
 
+    void on_Video_comboBox_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::NOVAembed *ui;
 };
