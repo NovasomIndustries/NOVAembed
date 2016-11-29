@@ -460,7 +460,6 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" > /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
     out << QString("echo $? > /tmp/result\n");
     scriptfile.close();
-    return;
     if ( run_script() == 0)
     {
         update_status_bar("uSD successfully written, file system is "+FileSystemName);
