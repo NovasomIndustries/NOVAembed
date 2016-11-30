@@ -313,6 +313,8 @@ private slots:
 
     void on_Video_comboBox_currentIndexChanged(const QString &arg1);
 
+    void on_KernelMakeDTB_pushButton_clicked();
+
 private:
     Ui::NOVAembed *ui;
 };

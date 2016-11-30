@@ -18,7 +18,7 @@
 /*                                                                              Global variables                                                                                         */
 /*****************************************************************************************************************************************************************************************/
 
-QString Version = "1.0.4.1 rc2";
+QString Version = "1.0.4.1 rc3";
 
 QString FileSystemName = "";
 QString DeployedFileSystemName = "";
@@ -432,4 +432,5 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
     else
         update_status_bar("Update error");
 }
+
 

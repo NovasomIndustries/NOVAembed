@@ -232,6 +232,19 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QPushButton" name="KernelMakeDTB_pushButton">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>90</y>
+         <width>90</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Make DTBs</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QFrame" name="frame_4">
       <property name="geometry">
