@@ -1273,6 +1273,11 @@
          <string>sde</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>sdf</string>
+        </property>
+       </item>
       </widget>
       <widget class="QLabel" name="label_102">
        <property name="geometry">

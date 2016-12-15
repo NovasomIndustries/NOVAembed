@@ -524,6 +524,7 @@ void NOVAembed::on_GenerateFileSystem_pushButton_clicked()
     {
         update_status_bar("File System "+ui->NewFileSystemSelectedlineEdit->text()+" generated succesfully");
         DeployedFileSystemName = FileSystemName = ui->NewFileSystemSelectedlineEdit->text();
+        ui->FileSystemSelectedlineEdit->setText(DeployedFileSystemName);
         storeNOVAembed_ini();
     }
     else
