@@ -96,9 +96,9 @@ void NOVAembed::on_BootLoaderCompile_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
-        update_status_bar("Finished");
+        update_status_bar("Boot loader for "+ui->Board_comboBox->currentText()+" compiled");
     else
-        update_status_bar("Build error");
+        update_status_bar("Error building boot loader for "+ui->Board_comboBox->currentText());
 }
 
 /* Kernel */
