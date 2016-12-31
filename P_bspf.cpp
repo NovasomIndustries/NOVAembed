@@ -24,7 +24,7 @@ extern  QString Last_P_BSPFactoryFile;
 void NOVAembed::on_P_Load_pushButton_clicked()
 {
 
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Load BSP Factory File"), "/Devel/NOVAsom_SDK/NOVAembed_Settings",tr("BSP Factory Files (*.bspf)"));
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Load BSP Factory File"), "/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf",tr("BSP Factory Files (*.bspf)"));
     if (fileName.isEmpty())
         return;
     else
@@ -381,6 +381,10 @@ void NOVAembed::on_P_ECSPI4_MOSI_comboBox_currentIndexChanged(const QString &arg
             if ( ui->P_ECSPI4_MISO_comboBox->currentText() != "SPDIF_OUT")
                 ui->P_ECSPI4_MISO_comboBox->setCurrentText("GPIO3_IO22");
             ui->P_ECSPI4_SCK_comboBox->setCurrentText("I2C1_SCL");
+            /* P_I2C1_SDA_comboBox become GPIO5_IO26 */
+            /* P_I2C1_SCL_comboBox become GPIO5_IO27 */
+            ui->P_I2C1_SDA_comboBox->setCurrentText("GPIO5_IO26");
+            ui->P_I2C1_SCL_comboBox->setCurrentText("GPIO5_IO27");
         }
         if ( arg1 == "GPIO3_IO28")
         {
@@ -780,6 +784,13 @@ void NOVAembed::on_P_I2C1_SDA_comboBox_currentIndexChanged(const QString &arg1)
     {
         ui->P_I2C1_SDA_comboBox->setCurrentText("I2C1_SDA");
         ui->P_I2C1_SCL_comboBox->setCurrentText("I2C1_SCL");
+        /* P_ECSPI4_MOSI_comboBox become GPIO3_IO28 */
+        /* P_ECSPI4_SCK_comboBox become GPIO3_IO21 */
+        if (ui->P_ECSPI4_MOSI_comboBox->currentText()=="I2C1_SDA" )
+        {
+            ui->P_ECSPI4_MOSI_comboBox->setCurrentText("GPIO3_IO28");
+            ui->P_ECSPI4_SCK_comboBox->setCurrentText("GPIO3_IO21");
+        }
     }
     if ( arg1 == "GPIO5_IO26")
     {
@@ -921,7 +932,7 @@ void NOVAembed::on_P_UART4_CTS_L_comboBox_currentIndexChanged(const QString &arg
 
 void NOVAembed::on_P_Save_pushButton_clicked()
 {
-    QString croped_fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), "/Devel/NOVAsom_SDK/NOVAembed_Settings",tr(".bspf (*.bspf)"));
+    QString croped_fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), "/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf",tr(".bspf (*.bspf)"));
     QString fileName=croped_fileName.section(".",0,0);
     fileName = fileName+".bspf";
     qDebug() << "fileName :"+fileName;
@@ -995,7 +1006,8 @@ void NOVAembed::on_P_Save_pushButton_clicked()
             out << QString("P_PCIe_checkBox=true\n");
         else
             out << QString("P_PCIe_checkBox=false\n");
-        out << QString("defaultVideo_comboBox="+ui->P_defaultVideo_comboBox->currentText()+"\n");
+        out << QString("HDMIVideo_comboBox="+ui->P_HDMIVideo_comboBox->currentText()+"\n");
+        out << QString("LVDSVideo_comboBox="+ui->P_LVDSVideo_comboBox->currentText()+"\n");
 
         out << QString("\n[P_CONF]\n");
         out << QString("P_ECSPI1_MISO_cbit="+ui->P_ECSPI1_MISO_lineEdit->text()+"\n");
@@ -1114,8 +1126,8 @@ void NOVAembed::on_P_Default_pushButton_clicked()
     ui->P_UART4_CTS_L_comboBox->setCurrentIndex(0);
     ui->P_SATA_checkBox->setChecked(false);
     ui->P_PCIe_checkBox->setChecked(true);
-    ui->P_defaultVideo_comboBox->setCurrentIndex(0);
-
+    ui->P_HDMIVideo_comboBox->setCurrentIndex(0);
+    ui->P_LVDSVideo_comboBox->setCurrentIndex(0);
 
     ui->P_ECSPI1_MISO_lineEdit->setText("0x80000000");
     ui->P_ECSPI1_MOSI_lineEdit->setText("0x80000000");
@@ -1245,7 +1257,7 @@ QSettings * func_settings = 0;
         ui->P_PCIe_checkBox->setChecked(true);
     else
         ui->P_PCIe_checkBox->setChecked(false);
-    ui->P_defaultVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "defaultVideo_comboBox"));
+    ui->P_HDMIVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "HDMIVideo_comboBox"));
 
 
     QString strKeyConf("P_CONF/");

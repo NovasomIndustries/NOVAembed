@@ -52390,7 +52390,7 @@
        </item>
        <item>
         <property name="text">
-         <string>EPIT2_OUT</string>
+         <string>XTALOSC_REF_CLK_24M</string>
         </property>
        </item>
       </widget>
@@ -58072,11 +58072,6 @@
        <item>
         <property name="text">
          <string>I2C1_SDA</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>UART2_CTS_B</string>
         </property>
        </item>
        <item>
@@ -70341,7 +70336,7 @@
         <x>450</x>
         <y>50</y>
         <width>151</width>
-        <height>121</height>
+        <height>251</height>
        </rect>
       </property>
       <property name="font">
@@ -70422,10 +70417,10 @@
         </font>
        </property>
        <property name="text">
-        <string>Default Video</string>
+        <string>HDMI Video</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="P_defaultVideo_comboBox">
+      <widget class="QComboBox" name="P_HDMIVideo_comboBox">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -70449,21 +70444,54 @@
          <string>HDMI 1280x768</string>
         </property>
        </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1024x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1026x600</string>
-        </property>
-       </item>
+      </widget>
+      <widget class="QComboBox" name="P_LVDSVideo_comboBox">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>140</y>
+         <width>131</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
        <item>
         <property name="text">
          <string>LVDS 800x480</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1024x600</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1024x768</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="label_119">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>120</y>
+         <width>81</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>LVDS Video</string>
+       </property>
       </widget>
      </widget>
      <widget class="QLabel" name="label_133">

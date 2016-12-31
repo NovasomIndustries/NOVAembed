@@ -18,20 +18,22 @@
 /*                                                                              Global variables                                                                                         */
 /*****************************************************************************************************************************************************************************************/
 
-QString Version = "1.0.4.1 rc4";
-
+QString Version = "1.0.4.1 rc5";
+QString Configuration = "Standard";
 QString FileSystemName = "";
 QString DeployedFileSystemName = "";
 QString FileSystemConfigName = "";
 QString _Board_comboBox = "";
 QString Last_U_BSPFactoryFile = "";
 QString Last_P_BSPFactoryFile = "";
-QString NumberOfUserPartitions = "";
-QString UserPartition1Size = "";
-QString UserPartition2Size = "";
-QString uSD_Device = "";
+QString NumberOfUserPartitions = "-";
+QString UserPartition1Size = "1";
+QString UserPartition2Size = "1";
+QString uSD_Device = "sdb";
 QString CurrentBSPF_Tab = "";
 QString CurrentVideo = "";
+QString HDMIVideo = "";
+QString LVDSVideo = "";
 
 
 extern  void storeNOVAembed_ini();
@@ -50,26 +52,53 @@ NOVAembed::NOVAembed(QWidget *parent) :
     if (!file.open(QIODevice::ReadOnly))
     {
         QMessageBox::information(this, tr("NOVAembed.ini"),"NOVAembed.ini not found. Creating a new one");
-            storeNOVAembed_ini();
+        if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings").exists() )
+        {
+            qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings";
+            QDir().mkdir("/Devel/NOVAsom_SDK/NOVAembed_Settings");
+        }
+        storeNOVAembed_ini();
     }
     else
     {
-        QString strKey("NOVAembed General Settings/");
+        QString strKeyConf("NOVAembed Configuration/");
+        QSettings * config = 0;
+        config = new QSettings( fileName, QSettings::IniFormat );
+        Configuration = config->value( strKeyConf + "Configuration", "r").toString();
+
+        QString strKeySettings("NOVAembed General Settings/");
         QSettings * settings = 0;
         settings = new QSettings( fileName, QSettings::IniFormat );
-        FileSystemName = settings->value( strKey + "FileSystemName", "r").toString();
-        DeployedFileSystemName = settings->value( strKey + "DeployedFileSystemName", "r").toString();
-        FileSystemConfigName = settings->value( strKey + "FileSystemConfigName", "r").toString();
-        _Board_comboBox = settings->value( strKey + "Board_comboBox", "r").toString();
-        Last_P_BSPFactoryFile = settings->value( strKey + "Last_P_BSPFactoryFile", "r").toString();
-        Last_U_BSPFactoryFile = settings->value( strKey + "Last_U_BSPFactoryFile", "r").toString();
-        NumberOfUserPartitions = settings->value( strKey + "NumberOfUserPartitions", "r").toString();
-        UserPartition1Size = settings->value( strKey + "UserPartition1Size", "r").toString();
-        UserPartition2Size = settings->value( strKey + "UserPartition2Size", "r").toString();
-        uSD_Device = settings->value( strKey + "uSD_Device", "r").toString();
-        CurrentBSPF_Tab = settings->value( strKey + "CurrentBSPF_Tab", "r").toString();
-        CurrentVideo = settings->value( strKey + "CurrentVideo", "r").toString();
+        FileSystemName = settings->value( strKeySettings + "FileSystemName", "r").toString();
+        DeployedFileSystemName = settings->value( strKeySettings + "DeployedFileSystemName", "r").toString();
+        FileSystemConfigName = settings->value( strKeySettings + "FileSystemConfigName", "r").toString();
+        _Board_comboBox = settings->value( strKeySettings + "Board_comboBox", "r").toString();
+        Last_P_BSPFactoryFile = settings->value( strKeySettings + "Last_P_BSPFactoryFile", "r").toString();
+        Last_U_BSPFactoryFile = settings->value( strKeySettings + "Last_U_BSPFactoryFile", "r").toString();
+        NumberOfUserPartitions = settings->value( strKeySettings + "NumberOfUserPartitions", "r").toString();
+        UserPartition1Size = settings->value( strKeySettings + "UserPartition1Size", "r").toString();
+        UserPartition2Size = settings->value( strKeySettings + "UserPartition2Size", "r").toString();
+        uSD_Device = settings->value( strKeySettings + "uSD_Device", "r").toString();
+        CurrentBSPF_Tab = settings->value( strKeySettings + "CurrentBSPF_Tab", "r").toString();
+        HDMIVideo = settings->value( strKeySettings + "HDMIVideo", "r").toString();
+        LVDSVideo = settings->value( strKeySettings + "LVDSVideo", "r").toString();
     }
+    if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf").exists() )
+    {
+        qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf";
+        QDir().mkdir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf");
+    }
+    if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/SClass_bspf").exists() )
+    {
+        qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/SClass_bspf";
+        QDir().mkdir("/Devel/NOVAsom_SDK/NOVAembed_Settings/SClass_bspf");
+    }
+    if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/UClass_bspf").exists() )
+    {
+        qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/UClass_bspf";
+        QDir().mkdir("/Devel/NOVAsom_SDK/NOVAembed_Settings/UClass_bspf");
+    }
+
     ui->setupUi(this);
 
     ui->FileSystemSelectedlineEdit->setText(FileSystemName);
@@ -82,23 +111,30 @@ NOVAembed::NOVAembed(QWidget *parent) :
     ui->tab->removeTab(4);
     ui->tab->removeTab(3);
     ui->tab->removeTab(2);
-    if (CurrentBSPF_Tab == "P BSP Factory")
+    if ( Configuration == "Standard")
     {
-        ui->tab->insertTab(2,PBSP_stab,"P BSP Factory");
-    }
-    else if (CurrentBSPF_Tab == "S BSP Factory")
-    {
-        ui->tab->insertTab(2,SBSP_stab,"S BSP Factory");
-    }
-    else if (CurrentBSPF_Tab == "U BSP Factory")
-    {
-        ui->tab->insertTab(2,UBSP_stab,"U BSP Factory");
+        if (CurrentBSPF_Tab == "P BSP Factory")
+        {
+            ui->tab->insertTab(2,PBSP_stab,"P BSP Factory");
+        }
+        else if (CurrentBSPF_Tab == "S BSP Factory")
+        {
+            ui->tab->insertTab(2,SBSP_stab,"S BSP Factory");
+        }
+        else if (CurrentBSPF_Tab == "U BSP Factory")
+        {
+            ui->tab->insertTab(2,UBSP_stab,"U BSP Factory");
+        }
+        else
+        {
+            ui->tab->insertTab(2,PBSP_stab,"P BSP Factory");
+        }
+        ui->tab->insertTab(3,TOOL_stab,"Tools");
     }
     else
     {
-        ui->tab->insertTab(2,PBSP_stab,"P BSP Factory");
+        ui->tab->insertTab(2,TOOL_stab,"Tools");
     }
-    ui->tab->insertTab(3,TOOL_stab,"Tools");
 
 }
 
@@ -134,6 +170,8 @@ void NOVAembed::storeNOVAembed_ini()
         return;
     }
     QTextStream out(&file);
+    out << QString("[NOVAembed Configuration]\n");
+    out << QString("Configuration="+Configuration+"\n");
     out << QString("[NOVAembed General Settings]\n");
     out << QString("FileSystemName="+FileSystemName+"\n");
     out << QString("DeployedFileSystemName="+DeployedFileSystemName+"\n");
@@ -146,7 +184,8 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("UserPartition2Size="+UserPartition2Size+"\n");
     out << QString("uSD_Device="+uSD_Device+"\n");
     out << QString("CurrentBSPF_Tab="+CurrentBSPF_Tab+"\n");
-    out << QString("CurrentVideo="+CurrentVideo+"\n");
+    out << QString("HDMIVideo="+HDMIVideo+"\n");
+    out << QString("LVDSVideo="+LVDSVideo+"\n");
 
     file.close();
 }
