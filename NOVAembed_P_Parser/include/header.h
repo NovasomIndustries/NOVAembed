@@ -1,0 +1,453 @@
+#define dts_defs_part1 "\
+/dts-v1/;\n\
+#include \"imx6dl.dtsi\"\n\
+"
+
+#define dts_defs_part2 "\
+/ {\n\
+        model = \"Freescale i.MX6 Solo/DualLite NOVAsomP Board\";\n\
+        compatible = \"fsl,imx6sdl-novasom\", \"fsl,imx6dl\";\n\
+};\n\
+&cpu0 {\n\
+        arm-supply = <&reg_arm>;\n\
+        soc-supply = <&reg_soc>;\n\
+};\n\
+&gpc {\n\
+        fsl,ldo-bypass = <0>;\n\
+};\n\
+&wdog2 {\n\
+        status = \"disabled\";\n\
+};\n\
+"
+
+
+#define dtsi_header1_defs "\
+/*\n\
+* Copyright 2017 Novasis, Inc.\n\
+* Copyright 2017 Novasom Industries, Inc.\n\
+*\n\
+* The code contained herein is licensed under the GNU General Public\n\
+* License.\n\
+*/\n\
+#include <dt-bindings/gpio/gpio.h>\n\
+#include <dt-bindings/input/input.h>\n\
+/ {\n\
+    aliases {\n\
+            mxcfb0 = &mxcfb1;\n\
+            mxcfb1 = &mxcfb2;\n\
+            mxcfb2 = &mxcfb3;\n\
+    };\n\
+    ir_recv: ir-receiver {\n\
+            compatible = \"gpio-ir-receiver\";\n\
+            gpios = <&gpio1 2 1>;\n\
+            pinctrl-names = \"default\";\n\
+            pinctrl-0 = <&pinctrl_novasomp_i_ir>;\n\
+    };\n\
+    leds {\n\
+            compatible = \"gpio-leds\";\n\
+            heartbeat-led {\n\
+                    gpios = <&gpio3 31 0>;\n\
+                    label = \"Heartbeat\";\n\
+                    linux,default-trigger = \"heartbeat\";\n\
+                pinctrl-names = \"default\";\n\
+                pinctrl-0 = <&pinctrl_heartbeat>;\n\
+            };\n\
+            rc-feedback-led {\n\
+                    gpios = <&gpio4 6 0>;\n\
+                    label = \"Rc-Feedback\";\n\
+                    linux,default-trigger = \"rc-feedback\";\n\
+                pinctrl-names = \"default\";\n\
+                pinctrl-0 = <&pinctrl_rc_feedback>;\n\
+            };\n\
+    };\n\
+	memory {\n\
+		reg = <0x10000000 0x80000000>;\n\
+	};\n\
+	regulators {\n\
+		compatible = \"simple-bus\";\n\
+		#address-cells = <1>;\n\
+		#size-cells = <0>;\n\
+		reg_2p5v: regulator@0 {\n\
+			compatible = \"regulator-fixed\";\n\
+			reg = <0>;\n\
+			regulator-name = \"2P5V\";\n\
+			regulator-min-microvolt = <2500000>;\n\
+			regulator-max-microvolt = <2500000>;\n\
+			regulator-always-on;\n\
+		};\n\
+		reg_3p3v: regulator@1 {\n\
+			compatible = \"regulator-fixed\";\n\
+			reg = <1>;\n\
+			regulator-name = \"3P3V\";\n\
+			regulator-min-microvolt = <3300000>;\n\
+			regulator-max-microvolt = <3300000>;\n\
+			regulator-always-on;\n\
+		};\n\
+        reg_usb_h1_vbus: regulator@2 {\n\
+                compatible = \"regulator-fixed\";\n\
+                reg = <0>;\n\
+                regulator-name = \"usb_h1_vbus\";\n\
+                regulator-min-microvolt = <5000000>;\n\
+                regulator-max-microvolt = <5000000>;\n\
+                enable-active-high;\n\
+        };\n\
+		reg_usb_otg_vbus: regulator@3 {\n\
+			compatible = \"regulator-fixed\";\n\
+			reg = <2>;\n\
+			regulator-name = \"usb_otg_vbus\";\n\
+			regulator-min-microvolt = <5000000>;\n\
+			regulator-max-microvolt = <5000000>;\n\
+			enable-active-high;\n\
+		};\n\
+        reg_pcie: regulator@4 {\n\
+                compatible = \"regulator-fixed\";\n\
+                reg = <3>;\n\
+                pinctrl-names = \"default\";\n\
+                pinctrl-0 = <&pinctrl_pcie_reg>;\n\
+                regulator-name = \"MPCIE_3V3\";\n\
+                regulator-min-microvolt = <3300000>;\n\
+                regulator-max-microvolt = <3300000>;\n\
+                gpio = <&gpio2 4 0>;\n\
+                enable-active-high;\n\
+        };\n\
+		snvs_reg: vsnvs {\n\
+			regulator-min-microvolt = <1000000>;\n\
+			regulator-max-microvolt = <3000000>;\n\
+			regulator-boot-on;\n\
+			regulator-always-on;\n\
+		};\n\
+	};\n\
+    sound-spdif {\n\
+            compatible = \"fsl,imx-audio-spdif\";\n\
+            model = \"imx-spdif\";\n\
+            spdif-controller = <&spdif>;\n\
+            spdif-out;\n\
+    };\n\
+    sound-hdmi {\n\
+            compatible = \"fsl,imx6q-audio-hdmi\",\n\
+                         \"fsl,imx-audio-hdmi\";\n\
+            model = \"imx-audio-hdmi\";\n\
+            hdmi-controller = <&hdmi_audio>;\n\
+    };\n\
+"
+
+#define dtsi_header_video_defs "\
+    mxcfb1: fb@0 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"hdmi\";\n\
+            interface_pix_fmt = \"RGB24\";\n\
+            mode_str =\"1920x1080M@60\";\n\
+            default_bpp = <24>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+    mxcfb2: fb@1 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB666\";\n\
+            default_bpp = <16>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"disabled\";\n\
+    };\n\
+    mxcfb3: fb@2 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB666\";\n\
+            default_bpp = <16>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"disabled\";\n\
+    };\n\
+};\n\
+"
+#define dtsi_header2_defs "\
+&fec {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_enet>;\n\
+        phy-mode = \"rmii\";\n\
+        phy-supply = <&reg_3p3v>;\n\
+        status = \"okay\";\n\
+};\n\
+&hdmi_core {\n\
+        ipu_id = <0>;\n\
+        disp_id = <0>;\n\
+        status = \"okay\";\n\
+};\n\
+&hdmi_video {\n\
+        fsl,phy_reg_vlev = <0x0294>;\n\
+        fsl,phy_reg_cksymtx = <0x800d>;\n\
+        status = \"okay\";\n\
+};\n\
+&hdmi_audio {\n\
+        status = \"okay\";\n\
+};\n\
+&hdmi_cec {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_hdmi_cec>;\n\
+        status = \"okay\";\n\
+};\n\
+&i2c1 {\n\
+        clock-frequency = <100000>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_i2c1>;\n\
+        status = \"okay\";\n\
+};\n\
+&i2c2 {\n\
+        clock-frequency = <100000>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_i2c2>;\n\
+        status = \"okay\";\n\
+        hdmi: edid@50 {\n\
+                compatible = \"fsl,imx6-hdmi-i2c\";\n\
+                reg = <0x50>;\n\
+        };\n\
+};\n\
+&i2c3 {\n\
+        clock-frequency = <100000>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_i2c3>;\n\
+        status = \"okay\";\n\
+};\n\
+&i2c4 {\n\
+        clock-frequency = <100000>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_i2c4>;\n\
+        status = \"okay\";\n\
+        e2prom: eeprom@50 {\n\
+                compatible = \"at,24c16\";\n\
+                reg = <0x50>;\n\
+        };\n\
+};\n\
+&ssi1 {\n\
+        fsl,mode = \"i2s-slave\";\n\
+        status = \"okay\";\n\
+};\n\
+&uart1 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_uart1>;\n\
+        status = \"okay\";\n\
+};\n\
+&uart2 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_uart2>;\n\
+        status = \"okay\";\n\
+};\n\
+&uart3 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_uart3>;\n\
+        status = \"okay\";\n\
+};\n\
+&uart4 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_uart4>;\n\
+        fsl,uart-has-rtscts;\n\
+        status = \"okay\";\n\
+};\n\
+&uart5 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_uart5>;\n\
+        fsl,uart-has-rtscts;\n\
+        status = \"okay\";\n\
+};\n\
+&usbh1 {\n\
+        vbus-supply = <&reg_usb_h1_vbus>;\n\
+        status = \"okay\";\n\
+};\n\
+&usbotg {\n\
+        vbus-supply = <&reg_usb_otg_vbus>;\n\
+        pinctrl-names = \"default\";\n\
+        disable-over-current;\n\
+        srp-disable;\n\
+        hnp-disable;\n\
+        adp-disable;\n\
+        status = \"okay\";\n\
+};\n\
+&usdhc1 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_usdhc1>;\n\
+        cd-gpios = <&gpio1 1 GPIO_ACTIVE_LOW>;\n\
+        no-1-8-v;\n\
+        keep-power-in-suspend;\n\
+        enable-sdio-wakeup;\n\
+        status = \"okay\";\n\
+};\n\
+&usdhc4 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_usdhc4>;\n\
+        bus-width = <8>;\n\
+        vmmc-supply = <&reg_3p3v>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define pcie_enabled_defs "\
+&pcie {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_pcie>;\n\
+        reset-gpio = <&gpio3 30 0>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define pcie_disabled_defs "\
+&pcie {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_pcie>;\n\
+        reset-gpio = <&gpio3 30 0>;\n\
+        status = \"disabled\";\n\
+};\n\
+"
+#define spdif_enabled_defs "\
+&spdif {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_spdif>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define iomux_defs "\
+&iomuxc {\n\
+    pinctrl-names = \"default\";\n\
+    imx6qdl-novasomp {\n\
+        pinctrl_enet: enetgrp {\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_ENET_MDC__ENET_MDC           0x1b0b0\n\
+                MX6QDL_PAD_ENET_MDIO__ENET_MDIO         0x1b0b0\n\
+                MX6QDL_PAD_ENET_CRS_DV__ENET_RX_EN      0x1b0b0\n\
+                MX6QDL_PAD_ENET_RX_ER__ENET_RX_ER       0x1b0b0\n\
+                MX6QDL_PAD_ENET_TX_EN__ENET_TX_EN       0x1b0b0\n\
+                MX6QDL_PAD_ENET_RXD0__ENET_RX_DATA0     0x1b0b0\n\
+                MX6QDL_PAD_ENET_RXD1__ENET_RX_DATA1     0x1b0b0\n\
+                MX6QDL_PAD_ENET_TXD0__ENET_TX_DATA0     0x1b0b0\n\
+                MX6QDL_PAD_ENET_TXD1__ENET_TX_DATA1     0x1b0b0\n\
+            >;\n\
+        };\n\
+        pinctrl_hdmi_cec: hdmicecgrp {\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_EIM_A25__HDMI_TX_CEC_LINE    0x108b0\n\
+            >;\n\
+        };\n\
+        pinctrl_i2c2: i2c2grp {\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_KEY_COL3__I2C2_SCL           0x4001b8b1\n\
+                MX6QDL_PAD_KEY_ROW3__I2C2_SDA           0x4001b8b1\n\
+            >;\n\
+        };\n\
+        pinctrl_i2c4: i2c4grp {\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_NANDF_CS3__I2C4_SDA          0x4001b8b1\n\
+                MX6QDL_PAD_NANDF_WP_B__I2C4_SCL         0x4001b8b1\n\
+            >;\n\
+        };\n\
+        pinctrl_heartbeat: heartbeatled-grp {\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_EIM_D31__GPIO3_IO31          0x17059\n\
+            >;\n\
+        };\n\
+        pinctrl_rc_feedback: rc_feedbackled-grp {\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_KEY_COL0__GPIO4_IO06         0x17059\n\
+            >;\n\
+        };\n\
+        pinctrl_novasomp_i_ir: novasomp-i-ir {\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_GPIO_2__GPIO1_IO02           0x1b0b1\n\
+            >;\n\
+        };\n\
+        pinctrl_pcie: pciegrp {\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_EIM_D30__GPIO3_IO30          0x17059\n\
+            >;\n\
+        };\n\
+        pinctrl_pcie_reg: pciereggrp {\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_NANDF_D4__GPIO2_IO04         0x1b0b0\n\
+            >;\n\
+        };\n\
+        pinctrl_uart3: uart3grp {\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_EIM_D24__UART3_TX_DATA       0x1b0b1\n\
+                MX6QDL_PAD_EIM_D25__UART3_RX_DATA       0x1b0b1\n\
+            >;\n\
+        };\n\
+        pinctrl_uart5: uart5grp {\n\
+                fsl,pins = <\n\
+                        MX6QDL_PAD_KEY_COL1__UART5_TX_DATA       0x1b0b1\n\
+                        MX6QDL_PAD_KEY_ROW1__UART5_RX_DATA       0x1b0b1\n\
+                        MX6QDL_PAD_KEY_ROW4__UART5_CTS_B	     0x1b0b1\n\
+                >;\n\
+        };\n\
+        pinctrl_usdhc1: usdhc1grp {\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_SD1_CMD__SD1_CMD             0x17059\n\
+                MX6QDL_PAD_SD1_CLK__SD1_CLK             0x10059\n\
+                MX6QDL_PAD_GPIO_1__SD1_CD_B 	        0x17059\n\
+                MX6QDL_PAD_SD1_DAT0__SD1_DATA0          0x17059\n\
+                MX6QDL_PAD_SD1_DAT1__SD1_DATA1          0x17059\n\
+                MX6QDL_PAD_SD1_DAT2__SD1_DATA2          0x17059\n\
+                MX6QDL_PAD_SD1_DAT3__SD1_DATA3          0x17059\n\
+            >;\n\
+        };\n\
+        pinctrl_usdhc4: usdhc4grp {\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_SD4_CMD__SD4_CMD             0x17059\n\
+                MX6QDL_PAD_SD4_CLK__SD4_CLK             0x10059\n\
+                MX6QDL_PAD_SD4_DAT0__SD4_DATA0          0x17059\n\
+                MX6QDL_PAD_SD4_DAT1__SD4_DATA1          0x17059\n\
+                MX6QDL_PAD_SD4_DAT2__SD4_DATA2          0x17059\n\
+                MX6QDL_PAD_SD4_DAT3__SD4_DATA3          0x17059\n\
+                MX6QDL_PAD_SD4_DAT4__SD4_DATA4          0x17059\n\
+                MX6QDL_PAD_SD4_DAT5__SD4_DATA5          0x17059\n\
+                MX6QDL_PAD_SD4_DAT6__SD4_DATA6          0x17059\n\
+                MX6QDL_PAD_SD4_DAT7__SD4_DATA7          0x17059\n\
+            >;\n\
+        };\n\
+"
+#define dtsi_lvds_defs "\
+&ldb {\n\
+	status = \"okay\";\n\
+	lvds-channel@0 {\n\
+		fsl,data-mapping = \"spwg\";\n\
+		fsl,data-width = <18>;\n\
+		primary;\n\
+		status = \"okay\";\n\
+		crtc = \"ipu1-di0\";\n\
+		display-timings {\n\
+			native-mode = <&timing0>;\n\
+			timing0: lvds0 {\n\
+				clock-frequency = <33000000>;\n\
+				hactive = <1024>;\n\
+				vactive = <768>;\n\
+				hback-porch = <220>;\n\
+				hfront-porch = <40>;\n\
+				vback-porch = <21>;\n\
+				vfront-porch = <7>;\n\
+				hsync-len = <60>;\n\
+				vsync-len = <10>;\n\
+			};\n\
+		};\n\
+	};\n\
+	lvds-channel@1 {\n\
+		fsl,data-mapping = \"spwg\";\n\
+		fsl,data-width = <18>;\n\
+		status = \"okay\";\n\
+		crtc = \"ipu1-di1\";\n\
+		display-timings {\n\
+			native-mode = <&timing1>;\n\
+			timing1: lvds1 {\n\
+				clock-frequency = <33000000>;\n\
+				hactive = <1024>;\n\
+				vactive = <768>;\n\
+				hback-porch = <220>;\n\
+				hfront-porch = <40>;\n\
+				vback-porch = <21>;\n\
+				vfront-porch = <7>;\n\
+				hsync-len = <60>;\n\
+				vsync-len = <10>;\n\
+			};\n\
+		};\n\
+	};\n\
+};\n\
+"
