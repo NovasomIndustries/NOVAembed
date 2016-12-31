@@ -36,7 +36,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tabWelcome">
      <attribute name="title">
@@ -70533,8 +70533,8 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>10</y>
-         <width>81</width>
+         <y>0</y>
+         <width>41</width>
          <height>16</height>
         </rect>
        </property>
@@ -70546,15 +70546,15 @@
         </font>
        </property>
        <property name="text">
-        <string>Current BSP file :</string>
+        <string>BSP file :</string>
        </property>
       </widget>
       <widget class="QLabel" name="P_Current_BSPF_File_label">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>20</y>
-         <width>151</width>
+         <x>50</x>
+         <y>0</y>
+         <width>141</width>
          <height>16</height>
         </rect>
        </property>
@@ -70575,7 +70575,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>40</y>
+         <y>10</y>
          <width>90</width>
          <height>20</height>
         </rect>
@@ -70588,7 +70588,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>60</y>
+         <y>30</y>
          <width>90</width>
          <height>20</height>
         </rect>
@@ -70601,13 +70601,26 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>80</y>
+         <y>50</y>
          <width>90</width>
          <height>20</height>
         </rect>
        </property>
        <property name="text">
         <string>Default</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="P_Generate_pushButton">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>80</y>
+         <width>90</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Generate</string>
        </property>
       </widget>
      </widget>

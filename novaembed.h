@@ -315,6 +315,8 @@ private slots:
 
     void on_KernelMakeDTB_pushButton_clicked();
 
+    void on_P_Generate_pushButton_clicked();
+
 private:
     Ui::NOVAembed *ui;
 };

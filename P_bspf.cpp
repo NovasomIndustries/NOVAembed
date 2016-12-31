@@ -20,6 +20,7 @@ extern  QString DeployedFileSystemName;
 extern  QString FileSystemConfigName;
 extern  QString _Board_comboBox;
 extern  QString Last_P_BSPFactoryFile;
+QString FileNameNoExtension;
 
 void NOVAembed::on_P_Load_pushButton_clicked()
 {
@@ -935,7 +936,7 @@ void NOVAembed::on_P_Save_pushButton_clicked()
     QString croped_fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), "/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf",tr(".bspf (*.bspf)"));
     QString fileName=croped_fileName.section(".",0,0);
     fileName = fileName+".bspf";
-    qDebug() << "fileName :"+fileName;
+    //qDebug() << "fileName :"+fileName;
 
     if (fileName.isEmpty())
         return;
@@ -947,7 +948,7 @@ void NOVAembed::on_P_Save_pushButton_clicked()
             QMessageBox::information(this, tr("Unable to open file"),file.errorString());
             return;
         }
-        qDebug() << "fileName :"+fileName;
+        //qDebug() << "fileName :"+fileName;
 
         QTextStream out(&file);
         out << QString("[P_IOMUX]\n");
@@ -1069,7 +1070,10 @@ void NOVAembed::on_P_Save_pushButton_clicked()
         QFileInfo fi(Last_P_BSPFactoryFile);
         QString base = fi.baseName();
         if ( base != "" )
+        {
+            FileNameNoExtension = base;
             ui->P_Current_BSPF_File_label->setText(base+".bspf");
+        }
         storeNOVAembed_ini();
     }
 }
@@ -1886,6 +1890,47 @@ void NOVAembed::on_P_DSE_240_checkBox_clicked()
         ui->P_DSE_240_checkBox->setChecked(true);
     }
 }
+
+void NOVAembed::on_P_Generate_pushButton_clicked()
+{
+    QFile scriptfile("/tmp/script");
+    QFileInfo fi(Last_P_BSPFactoryFile);
+    QString FileNameNoExtension = fi.baseName();
+
+    update_status_bar("Generating dtb "+FileNameNoExtension+".dtb ...");
+    if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
+    {
+        update_status_bar("Unable to create /tmp/script");
+        return;
+    }
+    QTextStream out(&scriptfile);
+    out << QString("#!/bin/sh\n");
+    out << QString("[ ! -d /Devel/NOVAsom_SDK/DtbUserWorkArea ] && mkdir /Devel/NOVAsom_SDK/DtbUserWorkArea\n");
+    out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
+    if ( ui->Board_comboBox->currentText() == "P Series")
+    {
+        out << QString("/Devel/NOVAsom_SDK/Qt/NOVAembed/NOVAembed/NOVAembed_P_Parser/bin/Debug/NOVAembed_P_Parser /Devel/NOVAsom_SDK/DtbUserWorkArea/"+FileNameNoExtension+"\n");
+        out << QString("./user_dtb_compile "+FileNameNoExtension+" P > /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
+    }
+    /*
+    if ( ui->Board_comboBox->currentText() == "S Series")
+    {
+        out << QString("./user_dtb_compile "+FileNameNoExtension+" S > /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
+    }
+    if ( ui->Board_comboBox->currentText() == "U Series")
+    {
+        out << QString("./user_dtb_compile "+FileNameNoExtension+" U > /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
+    }
+    */
+    out << QString("echo $? > /tmp/result\n");
+
+    scriptfile.close();
+    if ( run_script() == 0)
+        update_status_bar("DTB "+FileNameNoExtension+".dtb compiled");
+    else
+        update_status_bar("Error compiling "+FileNameNoExtension+".dtb");
+}
+
 /*****************************************************************************************************************************************************************************************/
 /*                                                                             P BSP Factory END                                                                                         */
 /*****************************************************************************************************************************************************************************************/
