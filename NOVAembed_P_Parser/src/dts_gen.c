@@ -6,33 +6,7 @@ char    dtsifile_dump[16384];
 char    file_name[32],file_name_noext[32],dir_name[256];
 char    file_name_dts[128],file_name_dtsi[128];
 
-void create_file_names(char *file_in)
-{
-int     i;
-    bzero(dtsfile_dump,sizeof(dtsfile_dump));
-    bzero(dtsifile_dump,sizeof(dtsifile_dump));
 
-    sprintf(file_name,"%s",basename(strdup(file_in)));
-    sprintf(dir_name,"%s",dirname(strdup(file_in)));
-
-    sprintf(file_name_noext,"%s",file_name);
-
-    for(i=0;i<strlen(file_name_noext);i++)
-    {
-        if ( file_name_noext[i] == '.')
-            file_name_noext[i]=0;
-    }
-    sprintf(file_name_dts,"/Devel/NOVAsom_SDK/DtbUserWorkArea/%s.dts",file_name_noext);
-    sprintf(file_name_dtsi,"/Devel/NOVAsom_SDK/DtbUserWorkArea/%s.dtsi",file_name_noext);
-
-    printf("%s\n",file_in);
-    printf("%s\n",file_name);
-    printf("%s\n",dir_name);
-    printf("%s\n",file_name_noext);
-    printf("%s\n",file_name_dts);
-    printf("%s\n",file_name_dtsi);
-
-}
 
 void create_dts_file(void)
 {
@@ -162,18 +136,6 @@ char    t[128];
         sprintf(t,"                %s 0x%s\n",can2->cantx_pin_name,can2->pin_config[0]);
         strcat (sf,t);
         sprintf(t,"                %s 0x%s\n",can2->canrx_pin_name,can2->pin_config[1]);
-        strcat (sf,t);
-        strcat (sf,"          >;\n");
-        strcat (sf,"        };\n");
-        strcat(dtsifile_dump,sf);
-    }
-    if ( i2c1b != NULL )
-    {
-        sprintf(sf,"        %s: %s{\n",i2c1b->pinctrl0_name,i2c1b->grp_name);
-        strcat(sf,"            fsl,pins = <\n");
-        sprintf(t,"                %s 0x%s\n",i2c1b->sda_pin_name,i2c1b->pin_config[0]);
-        strcat (sf,t);
-        sprintf(t,"                %s 0x%s\n",i2c1b->scl_pin_name,i2c1b->pin_config[1]);
         strcat (sf,t);
         strcat (sf,"          >;\n");
         strcat (sf,"        };\n");
@@ -429,8 +391,20 @@ char    t[128];
         strcat (sf,"          >;\n");
         strcat (sf,"        };\n");
         strcat(dtsifile_dump,sf);
+        printf("i2c1a\n");
     }
-
+    if ( i2c1b != NULL )
+    {
+        sprintf(sf,"        %s: %s{\n",i2c1b->pinctrl0_name,i2c1b->grp_name);
+        strcat(sf,"            fsl,pins = <\n");
+        sprintf(t,"                %s 0x%s\n",i2c1b->sda_pin_name,i2c1b->pin_config[0]);
+        strcat (sf,t);
+        sprintf(t,"                %s 0x%s\n",i2c1b->scl_pin_name,i2c1b->pin_config[1]);
+        strcat (sf,t);
+        strcat (sf,"          >;\n");
+        strcat (sf,"        };\n");
+        strcat(dtsifile_dump,sf);
+    }
     if ( i2c3 != NULL )
     {
         sprintf(sf,"        %s: %s{\n",i2c3->pinctrl0_name,i2c3->grp_name);
@@ -446,6 +420,7 @@ char    t[128];
     sprintf (sf,"    };\n");
     strcat (sf," };\n");
     strcat(dtsifile_dump,sf);
+
 }
 
 
@@ -467,6 +442,32 @@ char    t[1024];
         sprintf(t,spdif_enabled_defs);
     }
     strcat(dtsifile_dump,t);
+    if ( iomux->uart1 == 1 )
+    {
+        sprintf(t,uart1_defs);
+    }
+    strcat(dtsifile_dump,t);
+    if ( iomux->uart2_4 == 1 )
+    {
+        sprintf(t,uart2_4_defs);
+    }
+    strcat(dtsifile_dump,t);
+    if ( iomux->uart2_2 == 1 )
+    {
+        sprintf(t,uart2_2_defs);
+    }
+    strcat(dtsifile_dump,t);
+    if (( iomux->i2c1a == 1 ) || ( iomux->i2c1b == 1 ))
+    {
+        sprintf(t,i2c1_defs);
+    }
+    strcat(dtsifile_dump,t);
+    if ( iomux->i2c3 == 1 )
+    {
+        sprintf(t,i2c3_defs);
+    }
+    strcat(dtsifile_dump,t);
+
 }
 
 void process_videos_header(void)
@@ -550,11 +551,37 @@ FILE    *fpout_dtsi;
     }
 }
 
+void create_file_names(char *file_in)
+{
+int     i;
+    bzero(dtsfile_dump,sizeof(dtsfile_dump));
+    bzero(dtsifile_dump,sizeof(dtsifile_dump));
+
+    sprintf(file_name,"%s",basename(strdup(file_in)));
+    sprintf(dir_name,"%s",dirname(strdup(file_in)));
+
+    sprintf(file_name_noext,"%s",file_name);
+
+    for(i=0;i<strlen(file_name_noext);i++)
+    {
+        if ( file_name_noext[i] == '.')
+            file_name_noext[i]=0;
+    }
+    sprintf(file_name_dts,"/Devel/NOVAsom_SDK/DtbUserWorkArea/%s.dts",file_name_noext);
+    sprintf(file_name_dtsi,"/Devel/NOVAsom_SDK/DtbUserWorkArea/%s.dtsi",file_name_noext);
+
+    printf("Input File Name       :  %s\n",file_in);
+    printf("Output DTS  File Name : %s\n",file_name_dts);
+    printf("Output DTSi File Name : %s\n",file_name_dtsi);
+
+}
+
 void store_dts_files(char *file_in)
 {
     create_file_names(file_in);
+    dump_iomux();
     create_dts_file();
     create_dtsi_file();
-    printf("dtsfile_dump len : %d\n",(int )strlen(dtsfile_dump));
-    printf("dtsifile_dump len : %d\n",(int )strlen(dtsifile_dump));
+    printf("DTS  len : %d\n",(int )strlen(dtsfile_dump));
+    printf("DTSi len : %d\n",(int )strlen(dtsifile_dump));
 }

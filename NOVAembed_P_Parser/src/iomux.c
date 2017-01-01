@@ -14,6 +14,49 @@ iomux_pwm       *pwm;
 iomux_uart_2    *uart1,*uart2_2,*uart4_2;
 iomux_uart_4    *uart2_4,*uart4_4;
 
+void dump_iomux(void)
+{
+    printf("\nPeripherals usage ( 1 means IN USE ):\n");
+    printf("**********************************************\n");
+    printf("audio4   : %d\n",iomux->audio4);
+    printf("audio5   : %d\n",iomux->audio5);
+    printf("audio6   : %d\n",iomux->audio6);
+    printf("ecspi1_4 : %d\n",iomux->ecspi1_4);
+    printf("ecspi1_5 : %d\n",iomux->ecspi1_5);
+    printf("ecspi2_4 : %d\n",iomux->ecspi2_4);
+    printf("ecspi2_5 : %d\n",iomux->ecspi2_5);
+    printf("ecspi3_4 : %d\n",iomux->ecspi3_4);
+    printf("ecspi3_5 : %d\n",iomux->ecspi3_5);
+    printf("ecspi4   : %d\n",iomux->ecspi4);
+    printf("i2c1a    : %d\n",iomux->i2c1a);
+    printf("i2c1b    : %d\n",iomux->i2c1b);
+    printf("i2c2     : %d ( system , HDMI edid )\n",iomux->i2c2);
+    printf("i2c3     : %d\n",iomux->i2c3);
+    printf("sd3      : %d\n",iomux->sd3);
+    printf("can1     : %d\n",iomux->can1);
+    printf("can2     : %d\n",iomux->can2);
+    printf("uart1    : %d\n",iomux->uart1);
+    printf("uart2_4  : %d\n",iomux->uart2_4);
+    printf("uart2_2  : %d\n",iomux->uart2_2);
+    printf("uart3    : %d ( system , console )\n",iomux->uart3);
+    printf("uart4_4  : %d\n",iomux->uart4_4);
+    printf("uart4_2  : %d\n",iomux->uart4_2);
+    printf("uart5    : %d ( system , rs485 )\n",iomux->uart5);
+    printf("spdif1   : %d\n",iomux->spdif1);
+    printf("spdif2   : %d\n",iomux->spdif2);
+    printf("pwm1     : %d\n",iomux->pwm1);
+    printf("Hog group functions ( fixed functions pins ) :\n");
+    printf("epit1    : %d\n",iomux->epit1);
+    printf("clk24m   : %d\n",iomux->clk24m);
+    printf("wdog     : %d\n",iomux->wdog);
+    printf("ccm_clko1: %d\n",iomux->ccm_clko1);
+    printf("clk32k   : %d\n",iomux->clk32k);
+    printf("Special peripherals :\n");
+    printf("sata     : %d\n",iomux->sata);
+    printf("pcie     : %d\n",iomux->pcie);
+    printf("**********************************************\n\n");
+}
+
 void copy_and_resize(char *dest,char *source,int useless_int)
 {
 char *dup = strdup(source);
@@ -379,8 +422,8 @@ char *t1;
         copy_and_resize(ecspi1_5->pin_config[2],t1+sizeof("P_ECSPI1_SCK_cbit"),8);
     if ((t1 = strstr(file_contents,"P_ECSPI1_SS0_cbit=")))
         copy_and_resize(ecspi1_5->pin_config[3],t1+sizeof("P_ECSPI1_SS0_cbit"),8);
-    if ((t1 = strstr(file_contents,"P_ECSPI1_SS1_cbit=")))
-        copy_and_resize(ecspi1_5->pin_config[4],t1+sizeof("P_ECSPI1_SS1_cbit"),8);
+    if ((t1 = strstr(file_contents,"P_ECSPI2_SS1_cbit=")))
+        copy_and_resize(ecspi1_5->pin_config[4],t1+sizeof("P_ECSPI2_SS1_cbit"),8);
     return;
 }
 
@@ -550,6 +593,10 @@ char *t1;
 void parse_iomux(void)
 {
     iomux = calloc(1,sizeof(iomux_cfg));
+    /* Set system peripherals */
+    iomux->uart3 = 1;   /* console */
+    iomux->uart5 = 1;   /* rs485 */
+    iomux->i2c2 = 1;    /* edid for hdmi */
     /* On J13 */
     if ( strstr(file_contents,"P_ECSPI1_MISO_comboBox=AUD4_TXFS"))
     {
@@ -724,5 +771,6 @@ void parse_iomux(void)
         sprintf(iomux->video,"HDMI1920x1080");
     if ( strstr(file_contents,"defaultVideo_comboBox=HDMI 1280x720"))
         sprintf(iomux->video,"HDMI1280x720");
+
 }
 

@@ -1909,24 +1909,14 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
     if ( ui->Board_comboBox->currentText() == "P Series")
     {
-        out << QString("/Devel/NOVAsom_SDK/Qt/NOVAembed/NOVAembed/NOVAembed_P_Parser/bin/Debug/NOVAembed_P_Parser /Devel/NOVAsom_SDK/DtbUserWorkArea/"+FileNameNoExtension+"\n");
-        out << QString("./user_dtb_compile "+FileNameNoExtension+" P > /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
+        out << QString("/Devel/NOVAsom_SDK/Qt/NOVAembed/NOVAembed/NOVAembed_P_Parser/bin/Debug/NOVAembed_P_Parser /Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf/"+FileNameNoExtension+".bspf > /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
+        out << QString("./user_dtb_compile "+FileNameNoExtension+" P >> /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
     }
-    /*
-    if ( ui->Board_comboBox->currentText() == "S Series")
-    {
-        out << QString("./user_dtb_compile "+FileNameNoExtension+" S > /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
-    }
-    if ( ui->Board_comboBox->currentText() == "U Series")
-    {
-        out << QString("./user_dtb_compile "+FileNameNoExtension+" U > /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
-    }
-    */
     out << QString("echo $? > /tmp/result\n");
 
     scriptfile.close();
     if ( run_script() == 0)
-        update_status_bar("DTB "+FileNameNoExtension+".dtb compiled");
+        update_status_bar("DTB "+FileNameNoExtension+".dtb compiled, dtb is in /Devel/NOVAsom_SDK/DtbUserWorkArea");
     else
         update_status_bar("Error compiling "+FileNameNoExtension+".dtb");
 }

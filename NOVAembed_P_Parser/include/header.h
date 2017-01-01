@@ -188,12 +188,6 @@
         pinctrl-0 = <&pinctrl_hdmi_cec>;\n\
         status = \"okay\";\n\
 };\n\
-&i2c1 {\n\
-        clock-frequency = <100000>;\n\
-        pinctrl-names = \"default\";\n\
-        pinctrl-0 = <&pinctrl_i2c1>;\n\
-        status = \"okay\";\n\
-};\n\
 &i2c2 {\n\
         clock-frequency = <100000>;\n\
         pinctrl-names = \"default\";\n\
@@ -204,45 +198,13 @@
                 reg = <0x50>;\n\
         };\n\
 };\n\
-&i2c3 {\n\
-        clock-frequency = <100000>;\n\
-        pinctrl-names = \"default\";\n\
-        pinctrl-0 = <&pinctrl_i2c3>;\n\
-        status = \"okay\";\n\
-};\n\
-&i2c4 {\n\
-        clock-frequency = <100000>;\n\
-        pinctrl-names = \"default\";\n\
-        pinctrl-0 = <&pinctrl_i2c4>;\n\
-        status = \"okay\";\n\
-        e2prom: eeprom@50 {\n\
-                compatible = \"at,24c16\";\n\
-                reg = <0x50>;\n\
-        };\n\
-};\n\
 &ssi1 {\n\
         fsl,mode = \"i2s-slave\";\n\
-        status = \"okay\";\n\
-};\n\
-&uart1 {\n\
-        pinctrl-names = \"default\";\n\
-        pinctrl-0 = <&pinctrl_uart1>;\n\
-        status = \"okay\";\n\
-};\n\
-&uart2 {\n\
-        pinctrl-names = \"default\";\n\
-        pinctrl-0 = <&pinctrl_uart2>;\n\
         status = \"okay\";\n\
 };\n\
 &uart3 {\n\
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_uart3>;\n\
-        status = \"okay\";\n\
-};\n\
-&uart4 {\n\
-        pinctrl-names = \"default\";\n\
-        pinctrl-0 = <&pinctrl_uart4>;\n\
-        fsl,uart-has-rtscts;\n\
         status = \"okay\";\n\
 };\n\
 &uart5 {\n\
@@ -278,6 +240,65 @@
         pinctrl-0 = <&pinctrl_usdhc4>;\n\
         bus-width = <8>;\n\
         vmmc-supply = <&reg_3p3v>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define i2c1_defs "\
+&i2c1 {\n\
+        clock-frequency = <100000>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_i2c1>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define i2c3_defs "\
+&i2c3 {\n\
+        clock-frequency = <100000>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_i2c3>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define uart1_defs "\
+&uart1 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_uart1>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define uart2_4_defs "\
+&uart2 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_uart2>;\n\
+        fsl,uart-has-rtscts;\n\
+        status = \"okay\";\n\
+};\n\
+"
+#define uart2_2_defs "\
+&uart4 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_uart2>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define uart4_4_defs "\
+&uart4 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_uart4>;\n\
+        fsl,uart-has-rtscts;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define uart4_2_defs "\
+&uart4 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_uart4>;\n\
         status = \"okay\";\n\
 };\n\
 "

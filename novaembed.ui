@@ -36,7 +36,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabWelcome">
      <attribute name="title">
@@ -70575,7 +70575,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>10</y>
+         <y>20</y>
          <width>90</width>
          <height>20</height>
         </rect>
@@ -70588,7 +70588,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>30</y>
+         <y>40</y>
          <width>90</width>
          <height>20</height>
         </rect>
@@ -70601,7 +70601,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>50</y>
+         <y>60</y>
          <width>90</width>
          <height>20</height>
         </rect>

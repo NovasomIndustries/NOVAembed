@@ -18,8 +18,10 @@ typedef struct _iomux_cfg
     int ecspi3_4;
     int ecspi4;
     int spdif1;
-    int i2c1a;
-    int i2c3;
+    int i2c1a;      /* expansion, power from expansion, 2 wires, J9-23 and J9-24 */
+    int i2c1b;      /* expansion, 2 wires, J9-20 and J9-22 */
+    int i2c2;       /* edid for hdmi */
+    int i2c3;       /* expansion, 2 wires */
     int clk32k;
     int sd3;
     int uart2;
@@ -31,12 +33,13 @@ typedef struct _iomux_cfg
     int wdog;
     int audio6;
     int ccm_clko1;
-    int i2c1b;
-    int uart1;
-    int uart2_4;
-    int uart2_2;
-    int uart4_4;
-    int uart4_2;
+    int uart1;      /* expansion, power from expansion, 2 wires */
+    int uart2_4;    /* aux rs232 */
+    int uart2_2;    /* aux rs232 */
+    int uart3;      /* console */
+    int uart4_4;    /* expansion, power from expansion, 4 wires */
+    int uart4_2;    /* expansion, power from expansion, 2 wires */
+    int uart5;      /* rs485 */
     int spdif2;
     int sata;
     int pcie;
