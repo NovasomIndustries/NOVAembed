@@ -134,7 +134,7 @@
         <x>360</x>
         <y>80</y>
         <width>331</width>
-        <height>161</height>
+        <height>101</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -169,7 +169,7 @@
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>90</y>
+         <y>60</y>
          <width>90</width>
          <height>21</height>
         </rect>
@@ -182,7 +182,7 @@
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>70</y>
+         <y>40</y>
          <width>90</width>
          <height>21</height>
         </rect>
@@ -195,7 +195,7 @@
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>120</y>
+         <y>80</y>
          <width>91</width>
          <height>21</height>
         </rect>
@@ -236,7 +236,7 @@
        <property name="geometry">
         <rect>
          <x>130</x>
-         <y>90</y>
+         <y>60</y>
          <width>90</width>
          <height>21</height>
         </rect>
@@ -250,9 +250,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>250</y>
+        <y>190</y>
         <width>341</width>
-        <height>321</height>
+        <height>381</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -287,7 +287,7 @@
        <property name="geometry">
         <rect>
          <x>240</x>
-         <y>280</y>
+         <y>350</y>
          <width>90</width>
          <height>21</height>
         </rect>
@@ -306,7 +306,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Browse</string>
+        <string>File SystemBrowse</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="FileSystemSelectedlineEdit">
@@ -323,7 +323,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>260</y>
+         <y>330</y>
          <width>151</width>
          <height>21</height>
         </rect>
@@ -467,7 +467,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>280</y>
+         <y>350</y>
          <width>151</width>
          <height>21</height>
         </rect>
@@ -987,7 +987,7 @@
         <x>10</x>
         <y>80</y>
         <width>341</width>
-        <height>161</height>
+        <height>101</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1022,7 +1022,7 @@
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>120</y>
+         <y>70</y>
          <width>90</width>
          <height>21</height>
         </rect>
@@ -1077,9 +1077,9 @@
       <property name="geometry">
        <rect>
         <x>360</x>
-        <y>250</y>
+        <y>190</y>
         <width>331</width>
-        <height>321</height>
+        <height>381</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1114,7 +1114,7 @@
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>280</y>
+         <y>350</y>
          <width>91</width>
          <height>21</height>
         </rect>
@@ -1128,7 +1128,7 @@
         <rect>
          <x>170</x>
          <y>50</y>
-         <width>91</width>
+         <width>41</width>
          <height>21</height>
         </rect>
        </property>
@@ -1249,7 +1249,7 @@
         <rect>
          <x>170</x>
          <y>130</y>
-         <width>91</width>
+         <width>41</width>
          <height>21</height>
         </rect>
        </property>
@@ -1284,12 +1284,12 @@
         <rect>
          <x>10</x>
          <y>130</y>
-         <width>41</width>
+         <width>61</width>
          <height>20</height>
         </rect>
        </property>
        <property name="text">
-        <string>Device</string>
+        <string>uSD Device</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1359,6 +1359,78 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="UserDTB_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>180</y>
+         <width>87</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>User DTB</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="UserDTBSelect_pushButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>200</y>
+         <width>111</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>DTB Browse</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="UserDTBSelectedlineEdit">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>220</y>
+         <width>311</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="UserAutoRun_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>250</y>
+         <width>181</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Set the AutoRun</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="UserAutoRunSelect_pushButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>270</y>
+         <width>111</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>AutoRun folder Browse</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="UserAutoRunSelectedlineEdit">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>290</y>
+         <width>311</width>
+         <height>21</height>
+        </rect>
        </property>
       </widget>
      </widget>

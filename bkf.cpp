@@ -20,12 +20,16 @@ extern  QString DeployedFileSystemName;
 extern  QString FileSystemConfigName;
 extern  QString _Board_comboBox;
 extern  QString LastBSPFactoryFile;
+extern  QString P_UserDTB_Selected;
+extern  QString Last_P_UserDTB;
 extern  QString NumberOfUserPartitions;
 extern  QString UserPartition1Size;
 extern  QString UserPartition2Size;
 extern  QString uSD_Device;
 extern  QString CurrentBSPF_Tab;
 extern  QString CurrentVideo;
+extern  QString AutoRunSelected;
+extern  QString AutoRunFolder;
 
 extern  QWidget *PBSP_stab,*UBSP_stab,*SBSP_stab,*TOOL_stab;
 QWidget *current_stab;
@@ -396,7 +400,6 @@ void NOVAembed::on_UserPartition2Size_lineEdit_textChanged(const QString &arg1)
 void NOVAembed::on_uSD_Device_comboBox_currentIndexChanged(const QString &arg1)
 {
     uSD_Device = arg1;
-    //qDebug() << "uSD_Device :"+uSD_Device;
     storeNOVAembed_ini();
 }
 
@@ -406,6 +409,7 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     QString BoardModel;
     QString NOVAsomParamsName;
     QString sdl_dtb,q_dtb;
+    QString UserEnabled = "system";
 
     uSD_Device = ui->uSD_Device_comboBox->currentText();
     QFile scriptfile("/tmp/script");
@@ -437,60 +441,74 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
 
     }
 
-    if ( ui->Video_comboBox->currentText() == "HDMI 1920x1080 ( FHD )")
+    if ( ui->UserDTB_checkBox->isChecked())
     {
-        NOVAsomParamsName = "NOVAsomParams_HDMI_1920x1080";
-        sdl_dtb=sdl_dtb+"_hdmi_1920x1080.dtb";
-        q_dtb=q_dtb+"_hdmi_1920x1080.dtb";
+        UserEnabled = "user";
+        QFileInfo fi(ui->UserDTBSelectedlineEdit->text());
+        sdl_dtb = fi.baseName()+".dtb";
+        q_dtb = fi.baseName()+".dtb";
     }
-    if ( ui->Video_comboBox->currentText() == "HDMI 1280x720 ( HD )")
+    else
     {
-        NOVAsomParamsName = "NOVAsomParams_HDMI_1280x720";
-        sdl_dtb=sdl_dtb+"_hdmi_1280x720.dtb";
-        q_dtb=q_dtb+"_hdmi_1280x720.dtb";
+        if ( ui->Video_comboBox->currentText() == "HDMI 1920x1080 ( FHD )")
+        {
+            NOVAsomParamsName = "NOVAsomParams_HDMI_1920x1080";
+            sdl_dtb=sdl_dtb+"_hdmi_1920x1080.dtb";
+            q_dtb=q_dtb+"_hdmi_1920x1080.dtb";
+        }
+        if ( ui->Video_comboBox->currentText() == "HDMI 1280x720 ( HD )")
+        {
+            NOVAsomParamsName = "NOVAsomParams_HDMI_1280x720";
+            sdl_dtb=sdl_dtb+"_hdmi_1280x720.dtb";
+            q_dtb=q_dtb+"_hdmi_1280x720.dtb";
+        }
+        if ( ui->Video_comboBox->currentText() == "LVDS 1920x1080 ( Dual Channel FHD )")
+        {
+            NOVAsomParamsName = "NOVAsomParams_LVDS_1920x10802CH";
+            sdl_dtb=sdl_dtb+"_lvds_1920x1080.dtb";
+            q_dtb=q_dtb+"_lvds_1920x1080.dtb";
+        }
+        if ( ui->Video_comboBox->currentText() == "LVDS 1366x768")
+        {
+            NOVAsomParamsName = "NOVAsomParams_LVDS_1366x768";
+            sdl_dtb=sdl_dtb+"_lvds_1366x768.dtb";
+            q_dtb=q_dtb+"_lvds_1366x768.dtb";
+        }
+        if ( ui->Video_comboBox->currentText() == "LVDS 1024x768")
+        {
+            NOVAsomParamsName = "NOVAsomParams_LVDS_1024x768";
+            sdl_dtb=sdl_dtb+"_lvds_1024x768.dtb";
+            q_dtb=q_dtb+"_lvds_1024x768.dtb";
+        }
+        if ( ui->Video_comboBox->currentText() == "LVDS 1024x600")
+        {
+            NOVAsomParamsName = "NOVAsomParams_LVDS_1024x600";
+            sdl_dtb=sdl_dtb+"_lvds_1024x600.dtb";
+            q_dtb=q_dtb+"_lvds_1024x600.dtb";
+        }
+        if ( ui->Video_comboBox->currentText() == "LVDS 800x600")
+        {
+            NOVAsomParamsName = "NOVAsomParams_LVDS_800x600";
+            sdl_dtb=sdl_dtb+"_lvds_800x600.dtb";
+            q_dtb=q_dtb+"_lvds_800x600.dtb";
+        }
+        if ( ui->Video_comboBox->currentText() == "LVDS 800x480")
+        {
+            NOVAsomParamsName = "NOVAsomParams_LVDS_800x480";
+            sdl_dtb=sdl_dtb+"_lvds_800x480.dtb";
+            q_dtb=q_dtb+"_lvds_800x480.dtb";
+        }
     }
-    if ( ui->Video_comboBox->currentText() == "LVDS 1920x1080 ( Dual Channel FHD )")
-    {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_1920x10802CH";
-        sdl_dtb=sdl_dtb+"_lvds_1920x1080.dtb";
-        q_dtb=q_dtb+"_lvds_1920x1080.dtb";
-    }
-    if ( ui->Video_comboBox->currentText() == "LVDS 1366x768")
-    {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_1366x768";
-        sdl_dtb=sdl_dtb+"_lvds_1366x768.dtb";
-        q_dtb=q_dtb+"_lvds_1366x768.dtb";
-    }
-    if ( ui->Video_comboBox->currentText() == "LVDS 1024x768")
-    {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_1024x768";
-        sdl_dtb=sdl_dtb+"_lvds_1024x768.dtb";
-        q_dtb=q_dtb+"_lvds_1024x768.dtb";
-    }
-    if ( ui->Video_comboBox->currentText() == "LVDS 1024x600")
-    {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_1024x600";
-        sdl_dtb=sdl_dtb+"_lvds_1024x600.dtb";
-        q_dtb=q_dtb+"_lvds_1024x600.dtb";
-    }
-    if ( ui->Video_comboBox->currentText() == "LVDS 800x600")
-    {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_800x600";
-        sdl_dtb=sdl_dtb+"_lvds_800x600.dtb";
-        q_dtb=q_dtb+"_lvds_800x600.dtb";
-    }
-    if ( ui->Video_comboBox->currentText() == "LVDS 800x480")
-    {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_800x480";
-        sdl_dtb=sdl_dtb+"_lvds_800x480.dtb";
-        q_dtb=q_dtb+"_lvds_800x480.dtb";
-    }
+
+
+
 
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
     out << QString("cp BootParameters/"+NOVAsomParamsName+" ../Deploy/NOVAsomParams\n");
-    out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" > /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
+
+    out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" "+ UserEnabled +"> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
     out << QString("echo $? > /tmp/result\n");
     scriptfile.close();
     if ( run_script() == 0)
@@ -563,6 +581,74 @@ void NOVAembed::on_ExtFS_comboBox_currentIndexChanged(const QString &arg1)
     QPixmap fspixmap (":/Icons/"+arg1+".png");
     ui->FileSystemLogo->setPixmap(fspixmap);
     //qDebug() << "Pixmap :/Icons/"+arg1+".png";
+}
+
+
+
+void NOVAembed::on_UserDTB_checkBox_toggled(bool checked)
+{
+    if ( checked == true)
+    {
+        ui->UserDTBSelectedlineEdit->setEnabled(true);
+        ui->UserDTBSelect_pushButton->setEnabled(true);
+        P_UserDTB_Selected = "true";
+        ui->Video_comboBox->setEnabled(false);
+        ui->VideoVisible_label->setEnabled(false);
+    }
+    else
+    {
+        ui->UserDTBSelectedlineEdit->setEnabled(false);
+        ui->UserDTBSelect_pushButton->setEnabled(false);
+        P_UserDTB_Selected = "false";
+        ui->Video_comboBox->setEnabled(true);
+        ui->VideoVisible_label->setEnabled(true);
+    }
+    storeNOVAembed_ini();
+}
+
+
+
+void NOVAembed::on_UserDTBSelect_pushButton_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Select DTB"), "/Devel/NOVAsom_SDK/DtbUserWorkArea",tr("DTB (*.dtb)"));
+    if (fileName.isEmpty())
+        return;
+    else
+    {
+        ui->UserDTBSelectedlineEdit->setText(fileName);
+        Last_P_UserDTB = ui->UserDTBSelectedlineEdit->text();
+        storeNOVAembed_ini();
+    }
+}
+
+/*
+ * extern  QString AutoRunSelected;
+extern  QString AutoRunFolder;
+*/
+
+void NOVAembed::on_UserAutoRun_checkBox_toggled(bool checked)
+{
+    if ( checked == true)
+    {
+        AutoRunSelected = "true";
+        ui->UserAutoRunSelect_pushButton->setEnabled(true);
+        ui->UserAutoRunSelectedlineEdit->setEnabled(true);
+    }
+    else
+    {
+        AutoRunSelected = "false";
+        ui->UserAutoRunSelect_pushButton->setEnabled(false);
+        ui->UserAutoRunSelectedlineEdit->setEnabled(false);
+    }
+    storeNOVAembed_ini();
+}
+
+void NOVAembed::on_UserAutoRunSelect_pushButton_clicked()
+{
+    QString directory = QFileDialog::getExistingDirectory(this, tr("Select the AutoRun folder"),"/Devel/NOVAsom_SDK",QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    ui->UserAutoRunSelectedlineEdit->setText(directory);
+    AutoRunFolder = directory;
+    storeNOVAembed_ini();
 }
 
 /*****************************************************************************************************************************************************************************************/

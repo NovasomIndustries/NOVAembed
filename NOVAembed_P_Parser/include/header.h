@@ -394,11 +394,11 @@
             >;\n\
         };\n\
         pinctrl_uart5: uart5grp {\n\
-                fsl,pins = <\n\
-                        MX6QDL_PAD_KEY_COL1__UART5_TX_DATA       0x1b0b1\n\
-                        MX6QDL_PAD_KEY_ROW1__UART5_RX_DATA       0x1b0b1\n\
-                        MX6QDL_PAD_KEY_ROW4__UART5_CTS_B	     0x1b0b1\n\
-                >;\n\
+            fsl,pins = <\n\
+                MX6QDL_PAD_KEY_COL1__UART5_TX_DATA       0x1b0b1\n\
+                MX6QDL_PAD_KEY_ROW1__UART5_RX_DATA       0x1b0b1\n\
+                MX6QDL_PAD_KEY_ROW4__UART5_CTS_B	     0x1b0b1\n\
+            >;\n\
         };\n\
         pinctrl_usdhc1: usdhc1grp {\n\
             fsl,pins = <\n\

@@ -23,7 +23,7 @@ char    file_name_in[256];
             fclose(fpin);
         }
     }
-    parse_iomux();
+    parse_special_iomux();
     store_dts_files(file_name_in);
     return 0;
 }

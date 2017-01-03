@@ -26,6 +26,8 @@ QString FileSystemConfigName = "";
 QString _Board_comboBox = "";
 QString Last_U_BSPFactoryFile = "";
 QString Last_P_BSPFactoryFile = "";
+QString P_UserDTB_Selected = "";
+QString Last_P_UserDTB = "";
 QString NumberOfUserPartitions = "-";
 QString UserPartition1Size = "1";
 QString UserPartition2Size = "1";
@@ -34,6 +36,8 @@ QString CurrentBSPF_Tab = "";
 QString CurrentVideo = "";
 QString HDMIVideo = "";
 QString LVDSVideo = "";
+QString AutoRunSelected = "";
+QString AutoRunFolder = "";
 
 
 extern  void storeNOVAembed_ini();
@@ -51,6 +55,7 @@ NOVAembed::NOVAembed(QWidget *parent) :
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly))
     {
+        qDebug() << "NOVAembed.ini not found";
         QMessageBox::information(this, tr("NOVAembed.ini"),"NOVAembed.ini not found. Creating a new one");
         if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings").exists() )
         {
@@ -74,15 +79,21 @@ NOVAembed::NOVAembed(QWidget *parent) :
         FileSystemConfigName = settings->value( strKeySettings + "FileSystemConfigName", "r").toString();
         _Board_comboBox = settings->value( strKeySettings + "Board_comboBox", "r").toString();
         Last_P_BSPFactoryFile = settings->value( strKeySettings + "Last_P_BSPFactoryFile", "r").toString();
+        P_UserDTB_Selected = settings->value( strKeySettings + "P_UserDTB_Selected", "r").toString();
+        Last_P_UserDTB = settings->value( strKeySettings + "Last_P_UserDTB", "r").toString();
         Last_U_BSPFactoryFile = settings->value( strKeySettings + "Last_U_BSPFactoryFile", "r").toString();
         NumberOfUserPartitions = settings->value( strKeySettings + "NumberOfUserPartitions", "r").toString();
         UserPartition1Size = settings->value( strKeySettings + "UserPartition1Size", "r").toString();
         UserPartition2Size = settings->value( strKeySettings + "UserPartition2Size", "r").toString();
         uSD_Device = settings->value( strKeySettings + "uSD_Device", "r").toString();
         CurrentBSPF_Tab = settings->value( strKeySettings + "CurrentBSPF_Tab", "r").toString();
+        CurrentVideo = settings->value( strKeySettings + "CurrentVideo", "r").toString();
         HDMIVideo = settings->value( strKeySettings + "HDMIVideo", "r").toString();
         LVDSVideo = settings->value( strKeySettings + "LVDSVideo", "r").toString();
+        AutoRunSelected = settings->value( strKeySettings + "AutoRunSelected", "r").toString();
+        AutoRunFolder = settings->value( strKeySettings + "AutoRunFolder", "r").toString();
     }
+    qDebug() << "Last_P_UserDTB "+Last_P_UserDTB;
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf").exists() )
     {
         qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf";
@@ -179,14 +190,18 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("Board_comboBox="+_Board_comboBox+"\n");
     out << QString("Last_U_BSPFactoryFile="+Last_U_BSPFactoryFile+"\n");
     out << QString("Last_P_BSPFactoryFile="+Last_P_BSPFactoryFile+"\n");
+    out << QString("P_UserDTB_Selected="+P_UserDTB_Selected+"\n");
+    out << QString("Last_P_UserDTB="+Last_P_UserDTB+"\n");
     out << QString("NumberOfUserPartitions="+NumberOfUserPartitions+"\n");
     out << QString("UserPartition1Size="+UserPartition1Size+"\n");
     out << QString("UserPartition2Size="+UserPartition2Size+"\n");
     out << QString("uSD_Device="+uSD_Device+"\n");
+    out << QString("AutoRunSelected="+AutoRunSelected+"\n");
+    out << QString("AutoRunFolder="+AutoRunFolder+"\n");
     out << QString("CurrentBSPF_Tab="+CurrentBSPF_Tab+"\n");
+    out << QString("CurrentVideo="+CurrentVideo+"\n");
     out << QString("HDMIVideo="+HDMIVideo+"\n");
     out << QString("LVDSVideo="+LVDSVideo+"\n");
-
     file.close();
 }
 
@@ -318,6 +333,41 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->REFERENCE_SERVER_label->setEnabled(false);
         ui->REFERENCE_SERVER_lineEdit->setEnabled(false);
         ui->ThisIsReferenceServer_checkBox->setChecked(true);
+
+        if (P_UserDTB_Selected == "true")
+        {
+            ui->UserDTB_checkBox->setChecked(true);
+            ui->UserDTBSelect_pushButton->setEnabled(true);
+            ui->UserDTBSelectedlineEdit->setEnabled(true);
+            ui->UserDTBSelectedlineEdit->setText(Last_P_UserDTB);
+            ui->Video_comboBox->setEnabled(false);
+            ui->VideoVisible_label->setEnabled(false);
+            ui->UserDTBSelectedlineEdit->setText(Last_P_UserDTB);
+        }
+        else
+        {
+            ui->UserDTB_checkBox->setChecked(false);
+            ui->UserDTBSelect_pushButton->setEnabled(false);
+            ui->UserDTBSelectedlineEdit->setEnabled(false);
+            ui->Video_comboBox->setEnabled(true);
+            ui->VideoVisible_label->setEnabled(true);
+            ui->UserDTBSelectedlineEdit->setText(Last_P_UserDTB);
+        }
+
+        if ( AutoRunSelected == "true" )
+        {
+            ui->UserAutoRun_checkBox->setChecked(true);
+            ui->UserAutoRunSelect_pushButton->setEnabled(true);
+            ui->UserAutoRunSelectedlineEdit->setEnabled(true);
+            ui->UserAutoRunSelectedlineEdit->setText(AutoRunFolder);
+        }
+        else
+        {
+            ui->UserAutoRun_checkBox->setChecked(false);
+            ui->UserAutoRunSelect_pushButton->setEnabled(false);
+            ui->UserAutoRunSelectedlineEdit->setEnabled(false);
+            ui->UserAutoRunSelectedlineEdit->setText(AutoRunFolder);
+        }
 
 
         update_status_bar("BKF");
@@ -471,5 +521,6 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
     else
         update_status_bar("Update error");
 }
+
 
 

@@ -590,7 +590,7 @@ char *t1;
 }
 
 
-void parse_iomux(void)
+void parse_special_iomux(void)
 {
     iomux = calloc(1,sizeof(iomux_cfg));
     /* Set system peripherals */
@@ -601,6 +601,7 @@ void parse_iomux(void)
     if ( strstr(file_contents,"P_ECSPI1_MISO_comboBox=AUD4_TXFS"))
     {
         iomux->audio4 = 1;
+        printf("%s : Found\n",__func__);
         process_audio4();
     }
     if ( strstr(file_contents,"P_ECSPI1_MISO_comboBox=ECSPI1_MISO"))
@@ -771,6 +772,5 @@ void parse_iomux(void)
         sprintf(iomux->video,"HDMI1920x1080");
     if ( strstr(file_contents,"defaultVideo_comboBox=HDMI 1280x720"))
         sprintf(iomux->video,"HDMI1280x720");
-
 }
 

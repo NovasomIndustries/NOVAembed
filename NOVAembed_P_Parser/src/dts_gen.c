@@ -5,8 +5,8 @@ char    dtsfile_dump[512];
 char    dtsifile_dump[16384];
 char    file_name[32],file_name_noext[32],dir_name[256];
 char    file_name_dts[128],file_name_dtsi[128];
-
-
+char    hog[1024];
+char    gpio_hogs[2048];
 
 void create_dts_file(void)
 {
@@ -21,37 +21,6 @@ char    tstr[128];
         fwrite(dtsfile_dump, strlen(dtsfile_dump), 1, fpout_dts);
         fclose(fpout_dts);
     }
-}
-
-void process_hogs(void)
-{
-char    hogs[1024];
-char    t[128];
-    sprintf(hogs,"        pinctrl_hog: hoggrp {\n");
-    strcat (hogs,"            fsl,pins = <\n");
-    if ( clk32k != NULL)
-    {
-        sprintf(t,"                %s 0x%s\n",clk32k->hog_pin_name,clk32k->pin_config[0]);
-        strcat (hogs,t);
-    }
-    if ( clk24m != NULL)
-    {
-        sprintf(t,"                %s 0x%s\n",clk24m->hog_pin_name,clk24m->pin_config[0]);
-        strcat (hogs,t);
-    }
-    if ( ccm_clko1 != NULL)
-    {
-        sprintf(t,"                %s 0x%s\n",ccm_clko1->hog_pin_name,ccm_clko1->pin_config[0]);
-        strcat (hogs,t);
-    }
-    if ( wdog != NULL)
-    {
-        sprintf(t,"                %s 0x%s\n",wdog->hog_pin_name,wdog->pin_config[0]);
-        strcat (hogs,t);
-    }
-    strcat (hogs,"          >;\n");
-    strcat (hogs,"        };\n");
-    strcat(dtsifile_dump,hogs);
 }
 
 void process_sf(void)
@@ -420,9 +389,7 @@ char    t[128];
     sprintf (sf,"    };\n");
     strcat (sf," };\n");
     strcat(dtsifile_dump,sf);
-
 }
-
 
 void process_special_devs(void)
 {
@@ -532,6 +499,127 @@ char    ldb[1024];
     strcat(dtsifile_dump,ldb);
 }
 
+void process_special_hogs(void)
+{
+char    t[128];
+    sprintf(hog,"        pinctrl_hog: hoggrp {\n");
+    strcat (hog,"            fsl,pins = <\n");
+    if ( clk32k != NULL)
+    {
+        sprintf(t,"                %s 0x%s\n",clk32k->hog_pin_name,clk32k->pin_config[0]);
+        strcat (hog,t);
+    }
+    if ( clk24m != NULL)
+    {
+        sprintf(t,"                %s 0x%s\n",clk24m->hog_pin_name,clk24m->pin_config[0]);
+        strcat (hog,t);
+    }
+    if ( ccm_clko1 != NULL)
+    {
+        sprintf(t,"                %s 0x%s\n",ccm_clko1->hog_pin_name,ccm_clko1->pin_config[0]);
+        strcat (hog,t);
+    }
+    if ( wdog != NULL)
+    {
+        sprintf(t,"                %s 0x%s\n",wdog->hog_pin_name,wdog->pin_config[0]);
+        strcat (hog,t);
+    }
+}
+
+char *generate_hog_gpio( char *combobox_string , char *pin_name_string)
+{
+char    *tdest;
+char    *cbit_string,*dup_string;
+char    *tsource,t1[128];
+
+    dup_string = strdup(combobox_string);
+    cbit_string = strsep(&dup_string,"comboBox=");
+    strcat(cbit_string,"cbit=");
+    tdest = calloc(1,32);
+    if ( strstr(file_contents,combobox_string))
+    {
+        if ((tsource = strstr(file_contents,cbit_string)))
+        {
+            copy_and_resize(t1,tsource+strlen(cbit_string),8);
+            sprintf(tdest,"                %s 0x%s\n",pin_name_string,t1);
+            return tdest;
+        }
+    }
+    sprintf(tdest,"-");
+    return tdest;
+}
+
+gpio_support    gpios[] =
+{
+    { "P_ECSPI1_MISO_comboBox=GPIO5_IO16"  , "MX6QDL_PAD_DISP0_DAT22__GPIO5_IO16" },
+    { "P_ECSPI1_MOSI_comboBox=GPIO5_IO15"  , "MX6QDL_PAD_DISP0_DAT21__GPIO5_IO15" },
+    { "P_ECSPI1_SS0_comboBox=GPIO5_IO17"   , "MX6QDL_PAD_DISP0_DAT23__GPIO5_IO17" },
+    { "P_ECSPI1_SCK_comboBox=GPIO5_IO14"   , "MX6QDL_PAD_DISP0_DAT20__GPIO5_IO14" },
+    { "P_ECSPI2_SS1_comboBox=GPIO5_IO09"   , "MX6QDL_PAD_DISP0_DAT15__GPIO5_IO09" },
+    { "P_ECSPI2_MISO_comboBox=GPIO5_IO11"  , "MX6QDL_PAD_DISP0_DAT17__GPIO5_IO11" },
+    { "P_ECSPI2_MOSI_comboBox=GPIO5_IO10"  , "MX6QDL_PAD_DISP0_DAT16__GPIO5_IO10" },
+    { "P_ECSPI2_SCK_comboBox=GPIO5_IO13"   , "MX6QDL_PAD_DISP0_DAT19__GPIO5_IO13" },
+    { "P_ECSPI3_MISO_comboBox=GPIO4_IO23"  , "MX6QDL_PAD_DISP0_DAT2__GPIO4_IO23 " },
+    { "P_ECSPI3_SCK_comboBox=GPIO4_IO21"   , "MX6QDL_PAD_DISP0_DAT0__GPIO4_IO21 " },
+    { "P_ECSPI3_MOSI_comboBox=GPIO4_IO22"  , "MX6QDL_PAD_DISP0_DAT1__GPIO4_IO22 " },
+    { "P_ECSPI3_SS0_comboBox=GPIO4_IO24"   , "MX6QDL_PAD_DISP0_DAT3__GPIO4_IO24 " },
+    { "P_ECSPI3_SS1_comboBox=GPIO4_IO25"   , "MX6QDL_PAD_DISP0_DAT4__GPIO4_IO25 " },
+    { "P_ECSPI4_MISO_comboBox=GPIO3_IO22"  , "MX6QDL_PAD_EIM_D22__GPIO3_IO22    " },
+    { "P_ECSPI4_MOSI_comboBox=GPIO3_IO28"  , "MX6QDL_PAD_EIM_D28__GPIO3_IO28    " },
+    { "P_ECSPI4_SCK_comboBox=GPIO3_IO21"   , "MX6QDL_PAD_EIM_D21__GPIO3_IO21    " },
+    { "P_ECSPI4_SS0_comboBox=GPIO3_IO29"   , "MX6QDL_PAD_EIM_D29__GPIO3_IO29    " },
+    { "P_I2C3_SCL_comboBox=GPIO3_IO17"     , "MX6QDL_PAD_EIM_D17__GPIO3_IO17    " },
+    { "P_I2C3_SDA_comboBox=GPIO3_IO18"     , "MX6QDL_PAD_EIM_D18__GPIO3_IO18    " },
+    { "P_KHZ32_CLK_OUT_comboBox=GPIO1_IO08", "MX6QDL_PAD_GPIO_8__GPIO1_IO08     " },
+    { "P_SD3_CMD_comboBox=GPIO7_IO02"      , "MX6QDL_PAD_SD3_CMD__GPIO7_IO02    " },
+    { "P_SD3_CLK_comboBox=GPIO7_IO03"      , "MX6QDL_PAD_SD3_CLK__GPIO7_IO03    " },
+    { "P_SD3_DATA0_comboBox=GPIO7_IO04"    , "MX6QDL_PAD_SD3_DAT0__GPIO7_IO04   " },
+    { "P_SD3_DATA1_comboBox=GPIO7_IO05"    , "MX6QDL_PAD_SD3_DAT1__GPIO7_IO05   " },
+    { "P_SD3_DATA2_comboBox=GPIO7_IO06"    , "MX6QDL_PAD_SD3_DAT2__GPIO7_IO06   " },
+    { "P_SD3_DATA3_comboBox=GPIO7_IO07"    , "MX6QDL_PAD_SD3_DAT3__GPIO7_IO07   " },
+    { "P_SD3_DATA4_comboBox=GPIO7_IO01"    , "MX6QDL_PAD_SD3_DAT4__GPIO7_IO01   " },
+    { "P_SD3_DATA5_comboBox=GPIO7_IO00"    , "MX6QDL_PAD_SD3_DAT5__GPIO7_IO00   " },
+    { "P_SD3_DATA6_comboBox=GPIO6_IO18"    , "MX6QDL_PAD_SD3_DAT6__GPIO6_IO18   " },
+    { "P_SD3_DATA7_comboBox=GPIO6_IO17"    , "MX6QDL_PAD_SD3_DAT7__GPIO6_IO17   " },
+    { "P_GPIO3_IO20_comboBox=GPIO3_IO20"   , "MX6QDL_PAD_EIM_D20__GPIO3_IO20    " },
+    { "P_GPIO1_IO00_comboBox=GPIO1_IO00"   , "MX6QDL_PAD_GPIO_0__GPIO1_IO00     " },
+    { "P_GPIO4_IO29_comboBox=GPIO4_IO29"   , "MX6QDL_PAD_DISP0_DAT8__GPIO4_IO29 " },
+    { "P_AUD6_TXD_comboBox=GPIO4_IO18"     , "MX6QDL_PAD_DI0_PIN2__GPIO4_IO18   " },
+    { "P_AUD6_TXFS_comboBox=GPIO4_IO19"    , "MX6QDL_PAD_DI0_PIN3__GPIO4_IO19   " },
+    { "P_AUD6_RXD_comboBox=GPIO4_IO20"     , "MX6QDL_PAD_DI0_PIN4__GPIO4_IO20   " },
+    { "P_AUD6_TXC_comboBox=GPIO4_IO17"     , "MX6QDL_PAD_DI0_PIN15__GPIO4_IO17  " },
+    { "P_I2C1_SDA_comboBox=GPIO5_IO26"     , "MX6QDL_PAD_CSI0_DAT8__GPIO5_IO26  " },
+    { "P_I2C1_SCL_comboBox=GPIO5_IO27"     , "MX6QDL_PAD_CSI0_DAT9__GPIO5_IO27  " },
+    { "P_UART1_TXD_comboBox=GPIO5_IO28"    , "MX6QDL_PAD_CSI0_DAT10__GPIO5_IO28 " },
+    { "P_UART1_RXD_comboBox=GPIO5_IO29"    , "MX6QDL_PAD_CSI0_DAT11__GPIO5_IO29 " },
+    { "P_SPDIF_OUT_comboBox=GPIO7_IO12"    , "MX6QDL_PAD_GPIO_17__GPIO7_IO12    " },
+    { "P_UART4_RTS_L_comboBox=GPIO6_IO02"  , "MX6QDL_PAD_CSI0_DAT16__GPIO6_IO02 " },
+    { "P_UART4_TXD_comboBox=GPIO5_IO30"    , "MX6QDL_PAD_CSI0_DAT12__GPIO5_IO30 " },
+    { "P_UART4_RXD_comboBox=GPIO5_IO31"    , "MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31 " },
+    { "P_UART4_CTS_L_comboBox=GPIO6_IO03"  , "MX6QDL_PAD_CSI0_DAT17__GPIO6_IO03 " },
+    { "last_string" , },
+};
+
+void process_gpio_hogs(void)
+{
+int    i = 0 , gpio_counter=0;
+char * gen;
+    while( strcmp(gpios[i].combobox_string,"last_string") != 0 )
+    {
+        gen = generate_hog_gpio(gpios[i].combobox_string,gpios[i].pin_name_string);
+        if ( strlen(gen) > 1 )
+        {
+            strcat (hog,gen);
+            gpio_counter++;
+        }
+        i++;
+    }
+    strcat (hog,"          >;\n");
+    strcat (hog,"        };\n");
+    strcat (dtsifile_dump,hog);
+    printf("Found %d gpios, initialized as hogs\n",gpio_counter);
+}
+
 void create_dtsi_file(void)
 {
 FILE    *fpout_dtsi;
@@ -540,7 +628,8 @@ FILE    *fpout_dtsi;
     process_videos_header();
     strcat(dtsifile_dump,dtsi_header2_defs);
     strcat(dtsifile_dump,iomux_defs);
-    process_hogs();
+    process_special_hogs();
+    process_gpio_hogs();
     process_sf();
     process_special_devs();
     process_lvds_channels();

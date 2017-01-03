@@ -181,21 +181,22 @@ typedef struct _iomux_hog
     char pin_config[1][9];
 } iomux_hog;
 
-typedef struct _iomux_gpio
+
+typedef struct _gpio_support
 {
-    char pinctrl0_name[PIN_NAME_SIZE];
-    char grp_name[PIN_NAME_SIZE];
-    char gpio_pin_name[PIN_NAME_SIZE];
-    char pin_config[1][9];
-} iomux_gpio;
+    char combobox_string[PIN_NAME_SIZE];
+    char pin_name_string[PIN_NAME_SIZE];
+} gpio_support;
 
 extern  char        file_contents[8192];
 extern  iomux_cfg   *iomux;
+extern  char        special_hogs[1024];
+extern  char        gpio_hogs[2048];
 
-
-extern  void parse_iomux(void);
+extern  void parse_special_iomux(void);
 extern  void dump_iomux(void);
 extern  void store_dts_files(char *file_in);
+extern  void copy_and_resize(char *dest,char *source,int useless_int);
 
 extern  iomux_cfg       *iomux;
 extern  iomux_audio     *audio4,*audio5,*audio6;

@@ -24,7 +24,6 @@ QString FileNameNoExtension;
 
 void NOVAembed::on_P_Load_pushButton_clicked()
 {
-
     QString fileName = QFileDialog::getOpenFileName(this,tr("Load BSP Factory File"), "/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf",tr("BSP Factory Files (*.bspf)"));
     if (fileName.isEmpty())
         return;
