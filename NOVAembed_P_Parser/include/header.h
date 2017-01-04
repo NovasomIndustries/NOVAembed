@@ -156,7 +156,98 @@
     };\n\
 "
 
-#define dtsi_header_video_defs "\
+#define dtsi_header_hdmivideo1920_mxcfb1_defs "\
+    mxcfb1: fb@0 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"hdmi\";\n\
+            interface_pix_fmt = \"RGB24\";\n\
+            mode_str =\"1920x1080M@60\";\n\
+            default_bpp = <24>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+"
+#define dtsi_header_hdmivideo1280_mxcfb1_defs "\
+    mxcfb1: fb@0 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"hdmi\";\n\
+            interface_pix_fmt = \"RGB24\";\n\
+            mode_str =\"1280x720M@60\";\n\
+            default_bpp = <24>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+"
+
+#define dtsi_header_hdmivideo1920_mxcfb2_defs "\
+    mxcfb2: fb@1 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"hdmi\";\n\
+            interface_pix_fmt = \"RGB24\";\n\
+            mode_str =\"1920x1080M@60\";\n\
+            default_bpp = <24>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+"
+
+#define dtsi_header_hdmivideo1280_mxcfb2_defs "\
+    mxcfb2: fb@1 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"hdmi\";\n\
+            interface_pix_fmt = \"RGB24\";\n\
+            mode_str =\"1280x720M@60\";\n\
+            default_bpp = <24>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+"
+
+#define dtsi_header_lvdsvideo_mxcfb1_defs "\
+    mxcfb1: fb@0 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB666\";\n\
+            default_bpp = <24>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+"
+#define dtsi_header_lvdsvideo_mxcfb2_defs "\
+    mxcfb2: fb@1 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB666\";\n\
+            default_bpp = <24>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+"
+#define dtsi_header_lvdsvideo_mxcfb3_defs "\
+    mxcfb3: fb@2 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB666\";\n\
+            default_bpp = <24>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+"
+
+#define dtsi_footer_video_defs "\
+};\n\
+"
+
+
+/*
+#define dtsi_header_hdmivideo1920_defs "\
     mxcfb1: fb@0 {\n\
             compatible = \"fsl,mxc_sdc_fb\";\n\
             disp_dev = \"hdmi\";\n\
@@ -174,7 +265,7 @@
             default_bpp = <16>;\n\
             int_clk = <0>;\n\
             late_init = <0>;\n\
-            status = \"disabled\";\n\
+            status = \"okay\";\n\
     };\n\
     mxcfb3: fb@2 {\n\
             compatible = \"fsl,mxc_sdc_fb\";\n\
@@ -187,6 +278,70 @@
     };\n\
 };\n\
 "
+
+#define dtsi_header_hdmivideo1280_defs "\
+    mxcfb1: fb@0 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"hdmi\";\n\
+            interface_pix_fmt = \"RGB24\";\n\
+            mode_str =\"1280x720M@60\";\n\
+            default_bpp = <24>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+    mxcfb2: fb@1 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB666\";\n\
+            default_bpp = <16>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+    mxcfb3: fb@2 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB666\";\n\
+            default_bpp = <16>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"disabled\";\n\
+    };\n\
+};\n\
+"
+#define dtsi_header_lvdsvideo_defs "\
+    mxcfb1: fb@0 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB666\";\n\
+            default_bpp = <24>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+    mxcfb2: fb@1 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB666\";\n\
+            default_bpp = <16>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+    mxcfb3: fb@2 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB666\";\n\
+            default_bpp = <16>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"disabled\";\n\
+    };\n\
+};\n\
+"
+*/
+
 
 #define dtsi_header2_defs "\
 &fec {\n\

@@ -552,22 +552,32 @@ char    t[1024];
 void process_videos_header(void)
 {
 char    mxcfb[1024];
-    sprintf(mxcfb,"    mxcfb1: fb@0 {\n            compatible = \"fsl,mxc_sdc_fb\";\n            disp_dev = \"hdmi\";\n            interface_pix_fmt = \"RGB24\";\n");
-    if (strstr(file_contents,"HDMIVideo_comboBox=HDMI 1920x1080"))
-        strcat(mxcfb,"            mode_str =\"1920x1080M@60\";\n");
-    else
-        strcat(mxcfb,"            mode_str =\"1280x720M@60\";\n");
-    strcat(mxcfb,"            default_bpp = <24>;\n            int_clk = <0>;\n            late_init = <0>;\n            status = \"okay\";\n    };\n");
-    strcat(dtsifile_dump,mxcfb);
 
-    sprintf(mxcfb,"    mxcfb2: fb@1 {\n            compatible = \"fsl,mxc_sdc_fb\";\n            disp_dev = \"ldb\";\n");
-    strcat(mxcfb,"            interface_pix_fmt = \"RGB666\";\n");
-    strcat(mxcfb,"            default_bpp = <16>;\n            int_clk = <0>;\n            late_init = <0>;\n            status = \"disabled\";\n    };\n");
-    strcat(dtsifile_dump,mxcfb);
+    if (strstr(file_contents,"PrimaryVideo_comboBox=HDMI"))
+    {
+        if (strstr(file_contents,"PrimaryVideo_comboBox=HDMI 1920x1080"))
+            sprintf(mxcfb,dtsi_header_hdmivideo1920_mxcfb1_defs);
+        else
+            sprintf(mxcfb,dtsi_header_hdmivideo1280_mxcfb1_defs);
+        strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb2_defs);
+        strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb3_defs);
+    }
 
-    sprintf(mxcfb,"    mxcfb3: fb@2 {\n            compatible = \"fsl,mxc_sdc_fb\";\n            disp_dev = \"ldb\";\n");
-    strcat(mxcfb,"            interface_pix_fmt = \"RGB666\";\n");
-    strcat(mxcfb,"            default_bpp = <16>;\n            int_clk = <0>;\n            late_init = <0>;\n            status = \"disabled\";\n    };\n};\n");
+    if (strstr(file_contents,"PrimaryVideo_comboBox=LVDS"))
+    {
+        sprintf(mxcfb,dtsi_header_lvdsvideo_mxcfb1_defs);
+        if (strstr(file_contents,"SecondaryVideo_comboBox=HDMI"))
+        {
+            if (strstr(file_contents,"SecondaryVideo_comboBox=HDMI 1920x1080"))
+                strcat(mxcfb,dtsi_header_hdmivideo1920_mxcfb2_defs);
+            else
+                strcat(mxcfb,dtsi_header_hdmivideo1280_mxcfb2_defs);
+        }
+        else
+            strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb2_defs);
+        strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb3_defs);
+    }
+    strcat(mxcfb,dtsi_footer_video_defs);
     strcat(dtsifile_dump,mxcfb);
 }
 
@@ -576,22 +586,22 @@ void process_lvds_channels(void)
 char    ldb[2048];
 
     sprintf(ldb,dtsi_lvds_header_defs);
-    if (strstr(file_contents,"LVDSVideo_comboBox=LVDS 800x480"))
+    if (strstr(file_contents,"Video_comboBox=LVDS 800x480"))
     {
         strcat(ldb,lvds_800x480_ch0_parserinput);
         strcat(ldb,lvds_800x480_ch1_parserinput);
     }
-    if (strstr(file_contents,"LVDSVideo_comboBox=LVDS 800x600"))
+    if (strstr(file_contents,"Video_comboBox=LVDS 800x600"))
     {
         strcat(ldb,lvds_800x600_ch0_parserinput);
         strcat(ldb,lvds_800x600_ch1_parserinput);
     }
-    if (strstr(file_contents,"LVDSVideo_comboBox=LVDS 1024x600"))
+    if (strstr(file_contents,"Video_comboBox=LVDS 1024x600"))
     {
         strcat(ldb,lvds_1024x600_ch0_parserinput);
         strcat(ldb,lvds_1024x600_ch1_parserinput);
     }
-    if (strstr(file_contents,"LVDSVideo_comboBox=LVDS 1024x768"))
+    if (strstr(file_contents,"Video_comboBox=LVDS 1024x768"))
     {
         strcat(ldb,lvds_1024x768_ch0_parserinput);
         strcat(ldb,lvds_1024x768_ch1_parserinput);

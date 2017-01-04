@@ -441,6 +441,55 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
 
     }
 
+
+    if ( ui->Video_comboBox->currentText() == "HDMI 1920x1080 ( FHD )")
+    {
+        NOVAsomParamsName = "NOVAsomParams_HDMI_1920x1080";
+        sdl_dtb=sdl_dtb+"_hdmi_1920x1080.dtb";
+        q_dtb=q_dtb+"_hdmi_1920x1080.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "HDMI 1280x720 ( HD )")
+    {
+        NOVAsomParamsName = "NOVAsomParams_HDMI_1280x720";
+        sdl_dtb=sdl_dtb+"_hdmi_1280x720.dtb";
+        q_dtb=q_dtb+"_hdmi_1280x720.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "LVDS 1920x1080 ( Dual Channel FHD )")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_1920x10802CH";
+        sdl_dtb=sdl_dtb+"_lvds_1920x1080.dtb";
+        q_dtb=q_dtb+"_lvds_1920x1080.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "LVDS 1366x768")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_1366x768";
+        sdl_dtb=sdl_dtb+"_lvds_1366x768.dtb";
+        q_dtb=q_dtb+"_lvds_1366x768.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "LVDS 1024x768")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_1024x768";
+        sdl_dtb=sdl_dtb+"_lvds_1024x768.dtb";
+        q_dtb=q_dtb+"_lvds_1024x768.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "LVDS 1024x600")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_1024x600";
+        sdl_dtb=sdl_dtb+"_lvds_1024x600.dtb";
+        q_dtb=q_dtb+"_lvds_1024x600.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "LVDS 800x600")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_800x600";
+        sdl_dtb=sdl_dtb+"_lvds_800x600.dtb";
+        q_dtb=q_dtb+"_lvds_800x600.dtb";
+    }
+    if ( ui->Video_comboBox->currentText() == "LVDS 800x480")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_800x480";
+        sdl_dtb=sdl_dtb+"_lvds_800x480.dtb";
+        q_dtb=q_dtb+"_lvds_800x480.dtb";
+    }
     if ( ui->UserDTB_checkBox->isChecked())
     {
         UserEnabled = "user";
@@ -448,61 +497,8 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
         sdl_dtb = fi.baseName()+".dtb";
         q_dtb = fi.baseName()+".dtb";
     }
-    else
-    {
-        if ( ui->Video_comboBox->currentText() == "HDMI 1920x1080 ( FHD )")
-        {
-            NOVAsomParamsName = "NOVAsomParams_HDMI_1920x1080";
-            sdl_dtb=sdl_dtb+"_hdmi_1920x1080.dtb";
-            q_dtb=q_dtb+"_hdmi_1920x1080.dtb";
-        }
-        if ( ui->Video_comboBox->currentText() == "HDMI 1280x720 ( HD )")
-        {
-            NOVAsomParamsName = "NOVAsomParams_HDMI_1280x720";
-            sdl_dtb=sdl_dtb+"_hdmi_1280x720.dtb";
-            q_dtb=q_dtb+"_hdmi_1280x720.dtb";
-        }
-        if ( ui->Video_comboBox->currentText() == "LVDS 1920x1080 ( Dual Channel FHD )")
-        {
-            NOVAsomParamsName = "NOVAsomParams_LVDS_1920x10802CH";
-            sdl_dtb=sdl_dtb+"_lvds_1920x1080.dtb";
-            q_dtb=q_dtb+"_lvds_1920x1080.dtb";
-        }
-        if ( ui->Video_comboBox->currentText() == "LVDS 1366x768")
-        {
-            NOVAsomParamsName = "NOVAsomParams_LVDS_1366x768";
-            sdl_dtb=sdl_dtb+"_lvds_1366x768.dtb";
-            q_dtb=q_dtb+"_lvds_1366x768.dtb";
-        }
-        if ( ui->Video_comboBox->currentText() == "LVDS 1024x768")
-        {
-            NOVAsomParamsName = "NOVAsomParams_LVDS_1024x768";
-            sdl_dtb=sdl_dtb+"_lvds_1024x768.dtb";
-            q_dtb=q_dtb+"_lvds_1024x768.dtb";
-        }
-        if ( ui->Video_comboBox->currentText() == "LVDS 1024x600")
-        {
-            NOVAsomParamsName = "NOVAsomParams_LVDS_1024x600";
-            sdl_dtb=sdl_dtb+"_lvds_1024x600.dtb";
-            q_dtb=q_dtb+"_lvds_1024x600.dtb";
-        }
-        if ( ui->Video_comboBox->currentText() == "LVDS 800x600")
-        {
-            NOVAsomParamsName = "NOVAsomParams_LVDS_800x600";
-            sdl_dtb=sdl_dtb+"_lvds_800x600.dtb";
-            q_dtb=q_dtb+"_lvds_800x600.dtb";
-        }
-        if ( ui->Video_comboBox->currentText() == "LVDS 800x480")
-        {
-            NOVAsomParamsName = "NOVAsomParams_LVDS_800x480";
-            sdl_dtb=sdl_dtb+"_lvds_800x480.dtb";
-            q_dtb=q_dtb+"_lvds_800x480.dtb";
-        }
-    }
 
-
-
-
+    //qDebug() << "ui->Video_comboBox->currentText() : "+ui->Video_comboBox->currentText()+" NOVAsomParamsName : " +NOVAsomParamsName;
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
@@ -511,6 +507,7 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" "+ UserEnabled +"> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
     out << QString("echo $? > /tmp/result\n");
     scriptfile.close();
+
     if ( run_script() == 0)
     {
         update_status_bar("uSD successfully written, file system is "+FileSystemName);
@@ -592,16 +589,12 @@ void NOVAembed::on_UserDTB_checkBox_toggled(bool checked)
         ui->UserDTBSelectedlineEdit->setEnabled(true);
         ui->UserDTBSelect_pushButton->setEnabled(true);
         P_UserDTB_Selected = "true";
-        ui->Video_comboBox->setEnabled(false);
-        ui->VideoVisible_label->setEnabled(false);
     }
     else
     {
         ui->UserDTBSelectedlineEdit->setEnabled(false);
         ui->UserDTBSelect_pushButton->setEnabled(false);
         P_UserDTB_Selected = "false";
-        ui->Video_comboBox->setEnabled(true);
-        ui->VideoVisible_label->setEnabled(true);
     }
     storeNOVAembed_ini();
 }

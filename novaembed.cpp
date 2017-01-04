@@ -29,7 +29,8 @@ QString Last_P_BSPFactoryFile = "";
 QString P_UserDTB_Selected = "";
 QString Last_P_UserDTB = "";
 QString Quad = "";
-QString CfgBitDefualtValue = "0x00017059";
+QString CfgBitDefaultValueDefault = "0x00017059";
+QString CfgBitDefaultValue = "0x00017059";
 QString NumberOfUserPartitions = "-";
 QString UserPartition1Size = "1";
 QString UserPartition2Size = "1";
@@ -108,7 +109,9 @@ QString linux_version="linux-imx_4.1.15_1.2.0_ga";
         Last_P_BSPFactoryFile = settings->value( strKeySettings + "Last_P_BSPFactoryFile", "r").toString();
         P_UserDTB_Selected = settings->value( strKeySettings + "P_UserDTB_Selected", "r").toString();
         Last_P_UserDTB = settings->value( strKeySettings + "Last_P_UserDTB", "r").toString();
-        CfgBitDefualtValue = settings->value( strKeySettings + "CfgBitDefualtValue", "r").toString();
+        CfgBitDefaultValue = settings->value( strKeySettings + "CfgBitDefaultValue", "r").toString();
+        if ( CfgBitDefaultValue == "r" )
+             CfgBitDefaultValue = CfgBitDefaultValueDefault;
         Last_U_BSPFactoryFile = settings->value( strKeySettings + "Last_U_BSPFactoryFile", "r").toString();
         NumberOfUserPartitions = settings->value( strKeySettings + "NumberOfUserPartitions", "r").toString();
         UserPartition1Size = settings->value( strKeySettings + "UserPartition1Size", "r").toString();
@@ -217,7 +220,7 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("Board_comboBox="+_Board_comboBox+"\n");
     out << QString("Last_U_BSPFactoryFile="+Last_U_BSPFactoryFile+"\n");
     out << QString("Last_P_BSPFactoryFile="+Last_P_BSPFactoryFile+"\n");
-    out << QString("CfgBitDefualtValue="+CfgBitDefualtValue+"\n");
+    out << QString("CfgBitDefaultValue="+CfgBitDefaultValue+"\n");
     out << QString("P_UserDTB_Selected="+P_UserDTB_Selected+"\n");
     out << QString("Last_P_UserDTB="+Last_P_UserDTB+"\n");
     out << QString("NumberOfUserPartitions="+NumberOfUserPartitions+"\n");
@@ -367,8 +370,6 @@ void NOVAembed::on_tab_currentChanged(int index)
             ui->UserDTBSelect_pushButton->setEnabled(true);
             ui->UserDTBSelectedlineEdit->setEnabled(true);
             ui->UserDTBSelectedlineEdit->setText(Last_P_UserDTB);
-            ui->Video_comboBox->setEnabled(false);
-            ui->VideoVisible_label->setEnabled(false);
             ui->UserDTBSelectedlineEdit->setText(Last_P_UserDTB);
         }
         else
@@ -376,8 +377,6 @@ void NOVAembed::on_tab_currentChanged(int index)
             ui->UserDTB_checkBox->setChecked(false);
             ui->UserDTBSelect_pushButton->setEnabled(false);
             ui->UserDTBSelectedlineEdit->setEnabled(false);
-            ui->Video_comboBox->setEnabled(true);
-            ui->VideoVisible_label->setEnabled(true);
             ui->UserDTBSelectedlineEdit->setText(Last_P_UserDTB);
         }
 
@@ -440,7 +439,7 @@ void NOVAembed::on_tab_currentChanged(int index)
             ui->P_DSE_Disable_checkBox->setEnabled(false);
             ui->P_HYS_PAD_CTL_checkBox->setEnabled(false);
             ui->P_NO_PAD_CTL_checkBox->setChecked(true);
-            ui->P_Default_lineEdit->setText(CfgBitDefualtValue);
+            ui->P_Default_lineEdit->setText(CfgBitDefaultValue);
 
             if ( Quad == "true")
             {
@@ -561,8 +560,4 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
     else
         update_status_bar("Update error");
 }
-
-
-
-
 

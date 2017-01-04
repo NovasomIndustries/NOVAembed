@@ -16,10 +16,9 @@
 extern  QString FileSystemName;
 extern  QString DeployedFileSystemName;
 extern  QString FileSystemConfigName;
-extern  QString CfgBitDefualtValue;
+extern  QString CfgBitDefaultValue;
 extern  QString _Board_comboBox;
 extern  QString Last_P_BSPFactoryFile;
-extern  QString HDMIVideo;
 extern  QString LVDSVideo;
 extern  QString Quad;
 
@@ -1042,8 +1041,8 @@ void NOVAembed::save_helper(QString fileName)
             out << QString("P_PCIe_checkBox=true\n");
         else
             out << QString("P_PCIe_checkBox=false\n");
-        out << QString("HDMIVideo_comboBox="+ui->P_HDMIVideo_comboBox->currentText()+"\n");
-        out << QString("LVDSVideo_comboBox="+ui->P_LVDSVideo_comboBox->currentText()+"\n");
+        out << QString("PrimaryVideo_comboBox="+ui->P_PrimaryVideo_comboBox->currentText()+"\n");
+        out << QString("SecondaryVideo_comboBox="+ui->P_SecondaryVideo_comboBox->currentText()+"\n");
         if ( Quad == "true")
             out << QString("Processor=QUAD\n");
         else
@@ -1130,60 +1129,60 @@ void NOVAembed::on_P_Save_pushButton_clicked()
 
 void NOVAembed::on_P_SetCFGbits_pushButton_clicked()
 {
-    CfgBitDefualtValue = ui->P_Default_lineEdit->text();
-    ui->P_ECSPI1_MISO_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI1_MOSI_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI1_SS0_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI1_SCK_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI2_SS0_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI2_SS1_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI2_MISO_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI2_MOSI_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI2_SCK_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI3_MISO_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI3_SCK_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI3_MOSI_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI3_SS0_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI3_SS1_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI4_MISO_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI4_MOSI_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI4_SCK_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_ECSPI4_SS0_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_I2C3_SCL_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_I2C3_SDA_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_KHZ32_CLK_OUT_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_SD3_CMD_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_SD3_CLK_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_SD3_DATA0_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_SD3_DATA1_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_SD3_DATA2_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_SD3_DATA3_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_SD3_DATA4_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_SD3_DATA5_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_SD3_DATA6_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_SD3_DATA7_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_GPIO3_IO19_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_GPIO3_IO20_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_GPIO1_IO00_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_GPIO4_IO14_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_GPIO4_IO26_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_GPIO4_IO27_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_GPIO4_IO28_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_GPIO4_IO29_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_GPIO6_IO05_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_AUD6_TXD_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_AUD6_RXD_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_AUD6_TXFS_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_AUD6_TXC_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_I2C1_SDA_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_I2C1_SCL_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_UART1_TXD_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_UART1_RXD_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_SPDIF_OUT_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_UART4_RTS_L_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_UART4_TXD_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_UART4_RXD_lineEdit->setText(CfgBitDefualtValue);
-    ui->P_UART4_CTS_L_lineEdit->setText(CfgBitDefualtValue);
+    CfgBitDefaultValue = ui->P_Default_lineEdit->text();
+    ui->P_ECSPI1_MISO_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI1_MOSI_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI1_SS0_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI1_SCK_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI2_SS0_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI2_SS1_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI2_MISO_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI2_MOSI_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI2_SCK_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI3_MISO_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI3_SCK_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI3_MOSI_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI3_SS0_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI3_SS1_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI4_MISO_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI4_MOSI_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI4_SCK_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_ECSPI4_SS0_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_I2C3_SCL_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_I2C3_SDA_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_KHZ32_CLK_OUT_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_SD3_CMD_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_SD3_CLK_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_SD3_DATA0_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_SD3_DATA1_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_SD3_DATA2_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_SD3_DATA3_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_SD3_DATA4_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_SD3_DATA5_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_SD3_DATA6_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_SD3_DATA7_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_GPIO3_IO19_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_GPIO3_IO20_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_GPIO1_IO00_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_GPIO4_IO14_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_GPIO4_IO26_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_GPIO4_IO27_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_GPIO4_IO28_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_GPIO4_IO29_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_GPIO6_IO05_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_AUD6_TXD_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_AUD6_RXD_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_AUD6_TXFS_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_AUD6_TXC_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_I2C1_SDA_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_I2C1_SCL_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_UART1_TXD_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_UART1_RXD_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_SPDIF_OUT_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_UART4_RTS_L_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_UART4_TXD_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_UART4_RXD_lineEdit->setText(CfgBitDefaultValue);
+    ui->P_UART4_CTS_L_lineEdit->setText(CfgBitDefaultValue);
     storeNOVAembed_ini();
 }
 
@@ -1238,8 +1237,8 @@ void NOVAembed::on_P_Default_pushButton_clicked()
     ui->P_UART4_CTS_L_comboBox->setCurrentIndex(0);
     ui->P_SATA_checkBox->setChecked(false);
     ui->P_PCIe_checkBox->setChecked(true);
-    ui->P_HDMIVideo_comboBox->setCurrentIndex(0);
-    ui->P_LVDSVideo_comboBox->setCurrentIndex(0);
+    ui->P_PrimaryVideo_comboBox->setCurrentIndex(0);
+    ui->P_SecondaryVideo_comboBox->setCurrentIndex(0);
 }
 
 QString P_getvalue(QString strKey, QSettings *settings , QString entry)
@@ -1314,8 +1313,9 @@ QSettings * func_settings = 0;
         ui->P_PCIe_checkBox->setChecked(true);
     else
         ui->P_PCIe_checkBox->setChecked(false);
-    ui->P_HDMIVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "HDMIVideo_comboBox"));
-    ui->P_LVDSVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "LVDSVideo_comboBox"));
+    ui->P_PrimaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "PrimaryVideo_comboBox"));
+    ui->P_SecondaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "SecondaryVideo_comboBox"));
+
 
     QString strKeyConf("P_CONF/");
     QSettings * conf_settings = 0;
