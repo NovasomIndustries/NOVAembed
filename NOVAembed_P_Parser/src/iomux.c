@@ -257,8 +257,8 @@ char *t1;
     can2 = calloc(1,sizeof(iomux_can));
     sprintf(can2->grp_name,"can2grp");
     sprintf(can2->pinctrl0_name,"pinctrl_can2");
-    sprintf(can2->cantx_pin_name,"MX6QDL_PAD_KEY_COL4__FLEXCAN2_TX");
-    sprintf(can2->canrx_pin_name,"MX6QDL_PAD_KEY_ROW4__FLEXCAN2_RX");
+    sprintf(can2->cantx_pin_name,"MX6QDL_PAD_SD3_DAT0__FLEXCAN2_TX");
+    sprintf(can2->canrx_pin_name,"MX6QDL_PAD_SD3_DAT1__FLEXCAN2_RX");
     if ((t1 = strstr(file_contents,"P_SD3_DATA0_cbit=")))
         copy_and_resize(can2->pin_config[0],t1+sizeof("P_SD3_DATA0_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA1_cbit=")))
@@ -573,10 +573,10 @@ char *t1;
     ecspi4 = calloc(1,sizeof(iomux_ecspi_4));
     sprintf(ecspi4->grp_name,"ecspi4grp");
     sprintf(ecspi4->pinctrl0_name,"pinctrl_ecspi4");
-    sprintf(ecspi4->mosi_pin_name,"MX6QDL_PAD_DISP0_DAT1__ECSPI3_MOSI");
-    sprintf(ecspi4->miso_pin_name,"MX6QDL_PAD_DISP0_DAT2__ECSPI3_MISO");
-    sprintf(ecspi4->sclk_pin_name,"MX6QDL_PAD_DISP0_DAT0__ECSPI3_SCLK");
-    sprintf(ecspi4->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT3__ECSPI3_SS0");
+    sprintf(ecspi4->mosi_pin_name,"MX6QDL_PAD_EIM_D28__ECSPI4_MOSI");
+    sprintf(ecspi4->miso_pin_name,"MX6QDL_PAD_EIM_D22__ECSPI4_MISO");
+    sprintf(ecspi4->sclk_pin_name,"MX6QDL_PAD_EIM_D21__ECSPI4_SCLK");
+    sprintf(ecspi4->ss0_pin_name, "MX6QDL_PAD_EIM_D29__ECSPI4_SS0");
     if ((t1 = strstr(file_contents,"P_ECSPI4_MISO_cbit=")))
         copy_and_resize(ecspi4->pin_config[0],t1+sizeof("P_ECSPI4_MISO_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI4_MOSI_cbit=")))
