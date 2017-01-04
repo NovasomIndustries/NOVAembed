@@ -11,7 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf/test01.bspf" />
+				<Option parameters="/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/test01.bspf" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>

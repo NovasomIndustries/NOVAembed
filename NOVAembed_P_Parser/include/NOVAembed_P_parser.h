@@ -23,7 +23,8 @@ typedef struct _iomux_cfg
     int i2c2;       /* edid for hdmi */
     int i2c3;       /* expansion, 2 wires */
     int clk32k;
-    int sd3;
+    int sd3_4;
+    int sd3_8;
     int uart2;
     int can1;
     int can2;
@@ -89,7 +90,20 @@ typedef struct _iomux_i2c
     char pin_config[2][9];
 } iomux_i2c;
 
-typedef struct _iomux_sdcard
+typedef struct _iomux_sdcard_4
+{
+    char pinctrl0_name[PIN_NAME_SIZE];
+    char grp_name[PIN_NAME_SIZE];
+    char cmd_pin_name[PIN_NAME_SIZE];
+    char clk_pin_name[PIN_NAME_SIZE];
+    char data0_pin_name[PIN_NAME_SIZE];
+    char data1_pin_name[PIN_NAME_SIZE];
+    char data2_pin_name[PIN_NAME_SIZE];
+    char data3_pin_name[PIN_NAME_SIZE];
+    char pin_config[6][9];
+} iomux_sdcard_4;
+
+typedef struct _iomux_sdcard_8
 {
     char pinctrl0_name[PIN_NAME_SIZE];
     char grp_name[PIN_NAME_SIZE];
@@ -104,7 +118,7 @@ typedef struct _iomux_sdcard
     char data6_pin_name[PIN_NAME_SIZE];
     char data7_pin_name[PIN_NAME_SIZE];
     char pin_config[10][9];
-} iomux_sdcard;
+} iomux_sdcard_8;
 
 typedef struct _iomux_uart_2
 {
@@ -189,6 +203,15 @@ typedef struct _gpio_support
 } gpio_support;
 
 extern  char        file_contents[8192];
+extern  char        lvds_800x480_ch0_parserinput[1024];
+extern  char        lvds_800x480_ch1_parserinput[1024];
+extern  char        lvds_800x600_ch0_parserinput[1024];
+extern  char        lvds_800x600_ch1_parserinput[1024];
+extern  char        lvds_1024x600_ch0_parserinput[1024];
+extern  char        lvds_1024x600_ch1_parserinput[1024];
+extern  char        lvds_1024x768_ch0_parserinput[1024];
+extern  char        lvds_1024x768_ch1_parserinput[1024];
+
 extern  iomux_cfg   *iomux;
 extern  char        special_hogs[1024];
 extern  char        gpio_hogs[2048];
@@ -196,7 +219,7 @@ extern  char        gpio_hogs[2048];
 extern  void parse_special_iomux(void);
 extern  void dump_iomux(void);
 extern  void store_dts_files(char *file_in);
-extern  void copy_and_resize(char *dest,char *source,int useless_int);
+extern  void copy_and_resize(char *dest,char *source);
 
 extern  iomux_cfg       *iomux;
 extern  iomux_audio     *audio4,*audio5,*audio6;
@@ -206,7 +229,8 @@ extern  iomux_i2c       *i2c1a,*i2c1b,*i2c3;
 extern  iomux_hog       *clk32k,*clk24m,*ccm_clko1,*wdog;
 extern  iomux_can       *can1,*can2;
 extern  iomux_spdif     *spdif;
-extern  iomux_sdcard    *sdcard;
+extern  iomux_sdcard_4  *sdcard_4;
+extern  iomux_sdcard_8  *sdcard_8;
 extern  iomux_epit      *epit1;
 extern  iomux_pwm       *pwm;
 extern  iomux_uart_2    *uart1,*uart2_2,*uart4_2;

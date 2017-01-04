@@ -105,9 +105,15 @@ private slots:
 
     void on_P_KHZ32_CLK_OUT_comboBox_currentIndexChanged(const QString &arg1);
 
-    void set_sd3_IO_helper(void);
+    void set_sd3_8_IO_helper(void);
 
-    void set_sd3_SD_helper(void);
+    void set_sd3_4L_IO_helper(void);
+
+    void set_sd3_4H_IO_helper(void);
+
+    void set_sd3_4_SD_helper(void);
+
+    void set_sd3_8_SD_helper(void);
 
     void on_P_SD3_CMD_comboBox_currentIndexChanged(const QString &arg1);
 
@@ -324,6 +330,12 @@ private slots:
     void on_UserAutoRun_checkBox_toggled(bool checked);
 
     void on_UserAutoRunSelect_pushButton_clicked();
+
+    void save_helper( QString filename);
+
+    void on_P_SetCFGbits_pushButton_clicked();
+
+    void on_P_QUAD_checkBox_toggled(bool checked);
 
 private:
     Ui::NOVAembed *ui;

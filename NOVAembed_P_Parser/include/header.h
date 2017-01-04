@@ -1,9 +1,13 @@
-#define dts_defs_part1 "\
+#define dts_defs_part1_SOLO_DL "\
 /dts-v1/;\n\
 #include \"imx6dl.dtsi\"\n\
 "
+#define dts_defs_part1_QUAD "\
+/dts-v1/;\n\
+#include \"imx6q.dtsi\"\n\
+"
 
-#define dts_defs_part2 "\
+#define dts_defs_part2_SOLO_DL "\
 / {\n\
         model = \"Freescale i.MX6 Solo/DualLite NOVAsomP Board\";\n\
         compatible = \"fsl,imx6sdl-novasom\", \"fsl,imx6dl\";\n\
@@ -19,7 +23,28 @@
         status = \"disabled\";\n\
 };\n\
 "
+#define dts_defs_part2_QUAD "\
+/ {\n\
+        model = \"Freescale i.MX6 Quad NOVAsomP Board\";\n\
+        compatible = \"fsl,imx6q-novasom\", \"fsl,imx6q\";\n\
+};\n\
+&cpu0 {\n\
+        arm-supply = <&reg_arm>;\n\
+        soc-supply = <&reg_soc>;\n\
+};\n\
+&gpc {\n\
+        fsl,ldo-bypass = <0>;\n\
+};\n\
+&wdog2 {\n\
+        status = \"disabled\";\n\
+};\n\
+"
 
+#define dts_defs_sata "\
+&sata {\n\
+        status = \"okay\";\n\
+};\n\
+"
 
 #define dtsi_header1_defs "\
 /*\n\
@@ -162,6 +187,7 @@
     };\n\
 };\n\
 "
+
 #define dtsi_header2_defs "\
 &fec {\n\
         pinctrl-names = \"default\";\n\
@@ -244,6 +270,131 @@
 };\n\
 "
 
+#define ecspi1_4_defs "\
+&ecspi1 {\n\
+        fsl,spi-num-chipselects = <1>;\n\
+        cs-gpios = <&gpio5 17 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi1>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define ecspi1_5_defs "\
+&ecspi1 {\n\
+        fsl,spi-num-chipselects = <2>;\n\
+        cs-gpios = <&gpio5 17 0> ,  <&gpio5 9 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi1>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define ecspi2_4_defs "\
+&ecspi2 {\n\
+        fsl,spi-num-chipselects = <1>;\n\
+        cs-gpios = <&gpio5 12 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi2>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define ecspi2_5_defs "\
+&ecspi2 {\n\
+        fsl,spi-num-chipselects = <2>;\n\
+        cs-gpios = <&gpio5 12 0> ,  <&gpio5 9 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi2>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define ecspi3_4_defs "\
+&ecspi3 {\n\
+        fsl,spi-num-chipselects = <1>;\n\
+        cs-gpios = <&gpio4 24 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi3>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define ecspi3_5_defs "\
+&ecspi3 {\n\
+        fsl,spi-num-chipselects = <2>;\n\
+        cs-gpios = <&gpio4 24 0> ,  <&gpio4 25 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi3>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+#define ecspi4_4_defs "\
+&ecspi4 {\n\
+        fsl,spi-num-chipselects = <1>;\n\
+        cs-gpios = <&gpio3 29 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi4>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+#define audmux4_defs "\
+&audmux {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_audmux4>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+#define audmux5_defs "\
+&audmux {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_audmux5>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+#define audmux6_defs "\
+&audmux {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_audmux6>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+#define can1_defs "\
+&can1 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_can1>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define can2_defs "\
+&can1 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_can2>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define usdhc3_8_defs "\
+&usdhc3 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_usdhc3>;\n\
+        bus-width = <8>;\n\
+        vmmc-supply = <&reg_3p3v>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
+#define usdhc3_4_defs "\
+&usdhc3 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_usdhc3>;\n\
+        bus-width = <4>;\n\
+        vmmc-supply = <&reg_3p3v>;\n\
+        status = \"okay\";\n\
+};\n\
+"
+
 #define i2c1_defs "\
 &i2c1 {\n\
         clock-frequency = <100000>;\n\
@@ -279,7 +430,7 @@
 };\n\
 "
 #define uart2_2_defs "\
-&uart4 {\n\
+&uart2 {\n\
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_uart2>;\n\
         status = \"okay\";\n\
@@ -356,12 +507,6 @@
                 MX6QDL_PAD_KEY_ROW3__I2C2_SDA           0x4001b8b1\n\
             >;\n\
         };\n\
-        pinctrl_i2c4: i2c4grp {\n\
-            fsl,pins = <\n\
-                MX6QDL_PAD_NANDF_CS3__I2C4_SDA          0x4001b8b1\n\
-                MX6QDL_PAD_NANDF_WP_B__I2C4_SCL         0x4001b8b1\n\
-            >;\n\
-        };\n\
         pinctrl_heartbeat: heartbeatled-grp {\n\
             fsl,pins = <\n\
                 MX6QDL_PAD_EIM_D31__GPIO3_IO31          0x17059\n\
@@ -426,49 +571,60 @@
             >;\n\
         };\n\
 "
-#define dtsi_lvds_defs "\
+
+#define dtsi_lvds_header_defs "\
 &ldb {\n\
 	status = \"okay\";\n\
-	lvds-channel@0 {\n\
-		fsl,data-mapping = \"spwg\";\n\
-		fsl,data-width = <18>;\n\
-		primary;\n\
-		status = \"okay\";\n\
-		crtc = \"ipu1-di0\";\n\
-		display-timings {\n\
-			native-mode = <&timing0>;\n\
-			timing0: lvds0 {\n\
-				clock-frequency = <33000000>;\n\
-				hactive = <1024>;\n\
-				vactive = <768>;\n\
-				hback-porch = <220>;\n\
-				hfront-porch = <40>;\n\
-				vback-porch = <21>;\n\
-				vfront-porch = <7>;\n\
-				hsync-len = <60>;\n\
-				vsync-len = <10>;\n\
-			};\n\
-		};\n\
-	};\n\
-	lvds-channel@1 {\n\
-		fsl,data-mapping = \"spwg\";\n\
-		fsl,data-width = <18>;\n\
-		status = \"okay\";\n\
-		crtc = \"ipu1-di1\";\n\
-		display-timings {\n\
-			native-mode = <&timing1>;\n\
-			timing1: lvds1 {\n\
-				clock-frequency = <33000000>;\n\
-				hactive = <1024>;\n\
-				vactive = <768>;\n\
-				hback-porch = <220>;\n\
-				hfront-porch = <40>;\n\
-				vback-porch = <21>;\n\
-				vfront-porch = <7>;\n\
-				hsync-len = <60>;\n\
-				vsync-len = <10>;\n\
-			};\n\
-		};\n\
-	};\n\
+"
+
+#define dtsi_lvds_ch0_800x480_defs "\
+        lvds-channel@0 {\n\
+                fsl,data-mapping = \"spwg\";\n\
+                fsl,data-width = <18>;\n\
+                primary;\n\
+                status = \"okay\";\n\
+                crtc = \"ipu1-di0\";\n\
+                display-timings {\n\
+                        native-mode = <&timing0>;\n\
+                        timing0: LVDS-800X480 {\n\
+                                clock-frequency = <33000000>;\n\
+                                hactive = <800>;\n\
+                                vactive = <480>;\n\
+                                hback-porch = <220>;\n\
+                                hfront-porch = <40>;\n\
+                                vback-porch = <21>;\n\
+                                vfront-porch = <7>;\n\
+                                hsync-len = <60>;\n\
+                                vsync-len = <10>;\n\
+                        };\n\
+                };\n\
+        };\n\
+"
+#define dtsi_lvds_ch1_800x480_defs "\
+        lvds-channel@0 {\n\
+                fsl,data-mapping = \"spwg\";\n\
+                fsl,data-width = <18>;\n\
+                primary;\n\
+                status = \"okay\";\n\
+                crtc = \"ipu1-di1\";\n\
+                display-timings {\n\
+                        native-mode = <&timing0>;\n\
+                        timing0: LVDS-800X480 {\n\
+                                clock-frequency = <33000000>;\n\
+                                hactive = <800>;\n\
+                                vactive = <480>;\n\
+                                hback-porch = <220>;\n\
+                                hfront-porch = <40>;\n\
+                                vback-porch = <21>;\n\
+                                vfront-porch = <7>;\n\
+                                hsync-len = <60>;\n\
+                                vsync-len = <10>;\n\
+                        };\n\
+                };\n\
+        };\n\
+"
+
+#define dtsi_lvds_footer_defs "\
 };\n\
 "
+

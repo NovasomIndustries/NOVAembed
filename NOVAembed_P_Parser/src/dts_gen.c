@@ -2,7 +2,7 @@
 #include "../include/header.h"
 
 char    dtsfile_dump[512];
-char    dtsifile_dump[16384];
+char    dtsifile_dump[18000];
 char    file_name[32],file_name_noext[32],dir_name[256];
 char    file_name_dts[128],file_name_dtsi[128];
 char    hog[1024];
@@ -12,10 +12,23 @@ void create_dts_file(void)
 {
 FILE    *fpout_dts;
 char    tstr[128];
-    sprintf(dtsfile_dump,dts_defs_part1);
-    sprintf(tstr,"#include \"%s\"\n",file_name_dtsi);
-    strcat(dtsfile_dump,tstr);
-    strcat(dtsfile_dump,dts_defs_part2);
+    if ( strstr(file_contents,"Processor=QUAD"))
+    {
+        sprintf(dtsfile_dump,dts_defs_part1_QUAD);
+        sprintf(tstr,"#include \"%s\"\n",file_name_dtsi);
+        strcat(dtsfile_dump,tstr);
+        strcat(dtsfile_dump,dts_defs_part2_SOLO_DL);
+        if (iomux->sata == 1)
+            strcat(dtsfile_dump,dts_defs_sata);
+    }
+    else
+    {
+        sprintf(dtsfile_dump,dts_defs_part1_SOLO_DL);
+        sprintf(tstr,"#include \"%s\"\n",file_name_dtsi);
+        strcat(dtsfile_dump,tstr);
+        strcat(dtsfile_dump,dts_defs_part2_QUAD);
+    }
+
     if ( (fpout_dts = fopen(file_name_dts,"w" ) ))
     {
         fwrite(dtsfile_dump, strlen(dtsfile_dump), 1, fpout_dts);
@@ -48,29 +61,49 @@ char    t[128];
 
         strcat(dtsifile_dump,sf);
     }
-    if ( sdcard != NULL )
+    if ( sdcard_8 != NULL )
     {
-        sprintf(sf,"        %s: %s{\n",sdcard->pinctrl0_name,sdcard->grp_name);
+        sprintf(sf,"        %s: %s{\n",sdcard_8->pinctrl0_name,sdcard_8->grp_name);
         strcat(sf,"            fsl,pins = <\n");
-        sprintf(t,"                %s 0x%s\n",sdcard->cmd_pin_name,sdcard->pin_config[0]);
+        sprintf(t,"                %s 0x%s\n",sdcard_8->cmd_pin_name,sdcard_8->pin_config[0]);
         strcat (sf,t);
-        sprintf(t,"                %s 0x%s\n",sdcard->clk_pin_name,sdcard->pin_config[1]);
+        sprintf(t,"                %s 0x%s\n",sdcard_8->clk_pin_name,sdcard_8->pin_config[1]);
         strcat (sf,t);
-        sprintf(t,"                %s 0x%s\n",sdcard->data0_pin_name,sdcard->pin_config[2]);
+        sprintf(t,"                %s 0x%s\n",sdcard_8->data0_pin_name,sdcard_8->pin_config[2]);
         strcat (sf,t);
-        sprintf(t,"                %s 0x%s\n",sdcard->data1_pin_name,sdcard->pin_config[3]);
+        sprintf(t,"                %s 0x%s\n",sdcard_8->data1_pin_name,sdcard_8->pin_config[3]);
         strcat (sf,t);
-        sprintf(t,"                %s 0x%s\n",sdcard->data2_pin_name,sdcard->pin_config[4]);
+        sprintf(t,"                %s 0x%s\n",sdcard_8->data2_pin_name,sdcard_8->pin_config[4]);
         strcat (sf,t);
-        sprintf(t,"                %s 0x%s\n",sdcard->data3_pin_name,sdcard->pin_config[5]);
+        sprintf(t,"                %s 0x%s\n",sdcard_8->data3_pin_name,sdcard_8->pin_config[5]);
         strcat (sf,t);
-        sprintf(t,"                %s 0x%s\n",sdcard->data4_pin_name,sdcard->pin_config[6]);
+        sprintf(t,"                %s 0x%s\n",sdcard_8->data4_pin_name,sdcard_8->pin_config[6]);
         strcat (sf,t);
-        sprintf(t,"                %s 0x%s\n",sdcard->data5_pin_name,sdcard->pin_config[7]);
+        sprintf(t,"                %s 0x%s\n",sdcard_8->data5_pin_name,sdcard_8->pin_config[7]);
         strcat (sf,t);
-        sprintf(t,"                %s 0x%s\n",sdcard->data6_pin_name,sdcard->pin_config[8]);
+        sprintf(t,"                %s 0x%s\n",sdcard_8->data6_pin_name,sdcard_8->pin_config[8]);
         strcat (sf,t);
-        sprintf(t,"                %s 0x%s\n",sdcard->data7_pin_name,sdcard->pin_config[9]);
+        sprintf(t,"                %s 0x%s\n",sdcard_8->data7_pin_name,sdcard_8->pin_config[9]);
+        strcat (sf,t);
+        strcat (sf,"          >;\n");
+        strcat (sf,"        };\n");
+        strcat(dtsifile_dump,sf);
+    }
+    if ( sdcard_4 != NULL )
+    {
+        sprintf(sf,"        %s: %s{\n",sdcard_4->pinctrl0_name,sdcard_4->grp_name);
+        strcat(sf,"            fsl,pins = <\n");
+        sprintf(t,"                %s 0x%s\n",sdcard_4->cmd_pin_name,sdcard_4->pin_config[0]);
+        strcat (sf,t);
+        sprintf(t,"                %s 0x%s\n",sdcard_4->clk_pin_name,sdcard_4->pin_config[1]);
+        strcat (sf,t);
+        sprintf(t,"                %s 0x%s\n",sdcard_4->data0_pin_name,sdcard_4->pin_config[2]);
+        strcat (sf,t);
+        sprintf(t,"                %s 0x%s\n",sdcard_4->data1_pin_name,sdcard_4->pin_config[3]);
+        strcat (sf,t);
+        sprintf(t,"                %s 0x%s\n",sdcard_4->data2_pin_name,sdcard_4->pin_config[4]);
+        strcat (sf,t);
+        sprintf(t,"                %s 0x%s\n",sdcard_4->data3_pin_name,sdcard_4->pin_config[5]);
         strcat (sf,t);
         strcat (sf,"          >;\n");
         strcat (sf,"        };\n");
@@ -360,7 +393,6 @@ char    t[128];
         strcat (sf,"          >;\n");
         strcat (sf,"        };\n");
         strcat(dtsifile_dump,sf);
-        printf("i2c1a\n");
     }
     if ( i2c1b != NULL )
     {
@@ -407,34 +439,114 @@ char    t[1024];
     if (( iomux->spdif1 == 1 ) || ( iomux->spdif2 == 1 ))
     {
         sprintf(t,spdif_enabled_defs);
+        strcat(dtsifile_dump,t);
     }
-    strcat(dtsifile_dump,t);
+
     if ( iomux->uart1 == 1 )
     {
         sprintf(t,uart1_defs);
+        strcat(dtsifile_dump,t);
     }
-    strcat(dtsifile_dump,t);
+
     if ( iomux->uart2_4 == 1 )
     {
         sprintf(t,uart2_4_defs);
+        strcat(dtsifile_dump,t);
     }
-    strcat(dtsifile_dump,t);
+
     if ( iomux->uart2_2 == 1 )
     {
         sprintf(t,uart2_2_defs);
+        strcat(dtsifile_dump,t);
     }
-    strcat(dtsifile_dump,t);
+
+    if ( iomux->uart4_4 == 1 )
+    {
+        sprintf(t,uart4_4_defs);
+        strcat(dtsifile_dump,t);
+    }
+
+    if ( iomux->uart4_2 == 1 )
+    {
+        sprintf(t,uart4_2_defs);
+        strcat(dtsifile_dump,t);
+    }
+
     if (( iomux->i2c1a == 1 ) || ( iomux->i2c1b == 1 ))
     {
         sprintf(t,i2c1_defs);
+        strcat(dtsifile_dump,t);
     }
-    strcat(dtsifile_dump,t);
     if ( iomux->i2c3 == 1 )
     {
         sprintf(t,i2c3_defs);
+        strcat(dtsifile_dump,t);
     }
-    strcat(dtsifile_dump,t);
-
+    if ( iomux->ecspi1_4 == 1 )
+    {
+        sprintf(t,ecspi1_4_defs);
+        strcat(dtsifile_dump,t);
+    }
+    if ( iomux->ecspi1_5 == 1 )
+    {
+        sprintf(t,ecspi1_5_defs);
+        strcat(dtsifile_dump,t);
+    }
+    if ( iomux->ecspi2_4 == 1 )
+    {
+        sprintf(t,ecspi2_4_defs);
+        strcat(dtsifile_dump,t);
+    }
+    if ( iomux->ecspi2_5 == 1 )
+    {
+        sprintf(t,ecspi2_5_defs);
+        strcat(dtsifile_dump,t);
+    }
+    if ( iomux->ecspi3_4 == 1 )
+    {
+        sprintf(t,ecspi3_4_defs);
+        strcat(dtsifile_dump,t);
+    }
+    if ( iomux->ecspi3_5 == 1 )
+    {
+        sprintf(t,ecspi3_5_defs);
+        strcat(dtsifile_dump,t);
+    }
+    if ( iomux->ecspi4 == 1 )
+    {
+        sprintf(t,ecspi4_4_defs);
+        strcat(dtsifile_dump,t);
+    }
+    if ( iomux->audio4 == 1 )
+    {
+        sprintf(t,audmux4_defs);
+        strcat(dtsifile_dump,t);
+    }
+    if ( iomux->audio5 == 1 )
+    {
+        sprintf(t,audmux5_defs);
+        strcat(dtsifile_dump,t);
+    }
+    if ( iomux->audio6 == 1 )
+    {
+        sprintf(t,audmux6_defs);
+        strcat(dtsifile_dump,t);
+    }
+    if ( iomux->can1 == 1 )
+    {
+        sprintf(t,can1_defs);
+        strcat(dtsifile_dump,t);
+    }
+    if ( iomux->can2 == 1 )
+    {
+        sprintf(t,can2_defs);
+        strcat(dtsifile_dump,t);
+    }
+    if ( iomux->sd3_4 == 1 )
+    {
+        sprintf(t,usdhc3_4_defs);
+        strcat(dtsifile_dump,t);
+    }
 }
 
 void process_videos_header(void)
@@ -461,41 +573,30 @@ char    mxcfb[1024];
 
 void process_lvds_channels(void)
 {
-char    ldb[1024];
-    sprintf(ldb,"&ldb {\n");
-    strcat(ldb,"	status = \"okay\";\n");
-    strcat(ldb,"	lvds-channel@0 {\n		fsl,data-mapping = \"spwg\";\n		fsl,data-width = <18>;\n		primary;\n		status = \"okay\";\n		crtc = \"ipu1-di0\";\n");
-    strcat(ldb,"		display-timings {\n			native-mode = <&timing0>;\n			timing0: lvds0 {\n");
-    strcat(ldb,"				clock-frequency = <33000000>;\n");
-    strcat(ldb,"				hactive = <1024>;\n");
-    strcat(ldb,"				vactive = <768>;\n");
-    strcat(ldb,"				hback-porch = <220>;\n");
-    strcat(ldb,"				hfront-porch = <40>;\n");
-    strcat(ldb,"				vback-porch = <21>;\n");
-    strcat(ldb,"				vfront-porch = <7>;\n");
-    strcat(ldb,"				hsync-len = <60>;\n");
-    strcat(ldb,"				vsync-len = <10>;\n");
-    strcat(ldb,"			};\n");
-    strcat(ldb,"		};\n");
-    strcat(ldb,"	};\n");
-    strcat(dtsifile_dump,ldb);
-    sprintf(ldb,"	lvds-channel@1 {\n");
-    strcat(ldb,"		fsl,data-mapping = \"spwg\";\n		fsl,data-width = <18>;\n		status = \"okay\";\n		crtc = \"ipu1-di1\";\n");
-    strcat(ldb,"		display-timings {\n			native-mode = <&timing1>;\n			timing1: lvds1 {\n");
-    strcat(ldb,"				clock-frequency = <33000000>;\n");
-    strcat(ldb,"				hactive = <1024>;\n");
-    strcat(ldb,"				vactive = <768>;\n");
-    strcat(ldb,"				hback-porch = <220>;\n");
-    strcat(ldb,"				hfront-porch = <40>;\n");
-    strcat(ldb,"				vback-porch = <21>;\n");
-    strcat(ldb,"				vfront-porch = <7>;\n");
-    strcat(ldb,"				hsync-len = <60>;\n");
-    strcat(ldb,"				vsync-len = <10>;\n");
-    strcat(ldb,"			};\n");
-    strcat(ldb,"		};\n");
-    strcat(ldb,"	};  \n");
-    strcat(dtsifile_dump,ldb);
-    sprintf(ldb,"};\n");
+char    ldb[2048];
+
+    sprintf(ldb,dtsi_lvds_header_defs);
+    if (strstr(file_contents,"LVDSVideo_comboBox=LVDS 800x480"))
+    {
+        strcat(ldb,lvds_800x480_ch0_parserinput);
+        strcat(ldb,lvds_800x480_ch1_parserinput);
+    }
+    if (strstr(file_contents,"LVDSVideo_comboBox=LVDS 800x600"))
+    {
+        strcat(ldb,lvds_800x600_ch0_parserinput);
+        strcat(ldb,lvds_800x600_ch1_parserinput);
+    }
+    if (strstr(file_contents,"LVDSVideo_comboBox=LVDS 1024x600"))
+    {
+        strcat(ldb,lvds_1024x600_ch0_parserinput);
+        strcat(ldb,lvds_1024x600_ch1_parserinput);
+    }
+    if (strstr(file_contents,"LVDSVideo_comboBox=LVDS 1024x768"))
+    {
+        strcat(ldb,lvds_1024x768_ch0_parserinput);
+        strcat(ldb,lvds_1024x768_ch1_parserinput);
+    }
+    strcat(ldb,dtsi_lvds_footer_defs);
     strcat(dtsifile_dump,ldb);
 }
 
@@ -540,7 +641,7 @@ char    *tsource,t1[128];
     {
         if ((tsource = strstr(file_contents,cbit_string)))
         {
-            copy_and_resize(t1,tsource+strlen(cbit_string),8);
+            copy_and_resize(t1,tsource+strlen(cbit_string));
             sprintf(tdest,"                %s 0x%s\n",pin_name_string,t1);
             return tdest;
         }

@@ -28,14 +28,14 @@ QString Last_U_BSPFactoryFile = "";
 QString Last_P_BSPFactoryFile = "";
 QString P_UserDTB_Selected = "";
 QString Last_P_UserDTB = "";
+QString Quad = "";
+QString CfgBitDefualtValue = "0x00017059";
 QString NumberOfUserPartitions = "-";
 QString UserPartition1Size = "1";
 QString UserPartition2Size = "1";
 QString uSD_Device = "sdb";
 QString CurrentBSPF_Tab = "";
 QString CurrentVideo = "";
-QString HDMIVideo = "";
-QString LVDSVideo = "";
 QString AutoRunSelected = "";
 QString AutoRunFolder = "";
 
@@ -51,15 +51,42 @@ NOVAembed::NOVAembed(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::NOVAembed)
 {
+int     copy_required_files = 0;
+QString linux_version="linux-imx_4.1.15_1.2.0_ga";
+
+    /* Initialize user area */
+    if ( ! QDir("/Devel/NOVAsom_SDK/DtbUserWorkArea").exists() )
+    {
+        //qDebug() << "mkdir /Devel/NOVAsom_SDK/DtbUserWorkArea";
+        QDir().mkdir("/Devel/NOVAsom_SDK/DtbUserWorkArea");
+        //qDebug() << "mkdir /Devel/NOVAsom_SDK/DtbUserWorkArea";
+        QDir().mkdir("/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf");
+        copy_required_files = 1;
+    }
+    if ( ! QDir("/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf").exists() )
+    {
+        //qDebug() << "mkdir /Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf";
+        QDir().mkdir("/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf");
+        copy_required_files = 1;
+    }
+    if ( copy_required_files == 1 )
+    {
+        QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/imx6dl.dtsi", "/Devel/NOVAsom_SDK/DtbUserWorkArea/imx6dl.dtsi");
+        QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/imx6dl-pinfunc.h", "/Devel/NOVAsom_SDK/DtbUserWorkArea/imx6dl-pinfunc.h");
+        QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/imx6qdl.dtsi", "/Devel/NOVAsom_SDK/DtbUserWorkArea/imx6qdl.dtsi");
+        QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/skeleton.dtsi", "/Devel/NOVAsom_SDK/DtbUserWorkArea/skeleton.dtsi");
+        QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/imx6q.dtsi", "/Devel/NOVAsom_SDK/DtbUserWorkArea/imx6q.dtsi");
+        QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/imx6q-pinfunc.h", "/Devel/NOVAsom_SDK/DtbUserWorkArea/imx6q-pinfunc.h");
+    }
     QString fileName = "/Devel/NOVAsom_SDK/NOVAembed_Settings/NOVAembed.ini";
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly))
     {
-        qDebug() << "NOVAembed.ini not found";
+        //qDebug() << "NOVAembed.ini not found";
         QMessageBox::information(this, tr("NOVAembed.ini"),"NOVAembed.ini not found. Creating a new one");
         if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings").exists() )
         {
-            qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings";
+            //qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings";
             QDir().mkdir("/Devel/NOVAsom_SDK/NOVAembed_Settings");
         }
         storeNOVAembed_ini();
@@ -81,6 +108,7 @@ NOVAembed::NOVAembed(QWidget *parent) :
         Last_P_BSPFactoryFile = settings->value( strKeySettings + "Last_P_BSPFactoryFile", "r").toString();
         P_UserDTB_Selected = settings->value( strKeySettings + "P_UserDTB_Selected", "r").toString();
         Last_P_UserDTB = settings->value( strKeySettings + "Last_P_UserDTB", "r").toString();
+        CfgBitDefualtValue = settings->value( strKeySettings + "CfgBitDefualtValue", "r").toString();
         Last_U_BSPFactoryFile = settings->value( strKeySettings + "Last_U_BSPFactoryFile", "r").toString();
         NumberOfUserPartitions = settings->value( strKeySettings + "NumberOfUserPartitions", "r").toString();
         UserPartition1Size = settings->value( strKeySettings + "UserPartition1Size", "r").toString();
@@ -88,25 +116,24 @@ NOVAembed::NOVAembed(QWidget *parent) :
         uSD_Device = settings->value( strKeySettings + "uSD_Device", "r").toString();
         CurrentBSPF_Tab = settings->value( strKeySettings + "CurrentBSPF_Tab", "r").toString();
         CurrentVideo = settings->value( strKeySettings + "CurrentVideo", "r").toString();
-        HDMIVideo = settings->value( strKeySettings + "HDMIVideo", "r").toString();
-        LVDSVideo = settings->value( strKeySettings + "LVDSVideo", "r").toString();
         AutoRunSelected = settings->value( strKeySettings + "AutoRunSelected", "r").toString();
         AutoRunFolder = settings->value( strKeySettings + "AutoRunFolder", "r").toString();
+        Quad = settings->value( strKeySettings + "Quad", "r").toString();
     }
-    qDebug() << "Last_P_UserDTB "+Last_P_UserDTB;
+    //qDebug() << "Last_P_UserDTB "+Last_P_UserDTB;
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf").exists() )
     {
-        qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf";
+        //qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf";
         QDir().mkdir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf");
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/SClass_bspf").exists() )
     {
-        qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/SClass_bspf";
+       // qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/SClass_bspf";
         QDir().mkdir("/Devel/NOVAsom_SDK/NOVAembed_Settings/SClass_bspf");
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/UClass_bspf").exists() )
     {
-        qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/UClass_bspf";
+        //qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/UClass_bspf";
         QDir().mkdir("/Devel/NOVAsom_SDK/NOVAembed_Settings/UClass_bspf");
     }
 
@@ -190,6 +217,7 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("Board_comboBox="+_Board_comboBox+"\n");
     out << QString("Last_U_BSPFactoryFile="+Last_U_BSPFactoryFile+"\n");
     out << QString("Last_P_BSPFactoryFile="+Last_P_BSPFactoryFile+"\n");
+    out << QString("CfgBitDefualtValue="+CfgBitDefualtValue+"\n");
     out << QString("P_UserDTB_Selected="+P_UserDTB_Selected+"\n");
     out << QString("Last_P_UserDTB="+Last_P_UserDTB+"\n");
     out << QString("NumberOfUserPartitions="+NumberOfUserPartitions+"\n");
@@ -200,8 +228,7 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("AutoRunFolder="+AutoRunFolder+"\n");
     out << QString("CurrentBSPF_Tab="+CurrentBSPF_Tab+"\n");
     out << QString("CurrentVideo="+CurrentVideo+"\n");
-    out << QString("HDMIVideo="+HDMIVideo+"\n");
-    out << QString("LVDSVideo="+LVDSVideo+"\n");
+    out << QString("Quad="+Quad+"\n");
     file.close();
 }
 
@@ -413,6 +440,19 @@ void NOVAembed::on_tab_currentChanged(int index)
             ui->P_DSE_Disable_checkBox->setEnabled(false);
             ui->P_HYS_PAD_CTL_checkBox->setEnabled(false);
             ui->P_NO_PAD_CTL_checkBox->setChecked(true);
+            ui->P_Default_lineEdit->setText(CfgBitDefualtValue);
+
+            if ( Quad == "true")
+            {
+                    ui->P_QUAD_checkBox->setChecked(true);
+            }
+            else
+            {
+                    ui->P_QUAD_checkBox->setChecked(false);
+                    ui->P_SATA_checkBox->setEnabled(false);
+                    ui->P_SATA_checkBox->setChecked(false);
+            }
+
             P_load_BSPF_File(Last_P_BSPFactoryFile);
             QFileInfo fi(Last_P_BSPFactoryFile);
             if ( ! fi.exists())
@@ -521,6 +561,8 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
     else
         update_status_bar("Update error");
 }
+
+
 
 
 

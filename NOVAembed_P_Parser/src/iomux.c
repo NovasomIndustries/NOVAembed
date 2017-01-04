@@ -8,7 +8,8 @@ iomux_i2c       *i2c1a,*i2c1b,*i2c3;
 iomux_hog       *clk32k,*clk24m,*ccm_clko1,*wdog;
 iomux_can       *can1,*can2;
 iomux_spdif     *spdif;
-iomux_sdcard    *sdcard;
+iomux_sdcard_8  *sdcard_8;
+iomux_sdcard_4  *sdcard_4;
 iomux_epit      *epit1;
 iomux_pwm       *pwm;
 iomux_uart_2    *uart1,*uart2_2,*uart4_2;
@@ -32,7 +33,8 @@ void dump_iomux(void)
     printf("i2c1b    : %d\n",iomux->i2c1b);
     printf("i2c2     : %d ( system , HDMI edid )\n",iomux->i2c2);
     printf("i2c3     : %d\n",iomux->i2c3);
-    printf("sd3      : %d\n",iomux->sd3);
+    printf("sd3_4    : %d\n",iomux->sd3_4);
+    printf("sd3_8    : %d\n",iomux->sd3_8);
     printf("can1     : %d\n",iomux->can1);
     printf("can2     : %d\n",iomux->can2);
     printf("uart1    : %d\n",iomux->uart1);
@@ -57,7 +59,7 @@ void dump_iomux(void)
     printf("**********************************************\n\n");
 }
 
-void copy_and_resize(char *dest,char *source,int useless_int)
+void copy_and_resize(char *dest,char *source)
 {
 char *dup = strdup(source);
 int i;
@@ -82,7 +84,7 @@ char *t1;
     clk32k = calloc(1,sizeof(iomux_hog));
     sprintf(clk32k->hog_pin_name,"MX6QDL_PAD_GPIO_8__XTALOSC_REF_CLK_32K");
     if ((t1 = strstr(file_contents,"P_KHZ32_CLK_OUT_cbit=")))
-        copy_and_resize(clk32k->pin_config[0],t1+sizeof("P_KHZ32_CLK_OUT_cbit"),8);
+        copy_and_resize(clk32k->pin_config[0],t1+sizeof("P_KHZ32_CLK_OUT_cbit"));
     return;
 }
 
@@ -92,7 +94,7 @@ char *t1;
     clk24m = calloc(1,sizeof(iomux_hog));
     sprintf(clk24m->hog_pin_name,"MX6QDL_PAD_GPIO_3__XTALOSC_REF_CLK_24M");
     if ((t1 = strstr(file_contents,"P_GPIO3_IO20_cbit=")))
-        copy_and_resize(clk24m->pin_config[0],t1+sizeof("P_GPIO3_IO20_cbit"),8);
+        copy_and_resize(clk24m->pin_config[0],t1+sizeof("P_GPIO3_IO20_cbit"));
     return;
 }
 
@@ -102,7 +104,7 @@ char *t1;
     ccm_clko1 = calloc(1,sizeof(iomux_hog));
     sprintf(ccm_clko1->hog_pin_name,"MX6QDL_PAD_GPIO_0__CCM_CLKO1");
     if ((t1 = strstr(file_contents,"P_GPIO1_IO00_cbit=")))
-        copy_and_resize(ccm_clko1->pin_config[0],t1+sizeof("P_GPIO1_IO00_cbit"),8);
+        copy_and_resize(ccm_clko1->pin_config[0],t1+sizeof("P_GPIO1_IO00_cbit"));
     return;
 }
 
@@ -112,7 +114,7 @@ char *t1;
     wdog = calloc(1,sizeof(iomux_hog));
     sprintf(wdog->hog_pin_name,"MX6QDL_PAD_GPIO_9__WDOG1_B");
     if ((t1 = strstr(file_contents,"P_GPIO4_IO29_cbit=")))
-        copy_and_resize(wdog->pin_config[0],t1+sizeof("P_GPIO4_IO29_cbit"),8);
+        copy_and_resize(wdog->pin_config[0],t1+sizeof("P_GPIO4_IO29_cbit"));
     return;
 }
 /* End of pins in the HOG group */
@@ -128,7 +130,7 @@ char *t1;
     sprintf(pwm->pinctrl0_name,"pinctrl_pwm1");
     sprintf(pwm->pwm_pin_name,"MX6QDL_PAD_GPIO_9__PWM1_OUT");
     if ((t1 = strstr(file_contents,"P_GPIO4_IO29_cbit=")))
-        copy_and_resize(pwm->pin_config[0],t1+sizeof("P_GPIO4_IO29_cbit"),8);
+        copy_and_resize(pwm->pin_config[0],t1+sizeof("P_GPIO4_IO29_cbit"));
     return;
 }
 
@@ -141,46 +143,73 @@ char *t1;
     sprintf(epit1->pinctrl0_name,"pinctrl_epit1");
     sprintf(epit1->epit_pin_name,"MX6QDL_PAD_GPIO_0__EPIT1_OUT");
     if ((t1 = strstr(file_contents,"P_GPIO1_IO00_cbit=")))
-        copy_and_resize(epit1->pin_config[0],t1+sizeof("P_GPIO1_IO00_cbit"),8);
+        copy_and_resize(epit1->pin_config[0],t1+sizeof("P_GPIO1_IO00_cbit"));
     return;
 }
 
-void process_sd3(void)
+void process_sd3_4(void)
 {
 char *t1;
-    sdcard = calloc(1,sizeof(iomux_sdcard));
-    sprintf(sdcard->grp_name,"sdcard3grp");
-    sprintf(sdcard->pinctrl0_name,"pinctrl_sdcard3");
-    sprintf(sdcard->cmd_pin_name,"MX6QDL_PAD_SD3_CMD__SD3_CMD");
-    sprintf(sdcard->clk_pin_name,"MX6QDL_PAD_SD3_CLK__SD3_CLK");
-    sprintf(sdcard->data0_pin_name,"MX6QDL_PAD_SD3_DAT0__SD3_DATA0");
-    sprintf(sdcard->data1_pin_name,"MX6QDL_PAD_SD3_DAT1__SD3_DATA1");
-    sprintf(sdcard->data2_pin_name,"MX6QDL_PAD_SD3_DAT2__SD3_DATA2");
-    sprintf(sdcard->data3_pin_name,"MX6QDL_PAD_SD3_DAT3__SD3_DATA3");
-    sprintf(sdcard->data4_pin_name,"MX6QDL_PAD_SD3_DAT4__SD3_DATA4");
-    sprintf(sdcard->data5_pin_name,"MX6QDL_PAD_SD3_DAT5__SD3_DATA5");
-    sprintf(sdcard->data6_pin_name,"MX6QDL_PAD_SD3_DAT6__SD3_DATA6");
-    sprintf(sdcard->data7_pin_name,"MX6QDL_PAD_SD3_DAT7__SD3_DATA7");
+    sdcard_4 = calloc(1,sizeof(iomux_sdcard_4));
+    sprintf(sdcard_4->grp_name,"usdhc3grp");
+    sprintf(sdcard_4->pinctrl0_name,"pinctrl_usdhc3");
+    sprintf(sdcard_4->cmd_pin_name,"MX6QDL_PAD_SD3_CMD__SD3_CMD");
+    sprintf(sdcard_4->clk_pin_name,"MX6QDL_PAD_SD3_CLK__SD3_CLK");
+    sprintf(sdcard_4->data0_pin_name,"MX6QDL_PAD_SD3_DAT0__SD3_DATA0");
+    sprintf(sdcard_4->data1_pin_name,"MX6QDL_PAD_SD3_DAT1__SD3_DATA1");
+    sprintf(sdcard_4->data2_pin_name,"MX6QDL_PAD_SD3_DAT2__SD3_DATA2");
+    sprintf(sdcard_4->data3_pin_name,"MX6QDL_PAD_SD3_DAT3__SD3_DATA3");
     if ((t1 = strstr(file_contents,"P_SD3_CMD_cbit=")))
-        copy_and_resize(sdcard->pin_config[0],t1+sizeof("P_SD3_CMD_cbit"),8);
+        copy_and_resize(sdcard_4->pin_config[0],t1+sizeof("P_SD3_CMD_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_CLK_cbit=")))
-        copy_and_resize(sdcard->pin_config[1],t1+sizeof("P_SD3_CLK_cbit"),8);
+        copy_and_resize(sdcard_4->pin_config[1],t1+sizeof("P_SD3_CLK_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA0_cbit=")))
-        copy_and_resize(sdcard->pin_config[2],t1+sizeof("P_SD3_DATA0_cbit"),8);
+        copy_and_resize(sdcard_4->pin_config[2],t1+sizeof("P_SD3_DATA0_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA1_cbit=")))
-        copy_and_resize(sdcard->pin_config[3],t1+sizeof("P_SD3_DATA1_cbit"),8);
+        copy_and_resize(sdcard_4->pin_config[3],t1+sizeof("P_SD3_DATA1_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA2_cbit=")))
-        copy_and_resize(sdcard->pin_config[4],t1+sizeof("P_SD3_DATA2_cbit"),8);
+        copy_and_resize(sdcard_4->pin_config[4],t1+sizeof("P_SD3_DATA2_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA3_cbit=")))
-        copy_and_resize(sdcard->pin_config[5],t1+sizeof("P_SD3_DATA3_cbit"),8);
+        copy_and_resize(sdcard_4->pin_config[5],t1+sizeof("P_SD3_DATA3_cbit"));
+    return;
+}
+
+void process_sd3_8(void)
+{
+char *t1;
+    sdcard_8 = calloc(1,sizeof(iomux_sdcard_8));
+    sprintf(sdcard_8->grp_name,"usdhc3grp");
+    sprintf(sdcard_8->pinctrl0_name,"pinctrl_usdhc3");
+    sprintf(sdcard_8->cmd_pin_name,"MX6QDL_PAD_SD3_CMD__SD3_CMD");
+    sprintf(sdcard_8->clk_pin_name,"MX6QDL_PAD_SD3_CLK__SD3_CLK");
+    sprintf(sdcard_8->data0_pin_name,"MX6QDL_PAD_SD3_DAT0__SD3_DATA0");
+    sprintf(sdcard_8->data1_pin_name,"MX6QDL_PAD_SD3_DAT1__SD3_DATA1");
+    sprintf(sdcard_8->data2_pin_name,"MX6QDL_PAD_SD3_DAT2__SD3_DATA2");
+    sprintf(sdcard_8->data3_pin_name,"MX6QDL_PAD_SD3_DAT3__SD3_DATA3");
+    sprintf(sdcard_8->data4_pin_name,"MX6QDL_PAD_SD3_DAT4__SD3_DATA4");
+    sprintf(sdcard_8->data5_pin_name,"MX6QDL_PAD_SD3_DAT5__SD3_DATA5");
+    sprintf(sdcard_8->data6_pin_name,"MX6QDL_PAD_SD3_DAT6__SD3_DATA6");
+    sprintf(sdcard_8->data7_pin_name,"MX6QDL_PAD_SD3_DAT7__SD3_DATA7");
+    if ((t1 = strstr(file_contents,"P_SD3_CMD_cbit=")))
+        copy_and_resize(sdcard_8->pin_config[0],t1+sizeof("P_SD3_CMD_cbit"));
+    if ((t1 = strstr(file_contents,"P_SD3_CLK_cbit=")))
+        copy_and_resize(sdcard_8->pin_config[1],t1+sizeof("P_SD3_CLK_cbit"));
+    if ((t1 = strstr(file_contents,"P_SD3_DATA0_cbit=")))
+        copy_and_resize(sdcard_8->pin_config[2],t1+sizeof("P_SD3_DATA0_cbit"));
+    if ((t1 = strstr(file_contents,"P_SD3_DATA1_cbit=")))
+        copy_and_resize(sdcard_8->pin_config[3],t1+sizeof("P_SD3_DATA1_cbit"));
+    if ((t1 = strstr(file_contents,"P_SD3_DATA2_cbit=")))
+        copy_and_resize(sdcard_8->pin_config[4],t1+sizeof("P_SD3_DATA2_cbit"));
+    if ((t1 = strstr(file_contents,"P_SD3_DATA3_cbit=")))
+        copy_and_resize(sdcard_8->pin_config[5],t1+sizeof("P_SD3_DATA3_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA4_cbit=")))
-        copy_and_resize(sdcard->pin_config[6],t1+sizeof("P_SD3_DATA4_cbit"),8);
+        copy_and_resize(sdcard_8->pin_config[6],t1+sizeof("P_SD3_DATA4_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA5_cbit=")))
-        copy_and_resize(sdcard->pin_config[7],t1+sizeof("P_SD3_DATA5_cbit"),8);
+        copy_and_resize(sdcard_8->pin_config[7],t1+sizeof("P_SD3_DATA5_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA6_cbit=")))
-        copy_and_resize(sdcard->pin_config[8],t1+sizeof("P_SD3_DATA6_cbit"),8);
+        copy_and_resize(sdcard_8->pin_config[8],t1+sizeof("P_SD3_DATA6_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA7_cbit=")))
-        copy_and_resize(sdcard->pin_config[9],t1+sizeof("P_SD3_DATA7_cbit"),8);
+        copy_and_resize(sdcard_8->pin_config[9],t1+sizeof("P_SD3_DATA7_cbit"));
     return;
 }
 
@@ -192,7 +221,7 @@ char *t1;
     sprintf(spdif->pinctrl0_name,"pinctrl_spdif");
     sprintf(spdif->spdif_pin_name,"MX6QDL_PAD_ENET_RXD0__SPDIF_OUT");
     if ((t1 = strstr(file_contents,"P_ECSPI4_MISO_cbit=")))
-        copy_and_resize(spdif->pin_config[0],t1+sizeof("P_ECSPI4_MISO_cbit"),8);
+        copy_and_resize(spdif->pin_config[0],t1+sizeof("P_ECSPI4_MISO_cbit"));
     return;
 }
 void process_spdif2(void)
@@ -203,7 +232,7 @@ char *t1;
     sprintf(spdif->pinctrl0_name,"pinctrl_spdif");
     sprintf(spdif->spdif_pin_name,"MX6QDL_PAD_GPIO_17__SPDIF_OUT");
     if ((t1 = strstr(file_contents,"P_SPDIF_OUT_cbit=")))
-        copy_and_resize(spdif->pin_config[0],t1+sizeof("P_SPDIF_OUT_cbit"),8);
+        copy_and_resize(spdif->pin_config[0],t1+sizeof("P_SPDIF_OUT_cbit"));
     return;
 }
 
@@ -216,9 +245,9 @@ char *t1;
     sprintf(can1->cantx_pin_name,"MX6QDL_PAD_KEY_COL2__FLEXCAN1_TX");
     sprintf(can1->canrx_pin_name,"MX6QDL_PAD_KEY_ROW2__FLEXCAN1_RX");
     if ((t1 = strstr(file_contents,"P_SD3_CMD_cbit=")))
-        copy_and_resize(can1->pin_config[0],t1+sizeof("P_SD3_CMD_cbit"),8);
+        copy_and_resize(can1->pin_config[0],t1+sizeof("P_SD3_CMD_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_CLK_cbit=")))
-        copy_and_resize(can1->pin_config[1],t1+sizeof("P_SD3_CLK_cbit"),8);
+        copy_and_resize(can1->pin_config[1],t1+sizeof("P_SD3_CLK_cbit"));
     return;
 }
 
@@ -231,9 +260,9 @@ char *t1;
     sprintf(can2->cantx_pin_name,"MX6QDL_PAD_KEY_COL4__FLEXCAN2_TX");
     sprintf(can2->canrx_pin_name,"MX6QDL_PAD_KEY_ROW4__FLEXCAN2_RX");
     if ((t1 = strstr(file_contents,"P_SD3_DATA0_cbit=")))
-        copy_and_resize(can2->pin_config[0],t1+sizeof("P_SD3_DATA0_cbit"),8);
+        copy_and_resize(can2->pin_config[0],t1+sizeof("P_SD3_DATA0_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA1_cbit=")))
-        copy_and_resize(can2->pin_config[1],t1+sizeof("P_SD3_DATA1_cbit"),8);
+        copy_and_resize(can2->pin_config[1],t1+sizeof("P_SD3_DATA1_cbit"));
     return;
 }
 
@@ -246,9 +275,9 @@ char *t1;
     sprintf(i2c1b->sda_pin_name,"MX6QDL_PAD_CSI0_DAT8__I2C1_SDA");
     sprintf(i2c1b->scl_pin_name,"MX6QDL_PAD_CSI0_DAT9__I2C1_SCL");
     if ((t1 = strstr(file_contents,"P_I2C1_SDA_cbit=")))
-        copy_and_resize(i2c1b->pin_config[0],t1+sizeof("P_I2C1_SDA_cbit"),8);
+        copy_and_resize(i2c1b->pin_config[0],t1+sizeof("P_I2C1_SDA_cbit"));
     if ((t1 = strstr(file_contents,"P_I2C1_SCL_cbit=")))
-        copy_and_resize(i2c1b->pin_config[1],t1+sizeof("P_I2C1_SCL_cbit"),8);
+        copy_and_resize(i2c1b->pin_config[1],t1+sizeof("P_I2C1_SCL_cbit"));
     return;
 }
 
@@ -261,9 +290,9 @@ char *t1;
     sprintf(uart1->uart_txd_pin_name,"MX6QDL_PAD_CSI0_DAT10__UART1_TX_DATA");
     sprintf(uart1->uart_rxd_pin_name,"MX6QDL_PAD_CSI0_DAT11__UART1_RX_DATA");
     if ((t1 = strstr(file_contents,"P_UART1_TXD_cbit=")))
-        copy_and_resize(uart1->pin_config[0],t1+sizeof("P_UART1_TXD_cbit"),8);
+        copy_and_resize(uart1->pin_config[0],t1+sizeof("P_UART1_TXD_cbit"));
     if ((t1 = strstr(file_contents,"P_UART1_RXD_cbit=")))
-        copy_and_resize(uart1->pin_config[1],t1+sizeof("P_UART1_RXD_cbit"),8);
+        copy_and_resize(uart1->pin_config[1],t1+sizeof("P_UART1_RXD_cbit"));
     return;
 }
 
@@ -276,9 +305,9 @@ char *t1;
     sprintf(uart2_2->uart_txd_pin_name,"MX6QDL_PAD_SD3_DAT5__UART2_TX_DATA");
     sprintf(uart2_2->uart_rxd_pin_name,"MX6QDL_PAD_SD3_DAT5__UART2_RX_DATA");
     if ((t1 = strstr(file_contents,"P_SD3_DATA5_cbit=")))
-        copy_and_resize(uart2_2->pin_config[0],t1+sizeof("P_SD3_DATA5_cbit"),8);
+        copy_and_resize(uart2_2->pin_config[0],t1+sizeof("P_SD3_DATA5_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA4_cbit=")))
-        copy_and_resize(uart2_2->pin_config[1],t1+sizeof("P_SD3_DATA4_cbit"),8);
+        copy_and_resize(uart2_2->pin_config[1],t1+sizeof("P_SD3_DATA4_cbit"));
     return;
 }
 
@@ -293,13 +322,13 @@ char *t1;
     sprintf(uart2_4->uart_rts_pin_name,"MX6QDL_PAD_SD3_CMD__UART2_RTS_B");
     sprintf(uart2_4->uart_cts_pin_name,"MX6QDL_PAD_SD3_CLK__UART2_CTS_B");
     if ((t1 = strstr(file_contents,"P_SD3_DATA5_cbit=")))
-        copy_and_resize(uart2_4->pin_config[0],t1+sizeof("P_SD3_DATA5_cbit"),8);
+        copy_and_resize(uart2_4->pin_config[0],t1+sizeof("P_SD3_DATA5_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA4_cbit=")))
-        copy_and_resize(uart2_4->pin_config[1],t1+sizeof("P_SD3_DATA4_cbit"),8);
+        copy_and_resize(uart2_4->pin_config[1],t1+sizeof("P_SD3_DATA4_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_CLK_cbit=")))
-        copy_and_resize(uart2_4->pin_config[2],t1+sizeof("P_SD3_CLK_cbit"),8);
+        copy_and_resize(uart2_4->pin_config[2],t1+sizeof("P_SD3_CLK_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_CMD_cbit=")))
-        copy_and_resize(uart2_4->pin_config[3],t1+sizeof("P_SD3_CMD_cbit"),8);
+        copy_and_resize(uart2_4->pin_config[3],t1+sizeof("P_SD3_CMD_cbit"));
     return;
 }
 
@@ -312,9 +341,9 @@ char *t1;
     sprintf(uart4_2->uart_txd_pin_name,"MX6QDL_PAD_CSI0_DAT12__UART4_TX_DATA");
     sprintf(uart4_2->uart_rxd_pin_name,"MX6QDL_PAD_CSI0_DAT13__UART4_RX_DATA");
     if ((t1 = strstr(file_contents,"P_SD3_DATA5_cbit=")))
-        copy_and_resize(uart4_2->pin_config[0],t1+sizeof("P_SD3_DATA5_cbit"),8);
+        copy_and_resize(uart4_2->pin_config[0],t1+sizeof("P_SD3_DATA5_cbit"));
     if ((t1 = strstr(file_contents,"P_SD3_DATA4_cbit=")))
-        copy_and_resize(uart4_2->pin_config[1],t1+sizeof("P_SD3_DATA4_cbit"),8);
+        copy_and_resize(uart4_2->pin_config[1],t1+sizeof("P_SD3_DATA4_cbit"));
     return;
 }
 
@@ -329,13 +358,13 @@ char *t1;
     sprintf(uart4_4->uart_rts_pin_name,"MX6QDL_PAD_CSI0_DAT16__UART4_RTS_B");
     sprintf(uart4_4->uart_cts_pin_name,"MX6QDL_PAD_CSI0_DAT17__UART4_CTS_B");
     if ((t1 = strstr(file_contents,"P_UART4_TXD_cbit=")))
-        copy_and_resize(uart4_4->pin_config[0],t1+sizeof("P_UART4_TXD_cbit"),8);
+        copy_and_resize(uart4_4->pin_config[0],t1+sizeof("P_UART4_TXD_cbit"));
     if ((t1 = strstr(file_contents,"P_UART4_RXD_cbit=")))
-        copy_and_resize(uart4_4->pin_config[1],t1+sizeof("P_UART4_RXD_cbit"),8);
+        copy_and_resize(uart4_4->pin_config[1],t1+sizeof("P_UART4_RXD_cbit"));
     if ((t1 = strstr(file_contents,"P_UART4_RTS_L_cbit=")))
-        copy_and_resize(uart4_4->pin_config[2],t1+sizeof("P_UART4_RTS_L_cbit"),8);
+        copy_and_resize(uart4_4->pin_config[2],t1+sizeof("P_UART4_RTS_L_cbit"));
     if ((t1 = strstr(file_contents,"P_UART4_CTS_L_cbit=")))
-        copy_and_resize(uart4_4->pin_config[3],t1+sizeof("P_UART4_CTS_L_cbit"),8);
+        copy_and_resize(uart4_4->pin_config[3],t1+sizeof("P_UART4_CTS_L_cbit"));
     return;
 }
 
@@ -351,13 +380,13 @@ char *t1;
     sprintf(audio4->aud_txd_pin_name,"MX6QDL_PAD_DISP0_DAT21__AUD4_TXD");
     sprintf(audio4->aud_txfs_pin_name,"MX6QDL_PAD_DISP0_DAT22__AUD4_TXFS");
     if ((t1 = strstr(file_contents,"P_ECSPI1_MISO_cbit=")))
-        copy_and_resize(audio4->pin_config[0],t1+sizeof("P_ECSPI1_MISO_cbit"),8);
+        copy_and_resize(audio4->pin_config[0],t1+sizeof("P_ECSPI1_MISO_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI1_MOSI_cbit=")))
-        copy_and_resize(audio4->pin_config[1],t1+sizeof("P_ECSPI1_MOSI_cbit"),8);
+        copy_and_resize(audio4->pin_config[1],t1+sizeof("P_ECSPI1_MOSI_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI1_SS0_cbit=")))
-        copy_and_resize(audio4->pin_config[2],t1+sizeof("P_ECSPI1_SS0_cbit"),8);
+        copy_and_resize(audio4->pin_config[2],t1+sizeof("P_ECSPI1_SS0_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI1_SCK_cbit=")))
-        copy_and_resize(audio4->pin_config[3],t1+sizeof("P_ECSPI1_SCK_cbit"),8);
+        copy_and_resize(audio4->pin_config[3],t1+sizeof("P_ECSPI1_SCK_cbit"));
     return;
 }
 
@@ -372,13 +401,13 @@ char *t1;
     sprintf(audio5->aud_txd_pin_name,"MX6QDL_PAD_DISP0_DAT17__AUD5_TXD");
     sprintf(audio5->aud_txfs_pin_name,"MX6QDL_PAD_DISP0_DAT18__AUD5_TXFS");
     if ((t1 = strstr(file_contents,"P_ECSPI2_MISO_cbit=")))
-        copy_and_resize(audio5->pin_config[0],t1+sizeof("P_ECSPI2_MISO_cbit"),8);
+        copy_and_resize(audio5->pin_config[0],t1+sizeof("P_ECSPI2_MISO_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI2_MOSI_cbit=")))
-        copy_and_resize(audio5->pin_config[1],t1+sizeof("P_ECSPI2_MOSI_cbit"),8);
+        copy_and_resize(audio5->pin_config[1],t1+sizeof("P_ECSPI2_MOSI_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI2_SS0_cbit=")))
-        copy_and_resize(audio5->pin_config[2],t1+sizeof("P_ECSPI2_SS0_cbit"),8);
+        copy_and_resize(audio5->pin_config[2],t1+sizeof("P_ECSPI2_SS0_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI2_SCK_cbit=")))
-        copy_and_resize(audio5->pin_config[3],t1+sizeof("P_ECSPI2_SCK_cbit"),8);
+        copy_and_resize(audio5->pin_config[3],t1+sizeof("P_ECSPI2_SCK_cbit"));
     return;
 }
 
@@ -393,13 +422,13 @@ char *t1;
     sprintf(audio6->aud_txd_pin_name,"MX6QDL_PAD_DI0_PIN2__AUD6_TXD");
     sprintf(audio6->aud_txfs_pin_name,"MX6QDL_PAD_DI0_PIN3__AUD6_TXFS");
     if ((t1 = strstr(file_contents,"P_AUD6_TXD_cbit=")))
-        copy_and_resize(audio6->pin_config[0],t1+sizeof("P_AUD6_TXD_cbit"),8);
+        copy_and_resize(audio6->pin_config[0],t1+sizeof("P_AUD6_TXD_cbit"));
     if ((t1 = strstr(file_contents,"P_AUD6_RXD_cbit=")))
-        copy_and_resize(audio6->pin_config[1],t1+sizeof("P_AUD6_RXD_cbit"),8);
+        copy_and_resize(audio6->pin_config[1],t1+sizeof("P_AUD6_RXD_cbit"));
     if ((t1 = strstr(file_contents,"P_AUD6_TXFS_cbit=")))
-        copy_and_resize(audio6->pin_config[2],t1+sizeof("P_AUD6_TXFS_cbit"),8);
+        copy_and_resize(audio6->pin_config[2],t1+sizeof("P_AUD6_TXFS_cbit"));
     if ((t1 = strstr(file_contents,"P_AUD6_TXC_cbit=")))
-        copy_and_resize(audio6->pin_config[3],t1+sizeof("P_AUD6_TXC_cbit"),8);
+        copy_and_resize(audio6->pin_config[3],t1+sizeof("P_AUD6_TXC_cbit"));
     return;
 }
 
@@ -415,15 +444,15 @@ char *t1;
     sprintf(ecspi1_5->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT23__ECSPI1_SS0");
     sprintf(ecspi1_5->ss1_pin_name,"MX6QDL_PAD_DISP0_DAT15__ECSPI1_SS1");
     if ((t1 = strstr(file_contents,"P_ECSPI1_MISO_cbit=")))
-        copy_and_resize(ecspi1_5->pin_config[0],t1+sizeof("P_ECSPI1_MISO_cbit"),8);
+        copy_and_resize(ecspi1_5->pin_config[0],t1+sizeof("P_ECSPI1_MISO_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI1_MOSI_cbit=")))
-        copy_and_resize(ecspi1_5->pin_config[1],t1+sizeof("P_ECSPI1_MOSI_cbit"),8);
+        copy_and_resize(ecspi1_5->pin_config[1],t1+sizeof("P_ECSPI1_MOSI_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI1_SCK_cbit=")))
-        copy_and_resize(ecspi1_5->pin_config[2],t1+sizeof("P_ECSPI1_SCK_cbit"),8);
+        copy_and_resize(ecspi1_5->pin_config[2],t1+sizeof("P_ECSPI1_SCK_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI1_SS0_cbit=")))
-        copy_and_resize(ecspi1_5->pin_config[3],t1+sizeof("P_ECSPI1_SS0_cbit"),8);
+        copy_and_resize(ecspi1_5->pin_config[3],t1+sizeof("P_ECSPI1_SS0_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI2_SS1_cbit=")))
-        copy_and_resize(ecspi1_5->pin_config[4],t1+sizeof("P_ECSPI2_SS1_cbit"),8);
+        copy_and_resize(ecspi1_5->pin_config[4],t1+sizeof("P_ECSPI2_SS1_cbit"));
     return;
 }
 
@@ -438,13 +467,13 @@ char *t1;
     sprintf(ecspi1_4->sclk_pin_name,"MX6QDL_PAD_DISP0_DAT20__ECSPI1_SCLK");
     sprintf(ecspi1_4->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT23__ECSPI1_SS0");
     if ((t1 = strstr(file_contents,"P_ECSPI1_MISO_cbit=")))
-        copy_and_resize(ecspi1_4->pin_config[0],t1+sizeof("P_ECSPI1_MISO_cbit"),8);
+        copy_and_resize(ecspi1_4->pin_config[0],t1+sizeof("P_ECSPI1_MISO_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI1_MOSI_cbit=")))
-        copy_and_resize(ecspi1_4->pin_config[1],t1+sizeof("P_ECSPI1_MOSI_cbit"),8);
+        copy_and_resize(ecspi1_4->pin_config[1],t1+sizeof("P_ECSPI1_MOSI_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI1_SCK_cbit=")))
-        copy_and_resize(ecspi1_4->pin_config[2],t1+sizeof("P_ECSPI1_SCK_cbit"),8);
+        copy_and_resize(ecspi1_4->pin_config[2],t1+sizeof("P_ECSPI1_SCK_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI1_SS0_cbit=")))
-        copy_and_resize(ecspi1_4->pin_config[3],t1+sizeof("P_ECSPI1_SS0_cbit"),8);
+        copy_and_resize(ecspi1_4->pin_config[3],t1+sizeof("P_ECSPI1_SS0_cbit"));
     return;
 }
 
@@ -460,15 +489,15 @@ char *t1;
     sprintf(ecspi2_5->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT18__ECSPI2_SS0");
     sprintf(ecspi2_5->ss1_pin_name,"MX6QDL_PAD_DISP0_DAT15__ECSPI2_SS1");
     if ((t1 = strstr(file_contents,"P_ECSPI2_MISO_cbit=")))
-        copy_and_resize(ecspi2_5->pin_config[0],t1+sizeof("P_ECSPI2_MISO_cbit"),8);
+        copy_and_resize(ecspi2_5->pin_config[0],t1+sizeof("P_ECSPI2_MISO_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI2_MOSI_cbit=")))
-        copy_and_resize(ecspi2_5->pin_config[1],t1+sizeof("P_ECSPI2_MOSI_cbit"),8);
+        copy_and_resize(ecspi2_5->pin_config[1],t1+sizeof("P_ECSPI2_MOSI_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI2_SCK_cbit=")))
-        copy_and_resize(ecspi2_5->pin_config[2],t1+sizeof("P_ECSPI2_SCK_cbit"),8);
+        copy_and_resize(ecspi2_5->pin_config[2],t1+sizeof("P_ECSPI2_SCK_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI2_SS0_cbit=")))
-        copy_and_resize(ecspi2_5->pin_config[3],t1+sizeof("P_ECSPI2_SS0_cbit"),8);
+        copy_and_resize(ecspi2_5->pin_config[3],t1+sizeof("P_ECSPI2_SS0_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI2_SS1_cbit=")))
-        copy_and_resize(ecspi2_5->pin_config[4],t1+sizeof("P_ECSPI2_SS1_cbit"),8);
+        copy_and_resize(ecspi2_5->pin_config[4],t1+sizeof("P_ECSPI2_SS1_cbit"));
     return;
 }
 
@@ -483,13 +512,13 @@ char *t1;
     sprintf(ecspi2_4->sclk_pin_name,"MX6QDL_PAD_DISP0_DAT19__ECSPI2_SCLK");
     sprintf(ecspi2_4->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT18__ECSPI2_SS0");
     if ((t1 = strstr(file_contents,"P_ECSPI2_MISO_cbit=")))
-        copy_and_resize(ecspi2_4->pin_config[0],t1+sizeof("P_ECSPI2_MISO_cbit"),8);
+        copy_and_resize(ecspi2_4->pin_config[0],t1+sizeof("P_ECSPI2_MISO_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI2_MOSI_cbit=")))
-        copy_and_resize(ecspi2_4->pin_config[1],t1+sizeof("P_ECSPI2_MOSI_cbit"),8);
+        copy_and_resize(ecspi2_4->pin_config[1],t1+sizeof("P_ECSPI2_MOSI_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI2_SCK_cbit=")))
-        copy_and_resize(ecspi2_4->pin_config[2],t1+sizeof("P_ECSPI2_SCK_cbit"),8);
+        copy_and_resize(ecspi2_4->pin_config[2],t1+sizeof("P_ECSPI2_SCK_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI2_SS0_cbit=")))
-        copy_and_resize(ecspi2_4->pin_config[3],t1+sizeof("P_ECSPI2_SS0_cbit"),8);
+        copy_and_resize(ecspi2_4->pin_config[3],t1+sizeof("P_ECSPI2_SS0_cbit"));
     return;
 }
 
@@ -505,15 +534,15 @@ char *t1;
     sprintf(ecspi3_5->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT3__ECSPI3_SS0");
     sprintf(ecspi3_5->ss1_pin_name,"MX6QDL_PAD_DISP0_DAT4__ECSPI3_SS1");
     if ((t1 = strstr(file_contents,"P_ECSPI3_MISO_cbit=")))
-        copy_and_resize(ecspi3_5->pin_config[0],t1+sizeof("P_ECSPI3_MISO_cbit"),8);
+        copy_and_resize(ecspi3_5->pin_config[0],t1+sizeof("P_ECSPI3_MISO_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI3_MOSI_cbit=")))
-        copy_and_resize(ecspi3_5->pin_config[1],t1+sizeof("P_ECSPI3_MOSI_cbit"),8);
+        copy_and_resize(ecspi3_5->pin_config[1],t1+sizeof("P_ECSPI3_MOSI_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI3_SCK_cbit=")))
-        copy_and_resize(ecspi3_5->pin_config[2],t1+sizeof("P_ECSPI3_SCK_cbit"),8);
+        copy_and_resize(ecspi3_5->pin_config[2],t1+sizeof("P_ECSPI3_SCK_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI3_SS0_cbit=")))
-        copy_and_resize(ecspi3_5->pin_config[3],t1+sizeof("P_ECSPI3_SS0_cbit"),8);
+        copy_and_resize(ecspi3_5->pin_config[3],t1+sizeof("P_ECSPI3_SS0_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI3_SS1_cbit=")))
-        copy_and_resize(ecspi3_5->pin_config[4],t1+sizeof("P_ECSPI3_SS1_cbit"),8);
+        copy_and_resize(ecspi3_5->pin_config[4],t1+sizeof("P_ECSPI3_SS1_cbit"));
     return;
 }
 
@@ -528,13 +557,13 @@ char *t1;
     sprintf(ecspi3_4->sclk_pin_name,"MX6QDL_PAD_DISP0_DAT0__ECSPI3_SCLK");
     sprintf(ecspi3_4->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT3__ECSPI3_SS0");
     if ((t1 = strstr(file_contents,"P_ECSPI3_MISO_cbit=")))
-        copy_and_resize(ecspi3_4->pin_config[0],t1+sizeof("P_ECSPI3_MISO_cbit"),8);
+        copy_and_resize(ecspi3_4->pin_config[0],t1+sizeof("P_ECSPI3_MISO_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI3_MOSI_cbit=")))
-        copy_and_resize(ecspi3_4->pin_config[1],t1+sizeof("P_ECSPI3_MOSI_cbit"),8);
+        copy_and_resize(ecspi3_4->pin_config[1],t1+sizeof("P_ECSPI3_MOSI_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI3_SCK_cbit=")))
-        copy_and_resize(ecspi3_4->pin_config[2],t1+sizeof("P_ECSPI3_SCK_cbit"),8);
+        copy_and_resize(ecspi3_4->pin_config[2],t1+sizeof("P_ECSPI3_SCK_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI3_SS0_cbit=")))
-        copy_and_resize(ecspi3_4->pin_config[3],t1+sizeof("P_ECSPI3_SS0_cbit"),8);
+        copy_and_resize(ecspi3_4->pin_config[3],t1+sizeof("P_ECSPI3_SS0_cbit"));
     return;
 }
 
@@ -549,13 +578,13 @@ char *t1;
     sprintf(ecspi4->sclk_pin_name,"MX6QDL_PAD_DISP0_DAT0__ECSPI3_SCLK");
     sprintf(ecspi4->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT3__ECSPI3_SS0");
     if ((t1 = strstr(file_contents,"P_ECSPI4_MISO_cbit=")))
-        copy_and_resize(ecspi4->pin_config[0],t1+sizeof("P_ECSPI4_MISO_cbit"),8);
+        copy_and_resize(ecspi4->pin_config[0],t1+sizeof("P_ECSPI4_MISO_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI4_MOSI_cbit=")))
-        copy_and_resize(ecspi4->pin_config[1],t1+sizeof("P_ECSPI4_MOSI_cbit"),8);
+        copy_and_resize(ecspi4->pin_config[1],t1+sizeof("P_ECSPI4_MOSI_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI4_SCK_cbit=")))
-        copy_and_resize(ecspi4->pin_config[2],t1+sizeof("P_ECSPI4_SCK_cbit"),8);
+        copy_and_resize(ecspi4->pin_config[2],t1+sizeof("P_ECSPI4_SCK_cbit"));
     if ((t1 = strstr(file_contents,"P_ECSPI4_SS0_cbit=")))
-        copy_and_resize(ecspi4->pin_config[3],t1+sizeof("P_ECSPI4_SS0_cbit"),8);
+        copy_and_resize(ecspi4->pin_config[3],t1+sizeof("P_ECSPI4_SS0_cbit"));
     return;
 }
 
@@ -568,9 +597,9 @@ char *t1;
     sprintf(i2c1a->sda_pin_name,"MX6QDL_PAD_EIM_D28__I2C1_SDA");
     sprintf(i2c1a->scl_pin_name,"MX6QDL_PAD_EIM_D21__I2C1_SCL");
     if ((t1 = strstr(file_contents,"P_ECSPI4_MOSI_cbit=")))
-        copy_and_resize(i2c1a->pin_config[0],t1+sizeof("P_ECSPI4_MOSI_cbit"),8);
-    if ((t1 = strstr(file_contents,"v=0x")))
-        copy_and_resize(i2c1a->pin_config[1],t1+sizeof("P_ECSPI4_SCK_cbit"),8);
+        copy_and_resize(i2c1a->pin_config[0],t1+sizeof("P_ECSPI4_MOSI_cbit"));
+    if ((t1 = strstr(file_contents,"P_ECSPI4_SCK_cbit=")))
+        copy_and_resize(i2c1a->pin_config[1],t1+sizeof("P_ECSPI4_SCK_cbit"));
     return;
 }
 
@@ -583,9 +612,9 @@ char *t1;
     sprintf(i2c3->sda_pin_name,"MX6QDL_PAD_EIM_D18__I2C3_SDA");
     sprintf(i2c3->scl_pin_name,"MX6QDL_PAD_EIM_D17__I2C3_SCL");
     if ((t1 = strstr(file_contents,"P_I2C3_SCL_cbit=")))
-        copy_and_resize(i2c3->pin_config[0],t1+sizeof("P_I2C3_SCL_cbit"),8);
+        copy_and_resize(i2c3->pin_config[0],t1+sizeof("P_I2C3_SCL_cbit"));
     if ((t1 = strstr(file_contents,"P_I2C3_SDA_cbit=")))
-        copy_and_resize(i2c3->pin_config[1],t1+sizeof("P_I2C3_SDA_cbit"),8);
+        copy_and_resize(i2c3->pin_config[1],t1+sizeof("P_I2C3_SDA_cbit"));
     return;
 }
 
@@ -601,7 +630,6 @@ void parse_special_iomux(void)
     if ( strstr(file_contents,"P_ECSPI1_MISO_comboBox=AUD4_TXFS"))
     {
         iomux->audio4 = 1;
-        printf("%s : Found\n",__func__);
         process_audio4();
     }
     if ( strstr(file_contents,"P_ECSPI1_MISO_comboBox=ECSPI1_MISO"))
@@ -624,7 +652,7 @@ void parse_special_iomux(void)
     }
     if ( strstr(file_contents,"P_ECSPI2_MISO_comboBox=ECSPI2_MISO"))
     {
-        if ( strstr(file_contents,"P_ECSPI2_SS1_comboBox=ECSPI1_SS1"))
+        if ( strstr(file_contents,"P_ECSPI2_SS1_comboBox=ECSPI2_SS1"))
         {
             iomux->ecspi2_5 = 1;
             process_ecspi2_5();
@@ -637,7 +665,7 @@ void parse_special_iomux(void)
     }
     if ( strstr(file_contents,"P_ECSPI3_MISO_comboBox=ECSPI3_MISO"))
     {
-        if ( strstr(file_contents,"P_ECSPI2_SS1_comboBox=ECSPI1_SS1"))
+        if ( strstr(file_contents,"P_ECSPI3_SS1_comboBox=ECSPI3_SS1"))
         {
             iomux->ecspi3_5 = 1;
             process_ecspi3_5();
@@ -676,8 +704,16 @@ void parse_special_iomux(void)
     }
     if ( strstr(file_contents,"P_SD3_CMD_comboBox=SD3_CMD"))
     {
-        process_sd3();
-        iomux->sd3 = 1;
+        if ( strstr(file_contents,"P_SD3_DATA4_comboBox=SD3_DATA4"))
+        {
+            process_sd3_8();
+            iomux->sd3_8 = 1;
+        }
+        else
+        {
+            process_sd3_4();
+            iomux->sd3_4 = 1;
+        }
     }
 
     if ( strstr(file_contents,"P_SD3_CMD_comboBox=FLEXCAN1_TX"))

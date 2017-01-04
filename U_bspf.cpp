@@ -110,7 +110,7 @@ void NOVAembed::on_U_Save_pushButton_clicked()
     QString croped_fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), "/Devel/NOVAsom_SDK/NOVAembed_Settings",tr(".bspf (*.bspf)"));
     QString fileName=croped_fileName.section(".",0,0);
     fileName = fileName+".bspf";
-    qDebug() << "fileName :"+fileName;
+    //qDebug() << "fileName :"+fileName;
 
     if (fileName.isEmpty())
         return;
@@ -122,7 +122,7 @@ void NOVAembed::on_U_Save_pushButton_clicked()
             QMessageBox::information(this, tr("Unable to open file"),file.errorString());
             return;
         }
-        qDebug() << "fileName :"+fileName;
+        //qDebug() << "fileName :"+fileName;
 
         QTextStream out(&file);
         out << QString("[U_IOMUX]\n");
@@ -372,7 +372,7 @@ void NOVAembed::on_U_DecodeCFGBits_pushButton_clicked()
     bool ok=1;
     QString a = ui->U_Decoded_CFG_Bits_lineEdit->text().right(8);
     unsigned int value = a.toUInt(&ok,16);
-    qDebug()  << "value = 0x" << QString::number(value, 16);
+    //qDebug()  << "value = 0x" << QString::number(value, 16);
 
     if ( (unsigned int )(value & NO_PAD_CTL) == NO_PAD_CTL )
     {
