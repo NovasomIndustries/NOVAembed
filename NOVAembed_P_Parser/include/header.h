@@ -550,18 +550,24 @@
 };\n\
 "
 
-#define i2c1_defs "\
+#define i2c1_defs_top "\
 &i2c1 {\n\
-        clock-frequency = <100000>;\n\
+"
+
+/*        clock-frequency = <100000>;\n\    */
+#define i2c1_defs_bottom "\
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_i2c1>;\n\
         status = \"okay\";\n\
 };\n\
 "
 
-#define i2c3_defs "\
+#define i2c3_defs_top "\
 &i2c3 {\n\
-        clock-frequency = <100000>;\n\
+"
+
+/*        clock-frequency = <100000>;\n\    */
+#define i2c3_defs_bottom "\
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_i2c3>;\n\
         status = \"okay\";\n\

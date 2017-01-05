@@ -1033,6 +1033,8 @@ void NOVAembed::save_helper(QString fileName)
         out << QString("P_UART4_TXD_comboBox="+ui->P_UART4_TXD_comboBox->currentText()+"\n");
         out << QString("P_UART4_RXD_comboBox="+ui->P_UART4_RXD_comboBox->currentText()+"\n");
         out << QString("P_UART4_CTS_L_comboBox="+ui->P_UART4_CTS_L_comboBox->currentText()+"\n");
+        out << QString("P_I2C1Speed="+ui->P_I2C1Speed_lineEdit->text()+"\n");
+        out << QString("P_I2C3Speed="+ui->P_I2C3Speed_lineEdit->text()+"\n");
         if ( ui->P_SATA_checkBox->isChecked() )
             out << QString("P_SATA_checkBox=true\n");
         else
@@ -1183,6 +1185,7 @@ void NOVAembed::on_P_SetCFGbits_pushButton_clicked()
     ui->P_UART4_TXD_lineEdit->setText(CfgBitDefaultValue);
     ui->P_UART4_RXD_lineEdit->setText(CfgBitDefaultValue);
     ui->P_UART4_CTS_L_lineEdit->setText(CfgBitDefaultValue);
+
     storeNOVAembed_ini();
 }
 
@@ -1239,6 +1242,8 @@ void NOVAembed::on_P_Default_pushButton_clicked()
     ui->P_PCIe_checkBox->setChecked(true);
     ui->P_PrimaryVideo_comboBox->setCurrentIndex(0);
     ui->P_SecondaryVideo_comboBox->setCurrentIndex(0);
+    ui->P_I2C1Speed_lineEdit->setText("100000");
+    ui->P_I2C3Speed_lineEdit->setText("100000");
 }
 
 QString P_getvalue(QString strKey, QSettings *settings , QString entry)
@@ -1315,6 +1320,8 @@ QSettings * func_settings = 0;
         ui->P_PCIe_checkBox->setChecked(false);
     ui->P_PrimaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "PrimaryVideo_comboBox"));
     ui->P_SecondaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "SecondaryVideo_comboBox"));
+    ui->P_I2C1Speed_lineEdit->setText(P_getvalue(strKeyFunc, func_settings , "P_I2C1Speed"));
+    ui->P_I2C3Speed_lineEdit->setText(P_getvalue(strKeyFunc, func_settings , "P_I2C3Speed"));
 
 
     QString strKeyConf("P_CONF/");

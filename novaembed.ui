@@ -517,6 +517,9 @@
          <height>21</height>
         </rect>
        </property>
+       <property name="inputMask">
+        <string>000.000.000.000</string>
+       </property>
       </widget>
       <widget class="QLabel" name="iperror_label">
        <property name="geometry">
@@ -69457,6 +69460,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLabel" name="label_121">
        <property name="geometry">
@@ -69513,6 +69519,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_GPIO4_IO26_lineEdit">
        <property name="geometry">
@@ -69527,6 +69536,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_GPIO1_IO00_lineEdit">
@@ -69543,6 +69555,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_GPIO6_IO05_lineEdit">
        <property name="geometry">
@@ -69557,6 +69572,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_GPIO4_IO28_lineEdit">
@@ -69573,6 +69591,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_AUD6_TXD_lineEdit">
        <property name="geometry">
@@ -69587,6 +69608,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_I2C1_SDA_lineEdit">
@@ -69603,6 +69627,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_UART1_TXD_lineEdit">
        <property name="geometry">
@@ -69617,6 +69644,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_SPDIF_OUT_lineEdit">
@@ -69633,6 +69663,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_AUD6_TXFS_lineEdit">
        <property name="geometry">
@@ -69648,6 +69681,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_GPIO3_IO19_lineEdit">
        <property name="geometry">
@@ -69662,6 +69698,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_68">
@@ -69737,6 +69776,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_GPIO4_IO14_lineEdit">
        <property name="geometry">
@@ -69751,6 +69793,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_I2C1_SCL_lineEdit">
@@ -69767,6 +69812,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_UART1_RXD_lineEdit">
        <property name="geometry">
@@ -69781,6 +69829,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_AUD6_RXD_lineEdit">
@@ -69797,6 +69848,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_GPIO4_IO29_lineEdit">
        <property name="geometry">
@@ -69811,6 +69865,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_UART4_RXD_lineEdit">
@@ -69827,6 +69884,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_UART4_RTS_L_lineEdit">
        <property name="geometry">
@@ -69841,6 +69901,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_UART4_CTS_L_lineEdit">
@@ -69857,6 +69920,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_GPIO4_IO27_lineEdit">
        <property name="geometry">
@@ -69872,6 +69938,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_AUD6_TXC_lineEdit">
        <property name="geometry">
@@ -69886,6 +69955,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
      </widget>
@@ -69921,6 +69993,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI1_SCK_lineEdit">
        <property name="geometry">
@@ -69935,6 +70010,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI3_SS1_lineEdit">
@@ -69951,6 +70029,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI1_MOSI_lineEdit">
        <property name="geometry">
@@ -69965,6 +70046,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_I2C3_SDA_lineEdit">
@@ -69981,6 +70065,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_SD3_DATA1_lineEdit">
        <property name="geometry">
@@ -69995,6 +70082,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI4_SCK_lineEdit">
@@ -70011,6 +70101,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_SD3_DATA3_lineEdit">
        <property name="geometry">
@@ -70025,6 +70118,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_61">
@@ -70061,6 +70157,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_KHZ32_CLK_OUT_lineEdit">
        <property name="geometry">
@@ -70075,6 +70174,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI3_SCK_lineEdit">
@@ -70091,6 +70193,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI3_MOSI_lineEdit">
        <property name="geometry">
@@ -70105,6 +70210,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI2_MOSI_lineEdit">
@@ -70121,6 +70229,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI2_SS1_lineEdit">
        <property name="geometry">
@@ -70136,6 +70247,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_SD3_DATA5_lineEdit">
        <property name="geometry">
@@ -70150,6 +70264,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
      </widget>
@@ -70185,6 +70302,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_I2C3_SCL_lineEdit">
        <property name="geometry">
@@ -70199,6 +70319,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_SD3_CLK_lineEdit">
@@ -70215,6 +70338,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI2_SCK_lineEdit">
        <property name="geometry">
@@ -70229,6 +70355,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_SD3_CMD_lineEdit">
@@ -70245,6 +70374,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI3_SS0_lineEdit">
        <property name="geometry">
@@ -70259,6 +70391,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_SD3_DATA2_lineEdit">
@@ -70275,6 +70410,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI1_SS0_lineEdit">
        <property name="geometry">
@@ -70289,6 +70427,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_SD3_DATA0_lineEdit">
@@ -70305,6 +70446,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI1_MISO_lineEdit">
        <property name="geometry">
@@ -70319,6 +70463,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_67">
@@ -70355,6 +70502,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI4_MISO_lineEdit">
        <property name="geometry">
@@ -70369,6 +70519,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_SD3_DATA4_lineEdit">
@@ -70385,6 +70538,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI4_SS0_lineEdit">
        <property name="geometry">
@@ -70399,6 +70555,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI3_MISO_lineEdit">
@@ -70415,6 +70574,9 @@
          <pointsize>8</pointsize>
         </font>
        </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="P_ECSPI2_MISO_lineEdit">
        <property name="geometry">
@@ -70429,6 +70591,9 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
        </property>
       </widget>
      </widget>
@@ -70496,7 +70661,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>80</y>
+         <y>70</y>
          <width>121</width>
          <height>22</height>
         </rect>
@@ -70517,7 +70682,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>100</y>
+         <y>90</y>
          <width>81</width>
          <height>17</height>
         </rect>
@@ -70525,6 +70690,8 @@
        <property name="font">
         <font>
          <pointsize>8</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -70535,7 +70702,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>120</y>
+         <y>110</y>
          <width>131</width>
          <height>27</height>
         </rect>
@@ -70557,22 +70724,7 @@
        </item>
        <item>
         <property name="text">
-         <string>LVDS 1920x1080 2Ch</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1366x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1024x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1024x600</string>
+         <string>LVDS 800x480</string>
         </property>
        </item>
        <item>
@@ -70582,7 +70734,22 @@
        </item>
        <item>
         <property name="text">
-         <string>LVDS 800x480</string>
+         <string>LVDS 1024x600</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1024x768</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1366x768</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1920x1080 2Ch</string>
         </property>
        </item>
       </widget>
@@ -70608,7 +70775,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>150</y>
+         <y>140</y>
          <width>81</width>
          <height>17</height>
         </rect>
@@ -70616,6 +70783,8 @@
        <property name="font">
         <font>
          <pointsize>8</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -70626,7 +70795,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>170</y>
+         <y>160</y>
          <width>131</width>
          <height>27</height>
         </rect>
@@ -70638,32 +70807,7 @@
        </property>
        <item>
         <property name="text">
-         <string>HDMI 1920x1080</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>HDMI 1280x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1920x1080 2Ch</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1366x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1024x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1024x600</string>
+         <string>LVDS 800x480</string>
         </property>
        </item>
        <item>
@@ -70673,7 +70817,22 @@
        </item>
        <item>
         <property name="text">
-         <string>LVDS 800x480</string>
+         <string>LVDS 1024x600</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1024x768</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1366x768</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1920x1080 2Ch</string>
         </property>
        </item>
       </widget>
@@ -70798,56 +70957,207 @@
        </property>
       </widget>
      </widget>
-     <widget class="QPushButton" name="P_SetCFGbits_pushButton">
+     <widget class="QFrame" name="frame_33">
       <property name="geometry">
        <rect>
-        <x>480</x>
-        <y>500</y>
-        <width>91</width>
-        <height>27</height>
+        <x>450</x>
+        <y>270</y>
+        <width>151</width>
+        <height>71</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>8</pointsize>
-       </font>
+      <property name="frameShape">
+       <enum>QFrame::Panel</enum>
       </property>
-      <property name="text">
-       <string>Set all CFG Bits to</string>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
       </property>
+      <widget class="QLabel" name="label_123">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>0</y>
+         <width>131</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>I2C Speed</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="P_I2C1Speed_lineEdit">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>20</y>
+         <width>71</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="inputMask">
+        <string>000000</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="P_I2C3Speed_lineEdit">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>40</y>
+         <width>71</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="inputMask">
+        <string>000000</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_130">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>21</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>I2C1</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_135">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>21</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>I2C3</string>
+       </property>
+      </widget>
      </widget>
-     <widget class="QLineEdit" name="P_Default_lineEdit">
+     <widget class="QFrame" name="frame_34">
       <property name="geometry">
        <rect>
-        <x>490</x>
-        <y>530</y>
-        <width>71</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>8</pointsize>
-       </font>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="P_Default_pushButton">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
+        <x>450</x>
         <y>460</y>
-        <width>121</width>
-        <height>27</height>
+        <width>151</width>
+        <height>111</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>8</pointsize>
-       </font>
+      <property name="frameShape">
+       <enum>QFrame::Panel</enum>
       </property>
-      <property name="text">
-       <string>Set default configuration</string>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
       </property>
+      <widget class="QPushButton" name="P_Default_pushButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>131</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Set default configuration</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="P_SetCFGbits_pushButton">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>50</y>
+         <width>91</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Set all CFG Bits to</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="P_Default_lineEdit">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>80</y>
+         <width>71</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="inputMask">
+        <string>0xhhhhhhhh</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_136">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>0</y>
+         <width>131</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Bit Operations</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tabBSPFU">

@@ -439,7 +439,8 @@ void NOVAembed::on_tab_currentChanged(int index)
             ui->P_DSE_Disable_checkBox->setEnabled(false);
             ui->P_HYS_PAD_CTL_checkBox->setEnabled(false);
             ui->P_NO_PAD_CTL_checkBox->setChecked(true);
-            ui->P_Default_lineEdit->setText(CfgBitDefaultValue);
+            ui->P_I2C1Speed_lineEdit->setText("100000");
+            ui->P_I2C3Speed_lineEdit->setText("100000");
 
             if ( Quad == "true")
             {
@@ -451,7 +452,8 @@ void NOVAembed::on_tab_currentChanged(int index)
                     ui->P_SATA_checkBox->setEnabled(false);
                     ui->P_SATA_checkBox->setChecked(false);
             }
-
+            ui->P_Default_lineEdit->setText(CfgBitDefaultValue);
+            ui->P_Decoded_CFG_Bits_lineEdit->setText("0x00000000");
             P_load_BSPF_File(Last_P_BSPFactoryFile);
             QFileInfo fi(Last_P_BSPFactoryFile);
             if ( ! fi.exists())

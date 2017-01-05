@@ -423,10 +423,39 @@ char    t[128];
     strcat(dtsifile_dump,sf);
 }
 
+int extract_speed(char *speed_var_ptr)
+{
+char    *duplicate;
+    duplicate = strdup(speed_var_ptr);
+    *index(duplicate,0x0a)=0;
+    duplicate += strlen("P_I2C1Speed=");
+    //printf("%s : %s %d %d\n",__func__,duplicate,strlen(duplicate),atoi(duplicate));
+    return(atoi(duplicate));
+}
+
 void process_special_devs(void)
 {
 char    t[1024];
+int     speed;
 
+    if (( iomux->i2c1a == 1 ) || ( iomux->i2c1b == 1 ))
+    {
+        sprintf(t,i2c1_defs_top);
+        strcat(dtsifile_dump,t);
+        speed = extract_speed(strstr(file_contents,"P_I2C1Speed="));
+        sprintf(t,"        clock-frequency = <%d>;\n",speed);
+        strcat(dtsifile_dump,t);
+        strcat(dtsifile_dump,i2c1_defs_bottom);
+    }
+    if ( iomux->i2c3 == 1 )
+    {
+        sprintf(t,i2c3_defs_top);
+        strcat(dtsifile_dump,t);
+        speed = extract_speed(strstr(file_contents,"P_I2C3Speed="));
+        sprintf(t,"        clock-frequency = <%d>;\n",speed);
+        strcat(dtsifile_dump,t);
+        strcat(dtsifile_dump,i2c3_defs_bottom);
+    }
     if ( iomux->pcie == 1 )
     {
         sprintf(t,pcie_enabled_defs);
@@ -472,16 +501,6 @@ char    t[1024];
         strcat(dtsifile_dump,t);
     }
 
-    if (( iomux->i2c1a == 1 ) || ( iomux->i2c1b == 1 ))
-    {
-        sprintf(t,i2c1_defs);
-        strcat(dtsifile_dump,t);
-    }
-    if ( iomux->i2c3 == 1 )
-    {
-        sprintf(t,i2c3_defs);
-        strcat(dtsifile_dump,t);
-    }
     if ( iomux->ecspi1_4 == 1 )
     {
         sprintf(t,ecspi1_4_defs);
