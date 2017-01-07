@@ -595,7 +595,7 @@ void NOVAembed::on_P_SD3_CLK_comboBox_currentIndexChanged(const QString &arg1)
 
     if ( arg1 == "FLEXCAN1_RX")
     {
-        ui->P_SD3_CLK_comboBox->setCurrentText("FLEXCAN1_TX");
+        ui->P_SD3_CMD_comboBox->setCurrentText("FLEXCAN1_TX");
         set_sd3_4L_IO_helper();
     }
     if ( arg1 == "UART2_RTS_B")
