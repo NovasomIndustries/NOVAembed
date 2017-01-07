@@ -473,7 +473,7 @@ void NOVAembed::on_P_KHZ32_CLK_OUT_comboBox_currentIndexChanged(const QString &a
 {
     if ( arg1 == "32KHZ_CLK_OUT")
     {
-        ui->P_KHZ32_CLK_OUT_comboBox->setCurrentText("I2C3_SCL");
+        ui->P_KHZ32_CLK_OUT_comboBox->setCurrentText("32KHZ_CLK_OUT");
 
     }
     if ( arg1 == "GPIO1_IO08")
@@ -734,13 +734,12 @@ void NOVAembed::on_P_SD3_DATA7_comboBox_currentIndexChanged(const QString &arg1)
 /* J13 END */
 /* J9 */
 
-
 void NOVAembed::on_P_GPIO3_IO20_comboBox_currentIndexChanged(const QString &arg1)
 {
     if ( arg1 == "GPIO3_IO20")
         ui->P_GPIO3_IO20_comboBox->setCurrentText("GPIO3_IO20");
-    if ( arg1 == "EPIT2_OUT")
-        ui->P_GPIO3_IO20_comboBox->setCurrentText("EPIT2_OUT");
+    if ( arg1 == "XTALOSC_REF_CLK_24M")
+        ui->P_GPIO3_IO20_comboBox->setCurrentText("XTALOSC_REF_CLK_24M");
 
 }
 
@@ -1039,7 +1038,7 @@ void NOVAembed::save_helper(QString fileName)
             out << QString("P_SATA_checkBox=true\n");
         else
             out << QString("P_SATA_checkBox=false\n");
-        if ( +ui->P_PCIe_checkBox->isChecked())
+        if ( ui->P_PCIe_checkBox->isChecked())
             out << QString("P_PCIe_checkBox=true\n");
         else
             out << QString("P_PCIe_checkBox=false\n");
