@@ -5,7 +5,6 @@ Summary:
 This repo contains the NOVAembed graphic tool for the NOVAsom_SDK 1.0.4 Novasom Industries 
 project
 Can be downloaded at at [NOVAsomIndustries on github](https://novasomindustries.github.io/NOVAembed/)
-
 ## Prerequisities
 A running Ubuntu 16.04 or an equivalent virtual machine
 ## Authors
