@@ -1674,27 +1674,36 @@ void NOVAembed::on_P_DecodeCFGBits_pushButton_clicked()
     {
         ui->P_PU_47K_checkBox->setChecked(true);
         ui->P_PUE_checkBox->setChecked(true);
+        ui->P_PUE_checkBox->setEnabled(true);
+        ui->P_PUPD_frame->setEnabled(true);
     }
     else if ( (unsigned int )(value & PAD_CTL_PUS_100K_UP) == PAD_CTL_PUS_100K_UP )
     {
         ui->P_PU_100K_checkBox->setChecked(true);
         ui->P_PUE_checkBox->setChecked(true);
+        ui->P_PUE_checkBox->setEnabled(true);
+        ui->P_PUPD_frame->setEnabled(true);
     }
     else if ( (unsigned int )(value & PAD_CTL_PUS_22K_UP) == PAD_CTL_PUS_22K_UP )
     {
         ui->P_PU_22K_checkBox->setChecked(true);
         ui->P_PUE_checkBox->setChecked(true);
+        ui->P_PUE_checkBox->setEnabled(true);
+        ui->P_PUPD_frame->setEnabled(true);
     }
     else if ( (unsigned int )(value & PAD_CTL_PUE) == PAD_CTL_PUE )
     {
         ui->P_PD_100K_checkBox->setChecked(true);
-        ui->P_PUE_checkBox->setChecked(true);
+        ui->P_PUE_checkBox->setChecked(false);
+        ui->P_PUE_checkBox->setEnabled(false);
+        ui->P_PUPD_frame->setEnabled(true);
     }
 
     if ( (unsigned int )(value & PAD_CTL_PKE) == PAD_CTL_PKE )
     {
-        ui->P_PUE_checkBox->setChecked(false);
-        ui->P_PUPD_frame->setEnabled(false);
+        ui->P_PUE_checkBox->setChecked(true);
+        ui->P_PUPD_frame->setEnabled(true);
+        ui->P_PKE_checkBox->setChecked(true);
     }
     if ( (unsigned int )(value & PAD_CTL_ODE) == PAD_CTL_ODE )
     {
