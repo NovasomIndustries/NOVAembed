@@ -59470,7 +59470,7 @@
        </item>
        <item>
         <property name="text">
-         <string>UART2_TX_DATA</string>
+         <string>UART2_TXD</string>
         </property>
        </item>
        <item>
@@ -64939,7 +64939,7 @@
        </item>
        <item>
         <property name="text">
-         <string>UART2_RX_DATA</string>
+         <string>UART2_RXD</string>
         </property>
        </item>
        <item>
