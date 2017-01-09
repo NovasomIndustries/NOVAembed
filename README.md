@@ -7,7 +7,6 @@ project
 Can be downloaded at at [NOVAsomIndustries on github](https://novasomindustries.github.io/NOVAembed/)
 ## Prerequisities
 A running Ubuntu 16.04 or an equivalent virtual machine
-
 ## Authors
 ```
  **Filippo Visocchi** - *Initial work* - [NOVAsomIndustries](http://www.novasomindustries.com)
