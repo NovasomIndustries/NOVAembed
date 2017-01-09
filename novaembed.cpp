@@ -40,7 +40,6 @@ QString CurrentVideo = "";
 QString AutoRunSelected = "";
 QString AutoRunFolder = "";
 
-
 extern  void storeNOVAembed_ini();
 QWidget *PBSP_stab,*UBSP_stab,*SBSP_stab,*TOOL_stab;
 
