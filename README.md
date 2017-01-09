@@ -2,7 +2,6 @@
 # (C) Copyright 2016 Novasom Industries
 Summary:
 ========
-
 This repo contains the NOVAembed graphic tool for the NOVAsom_SDK 1.0.4 Novasom Industries 
 project
 Can be downloaded at at [NOVAsomIndustries on github](https://novasomindustries.github.io/NOVAembed/)
