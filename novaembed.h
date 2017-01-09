@@ -337,6 +337,8 @@ private slots:
 
     void on_P_QUAD_checkBox_toggled(bool checked);
 
+    void on_P_SetCFGbits_pushButton_2_clicked();
+
 private:
     Ui::NOVAembed *ui;
 };

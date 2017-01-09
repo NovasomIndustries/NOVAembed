@@ -36,7 +36,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabWelcome">
      <attribute name="title">
@@ -223,7 +223,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>:/Icons/linux-logo.jpg</pixmap>
+        <pixmap resource="novaembedresources.qrc">:/Icons/linux-logo.jpg</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -454,7 +454,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>:/Icons/buildroot.jpg</pixmap>
+        <pixmap resource="novaembedresources.qrc">:/Icons/buildroot.jpg</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -1053,7 +1053,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>:/Icons/u-boot-logo.png</pixmap>
+        <pixmap resource="novaembedresources.qrc">:/Icons/u-boot-logo.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -1238,7 +1238,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>:/Icons/micro-sd.jpg</pixmap>
+        <pixmap resource="novaembedresources.qrc">:/Icons/micro-sd.jpg</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -1577,7 +1577,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>:/Icons/ArchLinux.png</pixmap>
+        <pixmap resource="novaembedresources.qrc">:/Icons/ArchLinux.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -71071,7 +71071,7 @@
       <property name="geometry">
        <rect>
         <x>450</x>
-        <y>460</y>
+        <y>350</y>
         <width>151</width>
         <height>111</height>
        </rect>
@@ -71156,6 +71156,62 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_35">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>509</y>
+        <width>151</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Panel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label_137">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>0</y>
+         <width>131</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Tools</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="P_SetCFGbits_pushButton_2">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>91</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Launch P_EasyPin</string>
        </property>
       </widget>
      </widget>
@@ -126137,7 +126193,7 @@
        <string>CodeBlocks</string>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="novaembedresources.qrc">
         <normaloff>:/Icons/code_blocks.png</normaloff>:/Icons/code_blocks.png</iconset>
       </property>
       <property name="iconSize">
@@ -126160,7 +126216,7 @@
        <string>Meld            </string>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="novaembedresources.qrc">
         <normaloff>:/Icons/meld.png</normaloff>:/Icons/meld.png</iconset>
       </property>
       <property name="iconSize">
@@ -126229,7 +126285,7 @@
        <string>Qt Creator</string>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="novaembedresources.qrc">
         <normaloff>:/Icons/qtcreator.png</normaloff>:/Icons/qtcreator.png</iconset>
       </property>
       <property name="iconSize">
