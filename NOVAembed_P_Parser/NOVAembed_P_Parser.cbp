@@ -11,7 +11,6 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/test01.bspf" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -32,9 +31,16 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="imx6sdl-novasomP_hdmi_1920x1080.dtsi" />
 		<Unit filename="include/NOVAembed_P_parser.h" />
 		<Unit filename="include/header.h" />
+		<Unit filename="lvds_defs/lvds_1024x600_ch0_parserinput" />
+		<Unit filename="lvds_defs/lvds_1024x600_ch1_parserinput" />
+		<Unit filename="lvds_defs/lvds_1024x768_ch0_parserinput" />
+		<Unit filename="lvds_defs/lvds_1024x768_ch1_parserinput" />
+		<Unit filename="lvds_defs/lvds_800x480_ch0_parserinput" />
+		<Unit filename="lvds_defs/lvds_800x480_ch1_parserinput" />
+		<Unit filename="lvds_defs/lvds_800x600_ch0_parserinput" />
+		<Unit filename="lvds_defs/lvds_800x600_ch1_parserinput" />
 		<Unit filename="src/dts_gen.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -44,10 +50,11 @@
 		<Unit filename="src/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="test01.bspf" />
 		<Extensions>
 			<code_completion />
+			<envvars />
 			<debugger />
+			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

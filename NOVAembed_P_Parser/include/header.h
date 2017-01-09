@@ -435,6 +435,21 @@
 };\n\
 "
 
+#define ecspi1_dev_4_defs "\
+&ecspi1 {\n\
+        fsl,spi-num-chipselects = <1>;\n\
+        cs-gpios = <&gpio5 17 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi1>;\n\
+        status = \"okay\";\n\
+               spidev0: spi@0 {\n\
+                              reg = <0>;\n\
+                              compatible = \"spidev\";\n\
+                              spi-max-frequency = <1000000>;\n\
+               };\n\
+};\n\
+"
+
 #define ecspi1_5_defs "\
 &ecspi1 {\n\
         fsl,spi-num-chipselects = <2>;\n\
@@ -442,6 +457,20 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi1>;\n\
         status = \"okay\";\n\
+};\n\
+"
+#define ecspi1_dev_5_defs "\
+&ecspi1 {\n\
+        fsl,spi-num-chipselects = <2>;\n\
+        cs-gpios = <&gpio5 17 0> ,  <&gpio5 9 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi1>;\n\
+        status = \"okay\";\n\
+               spidev0: spi@0 {\n\
+                              reg = <0>;\n\
+                              compatible = \"spidev\";\n\
+                              spi-max-frequency = <1000000>;\n\
+               };\n\
 };\n\
 "
 
@@ -452,6 +481,20 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi2>;\n\
         status = \"okay\";\n\
+};\n\
+"
+#define ecspi2_dev_4_defs "\
+&ecspi2 {\n\
+        fsl,spi-num-chipselects = <1>;\n\
+        cs-gpios = <&gpio5 12 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi2>;\n\
+        status = \"okay\";\n\
+               spidev1: spi@1 {\n\
+                              reg = <0>;\n\
+                              compatible = \"spidev\";\n\
+                              spi-max-frequency = <1000000>;\n\
+               };\n\
 };\n\
 "
 
@@ -465,6 +508,21 @@
 };\n\
 "
 
+#define ecspi2_dev_5_defs "\
+&ecspi2 {\n\
+        fsl,spi-num-chipselects = <2>;\n\
+        cs-gpios = <&gpio5 12 0> ,  <&gpio5 9 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi2>;\n\
+        status = \"okay\";\n\
+               spidev2: spi@2 {\n\
+                              reg = <0>;\n\
+                              compatible = \"spidev\";\n\
+                              spi-max-frequency = <1000000>;\n\
+               };\n\
+};\n\
+"
+
 #define ecspi3_4_defs "\
 &ecspi3 {\n\
         fsl,spi-num-chipselects = <1>;\n\
@@ -472,6 +530,20 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi3>;\n\
         status = \"okay\";\n\
+};\n\
+"
+#define ecspi3_dev_4_defs "\
+&ecspi3 {\n\
+        fsl,spi-num-chipselects = <1>;\n\
+        cs-gpios = <&gpio4 24 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi3>;\n\
+        status = \"okay\";\n\
+               spidev3: spi@3 {\n\
+                              reg = <0>;\n\
+                              compatible = \"spidev\";\n\
+                              spi-max-frequency = <1000000>;\n\
+               };\n\
 };\n\
 "
 
@@ -484,6 +556,36 @@
         status = \"okay\";\n\
 };\n\
 "
+#define ecspi3_dev_5_defs "\
+&ecspi3 {\n\
+        fsl,spi-num-chipselects = <2>;\n\
+        cs-gpios = <&gpio4 24 0> ,  <&gpio4 25 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi3>;\n\
+        status = \"okay\";\n\
+               spidev3: spi@3 {\n\
+                              reg = <0>;\n\
+                              compatible = \"spidev\";\n\
+                              spi-max-frequency = <1000000>;\n\
+               };\n\
+};\n\
+"
+
+#define ecspi4_dev_4_defs "\
+&ecspi4 {\n\
+        fsl,spi-num-chipselects = <1>;\n\
+        cs-gpios = <&gpio3 29 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi4>;\n\
+        status = \"okay\";\n\
+               spidev4: spi@4 {\n\
+                              reg = <0>;\n\
+                              compatible = \"spidev\";\n\
+                              spi-max-frequency = <1000000>;\n\
+               };\n\
+};\n\
+"
+
 #define ecspi4_4_defs "\
 &ecspi4 {\n\
         fsl,spi-num-chipselects = <1>;\n\
@@ -493,6 +595,7 @@
         status = \"okay\";\n\
 };\n\
 "
+
 #define audmux4_defs "\
 &audmux {\n\
         pinctrl-names = \"default\";\n\

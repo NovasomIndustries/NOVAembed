@@ -10,13 +10,17 @@ typedef struct _iomux_cfg
 {
     int ecspi1_4;
     int ecspi1_5;
+    int ecspi1_dev;
     int audio4;
     int ecspi2_4;
     int ecspi2_5;
+    int ecspi2_dev;
     int audio5;
     int ecspi3_5;
     int ecspi3_4;
+    int ecspi3_dev;
     int ecspi4;
+    int ecspi4_dev;
     int spdif1;
     int i2c1a;      /* expansion, power from expansion, 2 wires, J9-23 and J9-24 */
     int i2c1b;      /* expansion, 2 wires, J9-20 and J9-22 */
@@ -147,7 +151,7 @@ typedef struct _iomux_spdif
     char spdif_pin_name[PIN_NAME_SIZE];
     char pin_config[1][9];
 } iomux_spdif;
-
+/*
 typedef struct _iomux_clk
 {
     char pinctrl0_name[PIN_NAME_SIZE];
@@ -155,7 +159,7 @@ typedef struct _iomux_clk
     char clk_pin_name[PIN_NAME_SIZE];
     char pin_config[1][9];
 } iomux_clk;
-
+*/
 typedef struct _iomux_can
 {
     char pinctrl0_name[PIN_NAME_SIZE];
@@ -180,7 +184,7 @@ typedef struct _iomux_pwm
     char pwm_pin_name[PIN_NAME_SIZE];
     char pin_config[1][9];
 } iomux_pwm;
-
+/*
 typedef struct _iomux_wdog
 {
     char pinctrl0_name[PIN_NAME_SIZE];
@@ -188,7 +192,7 @@ typedef struct _iomux_wdog
     char wdog_pin_name[PIN_NAME_SIZE];
     char pin_config[1][9];
 } iomux_wdog;
-
+*/
 typedef struct _iomux_hog
 {
     char hog_pin_name[PIN_NAME_SIZE];
@@ -201,6 +205,7 @@ typedef struct _gpio_support
     char combobox_string[PIN_NAME_SIZE];
     char pin_name_string[PIN_NAME_SIZE];
 } gpio_support;
+
 
 extern  char        file_contents[8192];
 extern  char        lvds_800x480_ch0_parserinput[1024];

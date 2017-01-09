@@ -808,5 +808,13 @@ void parse_special_iomux(void)
         sprintf(iomux->video,"HDMI1920x1080");
     if ( strstr(file_contents,"defaultVideo_comboBox=HDMI 1280x720"))
         sprintf(iomux->video,"HDMI1280x720");
+    if ( strstr(file_contents,"P_SPIdev1_checkBox=true"))
+        iomux->ecspi1_dev = 1;
+    if ( strstr(file_contents,"P_SPIdev2_checkBox=true"))
+        iomux->ecspi2_dev = 1;
+    if ( strstr(file_contents,"P_SPIdev3_checkBox=true"))
+        iomux->ecspi3_dev = 1;
+    if ( strstr(file_contents,"P_SPIdev4_checkBox=true"))
+        iomux->ecspi4_dev = 1;
 }
 

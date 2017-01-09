@@ -69013,7 +69013,7 @@
       <property name="geometry">
        <rect>
         <x>1040</x>
-        <y>50</y>
+        <y>40</y>
         <width>201</width>
         <height>441</height>
        </rect>
@@ -69398,7 +69398,7 @@
          <x>10</x>
          <y>380</y>
          <width>91</width>
-         <height>27</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -69434,7 +69434,7 @@
          <x>10</x>
          <y>410</y>
          <width>91</width>
-         <height>27</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -70601,9 +70601,9 @@
       <property name="geometry">
        <rect>
         <x>450</x>
-        <y>50</y>
+        <y>40</y>
         <width>151</width>
-        <height>211</height>
+        <height>171</height>
        </rect>
       </property>
       <property name="font">
@@ -70621,7 +70621,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>10</y>
+         <y>0</y>
          <width>131</width>
          <height>20</height>
         </rect>
@@ -70643,7 +70643,7 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>50</y>
+         <y>40</y>
          <width>81</width>
          <height>22</height>
         </rect>
@@ -70661,7 +70661,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>70</y>
+         <y>60</y>
          <width>121</width>
          <height>22</height>
         </rect>
@@ -70682,7 +70682,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>90</y>
+         <y>80</y>
          <width>81</width>
          <height>17</height>
         </rect>
@@ -70702,9 +70702,9 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>110</y>
+         <y>100</y>
          <width>131</width>
-         <height>27</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -70757,7 +70757,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>30</y>
+         <y>20</y>
          <width>121</width>
          <height>22</height>
         </rect>
@@ -70775,7 +70775,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>140</y>
+         <y>120</y>
          <width>81</width>
          <height>17</height>
         </rect>
@@ -70795,9 +70795,9 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>160</y>
+         <y>140</y>
          <width>131</width>
-         <height>27</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -70923,7 +70923,7 @@
          <x>110</x>
          <y>0</y>
          <width>90</width>
-         <height>20</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
@@ -70936,7 +70936,7 @@
          <x>110</x>
          <y>20</y>
          <width>90</width>
-         <height>20</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
@@ -70949,7 +70949,7 @@
          <x>110</x>
          <y>40</y>
          <width>90</width>
-         <height>20</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
@@ -70961,9 +70961,9 @@
       <property name="geometry">
        <rect>
         <x>450</x>
-        <y>270</y>
+        <y>220</y>
         <width>151</width>
-        <height>71</height>
+        <height>61</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -71000,7 +71000,7 @@
          <x>70</x>
          <y>20</y>
          <width>71</width>
-         <height>21</height>
+         <height>18</height>
         </rect>
        </property>
        <property name="font">
@@ -71018,7 +71018,7 @@
          <x>70</x>
          <y>40</y>
          <width>71</width>
-         <height>21</height>
+         <height>18</height>
         </rect>
        </property>
        <property name="font">
@@ -71071,9 +71071,9 @@
       <property name="geometry">
        <rect>
         <x>450</x>
-        <y>350</y>
+        <y>400</y>
         <width>151</width>
-        <height>111</height>
+        <height>101</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -71088,7 +71088,7 @@
          <x>10</x>
          <y>20</y>
          <width>131</width>
-         <height>27</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -71106,7 +71106,7 @@
          <x>30</x>
          <y>50</y>
          <width>91</width>
-         <height>27</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -71124,7 +71124,7 @@
          <x>40</x>
          <y>80</y>
          <width>71</width>
-         <height>21</height>
+         <height>18</height>
         </rect>
        </property>
        <property name="font">
@@ -71163,9 +71163,9 @@
       <property name="geometry">
        <rect>
         <x>450</x>
-        <y>509</y>
+        <y>510</y>
         <width>151</width>
-        <height>61</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -71202,7 +71202,7 @@
          <x>30</x>
          <y>20</y>
          <width>91</width>
-         <height>27</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -71212,6 +71212,96 @@
        </property>
        <property name="text">
         <string>Launch P_EasyPin</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_36">
+      <property name="geometry">
+       <rect>
+        <x>449</x>
+        <y>289</y>
+        <width>151</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Panel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QCheckBox" name="P_SPIdev1_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>111</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>SPI dev on SPI 1</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="P_SPIdev2_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>111</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>SPI dev on SPI 2</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="P_SPIdev3_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>111</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>SPI dev on SPI 3</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="P_SPIdev4_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>111</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>SPI dev on SPI 4</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_124">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>0</y>
+         <width>131</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>SPI dev</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </widget>
