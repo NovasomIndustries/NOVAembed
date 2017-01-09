@@ -36,7 +36,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tabWelcome">
      <attribute name="title">
@@ -223,7 +223,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="novaembedresources.qrc">:/Icons/linux-logo.jpg</pixmap>
+        <pixmap>:/Icons/linux-logo.jpg</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -454,7 +454,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="novaembedresources.qrc">:/Icons/buildroot.jpg</pixmap>
+        <pixmap>:/Icons/buildroot.jpg</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -1053,7 +1053,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="novaembedresources.qrc">:/Icons/u-boot-logo.png</pixmap>
+        <pixmap>:/Icons/u-boot-logo.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -1238,7 +1238,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="novaembedresources.qrc">:/Icons/micro-sd.jpg</pixmap>
+        <pixmap>:/Icons/micro-sd.jpg</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -1577,7 +1577,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="novaembedresources.qrc">:/Icons/ArchLinux.png</pixmap>
+        <pixmap>:/Icons/ArchLinux.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -126137,7 +126137,7 @@
        <string>CodeBlocks</string>
       </property>
       <property name="icon">
-       <iconset resource="novaembedresources.qrc">
+       <iconset>
         <normaloff>:/Icons/code_blocks.png</normaloff>:/Icons/code_blocks.png</iconset>
       </property>
       <property name="iconSize">
@@ -126160,7 +126160,7 @@
        <string>Meld            </string>
       </property>
       <property name="icon">
-       <iconset resource="novaembedresources.qrc">
+       <iconset>
         <normaloff>:/Icons/meld.png</normaloff>:/Icons/meld.png</iconset>
       </property>
       <property name="iconSize">
@@ -126229,7 +126229,7 @@
        <string>Qt Creator</string>
       </property>
       <property name="icon">
-       <iconset resource="novaembedresources.qrc">
+       <iconset>
         <normaloff>:/Icons/qtcreator.png</normaloff>:/Icons/qtcreator.png</iconset>
       </property>
       <property name="iconSize">
