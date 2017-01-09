@@ -47381,7 +47381,7 @@
         <bool>true</bool>
        </property>
        <property name="text">
-        <string>CONSOLE_TXD</string>
+        <string>CONSOLE_RXD</string>
        </property>
       </widget>
       <widget class="QComboBox" name="P_GPIO1_IO00_comboBox">
@@ -50643,7 +50643,7 @@
         <bool>true</bool>
        </property>
        <property name="text">
-        <string>CONSOLE_RXD</string>
+        <string>CONSOLE_TXD</string>
        </property>
       </widget>
       <widget class="QComboBox" name="P_AUD6_RXD_comboBox">
