@@ -1973,7 +1973,7 @@ void NOVAembed::on_P_QUAD_checkBox_toggled(bool checked)
 
 void NOVAembed::on_P_SetCFGbits_pushButton_2_clicked()
 {
-    system("/Devel/NOVAsom_SDK/Qt/NOVAembed/build-P_EasyPin-Desktop-Debug/P_EasyPin");
+    system("/Devel/NOVAsom_SDK/Qt/NOVAembed/build-P_EasyPin-Desktop-Debug/P_EasyPin &");
 }
 /*****************************************************************************************************************************************************************************************/
 /*                                                                             P BSP Factory END                                                                                         */
