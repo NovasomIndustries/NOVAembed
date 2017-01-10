@@ -614,11 +614,6 @@ void NOVAembed::on_UserDTBSelect_pushButton_clicked()
     }
 }
 
-/*
- * extern  QString AutoRunSelected;
-extern  QString AutoRunFolder;
-*/
-
 void NOVAembed::on_UserAutoRun_checkBox_toggled(bool checked)
 {
     if ( checked == true)

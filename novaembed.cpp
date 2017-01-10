@@ -537,6 +537,7 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
+    out << QString("./UpdateUtils\n");
     out << QString("./CheckGitHubRepo\n");
     out << QString("echo $? > /tmp/result\n");
 
