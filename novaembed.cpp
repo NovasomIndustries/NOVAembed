@@ -40,7 +40,6 @@ QString CurrentVideo = "";
 QString AutoRunSelected = "";
 QString AutoRunFolder = "";
 
-
 extern  void storeNOVAembed_ini();
 QWidget *PBSP_stab,*UBSP_stab,*SBSP_stab,*TOOL_stab;
 
@@ -98,7 +97,8 @@ QString linux_version="linux-imx_4.1.15_1.2.0_ga";
         QSettings * config = 0;
         config = new QSettings( fileName, QSettings::IniFormat );
         Configuration = config->value( strKeyConf + "Configuration", "r").toString();
-
+        if ( Configuration == "r" )
+            Configuration = "Standard";
         QString strKeySettings("NOVAembed General Settings/");
         QSettings * settings = 0;
         settings = new QSettings( fileName, QSettings::IniFormat );
@@ -123,20 +123,16 @@ QString linux_version="linux-imx_4.1.15_1.2.0_ga";
         AutoRunFolder = settings->value( strKeySettings + "AutoRunFolder", "r").toString();
         Quad = settings->value( strKeySettings + "Quad", "r").toString();
     }
-    //qDebug() << "Last_P_UserDTB "+Last_P_UserDTB;
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf").exists() )
     {
-        //qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf";
         QDir().mkdir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf");
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/SClass_bspf").exists() )
     {
-       // qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/SClass_bspf";
         QDir().mkdir("/Devel/NOVAsom_SDK/NOVAembed_Settings/SClass_bspf");
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/UClass_bspf").exists() )
     {
-        //qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings/UClass_bspf";
         QDir().mkdir("/Devel/NOVAsom_SDK/NOVAembed_Settings/UClass_bspf");
     }
 
@@ -152,6 +148,7 @@ QString linux_version="linux-imx_4.1.15_1.2.0_ga";
     ui->tab->removeTab(4);
     ui->tab->removeTab(3);
     ui->tab->removeTab(2);
+    qDebug() << CurrentBSPF_Tab;
     if ( Configuration == "Standard")
     {
         if (CurrentBSPF_Tab == "P BSP Factory")
@@ -540,6 +537,7 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
+    out << QString("./UpdateUtils\n");
     out << QString("./CheckGitHubRepo\n");
     out << QString("echo $? > /tmp/result\n");
 

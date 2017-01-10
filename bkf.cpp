@@ -503,8 +503,9 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
     out << QString("cp BootParameters/"+NOVAsomParamsName+" ../Deploy/NOVAsomParams\n");
-
     out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" "+ UserEnabled +"> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
+    out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
+
     out << QString("echo $? > /tmp/result\n");
     scriptfile.close();
 
@@ -518,6 +519,32 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
         update_status_bar("Write error");
 }
 
+void NOVAembed::on_Write_AutoRun_pushButton_clicked()
+{
+    uSD_Device = ui->uSD_Device_comboBox->currentText();
+    QFile scriptfile("/tmp/script");
+    update_status_bar("Writing AutoRun using folder "+ui->UserAutoRunSelectedlineEdit->text()+" ...");
+
+    if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
+    {
+        update_status_bar("Unable to create /tmp/script");
+        return;
+    }
+    QTextStream out(&scriptfile);
+    out << QString("#!/bin/sh\n");
+    out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
+    out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
+
+    out << QString("echo $? > /tmp/result\n");
+    scriptfile.close();
+
+    if ( run_script() == 0)
+    {
+        update_status_bar("AutoRun successfully written with folder "+ui->UserAutoRunSelectedlineEdit->text());
+    }
+    else
+        update_status_bar("AutoRun Write error");
+}
 
 void NOVAembed::on_GenerateFileSystem_pushButton_clicked()
 {
@@ -613,11 +640,6 @@ void NOVAembed::on_UserDTBSelect_pushButton_clicked()
         storeNOVAembed_ini();
     }
 }
-
-/*
- * extern  QString AutoRunSelected;
-extern  QString AutoRunFolder;
-*/
 
 void NOVAembed::on_UserAutoRun_checkBox_toggled(bool checked)
 {

@@ -58,7 +58,6 @@ char    t[128];
         strcat (sf,t);
         strcat (sf,"          >;\n");
         strcat (sf,"      };\n");
-
         strcat(dtsifile_dump,sf);
     }
     if ( sdcard_8 != NULL )
@@ -211,7 +210,6 @@ char    t[128];
         strcat (sf,"        };\n");
         strcat(dtsifile_dump,sf);
     }
-
     if ( audio4 != NULL )
     {
         sprintf(sf,"        %s: %s{\n",audio4->pinctrl0_name,audio4->grp_name);
@@ -295,7 +293,6 @@ char    t[128];
         strcat (sf,"        };\n");
         strcat(dtsifile_dump,sf);
     }
-
     if ( ecspi2_5 != NULL )
     {
         sprintf(sf,"        %s: %s{\n",ecspi2_5->pinctrl0_name,ecspi2_5->grp_name);
@@ -365,7 +362,6 @@ char    t[128];
         strcat (sf,"        };\n");
         strcat(dtsifile_dump,sf);
     }
-
     if ( ecspi4 != NULL )
     {
         sprintf(sf,"        %s: %s{\n",ecspi4->pinctrl0_name,ecspi4->grp_name);
@@ -503,37 +499,58 @@ int     speed;
 
     if ( iomux->ecspi1_4 == 1 )
     {
-        sprintf(t,ecspi1_4_defs);
+        if ( iomux->ecspi1_dev == 1)
+            sprintf(t,ecspi1_dev_4_defs);
+        else
+            sprintf(t,ecspi1_4_defs);
         strcat(dtsifile_dump,t);
     }
     if ( iomux->ecspi1_5 == 1 )
     {
-        sprintf(t,ecspi1_5_defs);
+        if ( iomux->ecspi1_dev == 1)
+            sprintf(t,ecspi1_dev_5_defs);
+        else
+            sprintf(t,ecspi1_5_defs);
         strcat(dtsifile_dump,t);
     }
     if ( iomux->ecspi2_4 == 1 )
     {
-        sprintf(t,ecspi2_4_defs);
+        if ( iomux->ecspi2_dev == 1)
+            sprintf(t,ecspi2_dev_4_defs);
+        else
+            sprintf(t,ecspi2_4_defs);
         strcat(dtsifile_dump,t);
     }
     if ( iomux->ecspi2_5 == 1 )
     {
-        sprintf(t,ecspi2_5_defs);
+        if ( iomux->ecspi2_dev == 1)
+            sprintf(t,ecspi2_dev_5_defs);
+        else
+            sprintf(t,ecspi2_5_defs);
         strcat(dtsifile_dump,t);
     }
     if ( iomux->ecspi3_4 == 1 )
     {
-        sprintf(t,ecspi3_4_defs);
+        if ( iomux->ecspi3_dev == 1)
+            sprintf(t,ecspi3_dev_4_defs);
+        else
+            sprintf(t,ecspi3_4_defs);
         strcat(dtsifile_dump,t);
     }
     if ( iomux->ecspi3_5 == 1 )
     {
-        sprintf(t,ecspi3_5_defs);
+        if ( iomux->ecspi3_dev == 1)
+            sprintf(t,ecspi3_dev_5_defs);
+        else
+            sprintf(t,ecspi3_5_defs);
         strcat(dtsifile_dump,t);
     }
     if ( iomux->ecspi4 == 1 )
     {
-        sprintf(t,ecspi4_4_defs);
+        if ( iomux->ecspi4_dev == 1)
+            sprintf(t,ecspi4_dev_4_defs);
+        else
+            sprintf(t,ecspi4_4_defs);
         strcat(dtsifile_dump,t);
     }
     if ( iomux->audio4 == 1 )
