@@ -1189,8 +1189,6 @@ void NOVAembed::on_P_Save_pushButton_clicked()
     save_helper(fileName);
 }
 
-
-
 void NOVAembed::on_P_SetCFGbits_pushButton_clicked()
 {
     CfgBitDefaultValue = ui->P_Default_lineEdit->text();
@@ -1247,7 +1245,6 @@ void NOVAembed::on_P_SetCFGbits_pushButton_clicked()
     ui->P_UART4_TXD_lineEdit->setText(CfgBitDefaultValue);
     ui->P_UART4_RXD_lineEdit->setText(CfgBitDefaultValue);
     ui->P_UART4_CTS_L_lineEdit->setText(CfgBitDefaultValue);
-
     storeNOVAembed_ini();
 }
 
@@ -1317,6 +1314,9 @@ void NOVAembed::P_load_BSPF_File(QString fileName)
 {
 QString strKeyFunc("P_IOMUX/");
 QSettings * func_settings = 0;
+
+    Last_P_BSPFactoryFile = fileName;
+    storeNOVAembed_ini();
 
     QFileInfo fi(fileName);
     QString base = fi.baseName();
@@ -1498,9 +1498,8 @@ QSettings * func_settings = 0;
     ui->P_UART4_RXD_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_UART4_RXD_cbit"));
     ui->P_UART4_CTS_L_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_UART4_CTS_L_cbit"));
 
-
+    update_status_bar("BSP Factory : Loaded file "+Last_P_BSPFactoryFile);
 }
-
 
 void NOVAembed::on_P_CreateCFGBits_pushButton_clicked()
 {
@@ -1711,7 +1710,6 @@ void NOVAembed::on_P_DecodeCFGBits_pushButton_clicked()
         //ui->PUE_checkBox->setChecked(false);
         //ui->PUPD_frame->setEnabled(false);
     }
-
 
     ui->P_SPEED_Low_checkBox->setChecked(false);
     ui->P_SPEED_Mid_checkBox->setChecked(false);
@@ -2092,10 +2090,7 @@ void NOVAembed::on_P_QUAD_checkBox_toggled(bool checked)
         ui->P_SATA_checkBox->setChecked(false);
     }
     storeNOVAembed_ini();
-
 }
-
-
 
 void NOVAembed::on_P_SetCFGbits_pushButton_2_clicked()
 {
