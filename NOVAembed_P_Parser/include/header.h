@@ -442,10 +442,10 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi1>;\n\
         status = \"okay\";\n\
-               spidev0: spi@0 {\n\
+               spidev0: spi@10 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
-                              spi-max-frequency = <1000000>;\n\
+                              spi-max-frequency = <54000000>;\n\
                };\n\
 };\n\
 "
@@ -466,10 +466,15 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi1>;\n\
         status = \"okay\";\n\
-               spidev0: spi@0 {\n\
+               spidev10: spi@10 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
-                              spi-max-frequency = <1000000>;\n\
+                              spi-max-frequency = <54000000>;\n\
+               };\n\
+               spidev11: spi@11 {\n\
+                              reg = <1>;\n\
+                              compatible = \"spidev\";\n\
+                              spi-max-frequency = <54000000>;\n\
                };\n\
 };\n\
 "
@@ -490,10 +495,10 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi2>;\n\
         status = \"okay\";\n\
-               spidev1: spi@1 {\n\
+               spidev20: spi@20 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
-                              spi-max-frequency = <1000000>;\n\
+                              spi-max-frequency = <54000000>;\n\
                };\n\
 };\n\
 "
@@ -515,10 +520,15 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi2>;\n\
         status = \"okay\";\n\
-               spidev2: spi@2 {\n\
+               spidev20: spi@20 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
-                              spi-max-frequency = <1000000>;\n\
+                              spi-max-frequency = <54000000>;\n\
+               };\n\
+               spidev21: spi@21 {\n\
+                              reg = <1>;\n\
+                              compatible = \"spidev\";\n\
+                              spi-max-frequency = <54000000>;\n\
                };\n\
 };\n\
 "
@@ -539,10 +549,10 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi3>;\n\
         status = \"okay\";\n\
-               spidev3: spi@3 {\n\
+               spidev30: spi@30 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
-                              spi-max-frequency = <1000000>;\n\
+                              spi-max-frequency = <54000000>;\n\
                };\n\
 };\n\
 "
@@ -563,25 +573,15 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi3>;\n\
         status = \"okay\";\n\
-               spidev3: spi@3 {\n\
+               spidev30: spi@30 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
-                              spi-max-frequency = <1000000>;\n\
+                              spi-max-frequency = <54000000>;\n\
                };\n\
-};\n\
-"
-
-#define ecspi4_dev_4_defs "\
-&ecspi4 {\n\
-        fsl,spi-num-chipselects = <1>;\n\
-        cs-gpios = <&gpio3 29 0>;\n\
-        pinctrl-names = \"default\";\n\
-        pinctrl-0 = <&pinctrl_ecspi4>;\n\
-        status = \"okay\";\n\
-               spidev4: spi@4 {\n\
-                              reg = <0>;\n\
+               spidev31: spi@31 {\n\
+                              reg = <1>;\n\
                               compatible = \"spidev\";\n\
-                              spi-max-frequency = <1000000>;\n\
+                              spi-max-frequency = <54000000>;\n\
                };\n\
 };\n\
 "
@@ -593,6 +593,22 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi4>;\n\
         status = \"okay\";\n\
+};\n\
+"
+
+
+#define ecspi4_dev_4_defs "\
+&ecspi4 {\n\
+        fsl,spi-num-chipselects = <1>;\n\
+        cs-gpios = <&gpio3 29 0>;\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_ecspi4>;\n\
+        status = \"okay\";\n\
+               spidev40: spi@40 {\n\
+                              reg = <0>;\n\
+                              compatible = \"spidev\";\n\
+                              spi-max-frequency = <54000000>;\n\
+               };\n\
 };\n\
 "
 

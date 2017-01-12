@@ -1028,7 +1028,6 @@ void NOVAembed::save_helper(QString fileName)
             QMessageBox::information(this, tr("Unable to open file"),file.errorString());
             return;
         }
-        //qDebug() << "fileName :"+fileName;
 
         QTextStream out(&file);
         out << QString("[P_IOMUX]\n");
@@ -1185,7 +1184,6 @@ void NOVAembed::on_P_Save_pushButton_clicked()
     QString croped_fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf",tr(".bspf (*.bspf)"));
     QString fileName=croped_fileName.section(".",0,0);
     fileName = fileName+".bspf";
-    //qDebug() << "fileName :"+fileName;
     save_helper(fileName);
 }
 
@@ -2069,7 +2067,11 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
+    {
         update_status_bar("DTB "+FileNameNoExtension+".dtb compiled, dtb is in /Devel/NOVAsom_SDK/DtbUserWorkArea/"+FileNameNoExtension+".dtb");
+        Last_P_BSPFactoryFile = "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/"+FileNameNoExtension+".bspf";
+        storeNOVAembed_ini();
+    }
     else
         update_status_bar("Error compiling "+FileNameNoExtension+".dtb");
 }

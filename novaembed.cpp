@@ -18,7 +18,7 @@
 /*                                                                              Global variables                                                                                         */
 /*****************************************************************************************************************************************************************************************/
 
-QString Version = "1.0.4.1 rc5";
+QString Version = "1.0.4.1 rc6";
 QString Configuration = "Standard";
 QString FileSystemName = "";
 QString DeployedFileSystemName = "";
@@ -361,28 +361,27 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->REFERENCE_SERVER_lineEdit->setEnabled(false);
         ui->ThisIsReferenceServer_checkBox->setChecked(true);
 
-        if (P_UserDTB_Selected == "true")
-        {
-            ui->UserDTB_checkBox->setChecked(true);
-            ui->UserDTBSelect_pushButton->setEnabled(true);
-            ui->UserDTBSelectedlineEdit->setEnabled(true);
-            ui->UserDTBSelectedlineEdit->setText(Last_P_UserDTB);
-            ui->UserDTBSelectedlineEdit->setText(Last_P_UserDTB);
-        }
+        if ( Last_P_UserDTB.length() < 2)
+            ui->UserDTBSelectedlineEdit->setText("Not Initialized");
         else
-        {
-            ui->UserDTB_checkBox->setChecked(false);
-            ui->UserDTBSelect_pushButton->setEnabled(false);
-            ui->UserDTBSelectedlineEdit->setEnabled(false);
             ui->UserDTBSelectedlineEdit->setText(Last_P_UserDTB);
-        }
 
         if ( AutoRunSelected == "true" )
         {
             ui->UserAutoRun_checkBox->setChecked(true);
             ui->UserAutoRunSelect_pushButton->setEnabled(true);
             ui->UserAutoRunSelectedlineEdit->setEnabled(true);
-            ui->UserAutoRunSelectedlineEdit->setText(AutoRunFolder);
+            ui->Write_AutoRun_pushButton->setEnabled(true);
+
+            if ( AutoRunFolder.length() < 2)
+            {
+                ui->UserAutoRunSelectedlineEdit->setText("Not Initialized");
+                ui->UserAutoRun_checkBox->setChecked(false);
+                ui->UserAutoRunSelectedlineEdit->setEnabled(false);
+                ui->Write_AutoRun_pushButton->setEnabled(false);
+            }
+            else
+                ui->UserAutoRunSelectedlineEdit->setText(AutoRunFolder);
         }
         else
         {
@@ -390,6 +389,7 @@ void NOVAembed::on_tab_currentChanged(int index)
             ui->UserAutoRunSelect_pushButton->setEnabled(false);
             ui->UserAutoRunSelectedlineEdit->setEnabled(false);
             ui->UserAutoRunSelectedlineEdit->setText(AutoRunFolder);
+            ui->Write_AutoRun_pushButton->setEnabled(false);
         }
 
 

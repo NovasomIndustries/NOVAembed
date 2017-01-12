@@ -323,8 +323,6 @@ private slots:
 
     void on_P_Generate_pushButton_clicked();
 
-    void on_UserDTB_checkBox_toggled(bool checked);
-
     void on_UserDTBSelect_pushButton_clicked();
 
     void on_UserAutoRun_checkBox_toggled(bool checked);
