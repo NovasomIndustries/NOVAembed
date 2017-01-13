@@ -442,7 +442,7 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi1>;\n\
         status = \"okay\";\n\
-               spidev0: spi@10 {\n\
+               spi@0 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
                               spi-max-frequency = <54000000>;\n\
@@ -466,12 +466,12 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi1>;\n\
         status = \"okay\";\n\
-               spidev10: spi@10 {\n\
+               spi@0 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
                               spi-max-frequency = <54000000>;\n\
                };\n\
-               spidev11: spi@11 {\n\
+               spi@1 {\n\
                               reg = <1>;\n\
                               compatible = \"spidev\";\n\
                               spi-max-frequency = <54000000>;\n\
@@ -495,7 +495,7 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi2>;\n\
         status = \"okay\";\n\
-               spidev20: spi@20 {\n\
+               spi@0 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
                               spi-max-frequency = <54000000>;\n\
@@ -520,12 +520,12 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi2>;\n\
         status = \"okay\";\n\
-               spidev20: spi@20 {\n\
+               spi@0 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
                               spi-max-frequency = <54000000>;\n\
                };\n\
-               spidev21: spi@21 {\n\
+               spi@1 {\n\
                               reg = <1>;\n\
                               compatible = \"spidev\";\n\
                               spi-max-frequency = <54000000>;\n\
@@ -549,7 +549,7 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi3>;\n\
         status = \"okay\";\n\
-               spidev30: spi@30 {\n\
+               spi@0 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
                               spi-max-frequency = <54000000>;\n\
@@ -573,12 +573,12 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi3>;\n\
         status = \"okay\";\n\
-               spidev30: spi@30 {\n\
+               spi@0 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
                               spi-max-frequency = <54000000>;\n\
                };\n\
-               spidev31: spi@31 {\n\
+               spi@1 {\n\
                               reg = <1>;\n\
                               compatible = \"spidev\";\n\
                               spi-max-frequency = <54000000>;\n\
@@ -604,7 +604,7 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi4>;\n\
         status = \"okay\";\n\
-               spidev40: spi@40 {\n\
+               spi@0 {\n\
                               reg = <0>;\n\
                               compatible = \"spidev\";\n\
                               spi-max-frequency = <54000000>;\n\
