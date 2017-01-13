@@ -466,16 +466,16 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi1>;\n\
         status = \"okay\";\n\
-               spi@0 {\n\
-                              reg = <0>;\n\
-                              compatible = \"spidev\";\n\
-                              spi-max-frequency = <54000000>;\n\
-               };\n\
-               spi@1 {\n\
-                              reg = <1>;\n\
-                              compatible = \"spidev\";\n\
-                              spi-max-frequency = <54000000>;\n\
-               };\n\
+        spi@0 {\n\
+                      reg = <0>;\n\
+                      compatible = \"spidev\";\n\
+                      spi-max-frequency = <54000000>;\n\
+        };\n\
+        spi@1 {\n\
+                      reg = <1>;\n\
+                      compatible = \"spidev\";\n\
+                      spi-max-frequency = <54000000>;\n\
+        };\n\
 };\n\
 "
 
@@ -495,11 +495,11 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi2>;\n\
         status = \"okay\";\n\
-               spi@0 {\n\
-                              reg = <0>;\n\
-                              compatible = \"spidev\";\n\
-                              spi-max-frequency = <54000000>;\n\
-               };\n\
+        spi@0 {\n\
+                      reg = <0>;\n\
+                      compatible = \"spidev\";\n\
+                      spi-max-frequency = <54000000>;\n\
+        };\n\
 };\n\
 "
 
@@ -520,16 +520,16 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi2>;\n\
         status = \"okay\";\n\
-               spi@0 {\n\
-                              reg = <0>;\n\
-                              compatible = \"spidev\";\n\
-                              spi-max-frequency = <54000000>;\n\
-               };\n\
-               spi@1 {\n\
-                              reg = <1>;\n\
-                              compatible = \"spidev\";\n\
-                              spi-max-frequency = <54000000>;\n\
-               };\n\
+        spi@0 {\n\
+                      reg = <0>;\n\
+                      compatible = \"spidev\";\n\
+                      spi-max-frequency = <54000000>;\n\
+        };\n\
+        spi@1 {\n\
+                      reg = <1>;\n\
+                      compatible = \"spidev\";\n\
+                      spi-max-frequency = <54000000>;\n\
+        };\n\
 };\n\
 "
 
@@ -549,11 +549,11 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi3>;\n\
         status = \"okay\";\n\
-               spi@0 {\n\
-                              reg = <0>;\n\
-                              compatible = \"spidev\";\n\
-                              spi-max-frequency = <54000000>;\n\
-               };\n\
+        spi@0 {\n\
+                      reg = <0>;\n\
+                      compatible = \"spidev\";\n\
+                      spi-max-frequency = <54000000>;\n\
+        };\n\
 };\n\
 "
 
@@ -573,16 +573,16 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi3>;\n\
         status = \"okay\";\n\
-               spi@0 {\n\
-                              reg = <0>;\n\
-                              compatible = \"spidev\";\n\
-                              spi-max-frequency = <54000000>;\n\
-               };\n\
-               spi@1 {\n\
-                              reg = <1>;\n\
-                              compatible = \"spidev\";\n\
-                              spi-max-frequency = <54000000>;\n\
-               };\n\
+        spi@0 {\n\
+                      reg = <0>;\n\
+                      compatible = \"spidev\";\n\
+                      spi-max-frequency = <54000000>;\n\
+        };\n\
+        spi@1 {\n\
+                      reg = <1>;\n\
+                      compatible = \"spidev\";\n\
+                      spi-max-frequency = <54000000>;\n\
+        };\n\
 };\n\
 "
 
@@ -604,11 +604,11 @@
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_ecspi4>;\n\
         status = \"okay\";\n\
-               spi@0 {\n\
-                              reg = <0>;\n\
-                              compatible = \"spidev\";\n\
-                              spi-max-frequency = <54000000>;\n\
-               };\n\
+        spi@0 {\n\
+                      reg = <0>;\n\
+                      compatible = \"spidev\";\n\
+                      spi-max-frequency = <54000000>;\n\
+        };\n\
 };\n\
 "
 
