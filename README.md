@@ -1,5 +1,6 @@
 # NOVAsom_SDK 1.0.4 NOVAembed
 # (C) Copyright 2016 Novasom Industries
+
 Summary:
 ========
 This repo contains the NOVAembed graphic tool for the NOVAsom_SDK 1.0.4 Novasom Industries 
