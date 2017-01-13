@@ -1016,18 +1016,31 @@ void NOVAembed::on_P_UART4_CTS_L_comboBox_currentIndexChanged(const QString &arg
 
 /* J9 END */
 
-void NOVAembed::save_helper(QString fileName)
+void NOVAembed::save_helper(QString fileName , QString Processor_model)
 {
     if (fileName.isEmpty())
         return;
     else
     {
-        QFile file(fileName);
+        QFileInfo fin(fileName);
+        QString bspfbase = fin.baseName();
+        QString fullpathname = "";
+        if ( Processor_model.isEmpty() )
+        {
+            fullpathname = "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/"+ bspfbase+".bspf";
+        }
+        else
+        {
+            fullpathname = "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp/"+Processor_model + "_" + bspfbase+".bspf";
+        }
+        QFile file(fullpathname);
         if (!file.open(QIODevice::WriteOnly))
         {
-            QMessageBox::information(this, tr("Unable to open file"),file.errorString());
+            qDebug() << "Unable to open file "+fullpathname;
+            QMessageBox::information(this, tr("Unable to open file "),file.errorString());
             return;
         }
+        qDebug() << fullpathname;
 
         QTextStream out(&file);
         out << QString("[P_IOMUX]\n");
@@ -1096,20 +1109,35 @@ void NOVAembed::save_helper(QString fileName)
             out << QString("P_SPIdev4_checkBox=true\n");
         else
             out << QString("P_SPIdev4_checkBox=false\n");
-        if ( ui->P_SATA_checkBox->isChecked() )
-            out << QString("P_SATA_checkBox=true\n");
-        else
-            out << QString("P_SATA_checkBox=false\n");
         if ( ui->P_PCIe_checkBox->isChecked())
             out << QString("P_PCIe_checkBox=true\n");
         else
             out << QString("P_PCIe_checkBox=false\n");
         out << QString("PrimaryVideo_comboBox="+ui->P_PrimaryVideo_comboBox->currentText()+"\n");
         out << QString("SecondaryVideo_comboBox="+ui->P_SecondaryVideo_comboBox->currentText()+"\n");
-        if ( Quad == "true")
+        if ( Processor_model == "QUAD")
+        {
             out << QString("Processor=QUAD\n");
+            if ( ui->P_SATA_checkBox->isChecked() )
+                out << QString("P_SATA_checkBox=true\n");
+            else
+                out << QString("P_SATA_checkBox=false\n");
+        }
         else
-            out << QString("Processor=SOLO/DL\n");
+        {
+            if ( Processor_model.isEmpty() )
+            {
+                if ( ui->P_SATA_checkBox->isChecked() )
+                    out << QString("P_SATA_checkBox=true\n");
+                else
+                    out << QString("P_SATA_checkBox=false\n");
+            }
+            else
+            {
+                out << QString("Processor=SOLO/DL\n");
+                out << QString("P_SATA_checkBox=false\n");
+            }
+        }
 
         out << QString("\n[P_CONF]\n");
         out << QString("P_ECSPI1_MISO_cbit="+ui->P_ECSPI1_MISO_lineEdit->text()+"\n");
@@ -1168,6 +1196,7 @@ void NOVAembed::save_helper(QString fileName)
 
         file.close();
         Last_P_BSPFactoryFile = fileName;
+        ui->UserBSPFselectedlineEdit->setText(Last_P_BSPFactoryFile);
         QFileInfo fi(Last_P_BSPFactoryFile);
         QString base = fi.baseName();
         if ( base != "" )
@@ -1184,7 +1213,9 @@ void NOVAembed::on_P_Save_pushButton_clicked()
     QString croped_fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf",tr(".bspf (*.bspf)"));
     QString fileName=croped_fileName.section(".",0,0);
     fileName = fileName+".bspf";
-    save_helper(fileName);
+    save_helper(fileName,"QUAD");
+    save_helper(fileName,"SDL");
+    save_helper(fileName,"");
 }
 
 void NOVAembed::on_P_SetCFGbits_pushButton_clicked()
@@ -2044,9 +2075,11 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
 {
     QFile scriptfile("/tmp/script");
     QFileInfo fi(Last_P_BSPFactoryFile);
-    QString FileNameNoExtension = fi.baseName();
+    QString SDL_FileNameNoExtension  = "SDL_"+fi.baseName();
+    QString QUAD_FileNameNoExtension = "QUAD_"+fi.baseName();
 
-    save_helper(Last_P_BSPFactoryFile);
+    save_helper(Last_P_BSPFactoryFile,"QUAD");
+    save_helper(Last_P_BSPFactoryFile,"SDL");
 
     update_status_bar("Generating dtb "+FileNameNoExtension+".dtb ...");
     if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
@@ -2060,8 +2093,10 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
     if ( ui->Board_comboBox->currentText() == "P Series")
     {
-        out << QString("/Devel/NOVAsom_SDK/Qt/NOVAembed/NOVAembed/NOVAembed_P_Parser/bin/Debug/NOVAembed_P_Parser /Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/"+FileNameNoExtension+".bspf > /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
-        out << QString("./user_dtb_compile "+FileNameNoExtension+" P >> /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
+        out << QString("/Devel/NOVAsom_SDK/Qt/NOVAembed/NOVAembed/NOVAembed_P_Parser/bin/Debug/NOVAembed_P_Parser /Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp/"+SDL_FileNameNoExtension+".bspf > /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
+        out << QString("./user_dtb_compile "+SDL_FileNameNoExtension+" P >> /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
+        out << QString("/Devel/NOVAsom_SDK/Qt/NOVAembed/NOVAembed/NOVAembed_P_Parser/bin/Debug/NOVAembed_P_Parser /Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp/"+QUAD_FileNameNoExtension+".bspf >> /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
+        out << QString("./user_dtb_compile "+QUAD_FileNameNoExtension+" P >> /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
     }
     out << QString("echo $? > /tmp/result\n");
 
@@ -2070,31 +2105,15 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
     {
         update_status_bar("DTB "+FileNameNoExtension+".dtb compiled, dtb is in /Devel/NOVAsom_SDK/DtbUserWorkArea/"+FileNameNoExtension+".dtb");
         Last_P_BSPFactoryFile = "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/"+FileNameNoExtension+".bspf";
+        ui->UserBSPFselectedlineEdit->setText(Last_P_BSPFactoryFile);
+
         storeNOVAembed_ini();
     }
     else
         update_status_bar("Error compiling "+FileNameNoExtension+".dtb");
 }
 
-
-
-void NOVAembed::on_P_QUAD_checkBox_toggled(bool checked)
-{
-    if ( checked )
-    {
-        Quad = "true";
-        ui->P_SATA_checkBox->setEnabled(true);
-    }
-    else
-    {
-        Quad = "false";
-        ui->P_SATA_checkBox->setEnabled(false);
-        ui->P_SATA_checkBox->setChecked(false);
-    }
-    storeNOVAembed_ini();
-}
-
-void NOVAembed::on_P_SetCFGbits_pushButton_2_clicked()
+void NOVAembed::on_P_StartPEasyPin_pushButton_clicked()
 {
     system("/Devel/NOVAsom_SDK/Qt/NOVAembed/build-P_EasyPin-Desktop-Debug/P_EasyPin &");
 }

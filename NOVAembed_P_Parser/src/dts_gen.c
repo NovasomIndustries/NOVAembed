@@ -797,7 +797,11 @@ int     i;
     sprintf(dir_name,"%s",dirname(strdup(file_in)));
 
     sprintf(file_name_noext,"%s",file_name);
-
+    if ( strlen(file_in) < 4 )
+    {
+        printf("File name %s is invalid\n",file_name);
+        exit (-1);
+    }
     for(i=0;i<strlen(file_name_noext);i++)
     {
         if ( file_name_noext[i] == '.')
@@ -809,7 +813,6 @@ int     i;
     printf("Input File Name       :  %s\n",file_in);
     printf("Output DTS  File Name : %s\n",file_name_dts);
     printf("Output DTSi File Name : %s\n",file_name_dtsi);
-
 }
 
 void store_dts_files(char *file_in)

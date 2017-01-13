@@ -299,7 +299,6 @@ private slots:
 
     void on_P_HUM_pushButton_clicked();
 
-
     void on_P_QSG_pushButton_clicked();
 
     void on_LaunchBusyboxMenuConfig_pushButton_clicked();
@@ -312,7 +311,6 @@ private slots:
 
     void on_ExtFS_comboBox_currentIndexChanged(const QString &arg1);
 
-
     void on_ThisIsReferenceServer_checkBox_clicked(bool checked);
 
     void on_CheckUpdate_pushButton_clicked();
@@ -323,19 +321,17 @@ private slots:
 
     void on_P_Generate_pushButton_clicked();
 
-    void on_UserDTBSelect_pushButton_clicked();
+    void on_UserBSPFSelect_pushButton_clicked();
 
     void on_UserAutoRun_checkBox_toggled(bool checked);
 
     void on_UserAutoRunSelect_pushButton_clicked();
 
-    void save_helper( QString filename);
+    void save_helper( QString filename, QString Processor_model);
 
     void on_P_SetCFGbits_pushButton_clicked();
 
-    void on_P_QUAD_checkBox_toggled(bool checked);
-
-    void on_P_SetCFGbits_pushButton_2_clicked();
+    void on_P_StartPEasyPin_pushButton_clicked();
 
     void on_Write_AutoRun_pushButton_clicked();
 

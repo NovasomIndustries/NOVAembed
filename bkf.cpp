@@ -19,9 +19,9 @@ extern  QString FileSystemName;
 extern  QString DeployedFileSystemName;
 extern  QString FileSystemConfigName;
 extern  QString _Board_comboBox;
-extern  QString LastBSPFactoryFile;
-extern  QString P_UserDTB_Selected;
-extern  QString Last_P_UserDTB;
+extern  QString Last_S_BSPFactoryFile;
+extern  QString Last_P_BSPFactoryFile;
+extern  QString Last_U_BSPFactoryFile;
 extern  QString NumberOfUserPartitions;
 extern  QString UserPartition1Size;
 extern  QString UserPartition2Size;
@@ -359,7 +359,6 @@ void NOVAembed::on_UserPartition_comboBox_currentIndexChanged(const QString &arg
                 ui->UserPartition1Size_lineEdit->setVisible(false);
                 ui->label_79->setVisible(false);
                 ui->UserPartition2Size_lineEdit->setVisible(false);
-                //qDebug() << "NumberOfUserPartitions :"+NumberOfUserPartitions;
 
     }
     if ( NumberOfUserPartitions == "1")
@@ -368,7 +367,6 @@ void NOVAembed::on_UserPartition_comboBox_currentIndexChanged(const QString &arg
                 ui->UserPartition1Size_lineEdit->setVisible(true);
                 ui->label_79->setVisible(false);
                 ui->UserPartition2Size_lineEdit->setVisible(false);
-                //qDebug() << "NumberOfUserPartitions :"+NumberOfUserPartitions;
     }
     if ( NumberOfUserPartitions == "2")
     {
@@ -376,7 +374,6 @@ void NOVAembed::on_UserPartition_comboBox_currentIndexChanged(const QString &arg
                 ui->UserPartition1Size_lineEdit->setVisible(true);
                 ui->label_79->setVisible(true);
                 ui->UserPartition2Size_lineEdit->setVisible(true);
-                //qDebug() << "NumberOfUserPartitions :"+NumberOfUserPartitions;
     }
     storeNOVAembed_ini();
 }
@@ -385,7 +382,6 @@ void NOVAembed::on_UserPartition_comboBox_currentIndexChanged(const QString &arg
 void NOVAembed::on_UserPartition1Size_lineEdit_textChanged(const QString &arg1)
 {
     UserPartition1Size = arg1;
-    //qDebug() << "UserPartition1Size :"+UserPartition1Size;
     storeNOVAembed_ini();
 }
 
@@ -393,7 +389,6 @@ void NOVAembed::on_UserPartition1Size_lineEdit_textChanged(const QString &arg1)
 void NOVAembed::on_UserPartition2Size_lineEdit_textChanged(const QString &arg1)
 {
     UserPartition2Size = arg1;
-    //qDebug() << "UserPartition2Size :"+UserPartition2Size;
     storeNOVAembed_ini();
 }
 
@@ -468,8 +463,9 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     }
 
     UserEnabled = "user";
-    QFileInfo fi(ui->UserDTBSelectedlineEdit->text());
-    sdl_dtb = q_dtb = fi.baseName()+".dtb";
+    QFileInfo fi(ui->UserBSPFselectedlineEdit->text());
+    sdl_dtb = "SDL_"+fi.baseName()+".dtb";
+    q_dtb = "QUAD_"+fi.baseName()+".dtb";
 
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
@@ -480,7 +476,6 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
 
     out << QString("echo $? > /tmp/result\n");
     scriptfile.close();
-
     if ( run_script() == 0)
     {
         update_status_bar("uSD successfully written, file system is "+FileSystemName);
@@ -489,33 +484,6 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     }
     else
         update_status_bar("Write error");
-}
-
-void NOVAembed::on_Write_AutoRun_pushButton_clicked()
-{
-    uSD_Device = ui->uSD_Device_comboBox->currentText();
-    QFile scriptfile("/tmp/script");
-    update_status_bar("Writing AutoRun using folder "+ui->UserAutoRunSelectedlineEdit->text()+" ...");
-
-    if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
-    {
-        update_status_bar("Unable to create /tmp/script");
-        return;
-    }
-    QTextStream out(&scriptfile);
-    out << QString("#!/bin/sh\n");
-    out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
-    out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
-
-    out << QString("echo $? > /tmp/result\n");
-    scriptfile.close();
-
-    if ( run_script() == 0)
-    {
-        update_status_bar("AutoRun successfully written with folder "+ui->UserAutoRunSelectedlineEdit->text());
-    }
-    else
-        update_status_bar("AutoRun Write error");
 }
 
 void NOVAembed::on_GenerateFileSystem_pushButton_clicked()
@@ -544,7 +512,6 @@ void NOVAembed::on_GenerateFileSystem_pushButton_clicked()
     else
         update_status_bar("File System Creation error");
 }
-
 
 /* External file systems */
 void NOVAembed::on_ExtFS_Write_uSD_pushButton_clicked()
@@ -578,15 +545,20 @@ void NOVAembed::on_ExtFS_comboBox_currentIndexChanged(const QString &arg1)
     ui->FileSystemLogo->setPixmap(fspixmap);
 }
 
-void NOVAembed::on_UserDTBSelect_pushButton_clicked()
+void NOVAembed::on_UserBSPFSelect_pushButton_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Select DTB"), "/Devel/NOVAsom_SDK/DtbUserWorkArea",tr("DTB (*.dtb)"));
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Select BSPF"), "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf",tr("BSPF (*.bspf)"));
     if (fileName.isEmpty())
         return;
     else
     {
-        ui->UserDTBSelectedlineEdit->setText(fileName);
-        Last_P_UserDTB = ui->UserDTBSelectedlineEdit->text();
+        ui->UserBSPFselectedlineEdit->setText(fileName);
+        if ( ui->Board_comboBox->currentText() == "S Series")
+            Last_S_BSPFactoryFile = ui->UserBSPFselectedlineEdit->text();
+        if ( ui->Board_comboBox->currentText() == "P Series")
+            Last_P_BSPFactoryFile = ui->UserBSPFselectedlineEdit->text();
+        if ( ui->Board_comboBox->currentText() == "U Series")
+            Last_U_BSPFactoryFile = ui->UserBSPFselectedlineEdit->text();
         storeNOVAembed_ini();
     }
 }
@@ -618,6 +590,33 @@ void NOVAembed::on_UserAutoRunSelect_pushButton_clicked()
     AutoRunFolder = directory;
     ui->Write_AutoRun_pushButton->setEnabled(true);
     storeNOVAembed_ini();
+}
+
+void NOVAembed::on_Write_AutoRun_pushButton_clicked()
+{
+    uSD_Device = ui->uSD_Device_comboBox->currentText();
+    QFile scriptfile("/tmp/script");
+    update_status_bar("Writing AutoRun using folder "+ui->UserAutoRunSelectedlineEdit->text()+" ...");
+
+    if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
+    {
+        update_status_bar("Unable to create /tmp/script");
+        return;
+    }
+    QTextStream out(&scriptfile);
+    out << QString("#!/bin/sh\n");
+    out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
+    out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
+
+    out << QString("echo $? > /tmp/result\n");
+    scriptfile.close();
+
+    if ( run_script() == 0)
+    {
+        update_status_bar("AutoRun successfully written with folder "+ui->UserAutoRunSelectedlineEdit->text());
+    }
+    else
+        update_status_bar("AutoRun Write error");
 }
 
 /*****************************************************************************************************************************************************************************************/

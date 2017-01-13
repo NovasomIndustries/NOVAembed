@@ -24,11 +24,9 @@ QString FileSystemName = "";
 QString DeployedFileSystemName = "";
 QString FileSystemConfigName = "";
 QString _Board_comboBox = "";
+QString Last_S_BSPFactoryFile = "";
 QString Last_U_BSPFactoryFile = "";
 QString Last_P_BSPFactoryFile = "";
-QString P_UserDTB_Selected = "";
-QString Last_P_UserDTB = "";
-QString Quad = "";
 QString CfgBitDefaultValueDefault = "0x00017059";
 QString CfgBitDefaultValue = "0x00017059";
 QString NumberOfUserPartitions = "-";
@@ -69,6 +67,8 @@ QString linux_version="linux-imx_4.1.15_1.2.0_ga";
         QDir().mkdir("/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf");
         copy_required_files = 1;
     }
+    if ( ! QDir("/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp").exists() )
+        QDir().mkdir("/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp");
     if ( copy_required_files == 1 )
     {
         QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/imx6dl.dtsi", "/Devel/NOVAsom_SDK/DtbUserWorkArea/imx6dl.dtsi");
@@ -106,13 +106,12 @@ QString linux_version="linux-imx_4.1.15_1.2.0_ga";
         DeployedFileSystemName = settings->value( strKeySettings + "DeployedFileSystemName", "r").toString();
         FileSystemConfigName = settings->value( strKeySettings + "FileSystemConfigName", "r").toString();
         _Board_comboBox = settings->value( strKeySettings + "Board_comboBox", "r").toString();
+        Last_S_BSPFactoryFile = settings->value( strKeySettings + "Last_S_BSPFactoryFile", "r").toString();
         Last_P_BSPFactoryFile = settings->value( strKeySettings + "Last_P_BSPFactoryFile", "r").toString();
-        P_UserDTB_Selected = settings->value( strKeySettings + "P_UserDTB_Selected", "r").toString();
-        Last_P_UserDTB = settings->value( strKeySettings + "Last_P_UserDTB", "r").toString();
+        Last_U_BSPFactoryFile = settings->value( strKeySettings + "Last_U_BSPFactoryFile", "r").toString();
         CfgBitDefaultValue = settings->value( strKeySettings + "CfgBitDefaultValue", "r").toString();
         if ( CfgBitDefaultValue == "r" )
              CfgBitDefaultValue = CfgBitDefaultValueDefault;
-        Last_U_BSPFactoryFile = settings->value( strKeySettings + "Last_U_BSPFactoryFile", "r").toString();
         NumberOfUserPartitions = settings->value( strKeySettings + "NumberOfUserPartitions", "r").toString();
         UserPartition1Size = settings->value( strKeySettings + "UserPartition1Size", "r").toString();
         UserPartition2Size = settings->value( strKeySettings + "UserPartition2Size", "r").toString();
@@ -121,7 +120,6 @@ QString linux_version="linux-imx_4.1.15_1.2.0_ga";
         CurrentVideo = settings->value( strKeySettings + "CurrentVideo", "r").toString();
         AutoRunSelected = settings->value( strKeySettings + "AutoRunSelected", "r").toString();
         AutoRunFolder = settings->value( strKeySettings + "AutoRunFolder", "r").toString();
-        Quad = settings->value( strKeySettings + "Quad", "r").toString();
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf").exists() )
     {
@@ -215,11 +213,10 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("DeployedFileSystemName="+DeployedFileSystemName+"\n");
     out << QString("FileSystemConfigName="+FileSystemConfigName+"\n");
     out << QString("Board_comboBox="+_Board_comboBox+"\n");
-    out << QString("Last_U_BSPFactoryFile="+Last_U_BSPFactoryFile+"\n");
+    out << QString("Last_S_BSPFactoryFile="+Last_S_BSPFactoryFile+"\n");
     out << QString("Last_P_BSPFactoryFile="+Last_P_BSPFactoryFile+"\n");
+    out << QString("Last_U_BSPFactoryFile="+Last_U_BSPFactoryFile+"\n");
     out << QString("CfgBitDefaultValue="+CfgBitDefaultValue+"\n");
-    out << QString("P_UserDTB_Selected="+P_UserDTB_Selected+"\n");
-    out << QString("Last_P_UserDTB="+Last_P_UserDTB+"\n");
     out << QString("NumberOfUserPartitions="+NumberOfUserPartitions+"\n");
     out << QString("UserPartition1Size="+UserPartition1Size+"\n");
     out << QString("UserPartition2Size="+UserPartition2Size+"\n");
@@ -228,7 +225,6 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("AutoRunFolder="+AutoRunFolder+"\n");
     out << QString("CurrentBSPF_Tab="+CurrentBSPF_Tab+"\n");
     out << QString("CurrentVideo="+CurrentVideo+"\n");
-    out << QString("Quad="+Quad+"\n");
     file.close();
 }
 
@@ -361,10 +357,27 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->REFERENCE_SERVER_lineEdit->setEnabled(false);
         ui->ThisIsReferenceServer_checkBox->setChecked(true);
 
-        if ( Last_P_UserDTB.length() < 2)
-            ui->UserDTBSelectedlineEdit->setText("Not Initialized");
-        else
-            ui->UserDTBSelectedlineEdit->setText(Last_P_UserDTB);
+        if ( ui->Board_comboBox->currentText() == "S Series")
+        {
+            if ( Last_S_BSPFactoryFile.length() < 2)
+                ui->UserBSPFselectedlineEdit->setText("Not Initialized");
+            else
+                ui->UserBSPFselectedlineEdit->setText(Last_S_BSPFactoryFile);
+        }
+        if ( ui->Board_comboBox->currentText() == "P Series")
+        {
+            if ( Last_P_BSPFactoryFile.length() < 2)
+                ui->UserBSPFselectedlineEdit->setText("Not Initialized");
+            else
+                ui->UserBSPFselectedlineEdit->setText(Last_P_BSPFactoryFile);
+        }
+        if ( ui->Board_comboBox->currentText() == "U Series")
+        {
+            if ( Last_U_BSPFactoryFile.length() < 2)
+                ui->UserBSPFselectedlineEdit->setText("Not Initialized");
+            else
+                ui->UserBSPFselectedlineEdit->setText(Last_U_BSPFactoryFile);
+        }
 
         if ( AutoRunSelected == "true" )
         {
@@ -439,16 +452,6 @@ void NOVAembed::on_tab_currentChanged(int index)
             ui->P_I2C1Speed_lineEdit->setText("100000");
             ui->P_I2C3Speed_lineEdit->setText("100000");
 
-            if ( Quad == "true")
-            {
-                    ui->P_QUAD_checkBox->setChecked(true);
-            }
-            else
-            {
-                    ui->P_QUAD_checkBox->setChecked(false);
-                    ui->P_SATA_checkBox->setEnabled(false);
-                    ui->P_SATA_checkBox->setChecked(false);
-            }
             ui->P_Default_lineEdit->setText(CfgBitDefaultValue);
             ui->P_Decoded_CFG_Bits_lineEdit->setText("0x00000000");
             P_load_BSPF_File(Last_P_BSPFactoryFile);
