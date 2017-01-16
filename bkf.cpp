@@ -472,7 +472,8 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
     out << QString("cp BootParameters/"+NOVAsomParamsName+" ../Deploy/NOVAsomParams\n");
     out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" "+ UserEnabled +"> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
-    out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
+    if (( ui->UserAutoRun_checkBox->isChecked() == true) && (ui->UserAutoRunSelectedlineEdit->text().isEmpty() == false ))
+        out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
 
     out << QString("echo $? > /tmp/result\n");
     scriptfile.close();
