@@ -44,9 +44,11 @@ void NOVAembed::on_Video_comboBox_currentIndexChanged(const QString &arg1)
     storeNOVAembed_ini();
 }
 
+
 void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
 {
     _Board_comboBox = arg1;
+    ui->FileSystemSelectedlineEdit->setText("");
     if ( arg1 == "S Series")
     {
         CurrentBSPF_Tab = "S BSP Factory";
@@ -67,7 +69,6 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
 
     ui->tab->removeTab(2);
     ui->tab->insertTab(2,current_stab,CurrentBSPF_Tab);
-    //qDebug() << CurrentBSPF_Tab;
 
     /* now show tools again */
     ui->tab->insertTab(3,TOOL_stab,"Tools");
