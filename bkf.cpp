@@ -124,7 +124,7 @@ void NOVAembed::on_KernelXconfig_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
-        update_status_bar("Kernel configured succesfully");
+        update_status_bar("Kernel configuration done");
     else
         update_status_bar("Configuration error");
 }

@@ -2107,6 +2107,20 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
         Last_P_BSPFactoryFile = "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/"+FileNameNoExtension+".bspf";
         ui->UserBSPFselectedlineEdit->setText(Last_P_BSPFactoryFile);
 
+        const char *str;
+        QByteArray ba;
+        QString syscmd_quad = "rm /Devel/NOVAsom_SDK/Deploy/imx6q-novasomP.dtb ; cp /Devel/NOVAsom_SDK/DtbUserWorkArea/QUAD_"+FileNameNoExtension+".dtb /Devel/NOVAsom_SDK/Deploy/imx6q-novasomP.dtb ; chmod 777 /Devel/NOVAsom_SDK/Deploy/imx6q-novasomP.dtb";
+        QString syscmd_sdl = "rm /Devel/NOVAsom_SDK/Deploy/imx6sdl-novasomP.dtb ; cp /Devel/NOVAsom_SDK/DtbUserWorkArea/SDL_"+FileNameNoExtension+".dtb /Devel/NOVAsom_SDK/Deploy/imx6sdl-novasomP.dtb ; chmod 777 /Devel/NOVAsom_SDK/Deploy/imx6sdl-novasomP.dtb";
+
+        ba = syscmd_quad.toLatin1();
+        str = ba.data();
+        system(str);
+        qDebug() << str;
+        ba = syscmd_sdl.toLatin1();
+        str = ba.data();
+        system(str);
+        qDebug() << str;
+
         storeNOVAembed_ini();
     }
     else
