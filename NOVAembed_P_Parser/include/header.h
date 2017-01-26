@@ -636,15 +636,15 @@
 #define can1_defs "\
 &can1 {\n\
         pinctrl-names = \"default\";\n\
-        pinctrl-0 = <&pinctrl_can1>;\n\
+        pinctrl-0 = <&pinctrl_flexcan1>;\n\
         status = \"okay\";\n\
 };\n\
 "
 
 #define can2_defs "\
-&can1 {\n\
+&can2 {\n\
         pinctrl-names = \"default\";\n\
-        pinctrl-0 = <&pinctrl_can2>;\n\
+        pinctrl-0 = <&pinctrl_flexcan2>;\n\
         status = \"okay\";\n\
 };\n\
 "
