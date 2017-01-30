@@ -671,28 +671,44 @@
 
 #define i2c1_defs_top "\
 &i2c1 {\n\
-"
-
-/*        clock-frequency = <100000>;\n\    */
-#define i2c1_defs_bottom "\
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_i2c1>;\n\
         status = \"okay\";\n\
+"
+
+#define i2c1_defs_bottom "\
 };\n\
 "
 
 #define i2c3_defs_top "\
 &i2c3 {\n\
-"
-
-/*        clock-frequency = <100000>;\n\    */
-#define i2c3_defs_bottom "\
         pinctrl-names = \"default\";\n\
         pinctrl-0 = <&pinctrl_i2c3>;\n\
         status = \"okay\";\n\
+"
+
+#define i2c3_defs_bottom "\
+        eeprom@50 {\n\
+                compatible = \"at,24c16\";\n\
+                reg = <0x50>;\n\
+                pagesize = <16>;\n\
+        };\n\
+        polytouch: edt-ft5x06@38 {\n\
+                compatible = \"edt,edt-ft5x06\";\n\
+                reg = <0x38>;\n\
+                pinctrl-names = \"default\";\n\
+                pinctrl-0 = <&pinctrl_edt_ft5x06>;\n\
+                interrupt-parent = <&gpio1>;\n\
+                interrupts = <6 0>;\n\
+        };\n\
 };\n\
 "
 
+/*
+
+
+
+        */
 #define uart1_defs "\
 &uart1 {\n\
         pinctrl-names = \"default\";\n\
@@ -849,6 +865,11 @@
                 MX6QDL_PAD_SD4_DAT6__SD4_DATA6          0x17059\n\
                 MX6QDL_PAD_SD4_DAT7__SD4_DATA7          0x17059\n\
             >;\n\
+        };\n\
+        pinctrl_edt_ft5x06: edt-ft5x06grp {\n\
+                fsl,pinmux-ids = <\n\
+                        MX6QDL_PAD_GPIO_6__GPIO1_IO06 \n\
+                >;\n\
         };\n\
 "
 

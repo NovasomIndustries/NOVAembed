@@ -619,27 +619,39 @@ char    mxcfb[1024];
 
 void process_lvds_channels(void)
 {
-char    ldb[2048];
+char    ldb[4096];
 
     sprintf(ldb,dtsi_lvds_header_defs);
-    if (strstr(file_contents,"Video_comboBox=LVDS 800x480"))
+    if (strstr(file_contents,"PrimaryVideo_comboBox=LVDS 800x480"))
     {
         strcat(ldb,lvds_800x480_ch0_parserinput);
-        strcat(ldb,lvds_800x480_ch1_parserinput);
     }
-    if (strstr(file_contents,"Video_comboBox=LVDS 800x600"))
+    if (strstr(file_contents,"PrimaryVideo_comboBox=LVDS 800x600"))
     {
         strcat(ldb,lvds_800x600_ch0_parserinput);
-        strcat(ldb,lvds_800x600_ch1_parserinput);
     }
-    if (strstr(file_contents,"Video_comboBox=LVDS 1024x600"))
+    if (strstr(file_contents,"PrimaryVideo_comboBox=LVDS 1024x600"))
     {
         strcat(ldb,lvds_1024x600_ch0_parserinput);
-        strcat(ldb,lvds_1024x600_ch1_parserinput);
     }
-    if (strstr(file_contents,"Video_comboBox=LVDS 1024x768"))
+    if (strstr(file_contents,"PrimaryVideo_comboBox=LVDS 1024x768"))
     {
         strcat(ldb,lvds_1024x768_ch0_parserinput);
+    }
+    if (strstr(file_contents,"SecondaryVideo_comboBox=LVDS 800x480"))
+    {
+        strcat(ldb,lvds_800x480_ch1_parserinput);
+    }
+    if (strstr(file_contents,"SecondaryVideo_comboBox=LVDS 800x600"))
+    {
+        strcat(ldb,lvds_800x600_ch1_parserinput);
+    }
+    if (strstr(file_contents,"SecondaryVideo_comboBox=LVDS 1024x600"))
+    {
+        strcat(ldb,lvds_1024x600_ch1_parserinput);
+    }
+    if (strstr(file_contents,"SecondaryVideo_comboBox=LVDS 1024x768"))
+    {
         strcat(ldb,lvds_1024x768_ch1_parserinput);
     }
     strcat(ldb,dtsi_lvds_footer_defs);
@@ -785,6 +797,7 @@ FILE    *fpout_dtsi;
         fwrite(dtsifile_dump, strlen(dtsifile_dump), 1, fpout_dtsi);
         fclose(fpout_dtsi);
     }
+    printf("Dtsi file created\n");
 }
 
 void create_file_names(char *file_in)
