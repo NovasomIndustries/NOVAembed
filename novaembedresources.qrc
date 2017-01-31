@@ -19,5 +19,7 @@
         <file>Icons/Ubuntu_14.10.png</file>
         <file>Icons/j9.jpg</file>
         <file>Icons/j13.jpg</file>
+        <file>Icons/valid.png</file>
+        <file>Icons/invalid.png</file>
     </qresource>
 </RCC>

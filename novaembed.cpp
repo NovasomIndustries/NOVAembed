@@ -37,6 +37,10 @@ QString CurrentBSPF_Tab = "";
 QString CurrentVideo = "";
 QString AutoRunSelected = "";
 QString AutoRunFolder = "";
+QString BootValid = "INVALID";
+QString FSValid = "INVALID";
+QString KernelValid = "INVALID";
+QString uSDwriteValid = "INVALID";
 
 extern  void storeNOVAembed_ini();
 QWidget *PBSP_stab,*UBSP_stab,*SBSP_stab,*TOOL_stab;
@@ -120,6 +124,9 @@ QString linux_version="linux-imx_4.1.15_1.2.0_ga";
         CurrentVideo = settings->value( strKeySettings + "CurrentVideo", "r").toString();
         AutoRunSelected = settings->value( strKeySettings + "AutoRunSelected", "r").toString();
         AutoRunFolder = settings->value( strKeySettings + "AutoRunFolder", "r").toString();
+        BootValid = settings->value( strKeySettings + "BootValid", "r").toString();
+        FSValid = settings->value( strKeySettings + "FSValid", "r").toString();
+        KernelValid = settings->value( strKeySettings + "KernelValid", "r").toString();
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf").exists() )
     {
@@ -226,6 +233,10 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("AutoRunFolder="+AutoRunFolder+"\n");
     out << QString("CurrentBSPF_Tab="+CurrentBSPF_Tab+"\n");
     out << QString("CurrentVideo="+CurrentVideo+"\n");
+    out << QString("BootValid="+BootValid+"\n");
+    out << QString("FSValid="+FSValid+"\n");
+    out << QString("KernelValid="+KernelValid+"\n");
+
     file.close();
 }
 
@@ -357,6 +368,36 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->REFERENCE_SERVER_label->setEnabled(false);
         ui->REFERENCE_SERVER_lineEdit->setEnabled(false);
         ui->ThisIsReferenceServer_checkBox->setChecked(true);
+
+        if ( BootValid == "OK")
+        {
+            ui->uboot_Valid_label->setPixmap(QPixmap(":/Icons/valid.png"));
+        }
+        else
+        {
+            ui->uboot_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+        }
+        if ( FSValid == "OK")
+        {
+            ui->fs_Valid_label->setPixmap(QPixmap(":/Icons/valid.png"));
+        }
+        else
+        {
+            ui->fs_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+        }
+        if ( KernelValid == "OK")
+        {
+            ui->kernel_Valid_label->setPixmap(QPixmap(":/Icons/valid.png"));
+        }
+        else
+        {
+            ui->kernel_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+        }
+        if ((BootValid != "OK") || (FSValid != "OK") || (KernelValid != "OK"))
+            ui->frame_5->setEnabled(false);
+        else
+            ui->frame_5->setEnabled(true);
+
 
         if ( ui->Board_comboBox->currentText() == "S Series")
         {

@@ -32,6 +32,9 @@ extern  QString AutoRunSelected;
 extern  QString AutoRunFolder;
 
 extern  QWidget *PBSP_stab,*UBSP_stab,*SBSP_stab,*TOOL_stab;
+
+extern QString BootValid , FSValid , KernelValid , uSDwriteValid;
+
 QWidget *current_stab;
 
 /*****************************************************************************************************************************************************************************************/
@@ -49,6 +52,13 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
 {
     _Board_comboBox = arg1;
     ui->FileSystemSelectedlineEdit->setText("");
+    ui->uboot_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+    ui->fs_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+    ui->kernel_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+    BootValid = "INVALID";
+    FSValid = "INVALID";
+    KernelValid = "INVALID";
+    ui->frame_5->setEnabled(false);
     if ( arg1 == "S Series")
     {
         CurrentBSPF_Tab = "S BSP Factory";
@@ -101,9 +111,23 @@ void NOVAembed::on_BootLoaderCompile_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
+    {
         update_status_bar("Boot loader for "+ui->Board_comboBox->currentText()+" compiled");
+        BootValid = "OK";
+        ui->uboot_Valid_label->setPixmap(QPixmap(":/Icons/valid.png"));
+    }
     else
+    {
         update_status_bar("Error building boot loader for "+ui->Board_comboBox->currentText());
+        BootValid = "INVALID";
+        ui->uboot_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+
+    }
+    if ((BootValid != "OK") || (FSValid != "OK") || (KernelValid != "OK"))
+        ui->frame_5->setEnabled(false);
+    else
+        ui->frame_5->setEnabled(true);
+    storeNOVAembed_ini();
 }
 
 /* Kernel */
@@ -124,9 +148,21 @@ void NOVAembed::on_KernelXconfig_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
+    {
         update_status_bar("Kernel configuration done");
+        KernelValid = "OK";
+    }
     else
+    {
         update_status_bar("Configuration error");
+        KernelValid = "INVALID";
+        ui->kernel_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+    }
+    if ((BootValid != "OK") || (FSValid != "OK") || (KernelValid != "OK"))
+        ui->Write_uSD_pushButton->setEnabled(false);
+    else
+        ui->Write_uSD_pushButton->setEnabled(true);
+    storeNOVAembed_ini();
 }
 
 void NOVAembed::on_KernelCompile_pushButton_clicked()
@@ -147,9 +183,22 @@ void NOVAembed::on_KernelCompile_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
+    {
         update_status_bar("Kernel built succesfully");
+        KernelValid = "OK";
+        ui->kernel_Valid_label->setPixmap(QPixmap(":/Icons/valid.png"));
+    }
     else
+    {
         update_status_bar("Kernel Build error");
+        KernelValid = "INVALID";
+        ui->kernel_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+    }
+    if ((BootValid != "OK") || (FSValid != "OK") || (KernelValid != "OK"))
+        ui->frame_5->setEnabled(false);
+    else
+        ui->frame_5->setEnabled(true);
+    storeNOVAembed_ini();
 }
 
 void NOVAembed::on_KernelReCompile_pushButton_clicked()
@@ -170,9 +219,22 @@ void NOVAembed::on_KernelReCompile_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
+    {
         update_status_bar("Kernel re-built succesfully");
+        KernelValid = "OK";
+        ui->kernel_Valid_label->setPixmap(QPixmap(":/Icons/valid.png"));
+    }
     else
-        update_status_bar("Kernel Build error");
+    {
+        update_status_bar("Kernel re-build error");
+        KernelValid = "INVALID";
+        ui->kernel_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+    }
+    if ((BootValid != "OK") || (FSValid != "OK") || (KernelValid != "OK"))
+        ui->frame_5->setEnabled(false);
+    else
+        ui->frame_5->setEnabled(true);
+    storeNOVAembed_ini();
 }
 
 void NOVAembed::on_KernelMakeDTB_pushButton_clicked()
@@ -231,9 +293,19 @@ void NOVAembed::on_LaunchMenuConfig_pushButton_clicked()
 
     scriptfile.close();
     if ( run_script() == 0)
+    {
         update_status_bar("Buildroot Configuration Finished");
+        FSValid = "OK";
+        ui->fs_Valid_label->setPixmap(QPixmap(":/Icons/valid.png"));
+
+    }
     else
+    {
         update_status_bar("Configuration error");
+        FSValid = "INVALID";
+        ui->fs_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+    }
+    storeNOVAembed_ini();
 }
 
 
@@ -342,10 +414,20 @@ void NOVAembed::on_FileSystemDeploy_pushButton_clicked()
     {
         update_status_bar("File system "+ui->FileSystemSelectedlineEdit->text()+" deployed");
         DeployedFileSystemName = FileSystemName = ui->FileSystemSelectedlineEdit->text();
-        storeNOVAembed_ini();
+        FSValid = "OK";
+        ui->fs_Valid_label->setPixmap(QPixmap(":/Icons/valid.png"));
     }
     else
+    {
         update_status_bar("Build error");
+        FSValid = "INVALID";
+        ui->fs_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+    }
+    if ((BootValid != "OK") || (FSValid != "OK") || (KernelValid != "OK"))
+        ui->frame_5->setEnabled(false);
+    else
+        ui->frame_5->setEnabled(true);
+    storeNOVAembed_ini();
 }
 
 

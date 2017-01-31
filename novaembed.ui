@@ -134,7 +134,7 @@
         <x>360</x>
         <y>80</y>
         <width>331</width>
-        <height>101</height>
+        <height>111</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -181,8 +181,8 @@
       <widget class="QPushButton" name="KernelXconfig_pushButton">
        <property name="geometry">
         <rect>
-         <x>230</x>
-         <y>40</y>
+         <x>130</x>
+         <y>60</y>
          <width>90</width>
          <height>21</height>
         </rect>
@@ -235,8 +235,8 @@
       <widget class="QPushButton" name="KernelMakeDTB_pushButton">
        <property name="geometry">
         <rect>
-         <x>130</x>
-         <y>60</y>
+         <x>30</x>
+         <y>80</y>
          <width>90</width>
          <height>21</height>
         </rect>
@@ -245,12 +245,40 @@
         <string>Make DTBs</string>
        </property>
       </widget>
+      <widget class="QLabel" name="kernel_Valid_label">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>20</y>
+         <width>32</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="novaembedresources.qrc">:/Icons/valid.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </widget>
      <widget class="QFrame" name="frame_4">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>190</y>
+        <y>200</y>
         <width>341</width>
         <height>381</height>
        </rect>
@@ -958,6 +986,34 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QLabel" name="fs_Valid_label">
+       <property name="geometry">
+        <rect>
+         <x>290</x>
+         <y>20</y>
+         <width>32</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="novaembedresources.qrc">:/Icons/valid.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </widget>
      <widget class="QComboBox" name="Board_comboBox">
       <property name="geometry">
@@ -990,7 +1046,7 @@
         <x>10</x>
         <y>80</y>
         <width>341</width>
-        <height>101</height>
+        <height>111</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1025,7 +1081,7 @@
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>70</y>
+         <y>80</y>
          <width>90</width>
          <height>21</height>
         </rect>
@@ -1062,12 +1118,40 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QLabel" name="uboot_Valid_label">
+       <property name="geometry">
+        <rect>
+         <x>290</x>
+         <y>20</y>
+         <width>32</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="novaembedresources.qrc">:/Icons/valid.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </widget>
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>50</y>
+        <y>40</y>
         <width>61</width>
         <height>15</height>
        </rect>
@@ -1080,7 +1164,7 @@
       <property name="geometry">
        <rect>
         <x>360</x>
-        <y>190</y>
+        <y>200</y>
         <width>331</width>
         <height>381</height>
        </rect>
