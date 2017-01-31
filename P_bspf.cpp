@@ -699,17 +699,14 @@ void NOVAembed::on_P_SPI1_2ndSScheckBox_toggled(bool checked)
 {
     if ( checked )
     {
-        qDebug() << "1";
         if ( ui->P_SPI1_checkBox->isChecked())
         {
             ui->P_SPI1_2ndSScheckBox->setChecked(true);
             ui->P_SPI2_2ndSScheckBox->setChecked(false);
             ui->label_PECSPI2_SS1->setText("ECSPI1_SS1");
-            qDebug() << "2";
         }
         else
         {
-            qDebug() << "3";
             ui->P_SPI1_2ndSScheckBox->setChecked(false);
             ui->label_PECSPI2_SS1->setText("GPIO5_IO09");
         }
