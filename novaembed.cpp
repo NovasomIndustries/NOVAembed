@@ -18,7 +18,7 @@
 /*                                                                              Global variables                                                                                         */
 /*****************************************************************************************************************************************************************************************/
 
-QString Version = "1.0.4.1 rc6";
+QString Version = "1.0.4.1 rc7";
 QString Configuration = "Standard";
 QString FileSystemName = "";
 QString DeployedFileSystemName = "";
@@ -140,12 +140,13 @@ QString linux_version="linux-imx_4.1.15_1.2.0_ga";
     ui->UserPartition_comboBox->setCurrentText(NumberOfUserPartitions);
     ui->VersionLabel->setText(Version);
     PBSP_stab=ui->tabBSPFP;
-    UBSP_stab=ui->tabBSPFU;
     SBSP_stab=ui->tabBSPFS;
+    UBSP_stab=ui->tabBSPFU;
     TOOL_stab=ui->tabTools;
     ui->tab->removeTab(4);
     ui->tab->removeTab(3);
     ui->tab->removeTab(2);
+
     qDebug() << CurrentBSPF_Tab;
     if ( Configuration == "Standard")
     {
@@ -452,13 +453,12 @@ void NOVAembed::on_tab_currentChanged(int index)
             ui->P_I2C1Speed_lineEdit->setText("100000");
             ui->P_I2C3Speed_lineEdit->setText("100000");
 
-            ui->P_Default_lineEdit->setText(CfgBitDefaultValue);
+            ui->P_cbit_lineEdit->setText(CfgBitDefaultValue);
             ui->P_Decoded_CFG_Bits_lineEdit->setText("0x00000000");
             P_load_BSPF_File(Last_P_BSPFactoryFile);
             QFileInfo fi(Last_P_BSPFactoryFile);
             if ( ! fi.exists())
             {
-                on_P_Default_pushButton_clicked();
                 update_status_bar("BSP Factory : File "+fi.baseName()+".bspf not found, reverting to default");
             }
             else
@@ -469,45 +469,12 @@ void NOVAembed::on_tab_currentChanged(int index)
                 update_status_bar("BSP Factory : Loaded file "+Last_P_BSPFactoryFile);
             }
         }
-        else if (CurrentBSPF_Tab == "S BSP Factory")
-        {
-            qDebug() << "S BSP Factory";
-        }
-        else if (CurrentBSPF_Tab == "U BSP Factory")
-        {
-            ui->U_PUPD_frame->setEnabled(false);
-            ui->U_Speed_frame->setEnabled(false);
-            ui->U_SRE_frame->setEnabled(false);
-            ui->U_DSE_frame->setEnabled(false);
-            ui->U_PUE_checkBox->setEnabled(false);
-            ui->U_SION_checkBox->setEnabled(false);
-            ui->U_ODE_checkBox->setEnabled(false);
-            ui->U_PKE_checkBox->setEnabled(false);
-            ui->U_DSE_Disable_checkBox->setEnabled(false);
-            ui->U_HYS_PAD_CTL_checkBox->setEnabled(false);
-            ui->U_NO_PAD_CTL_checkBox->setChecked(true);
-            U_load_BSPF_File(Last_U_BSPFactoryFile);
-            QFileInfo fi(Last_U_BSPFactoryFile);
-            if ( ! fi.exists())
-            {
-                on_U_Default_pushButton_clicked();
-                update_status_bar("BSP Factory : File "+fi.baseName()+".bspf not found, reverting to default");
-            }
-            else
-            {
-                QString base = fi.baseName();
-                if ( base != "" )
-                    ui->U_Current_BSPF_File_label->setText(base+".bspf");
-                update_status_bar("BSP Factory : Loaded file "+Last_U_BSPFactoryFile);
-            }
-        }
         else
         {
             P_load_BSPF_File(Last_P_BSPFactoryFile);
             QFileInfo fi(Last_P_BSPFactoryFile);
             if ( ! fi.exists())
             {
-                on_P_Default_pushButton_clicked();
                 update_status_bar("BSP Factory : File "+fi.baseName()+".bspf not found, reverting to default");
             }
             else

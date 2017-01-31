@@ -726,7 +726,7 @@ void parse_special_iomux(void)
         process_can2();
         iomux->can2 = 1;
     }
-    if ( strstr(file_contents,"P_SD3_DATA4_comboBox=UART2_RX_DATA"))
+    if ( strstr(file_contents,"P_SD3_DATA4_comboBox=UART2_RXD"))
     {
         if ( strstr(file_contents,"P_SD3_CMD_comboBox==UART2_CTS_B"))
         {

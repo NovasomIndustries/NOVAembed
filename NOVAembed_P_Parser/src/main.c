@@ -20,7 +20,6 @@ FILE *fpin;
 char    parserinput_dir[]="/Devel/NOVAsom_SDK/Qt/NOVAembed/NOVAembed/NOVAembed_P_Parser/lvds_defs/";
 char fname[256];
 
-    printf("%s : enter\n",__func__);
     bzero(lvds_800x480_ch0_parserinput,sizeof(lvds_800x480_ch0_parserinput));
     bzero(lvds_800x480_ch1_parserinput,sizeof(lvds_800x480_ch1_parserinput));
     bzero(lvds_800x600_ch0_parserinput,sizeof(lvds_800x600_ch0_parserinput));
@@ -56,7 +55,6 @@ char fname[256];
         fclose(fpin);
     }
 
-    printf("Here\n");
     sprintf(fname,"%s/lvds_1024x600_ch0_parserinput",parserinput_dir);
     printf("%s\n" ,fname );
     if ( (fpin = fopen(fname,"r" ) ))

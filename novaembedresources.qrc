@@ -17,5 +17,7 @@
         <file>Icons/OpenWrt_14.07.png</file>
         <file>Icons/OpenWrt_15.05.png</file>
         <file>Icons/Ubuntu_14.10.png</file>
+        <file>Icons/j9.jpg</file>
+        <file>Icons/j13.jpg</file>
     </qresource>
 </RCC>

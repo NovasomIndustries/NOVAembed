@@ -32,15 +32,12 @@ private slots:
     /* Helper Functions */
     void storeNOVAembed_ini();
     void P_load_BSPF_File(QString fileName);
-    void U_load_BSPF_File(QString fileName);
     void compile_NewFileSystemFileSystemConfigurationcomboBox();
     void compile_ExtFS_comboBox();
     void local_sleep(int ms);
     int run_script(void);
     int update_status_bar(QString StatusBarContent);
-    //void P_disable_all(void);
-    void U_disable_all(void);
-    void U_enable_all(void);
+    void P_save_helper( QString filename, QString Processor_model);
 
 
     /* Helper Functions End */
@@ -63,119 +60,9 @@ private slots:
 
     void on_Board_comboBox_currentIndexChanged(const QString &arg1);
 
-    void on_P_ECSPI1_MISO_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI1_MOSI_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI1_SS0_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI1_SCK_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI2_SS0_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI2_SS1_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI2_MISO_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI2_MOSI_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI2_SCK_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI3_MISO_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI3_SCK_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI3_MOSI_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI3_SS0_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI3_SS1_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI4_MISO_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI4_MOSI_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI4_SCK_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_ECSPI4_SS0_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_I2C3_SCL_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_I2C3_SDA_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_KHZ32_CLK_OUT_comboBox_currentIndexChanged(const QString &arg1);
-
-    void set_sd3_8_IO_helper(void);
-
-    void set_sd3_4L_IO_helper(void);
-
-    void set_sd3_4H_IO_helper(void);
-
-    void set_sd3_4_SD_helper(void);
-
-    void set_sd3_8_SD_helper(void);
-
-    void on_P_SD3_CMD_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_SD3_CLK_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_SD3_DATA0_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_SD3_DATA1_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_SD3_DATA2_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_SD3_DATA3_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_SD3_DATA4_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_SD3_DATA5_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_SD3_DATA6_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_SD3_DATA7_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_GPIO3_IO20_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_GPIO1_IO00_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_GPIO4_IO29_comboBox_currentIndexChanged(const QString &arg1);
-
-    void setAUD6_AUDIO(void);
-
-    void setAUD6_IO(void);
-
-    void on_P_AUD6_TXD_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_AUD6_RXD_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_AUD6_TXFS_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_AUD6_TXC_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_I2C1_SDA_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_I2C1_SCL_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_UART1_TXD_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_UART1_RXD_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_SPDIF_OUT_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_UART4_RTS_L_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_UART4_TXD_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_UART4_RXD_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_P_UART4_CTS_L_comboBox_currentIndexChanged(const QString &arg1);
-
     void on_P_Save_pushButton_clicked();
 
     void on_P_Load_pushButton_clicked();
-
-    void on_P_Default_pushButton_clicked();
 
     void on_UserPartition_comboBox_currentIndexChanged(const QString &arg1);
 
@@ -239,60 +126,6 @@ private slots:
 
     void on_P_DecodeCFGBits_pushButton_clicked();
 
-    void on_U_Load_pushButton_clicked();
-
-    void on_U_Save_pushButton_clicked();
-
-    void on_U_Default_pushButton_clicked();
-
-    void on_U_CreateCFGBits_pushButton_clicked();
-
-    void on_U_DecodeCFGBits_pushButton_clicked();
-
-    void on_U_SION_checkBox_clicked();
-
-    void on_U_NO_PAD_CTL_checkBox_clicked();
-
-    void on_U_SPEED_Low_checkBox_clicked();
-
-    void on_U_SPEED_Mid_checkBox_clicked();
-
-    void on_U_SPEED_High_checkBox_clicked();
-
-    void on_U_PUE_checkBox_clicked();
-
-    void on_U_PD_100K_checkBox_clicked();
-
-    void on_U_PU_100K_checkBox_clicked();
-
-    void on_U_PU_47K_checkBox_clicked();
-
-    void on_U_PU_22K_checkBox_clicked();
-
-    void on_U_ODE_checkBox_clicked();
-
-    void on_U_PKE_checkBox_clicked();
-
-    void on_U_DSE_Disable_checkBox_clicked();
-
-    void on_U_DSE_34_checkBox_clicked();
-
-    void on_U_DSE_40_checkBox_clicked();
-
-    void on_U_DSE_48_checkBox_clicked();
-
-    void on_U_DSE_60_checkBox_clicked();
-
-    void on_U_DSE_80_checkBox_clicked();
-
-    void on_U_DSE_120_checkBox_clicked();
-
-    void on_U_DSE_240_checkBox_clicked();
-
-    void on_U_SRE_Fast_checkBox_clicked();
-
-    void on_U_SRE_Slow_checkBox_clicked();
-
     void on_UserPartition1Size_lineEdit_textChanged(const QString &arg1);
 
     void on_UserPartition2Size_lineEdit_textChanged(const QString &arg1);
@@ -327,13 +160,70 @@ private slots:
 
     void on_UserAutoRunSelect_pushButton_clicked();
 
-    void save_helper( QString filename, QString Processor_model);
-
     void on_P_SetCFGbits_pushButton_clicked();
 
-    void on_P_StartPEasyPin_pushButton_clicked();
-
     void on_Write_AutoRun_pushButton_clicked();
+
+    void on_P_SPI1_checkBox_toggled(bool checked);
+    void on_P_Audio4_checkBox_toggled(bool checked);
+
+    void on_P_SPI2_checkBox_toggled(bool checked);
+
+    void on_P_Audio5_checkBox_toggled(bool checked);
+
+    void on_P_SPI1_2ndSScheckBox_toggled(bool checked);
+
+    void on_P_SPI2_2ndSScheckBox_toggled(bool checked);
+
+    void on_P_SPI3_checkBox_toggled(bool checked);
+
+    void on_P_I2C1_OnJ13checkBox_toggled(bool checked);
+
+    void on_P_SPI4_checkBox_toggled(bool checked);
+
+    void on_P_CCMCLKO1_checkBox_toggled(bool checked);
+
+    void on_P_EPIT1_checkBox_toggled(bool checked);
+
+    void on_P_PWM1_checkBox_toggled(bool checked);
+
+    void on_P_WD1_checkBox_toggled(bool checked);
+
+    void on_P_SPDIF_checkBox_toggled(bool checked);
+
+    void on_P_SPDIF_OnJ13checkBox_toggled(bool checked);
+
+    void on_P_SDCARD3_checkBox_toggled(bool checked);
+
+    void on_P_SDCARD3IS8_checkBox_toggled(bool checked);
+
+    void on_P_CAN1_checkBox_toggled(bool checked);
+
+    void on_P_CAN2_checkBox_toggled(bool checked);
+
+    void on_P_I2C1_checkBox_toggled(bool checked);
+
+    void on_P_UART2_checkBox_toggled(bool checked);
+
+    void on_P_UART4_checkBox_toggled(bool checked);
+
+    void on_P_UART2_4WirescheckBox_toggled(bool checked);
+
+    void on_P_UART4_4WirescheckBox_toggled(bool checked);
+
+    void on_P_Audio6_checkBox_toggled(bool checked);
+
+    void on_P_I2C3_checkBox_toggled(bool checked);
+
+    void on_P_UART1_checkBox_toggled(bool checked);
+
+    void on_P_KHZ32_checkBox_toggled(bool checked);
+
+    void on_P_MHZ24_checkBox_toggled(bool checked);
+
+    void P_pin_decode();
+    void on_P_Clear_pushButton_clicked();
+
 
 private:
     Ui::NOVAembed *ui;

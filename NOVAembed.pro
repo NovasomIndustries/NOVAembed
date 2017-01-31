@@ -17,7 +17,6 @@ SOURCES += main.cpp\
     bkf.cpp \
     P_bspf.cpp \
     tools.cpp \
-    U_bspf.cpp \
     welcome.cpp
 
 HEADERS  += novaembed.h

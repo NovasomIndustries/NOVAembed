@@ -13,6 +13,7 @@
 #include <QDesktopServices>
 #include <QDirIterator>
 
+
 extern  QString FileSystemName;
 extern  QString DeployedFileSystemName;
 extern  QString FileSystemConfigName;
@@ -22,1316 +23,19 @@ extern  QString Last_P_BSPFactoryFile;
 extern  QString LVDSVideo;
 extern  QString Quad;
 
-QString FileNameNoExtension;
-
-void NOVAembed::on_P_Load_pushButton_clicked()
-{
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Load BSP Factory File"), "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf",tr("BSP Factory Files (*.bspf)"));
-    if (fileName.isEmpty())
-        return;
-    else
-    {
-        P_load_BSPF_File(fileName);
-    }
-}
+//QString FileNameNoExtension;
 
 /*****************************************************************************************************************************************************************************************/
 /*                                                                             P BSP Factory                                                                                             */
 /*****************************************************************************************************************************************************************************************/
-/* J13 */
-/* ECSPI1 Group */
-void NOVAembed::on_P_ECSPI1_MISO_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI1_MISO")
-    {
-        ui->P_ECSPI1_MOSI_comboBox->setCurrentText("ECSPI1_MOSI");
-        ui->P_ECSPI1_SS0_comboBox->setCurrentText("ECSPI1_SS0");
-        ui->P_ECSPI1_SCK_comboBox->setCurrentText("ECSPI1_SCK");
-        ui->P_SPIdev1_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "AUD4_TXFS")
-    {
-        ui->P_ECSPI1_MOSI_comboBox->setCurrentText("AUD4_TXD");
-        ui->P_ECSPI1_SS0_comboBox->setCurrentText("AUD4_RXD");
-        ui->P_ECSPI1_SCK_comboBox->setCurrentText("AUD4_TXC");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev1_checkBox->setEnabled(false);
-    }
-    if ( arg1 == "GPIO5_IO16")
-    {
-        ui->P_ECSPI1_MOSI_comboBox->setCurrentText("GPIO5_IO15");
-        ui->P_ECSPI1_SS0_comboBox->setCurrentText("GPIO5_IO17");
-        ui->P_ECSPI1_SCK_comboBox->setCurrentText("GPIO5_IO14");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev1_checkBox->setEnabled(false);
-    }
 
-}
 
-void NOVAembed::on_P_ECSPI1_MOSI_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI1_MOSI")
-    {
-        ui->P_ECSPI1_MISO_comboBox->setCurrentText("ECSPI1_MISO");
-        ui->P_ECSPI1_SS0_comboBox->setCurrentText("ECSPI1_SS0");
-        ui->P_ECSPI1_SCK_comboBox->setCurrentText("ECSPI1_SCK");
-        ui->P_SPIdev1_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "AUD4_TXD")
-    {
-        ui->P_ECSPI1_MISO_comboBox->setCurrentText("AUD4_TXFS");
-        ui->P_ECSPI1_SS0_comboBox->setCurrentText("AUD4_RXD");
-        ui->P_ECSPI1_SCK_comboBox->setCurrentText("AUD4_TXC");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev1_checkBox->setEnabled(false);
-    }
-    if ( arg1 == "GPIO5_IO15")
-    {
-        ui->P_ECSPI1_MISO_comboBox->setCurrentText("GPIO5_IO16");
-        ui->P_ECSPI1_SS0_comboBox->setCurrentText("GPIO5_IO17");
-        ui->P_ECSPI1_SCK_comboBox->setCurrentText("GPIO5_IO14");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev1_checkBox->setEnabled(false);
-    }
-}
-
-
-void NOVAembed::on_P_ECSPI1_SS0_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI1_SS0")
-    {
-        ui->P_ECSPI1_MISO_comboBox->setCurrentText("ECSPI1_MISO");
-        ui->P_ECSPI1_MOSI_comboBox->setCurrentText("ECSPI1_MOSI");
-        ui->P_ECSPI1_SCK_comboBox->setCurrentText("ECSPI1_SCK");
-        ui->P_SPIdev1_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "AUD4_RXD")
-    {
-        ui->P_ECSPI1_MISO_comboBox->setCurrentText("AUD4_TXFS");
-        ui->P_ECSPI1_MOSI_comboBox->setCurrentText("AUD4_TXD");
-        ui->P_ECSPI1_SCK_comboBox->setCurrentText("AUD4_TXC");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev1_checkBox->setEnabled(false);
-    }
-    if ( arg1 == "GPIO5_IO17")
-    {
-        ui->P_ECSPI1_MISO_comboBox->setCurrentText("GPIO5_IO16");
-        ui->P_ECSPI1_MOSI_comboBox->setCurrentText("GPIO5_IO15");
-        ui->P_ECSPI1_SCK_comboBox->setCurrentText("GPIO5_IO14");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev1_checkBox->setEnabled(false);
-    }
-}
-
-void NOVAembed::on_P_ECSPI1_SCK_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI1_SCK")
-    {
-        ui->P_ECSPI1_MISO_comboBox->setCurrentText("ECSPI1_MISO");
-        ui->P_ECSPI1_MOSI_comboBox->setCurrentText("ECSPI1_MOSI");
-        ui->P_ECSPI1_SS0_comboBox->setCurrentText("ECSPI1_SS0");
-        ui->P_SPIdev1_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "AUD4_TXC")
-    {
-        ui->P_ECSPI1_MISO_comboBox->setCurrentText("AUD4_TXFS");
-        ui->P_ECSPI1_MOSI_comboBox->setCurrentText("AUD4_TXD");
-        ui->P_ECSPI1_SS0_comboBox->setCurrentText("AUD4_RXD");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev1_checkBox->setEnabled(false);
-    }
-    if ( arg1 == "GPIO5_IO14")
-    {
-        ui->P_ECSPI1_MISO_comboBox->setCurrentText("GPIO5_IO16");
-        ui->P_ECSPI1_MOSI_comboBox->setCurrentText("GPIO5_IO15");
-        ui->P_ECSPI1_SS0_comboBox->setCurrentText("GPIO5_IO17");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev1_checkBox->setEnabled(false);
-    }
-}
-
-/* ECSPI1 / ECSPI22 Group */
-void NOVAembed::on_P_ECSPI2_SS1_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI1_SS1")
-    {
-        ui->P_ECSPI1_MISO_comboBox->setCurrentText("ECSPI1_MISO");
-        ui->P_ECSPI1_MOSI_comboBox->setCurrentText("ECSPI1_MOSI");
-        ui->P_ECSPI1_SCK_comboBox->setCurrentText("ECSPI1_SCK");
-        ui->P_ECSPI1_SS0_comboBox->setCurrentText("ECSPI1_SS0");
-        ui->P_SPIdev1_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "ECSPI2_SS1")
-    {
-        ui->P_ECSPI2_MISO_comboBox->setCurrentText("ECSPI2_MISO");
-        ui->P_ECSPI2_MOSI_comboBox->setCurrentText("ECSPI2_MOSI");
-        ui->P_ECSPI2_SCK_comboBox->setCurrentText("ECSPI2_SCK");
-        ui->P_ECSPI2_SS0_comboBox->setCurrentText("ECSPI2_SS0");
-        ui->P_SPIdev2_checkBox->setEnabled(true);
-    }
-}
-
-/* ECSPI2 Group */
-void NOVAembed::on_P_ECSPI2_SS0_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI2_SS0")
-    {
-        ui->P_ECSPI2_MISO_comboBox->setCurrentText("ECSPI2_MISO");
-        ui->P_ECSPI2_MOSI_comboBox->setCurrentText("ECSPI2_MOSI");
-        ui->P_ECSPI2_SCK_comboBox->setCurrentText("ECSPI2_SCK");
-        ui->P_SPIdev2_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "AUD5_TXFS")
-    {
-        ui->P_ECSPI2_MISO_comboBox->setCurrentText("AUD5_TXD");
-        ui->P_ECSPI2_MOSI_comboBox->setCurrentText("AUD5_TXC");
-        ui->P_ECSPI2_SCK_comboBox->setCurrentText("AUD5_RXD");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev2_checkBox->setEnabled(false);
-    }
-    if ( arg1 == "GPIO5_IO12")
-    {
-        ui->P_ECSPI2_MISO_comboBox->setCurrentText("GPIO5_IO11");
-        ui->P_ECSPI2_MOSI_comboBox->setCurrentText("GPIO5_IO10");
-        ui->P_ECSPI2_SCK_comboBox->setCurrentText("GPIO5_IO13");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev2_checkBox->setEnabled(false);
-    }
-}
-
-
-void NOVAembed::on_P_ECSPI2_MISO_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI2_MISO")
-    {
-        ui->P_ECSPI2_SS0_comboBox->setCurrentText("ECSPI2_SS0");
-        ui->P_ECSPI2_MOSI_comboBox->setCurrentText("ECSPI2_MOSI");
-        ui->P_ECSPI2_SCK_comboBox->setCurrentText("ECSPI2_SCK");
-        ui->P_SPIdev2_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "AUD5_TXD")
-    {
-        ui->P_ECSPI2_SS0_comboBox->setCurrentText("AUD5_TXFS");
-        ui->P_ECSPI2_MOSI_comboBox->setCurrentText("AUD5_TXC");
-        ui->P_ECSPI2_SCK_comboBox->setCurrentText("AUD5_RXD");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev2_checkBox->setEnabled(false);
-    }
-    if ( arg1 == "GPIO5_IO11")
-    {
-        ui->P_ECSPI2_SS0_comboBox->setCurrentText("GPIO5_IO12");
-        ui->P_ECSPI2_MOSI_comboBox->setCurrentText("GPIO5_IO10");
-        ui->P_ECSPI2_SCK_comboBox->setCurrentText("GPIO5_IO13");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev2_checkBox->setEnabled(false);
-    }
-}
-
-void NOVAembed::on_P_ECSPI2_MOSI_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI2_MOSI")
-    {
-        ui->P_ECSPI2_SS0_comboBox->setCurrentText("ECSPI2_SS0");
-        ui->P_ECSPI2_MISO_comboBox->setCurrentText("ECSPI2_MISO");
-        ui->P_ECSPI2_SCK_comboBox->setCurrentText("ECSPI2_SCK");
-        ui->P_SPIdev2_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "AUD5_TXC")
-    {
-        ui->P_ECSPI2_SS0_comboBox->setCurrentText("AUD5_TXFS");
-        ui->P_ECSPI2_MISO_comboBox->setCurrentText("AUD5_TXD");
-        ui->P_ECSPI2_SCK_comboBox->setCurrentText("AUD5_RXD");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev2_checkBox->setEnabled(false);
-    }
-    if ( arg1 == "GPIO5_IO10")
-    {
-        ui->P_ECSPI2_SS0_comboBox->setCurrentText("GPIO5_IO12");
-        ui->P_ECSPI2_MISO_comboBox->setCurrentText("GPIO5_IO11");
-        ui->P_ECSPI2_SCK_comboBox->setCurrentText("GPIO5_IO13");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev2_checkBox->setEnabled(false);
-    }
-}
-
-void NOVAembed::on_P_ECSPI2_SCK_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI2_SCK")
-    {
-        ui->P_ECSPI2_SS0_comboBox->setCurrentText("ECSPI2_SS0");
-        ui->P_ECSPI2_MISO_comboBox->setCurrentText("ECSPI2_MISO");
-        ui->P_ECSPI2_MOSI_comboBox->setCurrentText("ECSPI2_MOSI");
-        ui->P_SPIdev2_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "AUD5_RXD")
-    {
-        ui->P_ECSPI2_SS0_comboBox->setCurrentText("AUD5_TXFS");
-        ui->P_ECSPI2_MISO_comboBox->setCurrentText("AUD5_TXD");
-        ui->P_ECSPI2_MOSI_comboBox->setCurrentText("AUD5_TXC");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev2_checkBox->setEnabled(false);
-    }
-    if ( arg1 == "GPIO5_IO13")
-    {
-        ui->P_ECSPI2_SS0_comboBox->setCurrentText("GPIO5_IO12");
-        ui->P_ECSPI2_MISO_comboBox->setCurrentText("GPIO5_IO11");
-        ui->P_ECSPI2_MOSI_comboBox->setCurrentText("GPIO5_IO10");
-        ui->P_ECSPI2_SS1_comboBox->setCurrentText("GPIO5_IO09");
-        ui->P_SPIdev2_checkBox->setEnabled(false);
-    }
-}
-
-/* ECSPI3 Group */
-void NOVAembed::on_P_ECSPI3_MISO_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI3_MISO")
-    {
-        ui->P_ECSPI3_SS0_comboBox->setCurrentText("ECSPI3_SS0");
-        ui->P_ECSPI3_MOSI_comboBox->setCurrentText("ECSPI3_MOSI");
-        ui->P_ECSPI3_SCK_comboBox->setCurrentText("ECSPI3_SCK");
-        ui->P_SPIdev3_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "GPIO4_IO23")
-    {
-        ui->P_ECSPI3_SS0_comboBox->setCurrentText("GPIO4_IO24");
-        ui->P_ECSPI3_MOSI_comboBox->setCurrentText("GPIO4_IO22");
-        ui->P_ECSPI3_SCK_comboBox->setCurrentText("GPIO4_IO21");
-        ui->P_ECSPI3_SS1_comboBox->setCurrentText("GPIO4_IO25");
-        ui->P_SPIdev3_checkBox->setEnabled(false);
-    }
-}
-
-void NOVAembed::on_P_ECSPI3_SCK_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI3_SCK")
-    {
-        ui->P_ECSPI3_SS0_comboBox->setCurrentText("ECSPI3_SS0");
-        ui->P_ECSPI3_MOSI_comboBox->setCurrentText("ECSPI3_MOSI");
-        ui->P_ECSPI3_MISO_comboBox->setCurrentText("ECSPI3_MISO");
-        ui->P_SPIdev3_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "GPIO4_IO21")
-    {
-        ui->P_ECSPI3_SS0_comboBox->setCurrentText("GPIO4_IO24");
-        ui->P_ECSPI3_MOSI_comboBox->setCurrentText("GPIO4_IO22");
-        ui->P_ECSPI3_MISO_comboBox->setCurrentText("GPIO4_IO23");
-        ui->P_ECSPI3_SS1_comboBox->setCurrentText("GPIO4_IO25");
-        ui->P_SPIdev3_checkBox->setEnabled(false);
-    }
-}
-
-void NOVAembed::on_P_ECSPI3_MOSI_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI3_MOSI")
-    {
-        ui->P_ECSPI3_SS0_comboBox->setCurrentText("ECSPI3_SS0");
-        ui->P_ECSPI3_SCK_comboBox->setCurrentText("ECSPI3_SCK");
-        ui->P_ECSPI3_MISO_comboBox->setCurrentText("ECSPI3_MISO");
-        ui->P_SPIdev3_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "GPIO4_IO22")
-    {
-        ui->P_ECSPI3_SS0_comboBox->setCurrentText("GPIO4_IO24");
-        ui->P_ECSPI3_SCK_comboBox->setCurrentText("GPIO4_IO21");
-        ui->P_ECSPI3_MISO_comboBox->setCurrentText("GPIO4_IO23");
-        ui->P_ECSPI3_SS1_comboBox->setCurrentText("GPIO4_IO25");
-        ui->P_SPIdev3_checkBox->setEnabled(false);
-    }
-}
-
-void NOVAembed::on_P_ECSPI3_SS0_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI3_MOSI")
-    {
-        ui->P_ECSPI3_MOSI_comboBox->setCurrentText("ECSPI3_MOSI");
-        ui->P_ECSPI3_SCK_comboBox->setCurrentText("ECSPI3_SCK");
-        ui->P_ECSPI3_MISO_comboBox->setCurrentText("ECSPI3_MISO");
-        ui->P_SPIdev3_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "GPIO4_IO24")
-    {
-        ui->P_ECSPI3_MOSI_comboBox->setCurrentText("GPIO4_IO22");
-        ui->P_ECSPI3_SCK_comboBox->setCurrentText("GPIO4_IO21");
-        ui->P_ECSPI3_MISO_comboBox->setCurrentText("GPIO4_IO23");
-        ui->P_ECSPI3_SS1_comboBox->setCurrentText("GPIO4_IO25");
-        ui->P_SPIdev3_checkBox->setEnabled(false);
-    }
-}
-
-void NOVAembed::on_P_ECSPI3_SS1_comboBox_currentIndexChanged(const QString &arg1)
-{
-    ui->P_SPIdev3_checkBox->setEnabled(false);
-    if ( arg1 == "ECSPI3_SS1")
-    {
-        ui->P_ECSPI3_MOSI_comboBox->setCurrentText("ECSPI3_MOSI");
-        ui->P_ECSPI3_SCK_comboBox->setCurrentText("ECSPI3_SCK");
-        ui->P_ECSPI3_MISO_comboBox->setCurrentText("ECSPI3_MISO");
-        ui->P_ECSPI3_SS0_comboBox->setCurrentText("ECSPI3_SS0");
-        ui->P_ECSPI3_SS1_comboBox->setCurrentText("ECSPI3_SS1");
-        ui->P_SPIdev3_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "GPIO4_IO25")
-        ui->P_ECSPI3_SS1_comboBox->setCurrentText("GPIO4_IO25");
-}
-
-/* ECSPI4 Group */
-
-void NOVAembed::on_P_ECSPI4_MISO_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI4_MISO")
-    {
-        ui->P_ECSPI4_SS0_comboBox->setCurrentText("ECSPI4_SS0");
-        ui->P_ECSPI4_MOSI_comboBox->setCurrentText("ECSPI4_MOSI");
-        ui->P_ECSPI4_SCK_comboBox->setCurrentText("ECSPI4_SCK");
-        ui->P_SPIdev4_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "SPDIF_OUT")
-    {
-        ui->P_ECSPI4_SS0_comboBox->setCurrentText("GPIO3_IO29");
-
-        if ( ui->P_SPDIF_OUT_comboBox->currentText() == "SPDIF_OUT")
-            ui->P_SPDIF_OUT_comboBox->setCurrentText("GPIO7_IO12");
-
-        if ( ui->P_ECSPI4_MOSI_comboBox->currentText() != "I2C1_SDA")
-            ui->P_ECSPI4_MOSI_comboBox->setCurrentText("GPIO3_IO28");
-        if ( ui->P_ECSPI4_SCK_comboBox->currentText() != "I2C1_SCL")
-            ui->P_ECSPI4_SCK_comboBox->setCurrentText("GPIO3_IO21");
-        ui->P_SPIdev4_checkBox->setEnabled(false);
-    }
-    if ( arg1 == "GPIO3_IO22")
-    {
-        ui->P_ECSPI4_SS0_comboBox->setCurrentText("GPIO3_IO29");
-        ui->P_ECSPI4_MOSI_comboBox->setCurrentText("GPIO3_IO28");
-        ui->P_ECSPI4_SCK_comboBox->setCurrentText("GPIO3_IO21");
-        ui->P_SPIdev4_checkBox->setEnabled(false);
-    }
-}
-
-void NOVAembed::on_P_ECSPI4_MOSI_comboBox_currentIndexChanged(const QString &arg1)
-{
-        if ( arg1 == "ECSPI4_MOSI")
-        {
-            ui->P_ECSPI4_SS0_comboBox->setCurrentText("ECSPI4_SS0");
-            ui->P_ECSPI4_MISO_comboBox->setCurrentText("ECSPI4_MISO");
-            ui->P_ECSPI4_SCK_comboBox->setCurrentText("ECSPI4_SCK");
-            ui->P_SPIdev4_checkBox->setEnabled(true);
-        }
-        if ( arg1 == "I2C1_SDA")
-        {
-            ui->P_ECSPI4_SS0_comboBox->setCurrentText("GPIO3_IO29");
-            if ( ui->P_ECSPI4_MISO_comboBox->currentText() != "SPDIF_OUT")
-                ui->P_ECSPI4_MISO_comboBox->setCurrentText("GPIO3_IO22");
-            ui->P_ECSPI4_SCK_comboBox->setCurrentText("I2C1_SCL");
-            /* P_I2C1_SDA_comboBox become GPIO5_IO26 */
-            /* P_I2C1_SCL_comboBox become GPIO5_IO27 */
-            ui->P_I2C1_SDA_comboBox->setCurrentText("GPIO5_IO26");
-            ui->P_I2C1_SCL_comboBox->setCurrentText("GPIO5_IO27");
-            ui->P_SPIdev4_checkBox->setEnabled(false);
-        }
-        if ( arg1 == "GPIO3_IO28")
-        {
-            ui->P_ECSPI4_SS0_comboBox->setCurrentText("GPIO3_IO29");
-            ui->P_ECSPI4_MISO_comboBox->setCurrentText("GPIO3_IO22");
-            ui->P_ECSPI4_SCK_comboBox->setCurrentText("GPIO3_IO21");
-            ui->P_SPIdev4_checkBox->setEnabled(false);
-        }
-}
-
-void NOVAembed::on_P_ECSPI4_SCK_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI4_SCK")
-    {
-        ui->P_ECSPI4_SS0_comboBox->setCurrentText("ECSPI4_SS0");
-        ui->P_ECSPI4_MISO_comboBox->setCurrentText("ECSPI4_MISO");
-        ui->P_ECSPI4_MOSI_comboBox->setCurrentText("ECSPI4_MOSI");
-        ui->P_SPIdev4_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "I2C1_SCL")
-    {
-        ui->P_ECSPI4_SS0_comboBox->setCurrentText("GPIO3_IO29");
-        if ( ui->P_ECSPI4_MISO_comboBox->currentText() != "SPDIF_OUT")
-            ui->P_ECSPI4_MISO_comboBox->setCurrentText("GPIO3_IO22");
-        ui->P_ECSPI4_MOSI_comboBox->setCurrentText("I2C1_SDA");
-        ui->P_SPIdev4_checkBox->setEnabled(false);
-    }
-    if ( arg1 == "GPIO3_IO21")
-    {
-        if ( ui->P_ECSPI4_MISO_comboBox->currentText() == "ECSPI4_MISO")
-        {
-            ui->P_ECSPI4_MISO_comboBox->setCurrentText("GPIO3_IO22");
-            ui->P_ECSPI4_SS0_comboBox->setCurrentText("GPIO3_IO29");
-            ui->P_ECSPI4_MOSI_comboBox->setCurrentText("GPIO3_IO28");
-        }
-        ui->P_SPIdev4_checkBox->setEnabled(false);
-    }
-}
-
-void NOVAembed::on_P_ECSPI4_SS0_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "ECSPI4_SS0")
-    {
-        ui->P_ECSPI4_SCK_comboBox->setCurrentText("ECSPI4_SCK");
-        ui->P_ECSPI4_MISO_comboBox->setCurrentText("ECSPI4_MISO");
-        ui->P_ECSPI4_MOSI_comboBox->setCurrentText("ECSPI4_MOSI");
-        ui->P_SPIdev4_checkBox->setEnabled(true);
-    }
-    if ( arg1 == "GPIO3_IO29")
-    {
-        ui->P_ECSPI4_SCK_comboBox->setCurrentText("GPIO3_IO21");
-        ui->P_ECSPI4_MISO_comboBox->setCurrentText("GPIO3_IO22");
-        ui->P_ECSPI4_MOSI_comboBox->setCurrentText("GPIO3_IO28");
-        ui->P_SPIdev4_checkBox->setEnabled(false);
-    }
-}
-
-/* I2C3 Group */
-
-void NOVAembed::on_P_I2C3_SCL_comboBox_currentIndexChanged(const QString &arg1)
-{
-
-    if ( arg1 == "I2C3_SCL")
-    {
-        ui->P_I2C3_SDA_comboBox->setCurrentText("I2C3_SDA");
-    }
-    if ( arg1 == "GPIO3_IO17")
-    {
-        ui->P_I2C3_SDA_comboBox->setCurrentText("GPIO3_IO18");
-    }
-}
-
-void NOVAembed::on_P_I2C3_SDA_comboBox_currentIndexChanged(const QString &arg1)
-{
-
-    if ( arg1 == "I2C3_SDA")
-    {
-        ui->P_I2C3_SCL_comboBox->setCurrentText("I2C3_SCL");
-
-    }
-    if ( arg1 == "GPIO3_IO18")
-    {
-        ui->P_I2C3_SCL_comboBox->setCurrentText("GPIO3_IO17");
-
-    }
-}
-/* Clock 32 KHz out */
-
-void NOVAembed::on_P_KHZ32_CLK_OUT_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "32KHZ_CLK_OUT")
-    {
-        ui->P_KHZ32_CLK_OUT_comboBox->setCurrentText("32KHZ_CLK_OUT");
-
-    }
-    if ( arg1 == "GPIO1_IO08")
-    {
-        ui->P_KHZ32_CLK_OUT_comboBox->setCurrentText("GPIO1_IO08");
-
-    }
-}
-
-/* SD3 Group */
-
-void NOVAembed::set_sd3_8_IO_helper(void)
-{
-    if ( ui->P_SD3_CMD_comboBox->currentText() == "SD3_CMD")
-        ui->P_SD3_CMD_comboBox->setCurrentText("GPIO7_IO02");
-    if ( ui->P_SD3_CLK_comboBox->currentText() == "SD3_CLK")
-        ui->P_SD3_CLK_comboBox->setCurrentText("GPIO7_IO03");
-    if ( ui->P_SD3_DATA0_comboBox->currentText() == "SD3_DATA0")
-        ui->P_SD3_DATA0_comboBox->setCurrentText("GPIO7_IO04");
-    if ( ui->P_SD3_DATA1_comboBox->currentText() == "SD3_DATA1")
-        ui->P_SD3_DATA1_comboBox->setCurrentText("GPIO7_IO05");
-    if ( ui->P_SD3_DATA2_comboBox->currentText() == "SD3_DATA2")
-        ui->P_SD3_DATA2_comboBox->setCurrentText("GPIO7_IO06");
-    if ( ui->P_SD3_DATA3_comboBox->currentText() == "SD3_DATA3")
-        ui->P_SD3_DATA3_comboBox->setCurrentText("GPIO7_IO07");
-    if ( ui->P_SD3_DATA4_comboBox->currentText() == "SD3_DATA4")
-        ui->P_SD3_DATA4_comboBox->setCurrentText("GPIO7_IO01");
-    if ( ui->P_SD3_DATA5_comboBox->currentText() == "SD3_DATA5")
-        ui->P_SD3_DATA5_comboBox->setCurrentText("GPIO7_IO00");
-    if ( ui->P_SD3_DATA6_comboBox->currentText() == "SD3_DATA6")
-        ui->P_SD3_DATA6_comboBox->setCurrentText("GPIO6_IO18");
-    if ( ui->P_SD3_DATA7_comboBox->currentText() == "SD3_DATA7")
-        ui->P_SD3_DATA7_comboBox->setCurrentText("GPIO6_IO17");
-}
-
-void NOVAembed::set_sd3_4L_IO_helper(void)
-{
-    if ( ui->P_SD3_CMD_comboBox->currentText() == "SD3_CMD")
-        ui->P_SD3_CMD_comboBox->setCurrentText("GPIO7_IO02");
-    if ( ui->P_SD3_CLK_comboBox->currentText() == "SD3_CLK")
-        ui->P_SD3_CLK_comboBox->setCurrentText("GPIO7_IO03");
-    if ( ui->P_SD3_DATA0_comboBox->currentText() == "SD3_DATA0")
-        ui->P_SD3_DATA0_comboBox->setCurrentText("GPIO7_IO04");
-    if ( ui->P_SD3_DATA1_comboBox->currentText() == "SD3_DATA1")
-        ui->P_SD3_DATA1_comboBox->setCurrentText("GPIO7_IO05");
-    if ( ui->P_SD3_DATA2_comboBox->currentText() == "SD3_DATA2")
-        ui->P_SD3_DATA2_comboBox->setCurrentText("GPIO7_IO06");
-    if ( ui->P_SD3_DATA3_comboBox->currentText() == "SD3_DATA3")
-        ui->P_SD3_DATA3_comboBox->setCurrentText("GPIO7_IO07");
-}
-
-void NOVAembed::set_sd3_4H_IO_helper(void)
-{
-    if ( ui->P_SD3_DATA4_comboBox->currentText() == "SD3_DATA4")
-        ui->P_SD3_DATA4_comboBox->setCurrentText("GPIO7_IO01");
-    if ( ui->P_SD3_DATA5_comboBox->currentText() == "SD3_DATA5")
-        ui->P_SD3_DATA5_comboBox->setCurrentText("GPIO7_IO00");
-    if ( ui->P_SD3_DATA6_comboBox->currentText() == "SD3_DATA6")
-        ui->P_SD3_DATA6_comboBox->setCurrentText("GPIO6_IO18");
-    if ( ui->P_SD3_DATA7_comboBox->currentText() == "SD3_DATA7")
-        ui->P_SD3_DATA7_comboBox->setCurrentText("GPIO6_IO17");
-}
-
-void NOVAembed::set_sd3_4_SD_helper(void)
-{
-    ui->P_SD3_CMD_comboBox->setCurrentText("SD3_CMD");
-    ui->P_SD3_CLK_comboBox->setCurrentText("SD3_CLK");
-    ui->P_SD3_DATA0_comboBox->setCurrentText("SD3_DATA0");
-    ui->P_SD3_DATA1_comboBox->setCurrentText("SD3_DATA1");
-    ui->P_SD3_DATA2_comboBox->setCurrentText("SD3_DATA2");
-    ui->P_SD3_DATA3_comboBox->setCurrentText("SD3_DATA3");
-}
-
-void NOVAembed::set_sd3_8_SD_helper(void)
-{
-    ui->P_SD3_CMD_comboBox->setCurrentText("SD3_CMD");
-    ui->P_SD3_CLK_comboBox->setCurrentText("SD3_CLK");
-    ui->P_SD3_DATA0_comboBox->setCurrentText("SD3_DATA0");
-    ui->P_SD3_DATA1_comboBox->setCurrentText("SD3_DATA1");
-    ui->P_SD3_DATA2_comboBox->setCurrentText("SD3_DATA2");
-    ui->P_SD3_DATA3_comboBox->setCurrentText("SD3_DATA3");
-    ui->P_SD3_DATA4_comboBox->setCurrentText("SD3_DATA4");
-    ui->P_SD3_DATA5_comboBox->setCurrentText("SD3_DATA5");
-    ui->P_SD3_DATA6_comboBox->setCurrentText("SD3_DATA6");
-    ui->P_SD3_DATA7_comboBox->setCurrentText("SD3_DATA7");
-}
-
-void NOVAembed::on_P_SD3_CMD_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "SD3_CMD")
-        set_sd3_4_SD_helper();
-
-    if ( arg1 == "GPIO7_IO02")
-    {
-        ui->P_SD3_CMD_comboBox->setCurrentText("GPIO7_IO02");
-        if ( ui->P_SD3_CLK_comboBox->currentText() == "FLEXCAN1_RX")
-            ui->P_SD3_CLK_comboBox->setCurrentText("GPIO7_IO03");
-        set_sd3_4L_IO_helper();
-    }
-    if ( arg1 == "FLEXCAN1_TX")
-    {
-        ui->P_SD3_CLK_comboBox->setCurrentText("FLEXCAN1_RX");
-        set_sd3_4L_IO_helper();
-    }
-    if ( arg1 == "UART2_CTS_B")
-    {
-        ui->P_SD3_DATA4_comboBox->setCurrentText("UART2_RXD");
-        ui->P_SD3_DATA5_comboBox->setCurrentText("UART2_TXD");
-        ui->P_SD3_CLK_comboBox->setCurrentText("UART2_RTS_B");
-        set_sd3_4L_IO_helper();
-    }
-}
-
-
-void NOVAembed::on_P_SD3_CLK_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "SD3_CLK")
-        set_sd3_4_SD_helper();
-
-    if ( arg1 == "FLEXCAN1_RX")
-    {
-        ui->P_SD3_CMD_comboBox->setCurrentText("FLEXCAN1_TX");
-        set_sd3_4L_IO_helper();
-    }
-    if ( arg1 == "UART2_RTS_B")
-    {
-        ui->P_SD3_DATA4_comboBox->setCurrentText("UART2_RXD");
-        ui->P_SD3_DATA5_comboBox->setCurrentText("UART2_TXD");
-        ui->P_SD3_CMD_comboBox->setCurrentText("UART2_CTS_B");
-        set_sd3_4L_IO_helper();
-    }
-    if ( arg1 == "GPIO7_IO03")
-    {
-        ui->P_SD3_CLK_comboBox->setCurrentText("GPIO7_IO03");
-        if ( ui->P_SD3_CMD_comboBox->currentText() == "FLEXCAN1_TX")
-            ui->P_SD3_CMD_comboBox->setCurrentText("GPIO7_IO02");
-        set_sd3_4L_IO_helper();
-    }
-}
-
-void NOVAembed::on_P_SD3_DATA0_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "SD3_DATA0")
-        set_sd3_4_SD_helper();
-
-    if ( arg1 == "FLEXCAN2_TX")
-    {
-        ui->P_SD3_DATA0_comboBox->setCurrentText("FLEXCAN2_TX");
-        ui->P_SD3_DATA1_comboBox->setCurrentText("FLEXCAN2_RX");
-        set_sd3_4L_IO_helper();
-    }
-    if ( arg1 == "GPIO7_IO04")
-    {
-        set_sd3_4L_IO_helper();
-    }
-}
-
-void NOVAembed::on_P_SD3_DATA1_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "SD3_DATA1")
-        set_sd3_4_SD_helper();
-    if ( arg1 == "GPIO7_IO05")
-    {
-        ui->P_SD3_DATA1_comboBox->setCurrentText("GPIO7_IO05");
-        set_sd3_4L_IO_helper();
-    }
-    if ( arg1 == "FLEXCAN2_RX")
-    {
-        ui->P_SD3_DATA0_comboBox->setCurrentText("FLEXCAN2_TX");
-        ui->P_SD3_DATA1_comboBox->setCurrentText("FLEXCAN2_RX");
-        set_sd3_4L_IO_helper();
-    }
-}
-
-void NOVAembed::on_P_SD3_DATA2_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "SD3_DATA2")
-        set_sd3_4_SD_helper();
-    if ( arg1 == "GPIO7_IO06")
-    {
-        ui->P_SD3_DATA2_comboBox->setCurrentText("GPIO7_IO06");
-        set_sd3_4L_IO_helper();
-    }
-}
-
-void NOVAembed::on_P_SD3_DATA3_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "SD3_DATA3")
-        set_sd3_4_SD_helper();
-    if ( arg1 == "GPIO7_IO07")
-    {
-        ui->P_SD3_DATA3_comboBox->setCurrentText("GPIO7_IO07");
-        set_sd3_4L_IO_helper();
-    }
-}
-
-void NOVAembed::on_P_SD3_DATA4_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "SD3_DATA4")
-        set_sd3_8_SD_helper();
-    if ( arg1 == "GPIO7_IO01")
-    {
-        ui->P_SD3_DATA4_comboBox->setCurrentText("GPIO7_IO01");
-        set_sd3_8_IO_helper();
-    }
-    if ( arg1 == "UART2_RXD")
-    {
-        ui->P_SD3_DATA4_comboBox->setCurrentText("UART2_RXD");
-        ui->P_SD3_DATA5_comboBox->setCurrentText("UART2_TXD");
-        ui->P_SD3_CMD_comboBox->setCurrentText("UART2_CTS_B");
-        ui->P_SD3_CLK_comboBox->setCurrentText("UART2_RTS_B");
-        set_sd3_8_IO_helper();
-    }
-}
-
-void NOVAembed::on_P_SD3_DATA5_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "SD3_DATA5")
-        set_sd3_8_SD_helper();
-    if ( arg1 == "GPIO7_IO00")
-    {
-        ui->P_SD3_DATA5_comboBox->setCurrentText("GPIO7_IO00");
-        set_sd3_8_IO_helper();
-    }
-    if ( arg1 == "UART2_TXD")
-    {
-        ui->P_SD3_DATA4_comboBox->setCurrentText("UART2_RXD");
-        ui->P_SD3_DATA5_comboBox->setCurrentText("UART2_TXD");
-        ui->P_SD3_CMD_comboBox->setCurrentText("UART2_CTS_B");
-        ui->P_SD3_CLK_comboBox->setCurrentText("UART2_RTS_B");
-        set_sd3_8_IO_helper();
-    }
-}
-
-
-
-void NOVAembed::on_P_SD3_DATA6_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "SD3_DATA6")
-        set_sd3_8_SD_helper();
-    if ( arg1 == "GPIO6_IO18")
-    {
-        ui->P_SD3_DATA6_comboBox->setCurrentText("GPIO6_IO18");
-        set_sd3_8_IO_helper();
-    }
-}
-
-void NOVAembed::on_P_SD3_DATA7_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "SD3_DATA7")
-        set_sd3_8_SD_helper();
-    if ( arg1 == "GPIO6_IO17")
-    {
-        ui->P_SD3_DATA7_comboBox->setCurrentText("GPIO6_IO17");
-        set_sd3_8_IO_helper();
-    }
-}
-/* J13 END */
-/* J9 */
-
-void NOVAembed::on_P_GPIO3_IO20_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "GPIO3_IO20")
-        ui->P_GPIO3_IO20_comboBox->setCurrentText("GPIO3_IO20");
-    if ( arg1 == "XTALOSC_REF_CLK_24M")
-        ui->P_GPIO3_IO20_comboBox->setCurrentText("XTALOSC_REF_CLK_24M");
-
-}
-
-void NOVAembed::on_P_GPIO1_IO00_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "GPIO1_IO00_")
-        ui->P_GPIO1_IO00_comboBox->setCurrentText("GPIO1_IO00");
-    if ( arg1 == "CCM_CLKO1")
-        ui->P_GPIO1_IO00_comboBox->setCurrentText("CCM_CLKO1");
-    if ( arg1 == "EPIT1_OUT")
-        ui->P_GPIO1_IO00_comboBox->setCurrentText("EPIT1_OUT");
-}
-
-
-void NOVAembed::on_P_GPIO4_IO29_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "GPIO4_IO29")
-        ui->P_GPIO4_IO29_comboBox->setCurrentText("GPIO4_IO29");
-    if ( arg1 == "PWM1_OUT")
-        ui->P_GPIO4_IO29_comboBox->setCurrentText("PWM1_OUT");
-    if ( arg1 == "WDOG1_B")
-        ui->P_GPIO4_IO29_comboBox->setCurrentText("WDOG1_B");
-}
-
-void NOVAembed::setAUD6_AUDIO(void)
-{
-    ui->P_AUD6_TXD_comboBox->setCurrentText("AUD6_TXD");
-    ui->P_AUD6_RXD_comboBox->setCurrentText("AUD6_RXD");
-    ui->P_AUD6_TXFS_comboBox->setCurrentText("AUD6_TXFS");
-    ui->P_AUD6_TXC_comboBox->setCurrentText("AUD6_TXC");
-}
-
-void NOVAembed::setAUD6_IO(void)
-{
-    ui->P_AUD6_TXD_comboBox->setCurrentText("GPIO4_IO18");
-    ui->P_AUD6_RXD_comboBox->setCurrentText("GPIO4_IO20");
-    ui->P_AUD6_TXFS_comboBox->setCurrentText("GPIO4_IO19");
-    ui->P_AUD6_TXC_comboBox->setCurrentText("GPIO4_IO17");
-}
-
-void NOVAembed::on_P_AUD6_TXD_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "AUD6_TXD")
-        setAUD6_AUDIO();
-    if ( arg1 == "GPIO4_IO18")
-        setAUD6_IO();
-}
-
-
-void NOVAembed::on_P_AUD6_RXD_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "AUD6_RXD")
-        setAUD6_AUDIO();
-
-    if ( arg1 == "GPIO4_IO20")
-        setAUD6_IO();
-}
-
-void NOVAembed::on_P_AUD6_TXFS_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "AUD6_TXFS")
-        setAUD6_AUDIO();
-    if ( arg1 == "GPIO4_IO19")
-        setAUD6_IO();
-}
-
-
-void NOVAembed::on_P_AUD6_TXC_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "AUD6_TXC")
-        setAUD6_AUDIO();
-    if ( arg1 == "GPIO4_IO17")
-        setAUD6_IO();
-}
-
-
-
-void NOVAembed::on_P_I2C1_SDA_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "I2C1_SDA")
-    {
-        ui->P_I2C1_SDA_comboBox->setCurrentText("I2C1_SDA");
-        ui->P_I2C1_SCL_comboBox->setCurrentText("I2C1_SCL");
-        /* P_ECSPI4_MOSI_comboBox become GPIO3_IO28 */
-        /* P_ECSPI4_SCK_comboBox become GPIO3_IO21 */
-        if (ui->P_ECSPI4_MOSI_comboBox->currentText()=="I2C1_SDA" )
-        {
-            ui->P_ECSPI4_MOSI_comboBox->setCurrentText("GPIO3_IO28");
-            ui->P_ECSPI4_SCK_comboBox->setCurrentText("GPIO3_IO21");
-        }
-    }
-    if ( arg1 == "GPIO5_IO26")
-    {
-        ui->P_I2C1_SDA_comboBox->setCurrentText("GPIO5_IO26");
-        ui->P_I2C1_SCL_comboBox->setCurrentText("GPIO5_IO27");
-    }
-}
-
-
-void NOVAembed::on_P_I2C1_SCL_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "I2C1_SCL")
-    {
-        ui->P_I2C1_SDA_comboBox->setCurrentText("I2C1_SDA");
-        ui->P_I2C1_SCL_comboBox->setCurrentText("I2C1_SCL");
-    }
-    if ( arg1 == "GPIO5_IO27")
-    {
-        ui->P_I2C1_SDA_comboBox->setCurrentText("GPIO5_IO26");
-        ui->P_I2C1_SCL_comboBox->setCurrentText("GPIO5_IO27");
-    }
-}
-
-
-void NOVAembed::on_P_UART1_TXD_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "UART1_TXD")
-    {
-        ui->P_UART1_TXD_comboBox->setCurrentText("UART1_TXD");
-        ui->P_UART1_RXD_comboBox->setCurrentText("UART1_RXD");
-    }
-    if ( arg1 == "GPIO5_IO28")
-    {
-        ui->P_UART1_TXD_comboBox->setCurrentText("GPIO5_IO28");
-        ui->P_UART1_RXD_comboBox->setCurrentText("GPIO5_IO29");
-    }
-}
-
-
-void NOVAembed::on_P_UART1_RXD_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "UART1_RXD")
-    {
-        ui->P_UART1_TXD_comboBox->setCurrentText("UART1_TXD");
-        ui->P_UART1_RXD_comboBox->setCurrentText("UART1_RXD");
-    }
-    if ( arg1 == "GPIO5_IO29")
-    {
-        ui->P_UART1_TXD_comboBox->setCurrentText("GPIO5_IO28");
-        ui->P_UART1_RXD_comboBox->setCurrentText("GPIO5_IO29");
-    }
-}
-
-void NOVAembed::on_P_SPDIF_OUT_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "SPDIF_OUT")
-    {
-        ui->P_SPDIF_OUT_comboBox->setCurrentText("SPDIF_OUT");
-        if ( ui->P_ECSPI4_MISO_comboBox->currentText() == "SPDIF_OUT")
-            ui->P_ECSPI4_MISO_comboBox->setCurrentText("GPIO3_IO22");
-    }
-    if ( arg1 == "GPIO7_IO12")
-    {
-        ui->P_SPDIF_OUT_comboBox->setCurrentText("GPIO7_IO12");
-    }
-}
-
-void NOVAembed::on_P_UART4_TXD_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "UART4_TXD")
-    {
-        ui->P_UART4_TXD_comboBox->setCurrentText("UART4_TXD");
-        ui->P_UART4_RXD_comboBox->setCurrentText("UART4_RXD");
-        ui->P_UART4_RTS_L_comboBox->setCurrentText("UART4_RTS_L");
-        ui->P_UART4_CTS_L_comboBox->setCurrentText("UART4_CTS_L");
-    }
-    if ( arg1 == "GPIO5_IO30")
-    {
-        ui->P_UART4_TXD_comboBox->setCurrentText("GPIO5_IO30");
-        ui->P_UART4_RXD_comboBox->setCurrentText("GPIO5_IO31");
-        ui->P_UART4_RTS_L_comboBox->setCurrentText("GPIO6_IO02");
-        ui->P_UART4_CTS_L_comboBox->setCurrentText("GPIO6_IO03");
-    }
-}
-
-
-void NOVAembed::on_P_UART4_RXD_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "UART4_RXD")
-    {
-        ui->P_UART4_TXD_comboBox->setCurrentText("UART4_TXD");
-        ui->P_UART4_RXD_comboBox->setCurrentText("UART4_RXD");
-        ui->P_UART4_RTS_L_comboBox->setCurrentText("UART4_RTS_L");
-        ui->P_UART4_CTS_L_comboBox->setCurrentText("UART4_CTS_L");
-    }
-    if ( arg1 == "GPIO5_IO31")
-    {
-        ui->P_UART4_TXD_comboBox->setCurrentText("GPIO5_IO30");
-        ui->P_UART4_RXD_comboBox->setCurrentText("GPIO5_IO31");
-        ui->P_UART4_RTS_L_comboBox->setCurrentText("GPIO6_IO02");
-        ui->P_UART4_CTS_L_comboBox->setCurrentText("GPIO6_IO03");
-    }
-}
-
-void NOVAembed::on_P_UART4_RTS_L_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "UART4_RTS_L")
-    {
-        ui->P_UART4_TXD_comboBox->setCurrentText("UART4_TXD");
-        ui->P_UART4_RXD_comboBox->setCurrentText("UART4_RXD");
-        ui->P_UART4_RTS_L_comboBox->setCurrentText("UART4_RTS_L");
-        ui->P_UART4_CTS_L_comboBox->setCurrentText("UART4_CTS_L");
-    }
-    if ( arg1 == "GPIO6_IO02")
-    {
-        ui->P_UART4_RTS_L_comboBox->setCurrentText("GPIO6_IO02");
-        ui->P_UART4_CTS_L_comboBox->setCurrentText("GPIO6_IO03");
-    }
-}
-
-
-void NOVAembed::on_P_UART4_CTS_L_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if ( arg1 == "UART4_CTS_L")
-    {
-        ui->P_UART4_TXD_comboBox->setCurrentText("UART4_TXD");
-        ui->P_UART4_RXD_comboBox->setCurrentText("UART4_RXD");
-        ui->P_UART4_RTS_L_comboBox->setCurrentText("UART4_RTS_L");
-        ui->P_UART4_CTS_L_comboBox->setCurrentText("UART4_CTS_L");
-    }
-    if ( arg1 == "GPIO6_IO03")
-    {
-        ui->P_UART4_RTS_L_comboBox->setCurrentText("GPIO6_IO02");
-        ui->P_UART4_CTS_L_comboBox->setCurrentText("GPIO6_IO03");
-    }
-}
-
-/* J9 END */
-
-void NOVAembed::save_helper(QString fileName , QString Processor_model)
-{
-    if (fileName.isEmpty())
-        return;
-    else
-    {
-        QFileInfo fin(fileName);
-        QString bspfbase = fin.baseName();
-        QString fullpathname = "";
-        if ( Processor_model.isEmpty() )
-        {
-            fullpathname = "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/"+ bspfbase+".bspf";
-        }
-        else
-        {
-            fullpathname = "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp/"+Processor_model + "_" + bspfbase+".bspf";
-        }
-        QFile file(fullpathname);
-        if (!file.open(QIODevice::WriteOnly))
-        {
-            qDebug() << "Unable to open file "+fullpathname;
-            QMessageBox::information(this, tr("Unable to open file "),file.errorString());
-            return;
-        }
-        qDebug() << fullpathname;
-
-        QTextStream out(&file);
-        out << QString("[P_IOMUX]\n");
-        out << QString("P_ECSPI1_MISO_comboBox="+ui->P_ECSPI1_MISO_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI1_MOSI_comboBox="+ui->P_ECSPI1_MOSI_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI1_SS0_comboBox="+ui->P_ECSPI1_SS0_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI1_SCK_comboBox="+ui->P_ECSPI1_SCK_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI2_SS0_comboBox="+ui->P_ECSPI2_SS0_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI2_SS1_comboBox="+ui->P_ECSPI2_SS1_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI2_MISO_comboBox="+ui->P_ECSPI2_MISO_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI2_MOSI_comboBox="+ui->P_ECSPI2_MOSI_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI2_SCK_comboBox="+ui->P_ECSPI2_SCK_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI3_MISO_comboBox="+ui->P_ECSPI3_MISO_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI3_SCK_comboBox="+ui->P_ECSPI3_SCK_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI3_MOSI_comboBox="+ui->P_ECSPI3_MOSI_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI3_SS0_comboBox="+ui->P_ECSPI3_SS0_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI3_SS1_comboBox="+ui->P_ECSPI3_SS1_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI4_MISO_comboBox="+ui->P_ECSPI4_MISO_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI4_MOSI_comboBox="+ui->P_ECSPI4_MOSI_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI4_SCK_comboBox="+ui->P_ECSPI4_SCK_comboBox->currentText()+"\n");
-        out << QString("P_ECSPI4_SS0_comboBox="+ui->P_ECSPI4_SS0_comboBox->currentText()+"\n");
-        out << QString("P_I2C3_SCL_comboBox="+ui->P_I2C3_SCL_comboBox->currentText()+"\n");
-        out << QString("P_I2C3_SDA_comboBox="+ui->P_I2C3_SDA_comboBox->currentText()+"\n");
-        out << QString("P_KHZ32_CLK_OUT_comboBox="+ui->P_KHZ32_CLK_OUT_comboBox->currentText()+"\n");
-        out << QString("P_SD3_CMD_comboBox="+ui->P_SD3_CMD_comboBox->currentText()+"\n");
-        out << QString("P_SD3_CLK_comboBox="+ui->P_SD3_CLK_comboBox->currentText()+"\n");
-        out << QString("P_SD3_DATA0_comboBox="+ui->P_SD3_DATA0_comboBox->currentText()+"\n");
-        out << QString("P_SD3_DATA1_comboBox="+ui->P_SD3_DATA1_comboBox->currentText()+"\n");
-        out << QString("P_SD3_DATA2_comboBox="+ui->P_SD3_DATA2_comboBox->currentText()+"\n");
-        out << QString("P_SD3_DATA3_comboBox="+ui->P_SD3_DATA3_comboBox->currentText()+"\n");
-        out << QString("P_SD3_DATA4_comboBox="+ui->P_SD3_DATA4_comboBox->currentText()+"\n");
-        out << QString("P_SD3_DATA5_comboBox="+ui->P_SD3_DATA5_comboBox->currentText()+"\n");
-        out << QString("P_SD3_DATA6_comboBox="+ui->P_SD3_DATA6_comboBox->currentText()+"\n");
-        out << QString("P_SD3_DATA7_comboBox="+ui->P_SD3_DATA7_comboBox->currentText()+"\n");
-        out << QString("P_GPIO3_IO20_comboBox="+ui->P_GPIO3_IO20_comboBox->currentText()+"\n");
-        out << QString("P_GPIO1_IO00_comboBox="+ui->P_GPIO1_IO00_comboBox->currentText()+"\n");
-        out << QString("P_GPIO4_IO29_comboBox="+ui->P_GPIO4_IO29_comboBox->currentText()+"\n");
-        out << QString("P_AUD6_TXD_comboBox="+ui->P_AUD6_TXD_comboBox->currentText()+"\n");
-        out << QString("P_AUD6_RXD_comboBox="+ui->P_AUD6_RXD_comboBox->currentText()+"\n");
-        out << QString("P_AUD6_TXFS_comboBox="+ui->P_AUD6_TXFS_comboBox->currentText()+"\n");
-        out << QString("P_AUD6_TXC_comboBox="+ui->P_AUD6_TXC_comboBox->currentText()+"\n");
-        out << QString("P_I2C1_SDA_comboBox="+ui->P_I2C1_SDA_comboBox->currentText()+"\n");
-        out << QString("P_I2C1_SCL_comboBox="+ui->P_I2C1_SCL_comboBox->currentText()+"\n");
-        out << QString("P_UART1_TXD_comboBox="+ui->P_UART1_TXD_comboBox->currentText()+"\n");
-        out << QString("P_UART1_RXD_comboBox="+ui->P_UART1_RXD_comboBox->currentText()+"\n");
-        out << QString("P_SPDIF_OUT_comboBox="+ui->P_SPDIF_OUT_comboBox->currentText()+"\n");
-        out << QString("P_UART4_RTS_L_comboBox="+ui->P_UART4_RTS_L_comboBox->currentText()+"\n");
-        out << QString("P_UART4_TXD_comboBox="+ui->P_UART4_TXD_comboBox->currentText()+"\n");
-        out << QString("P_UART4_RXD_comboBox="+ui->P_UART4_RXD_comboBox->currentText()+"\n");
-        out << QString("P_UART4_CTS_L_comboBox="+ui->P_UART4_CTS_L_comboBox->currentText()+"\n");
-        out << QString("P_I2C1Speed="+ui->P_I2C1Speed_lineEdit->text()+"\n");
-        out << QString("P_I2C3Speed="+ui->P_I2C3Speed_lineEdit->text()+"\n");
-        if ( ui->P_SPIdev1_checkBox->isChecked() == true )
-            out << QString("P_SPIdev1_checkBox=true\n");
-        else
-            out << QString("P_SPIdev1_checkBox=false\n");
-        if ( ui->P_SPIdev2_checkBox->isChecked() == true )
-            out << QString("P_SPIdev2_checkBox=true\n");
-        else
-            out << QString("P_SPIdev2_checkBox=false\n");
-        if ( ui->P_SPIdev3_checkBox->isChecked() == true )
-            out << QString("P_SPIdev3_checkBox=true\n");
-        else
-            out << QString("P_SPIdev3_checkBox=false\n");
-        if ( ui->P_SPIdev4_checkBox->isChecked() == true )
-            out << QString("P_SPIdev4_checkBox=true\n");
-        else
-            out << QString("P_SPIdev4_checkBox=false\n");
-        if ( ui->P_PCIe_checkBox->isChecked())
-            out << QString("P_PCIe_checkBox=true\n");
-        else
-            out << QString("P_PCIe_checkBox=false\n");
-        out << QString("PrimaryVideo_comboBox="+ui->P_PrimaryVideo_comboBox->currentText()+"\n");
-        out << QString("SecondaryVideo_comboBox="+ui->P_SecondaryVideo_comboBox->currentText()+"\n");
-        if ( Processor_model == "QUAD")
-        {
-            out << QString("Processor=QUAD\n");
-            if ( ui->P_SATA_checkBox->isChecked() )
-                out << QString("P_SATA_checkBox=true\n");
-            else
-                out << QString("P_SATA_checkBox=false\n");
-        }
-        else
-        {
-            if ( Processor_model.isEmpty() )
-            {
-                if ( ui->P_SATA_checkBox->isChecked() )
-                    out << QString("P_SATA_checkBox=true\n");
-                else
-                    out << QString("P_SATA_checkBox=false\n");
-            }
-            else
-            {
-                out << QString("Processor=SOLO/DL\n");
-                out << QString("P_SATA_checkBox=false\n");
-            }
-        }
-
-        out << QString("\n[P_CONF]\n");
-        out << QString("P_ECSPI1_MISO_cbit="+ui->P_ECSPI1_MISO_lineEdit->text()+"\n");
-        out << QString("P_ECSPI1_MOSI_cbit="+ui->P_ECSPI1_MOSI_lineEdit->text()+"\n");
-        out << QString("P_ECSPI1_SS0_cbit="+ui->P_ECSPI1_SS0_lineEdit->text()+"\n");
-        out << QString("P_ECSPI1_SCK_cbit="+ui->P_ECSPI1_SCK_lineEdit->text()+"\n");
-        out << QString("P_ECSPI2_SS0_cbit="+ui->P_ECSPI2_SS0_lineEdit->text()+"\n");
-        out << QString("P_ECSPI2_SS1_cbit="+ui->P_ECSPI2_SS1_lineEdit->text()+"\n");
-        out << QString("P_ECSPI2_MISO_cbit="+ui->P_ECSPI2_MISO_lineEdit->text()+"\n");
-        out << QString("P_ECSPI2_MOSI_cbit="+ui->P_ECSPI2_MOSI_lineEdit->text()+"\n");
-        out << QString("P_ECSPI2_SCK_cbit="+ui->P_ECSPI2_SCK_lineEdit->text()+"\n");
-        out << QString("P_ECSPI3_MISO_cbit="+ui->P_ECSPI3_MISO_lineEdit->text()+"\n");
-        out << QString("P_ECSPI3_SCK_cbit="+ui->P_ECSPI3_SCK_lineEdit->text()+"\n");
-        out << QString("P_ECSPI3_MOSI_cbit="+ui->P_ECSPI3_MOSI_lineEdit->text()+"\n");
-        out << QString("P_ECSPI3_SS0_cbit="+ui->P_ECSPI3_SS0_lineEdit->text()+"\n");
-        out << QString("P_ECSPI3_SS1_cbit="+ui->P_ECSPI3_SS1_lineEdit->text()+"\n");
-        out << QString("P_ECSPI4_MISO_cbit="+ui->P_ECSPI4_MISO_lineEdit->text()+"\n");
-        out << QString("P_ECSPI4_MOSI_cbit="+ui->P_ECSPI4_MOSI_lineEdit->text()+"\n");
-        out << QString("P_ECSPI4_SCK_cbit="+ui->P_ECSPI4_SCK_lineEdit->text()+"\n");
-        out << QString("P_ECSPI4_SS0_cbit="+ui->P_ECSPI4_SS0_lineEdit->text()+"\n");
-        out << QString("P_I2C3_SCL_cbit="+ui->P_I2C3_SCL_lineEdit->text()+"\n");
-        out << QString("P_I2C3_SDA_cbit="+ui->P_I2C3_SDA_lineEdit->text()+"\n");
-        out << QString("P_KHZ32_CLK_OUT_cbit="+ui->P_KHZ32_CLK_OUT_lineEdit->text()+"\n");
-        out << QString("P_SD3_CMD_cbit="+ui->P_SD3_CMD_lineEdit->text()+"\n");
-        out << QString("P_SD3_CLK_cbit="+ui->P_SD3_CLK_lineEdit->text()+"\n");
-        out << QString("P_SD3_DATA0_cbit="+ui->P_SD3_DATA0_lineEdit->text()+"\n");
-        out << QString("P_SD3_DATA1_cbit="+ui->P_SD3_DATA1_lineEdit->text()+"\n");
-        out << QString("P_SD3_DATA2_cbit="+ui->P_SD3_DATA2_lineEdit->text()+"\n");
-        out << QString("P_SD3_DATA3_cbit="+ui->P_SD3_DATA3_lineEdit->text()+"\n");
-        out << QString("P_SD3_DATA4_cbit="+ui->P_SD3_DATA4_lineEdit->text()+"\n");
-        out << QString("P_SD3_DATA5_cbit="+ui->P_SD3_DATA5_lineEdit->text()+"\n");
-        out << QString("P_SD3_DATA6_cbit="+ui->P_SD3_DATA6_lineEdit->text()+"\n");
-        out << QString("P_SD3_DATA7_cbit="+ui->P_SD3_DATA7_lineEdit->text()+"\n");
-        out << QString("P_GPIO3_IO19_cbit="+ui->P_GPIO3_IO19_lineEdit->text()+"\n");
-        out << QString("P_GPIO3_IO20_cbit="+ui->P_GPIO3_IO20_lineEdit->text()+"\n");
-        out << QString("P_GPIO1_IO00_cbit="+ui->P_GPIO1_IO00_lineEdit->text()+"\n");
-        out << QString("P_GPIO4_IO14_cbit="+ui->P_GPIO4_IO14_lineEdit->text()+"\n");
-        out << QString("P_GPIO4_IO26_cbit="+ui->P_GPIO4_IO26_lineEdit->text()+"\n");
-        out << QString("P_GPIO4_IO27_cbit="+ui->P_GPIO4_IO27_lineEdit->text()+"\n");
-        out << QString("P_GPIO4_IO28_cbit="+ui->P_GPIO4_IO28_lineEdit->text()+"\n");
-        out << QString("P_GPIO4_IO29_cbit="+ui->P_GPIO4_IO29_lineEdit->text()+"\n");
-        out << QString("P_GPIO6_IO05_cbit="+ui->P_GPIO6_IO05_lineEdit->text()+"\n");
-        out << QString("P_AUD6_TXD_cbit="+ui->P_AUD6_TXD_lineEdit->text()+"\n");
-        out << QString("P_AUD6_RXD_cbit="+ui->P_AUD6_RXD_lineEdit->text()+"\n");
-        out << QString("P_AUD6_TXFS_cbit="+ui->P_AUD6_TXFS_lineEdit->text()+"\n");
-        out << QString("P_AUD6_TXC_cbit="+ui->P_AUD6_TXC_lineEdit->text()+"\n");
-        out << QString("P_I2C1_SDA_cbit="+ui->P_I2C1_SDA_lineEdit->text()+"\n");
-        out << QString("P_I2C1_SCL_cbit="+ui->P_I2C1_SCL_lineEdit->text()+"\n");
-        out << QString("P_UART1_TXD_cbit="+ui->P_UART1_TXD_lineEdit->text()+"\n");
-        out << QString("P_UART1_RXD_cbit="+ui->P_UART1_RXD_lineEdit->text()+"\n");
-        out << QString("P_SPDIF_OUT_cbit="+ui->P_SPDIF_OUT_lineEdit->text()+"\n");
-        out << QString("P_UART4_RTS_L_cbit="+ui->P_UART4_RTS_L_lineEdit->text()+"\n");
-        out << QString("P_UART4_TXD_cbit="+ui->P_UART4_TXD_lineEdit->text()+"\n");
-        out << QString("P_UART4_RXD_cbit="+ui->P_UART4_RXD_lineEdit->text()+"\n");
-        out << QString("P_UART4_CTS_L_cbit="+ui->P_UART4_CTS_L_lineEdit->text()+"\n");
-
-        file.close();
-        Last_P_BSPFactoryFile = fileName;
-        ui->UserBSPFselectedlineEdit->setText(Last_P_BSPFactoryFile);
-        QFileInfo fi(Last_P_BSPFactoryFile);
-        QString base = fi.baseName();
-        if ( base != "" )
-        {
-            FileNameNoExtension = base;
-            ui->P_Current_BSPF_File_label->setText(base+".bspf");
-        }
-        storeNOVAembed_ini();
-    }
-}
-
-void NOVAembed::on_P_Save_pushButton_clicked()
-{
-    QString croped_fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf",tr(".bspf (*.bspf)"));
-    QString fileName=croped_fileName.section(".",0,0);
-    fileName = fileName+".bspf";
-    save_helper(fileName,"QUAD");
-    save_helper(fileName,"SDL");
-    save_helper(fileName,"");
-}
 
 void NOVAembed::on_P_SetCFGbits_pushButton_clicked()
 {
-    CfgBitDefaultValue = ui->P_Default_lineEdit->text();
-    ui->P_ECSPI1_MISO_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI1_MOSI_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI1_SS0_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI1_SCK_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI2_SS0_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI2_SS1_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI2_MISO_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI2_MOSI_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI2_SCK_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI3_MISO_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI3_SCK_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI3_MOSI_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI3_SS0_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI3_SS1_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI4_MISO_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI4_MOSI_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI4_SCK_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_ECSPI4_SS0_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_I2C3_SCL_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_I2C3_SDA_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_KHZ32_CLK_OUT_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_SD3_CMD_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_SD3_CLK_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_SD3_DATA0_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_SD3_DATA1_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_SD3_DATA2_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_SD3_DATA3_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_SD3_DATA4_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_SD3_DATA5_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_SD3_DATA6_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_SD3_DATA7_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_GPIO3_IO19_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_GPIO3_IO20_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_GPIO1_IO00_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_GPIO4_IO14_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_GPIO4_IO26_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_GPIO4_IO27_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_GPIO4_IO28_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_GPIO4_IO29_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_GPIO6_IO05_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_AUD6_TXD_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_AUD6_RXD_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_AUD6_TXFS_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_AUD6_TXC_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_I2C1_SDA_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_I2C1_SCL_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_UART1_TXD_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_UART1_RXD_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_SPDIF_OUT_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_UART4_RTS_L_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_UART4_TXD_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_UART4_RXD_lineEdit->setText(CfgBitDefaultValue);
-    ui->P_UART4_CTS_L_lineEdit->setText(CfgBitDefaultValue);
+    CfgBitDefaultValue = ui->P_cbit_lineEdit->text();
+    ui->P_cbit_lineEdit->setText(CfgBitDefaultValue);
     storeNOVAembed_ini();
-}
-
-void NOVAembed::on_P_Default_pushButton_clicked()
-{
-    ui->P_ECSPI1_MISO_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI1_MOSI_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI1_SS0_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI1_SCK_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI2_SS0_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI2_SS1_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI2_MISO_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI2_MOSI_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI2_SCK_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI3_MISO_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI3_SCK_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI3_MOSI_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI3_SS0_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI3_SS1_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI4_MISO_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI4_MOSI_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI4_SCK_comboBox->setCurrentIndex(0);
-    ui->P_ECSPI4_SS0_comboBox->setCurrentIndex(0);
-    ui->P_I2C3_SCL_comboBox->setCurrentIndex(0);
-    ui->P_I2C3_SDA_comboBox->setCurrentIndex(0);//
-    ui->P_KHZ32_CLK_OUT_comboBox->setCurrentIndex(0);
-    ui->P_SD3_CMD_comboBox->setCurrentIndex(0);
-    ui->P_SD3_CLK_comboBox->setCurrentIndex(0);
-    ui->P_SD3_DATA0_comboBox->setCurrentIndex(0);
-    ui->P_SD3_DATA1_comboBox->setCurrentIndex(0);
-    ui->P_SD3_DATA2_comboBox->setCurrentIndex(0);
-    ui->P_SD3_DATA3_comboBox->setCurrentIndex(0);
-    ui->P_SD3_DATA4_comboBox->setCurrentIndex(0);
-    ui->P_SD3_DATA5_comboBox->setCurrentIndex(0);
-    ui->P_SD3_DATA6_comboBox->setCurrentIndex(0);
-    ui->P_SD3_DATA7_comboBox->setCurrentIndex(0);
-    ui->P_GPIO3_IO20_comboBox->setCurrentIndex(0);
-    ui->P_GPIO1_IO00_comboBox->setCurrentIndex(0);
-    ui->P_GPIO4_IO29_comboBox->setCurrentIndex(0);
-    ui->P_AUD6_TXD_comboBox->setCurrentIndex(0);
-    ui->P_AUD6_RXD_comboBox->setCurrentIndex(0);
-    ui->P_AUD6_TXFS_comboBox->setCurrentIndex(0);
-    ui->P_AUD6_TXC_comboBox->setCurrentIndex(0);
-    ui->P_I2C1_SDA_comboBox->setCurrentIndex(0);
-    ui->P_I2C1_SCL_comboBox->setCurrentIndex(0);
-    ui->P_UART1_TXD_comboBox->setCurrentIndex(0);
-    ui->P_UART1_RXD_comboBox->setCurrentIndex(0);
-    ui->P_SPDIF_OUT_comboBox->setCurrentIndex(0);
-    ui->P_UART4_RTS_L_comboBox->setCurrentIndex(0);
-    ui->P_UART4_TXD_comboBox->setCurrentIndex(0);
-    ui->P_UART4_RXD_comboBox->setCurrentIndex(0);
-    ui->P_UART4_CTS_L_comboBox->setCurrentIndex(0);
-    ui->P_SATA_checkBox->setChecked(false);
-    ui->P_PCIe_checkBox->setChecked(true);
-    ui->P_PrimaryVideo_comboBox->setCurrentIndex(0);
-    ui->P_SecondaryVideo_comboBox->setCurrentIndex(0);
-    ui->P_I2C1Speed_lineEdit->setText("100000");
-    ui->P_I2C3Speed_lineEdit->setText("100000");
 }
 
 QString P_getvalue(QString strKey, QSettings *settings , QString entry)
@@ -1339,197 +43,8 @@ QString P_getvalue(QString strKey, QSettings *settings , QString entry)
     return settings->value( strKey + entry, "r").toString();
 }
 
-void NOVAembed::P_load_BSPF_File(QString fileName)
-{
-QString strKeyFunc("P_IOMUX/");
-QSettings * func_settings = 0;
 
-    Last_P_BSPFactoryFile = fileName;
-    storeNOVAembed_ini();
-
-    QFileInfo fi(fileName);
-    QString base = fi.baseName();
-    if ( base != "" )
-        ui->P_Current_BSPF_File_label->setText(base+".bspf");
-
-    func_settings = new QSettings( fileName, QSettings::IniFormat );
-
-    ui->P_ECSPI1_MISO_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI1_MISO_comboBox"));
-    ui->P_ECSPI1_MOSI_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI1_MOSI_comboBox"));
-    ui->P_ECSPI1_SS0_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI1_SS0_comboBox"));
-    ui->P_ECSPI1_SCK_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI1_SCK_comboBox"));
-    ui->P_ECSPI2_SS0_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI2_SS0_comboBox"));
-    ui->P_ECSPI2_SS1_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI2_SS1_comboBox"));
-    ui->P_ECSPI2_MISO_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI2_MISO_comboBox"));
-    ui->P_ECSPI2_MOSI_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI2_MOSI_comboBox"));
-    ui->P_ECSPI2_SCK_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI2_SCK_comboBox"));
-    ui->P_ECSPI3_MISO_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI3_MISO_comboBox"));
-    ui->P_ECSPI3_SCK_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI3_SCK_comboBox"));
-    ui->P_ECSPI3_MOSI_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI3_MOSI_comboBox"));
-    ui->P_ECSPI3_SS0_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI3_SS0_comboBox"));
-    ui->P_ECSPI3_SS1_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI3_SS1_comboBox"));
-    ui->P_ECSPI4_MISO_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI4_MISO_comboBox"));
-    ui->P_ECSPI4_MOSI_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI4_MOSI_comboBox"));
-    ui->P_ECSPI4_SCK_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI4_SCK_comboBox"));
-    ui->P_ECSPI4_SS0_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_ECSPI4_SS0_comboBox"));
-    ui->P_I2C3_SCL_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_I2C3_SCL_comboBox"));
-    ui->P_I2C3_SDA_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_I2C3_SDA_comboBox"));
-    ui->P_KHZ32_CLK_OUT_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SD3_CMD_comboBox"));
-    ui->P_SD3_CMD_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_KHZ32_CLK_OUT_comboBox"));
-    ui->P_SD3_CLK_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SD3_CLK_comboBox"));
-    ui->P_SD3_DATA0_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SD3_DATA0_comboBox"));
-    ui->P_SD3_DATA1_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SD3_DATA1_comboBox"));
-    ui->P_SD3_DATA2_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SD3_DATA2_comboBox"));
-    ui->P_SD3_DATA3_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SD3_DATA3_comboBox"));
-    ui->P_SD3_DATA4_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SD3_DATA4_comboBox"));
-    ui->P_SD3_DATA5_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SD3_DATA5_comboBox"));
-    ui->P_SD3_DATA6_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SD3_DATA6_comboBox"));
-    ui->P_SD3_DATA7_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SD3_DATA7_comboBox"));
-    ui->P_GPIO3_IO20_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_GPIO3_IO20_comboBox"));
-    ui->P_GPIO1_IO00_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_GPIO1_IO00_comboBox"));
-    ui->P_GPIO4_IO29_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_GPIO4_IO29_comboBox"));
-    ui->P_AUD6_TXD_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_AUD6_TXD_comboBox"));
-    ui->P_AUD6_RXD_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_AUD6_RXD_comboBox"));
-    ui->P_AUD6_TXFS_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_AUD6_TXFS_comboBox"));
-    ui->P_AUD6_TXC_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_AUD6_TXC_comboBox"));
-    ui->P_I2C1_SDA_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_I2C1_SDA_comboBox"));
-    ui->P_I2C1_SCL_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_I2C1_SCL_comboBox"));
-    ui->P_UART1_TXD_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_UART1_TXD_comboBox"));
-    ui->P_UART1_RXD_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_UART1_RXD_comboBox"));
-    ui->P_SPDIF_OUT_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SPDIF_OUT_comboBox"));
-    ui->P_UART4_RTS_L_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_UART4_RTS_L_comboBox"));
-    ui->P_UART4_TXD_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_UART4_TXD_comboBox"));
-    ui->P_UART4_RXD_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_UART4_RXD_comboBox"));
-    ui->P_UART4_CTS_L_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_UART4_CTS_L_comboBox"));
-
-
-    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI1_MISO_comboBox") == "ECSPI1_MISO")
-    {
-        ui->P_SPIdev1_checkBox->setEnabled(true);
-        if ( P_getvalue(strKeyFunc, func_settings , "P_SPIdev1_checkBox") == "true")
-           ui->P_SPIdev1_checkBox->setChecked(true);
-        else
-            ui->P_SPIdev1_checkBox->setChecked(false);
-    }
-    else
-    {
-        ui->P_SPIdev1_checkBox->setEnabled(false);
-    }
-
-    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI2_MISO_comboBox") == "ECSPI2_MISO")
-    {
-        ui->P_SPIdev2_checkBox->setEnabled(true);
-        if ( P_getvalue(strKeyFunc, func_settings , "P_SPIdev2_checkBox") == "true")
-            ui->P_SPIdev2_checkBox->setChecked(true);
-        else
-            ui->P_SPIdev2_checkBox->setChecked(false);
-    }
-    else
-    {
-        ui->P_SPIdev2_checkBox->setEnabled(false);
-    }
-
-    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI3_MISO_comboBox") == "ECSPI3_MISO")
-    {
-        ui->P_SPIdev3_checkBox->setEnabled(true);
-        if ( P_getvalue(strKeyFunc, func_settings , "P_SPIdev3_checkBox") == "true")
-            ui->P_SPIdev3_checkBox->setChecked(true);
-        else
-            ui->P_SPIdev3_checkBox->setChecked(false);
-    }
-    else
-    {
-        ui->P_SPIdev3_checkBox->setEnabled(false);
-    }
-
-    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI4_MISO_comboBox") == "ECSPI4_MISO")
-    {
-        ui->P_SPIdev4_checkBox->setEnabled(true);
-        if ( P_getvalue(strKeyFunc, func_settings , "P_SPIdev4_checkBox") == "true")
-            ui->P_SPIdev4_checkBox->setChecked(true);
-        else
-            ui->P_SPIdev4_checkBox->setChecked(false);
-    }
-    else
-    {
-        ui->P_SPIdev4_checkBox->setEnabled(false);
-    }
-
-    if ( P_getvalue(strKeyFunc, func_settings , "P_SATA_checkBox") == "true")
-        ui->P_SATA_checkBox->setChecked(true);
-    else
-        ui->P_SATA_checkBox->setChecked(false);
-    if ( P_getvalue(strKeyFunc, func_settings , "P_PCIe_checkBox") == "true")
-        ui->P_PCIe_checkBox->setChecked(true);
-    else
-        ui->P_PCIe_checkBox->setChecked(false);
-    ui->P_PrimaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "PrimaryVideo_comboBox"));
-    ui->P_SecondaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "SecondaryVideo_comboBox"));
-    ui->P_I2C1Speed_lineEdit->setText(P_getvalue(strKeyFunc, func_settings , "P_I2C1Speed"));
-    ui->P_I2C3Speed_lineEdit->setText(P_getvalue(strKeyFunc, func_settings , "P_I2C3Speed"));
-
-
-    QString strKeyConf("P_CONF/");
-    QSettings * conf_settings = 0;
-    conf_settings = new QSettings( fileName, QSettings::IniFormat );
-
-    ui->P_ECSPI1_MISO_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI1_MISO_cbit"));
-    ui->P_ECSPI1_MOSI_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI1_MOSI_cbit"));
-    ui->P_ECSPI1_SS0_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI1_SS0_cbit"));
-    ui->P_ECSPI1_SCK_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI1_SCK_cbit"));
-    ui->P_ECSPI2_SS0_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI2_SS0_cbit"));
-    ui->P_ECSPI2_SS1_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI2_SS1_cbit"));
-    ui->P_ECSPI2_MISO_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI2_MISO_cbit"));
-    ui->P_ECSPI2_MOSI_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI2_MOSI_cbit"));
-    ui->P_ECSPI2_SCK_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI2_SCK_cbit"));
-    ui->P_ECSPI3_MISO_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI3_MISO_cbit"));
-    ui->P_ECSPI3_SCK_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI3_SCK_cbit"));
-    ui->P_ECSPI3_MOSI_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI3_MOSI_cbit"));
-    ui->P_ECSPI3_SS0_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI3_SS0_cbit"));
-    ui->P_ECSPI3_SS1_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI3_SS1_cbit"));
-    ui->P_ECSPI4_MISO_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI4_MISO_cbit"));
-    ui->P_ECSPI4_MOSI_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI4_MOSI_cbit"));
-    ui->P_ECSPI4_SCK_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI4_SCK_cbit"));
-    ui->P_ECSPI4_SS0_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_ECSPI4_SS0_cbit"));
-    ui->P_I2C3_SCL_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_I2C3_SCL_cbit"));
-    ui->P_I2C3_SDA_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_I2C3_SDA_cbit"));
-    ui->P_KHZ32_CLK_OUT_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_SD3_CMD_cbit"));
-    ui->P_SD3_CMD_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_KHZ32_CLK_OUT_cbit"));
-    ui->P_SD3_CLK_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_SD3_CLK_cbit"));
-    ui->P_SD3_DATA0_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_SD3_DATA0_cbit"));
-    ui->P_SD3_DATA1_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_SD3_DATA1_cbit"));
-    ui->P_SD3_DATA2_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_SD3_DATA2_cbit"));
-    ui->P_SD3_DATA3_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_SD3_DATA3_cbit"));
-    ui->P_SD3_DATA4_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_SD3_DATA4_cbit"));
-    ui->P_SD3_DATA5_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_SD3_DATA5_cbit"));
-    ui->P_SD3_DATA6_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_SD3_DATA6_cbit"));
-    ui->P_SD3_DATA7_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_SD3_DATA7_cbit"));
-    ui->P_GPIO3_IO19_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_GPIO3_IO19_cbit"));
-    ui->P_GPIO3_IO20_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_GPIO3_IO20_cbit"));
-    ui->P_GPIO1_IO00_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_GPIO1_IO00_cbit"));
-    ui->P_GPIO4_IO14_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_GPIO4_IO14_cbit"));
-    ui->P_GPIO4_IO26_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_GPIO4_IO26_cbit"));
-    ui->P_GPIO4_IO27_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_GPIO4_IO27_cbit"));
-    ui->P_GPIO4_IO28_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_GPIO4_IO28_cbit"));
-    ui->P_GPIO4_IO29_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_GPIO4_IO29_cbit"));
-    ui->P_GPIO6_IO05_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_GPIO6_IO05_cbit"));
-    ui->P_AUD6_TXD_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_AUD6_TXD_cbit"));
-    ui->P_AUD6_RXD_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_AUD6_RXD_cbit"));
-    ui->P_AUD6_TXFS_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_AUD6_TXFS_cbit"));
-    ui->P_AUD6_TXC_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_AUD6_TXC_cbit"));
-    ui->P_I2C1_SDA_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_I2C1_SDA_cbit"));
-    ui->P_I2C1_SCL_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_I2C1_SCL_cbit"));
-    ui->P_UART1_TXD_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_UART1_TXD_cbit"));
-    ui->P_UART1_RXD_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_UART1_RXD_cbit"));
-    ui->P_SPDIF_OUT_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_SPDIF_OUT_cbit"));
-    ui->P_UART4_RTS_L_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_UART4_RTS_L_cbit"));
-    ui->P_UART4_TXD_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_UART4_TXD_cbit"));
-    ui->P_UART4_RXD_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_UART4_RXD_cbit"));
-    ui->P_UART4_CTS_L_lineEdit->setText(P_getvalue(strKeyConf, conf_settings , "P_UART4_CTS_L_cbit"));
-
-    update_status_bar("BSP Factory : Loaded file "+Last_P_BSPFactoryFile);
-}
-
+/*********************** Bit calculator ******************************/
 void NOVAembed::on_P_CreateCFGBits_pushButton_clicked()
 {
    int  value = 0;
@@ -1653,7 +168,6 @@ void NOVAembed::on_P_DecodeCFGBits_pushButton_clicked()
     bool ok=1;
     QString a = ui->P_Decoded_CFG_Bits_lineEdit->text().right(8);
     unsigned int value = a.toUInt(&ok,16);
-    //qDebug()  << "value = 0x" << QString::number(value, 16);
 
     if ( (unsigned int )(value & NO_PAD_CTL) == NO_PAD_CTL )
     {
@@ -1917,9 +431,6 @@ void NOVAembed::on_P_SPEED_High_checkBox_clicked()
     }
 }
 
-
-
-
 void NOVAembed::on_P_SRE_Fast_checkBox_clicked()
 {
     if ( ui->P_SRE_Fast_checkBox->isChecked() == true )
@@ -2070,6 +581,1426 @@ void NOVAembed::on_P_DSE_240_checkBox_clicked()
         ui->P_DSE_240_checkBox->setChecked(true);
     }
 }
+/*********************** Bit calculator end ******************************/
+
+QString P_ECSPI1_MISO_comboBox="GPIO5_IO16";
+QString P_ECSPI1_MOSI_comboBox="GPIO5_IO15";
+QString P_ECSPI1_SS0_comboBox="GPIO5_IO17";
+QString P_ECSPI1_SCK_comboBox="GPIO5_IO14";
+QString P_ECSPI2_SS0_comboBox = "GPIO5_IO12";
+QString P_ECSPI2_SS1_comboBox = "GPIO5_IO09";
+QString P_ECSPI2_MISO_comboBox ="GPIO5_IO11";
+QString P_ECSPI2_MOSI_comboBox = "GPIO5_IO10";
+QString P_ECSPI2_SCK_comboBox = "GPIO5_IO13";
+QString P_ECSPI3_MISO_comboBox ="GPIO4_IO23";
+QString P_ECSPI3_SCK_comboBox = "GPIO4_IO21";
+QString P_ECSPI3_MOSI_comboBox = "GPIO4_IO22";
+QString P_ECSPI3_SS0_comboBox = "GPIO4_IO24";
+QString P_ECSPI3_SS1_comboBox = "GPIO4_IO25";
+QString P_ECSPI4_MISO_comboBox="GPIO3_IO22";
+QString P_ECSPI4_MOSI_comboBox = "GPIO3_IO28";
+QString P_ECSPI4_SCK_comboBox = "GPIO3_IO21";
+QString P_ECSPI4_SS0_comboBox = "GPIO3_IO29";
+QString P_I2C3_SCL_comboBox= "GPIO3_IO17";
+QString P_I2C3_SDA_comboBox= "GPIO3_IO18";
+QString P_KHZ32_CLK_OUT_comboBox = "GPIO1_IO08";
+QString P_SD3_CMD_comboBox   ="GPIO7_IO02";
+QString P_SD3_CLK_comboBox   ="GPIO7_IO03";
+QString P_SD3_DATA0_comboBox ="GPIO7_IO04";
+QString P_SD3_DATA1_comboBox ="GPIO7_IO05";
+QString P_SD3_DATA2_comboBox ="GPIO7_IO06";
+QString P_SD3_DATA3_comboBox ="GPIO7_IO07";
+QString P_SD3_DATA4_comboBox ="GPIO7_IO01";
+QString P_SD3_DATA5_comboBox ="GPIO7_IO00";
+QString P_SD3_DATA6_comboBox ="GPIO6_IO18";
+QString P_SD3_DATA7_comboBox ="GPIO6_IO17";
+QString P_GPIO3_IO20_comboBox ="GPIO3_IO20";
+QString P_GPIO1_IO00_comboBox ="GPIO1_IO00";
+QString P_GPIO4_IO29_comboBox ="GPIO4_IO29";
+QString P_AUD6_TXD_comboBox  ="GPIO4_IO18";
+QString P_AUD6_RXD_comboBox  ="GPIO4_IO20";
+QString P_AUD6_TXFS_comboBox ="GPIO4_IO19";
+QString P_AUD6_TXC_comboBox  ="GPIO4_IO17";
+QString P_I2C1_SDA_comboBox= "GPIO5_IO26";
+QString P_I2C1_SCL_comboBox = "GPIO5_IO27";
+QString P_UART1_TXD_comboBox ="GPIO5_IO28";
+QString P_UART1_RXD_comboBox = "GPIO5_IO29";
+QString P_SPDIF_OUT_comboBox= "GPIO7_IO12";
+QString P_UART4_RTS_L_comboBox= "GPIO6_IO02";
+QString P_UART4_TXD_comboBox= "GPIO5_IO30";
+QString P_UART4_RXD_comboBox="GPIO5_IO31";
+QString P_UART4_CTS_L_comboBox="GPIO6_IO03";
+QString P_I2C1Speed="100000";
+QString P_I2C3Speed="100000";
+QString P_SATA_checkBox="false";
+QString P_PCIe_checkBox="true";
+QString P_PrimaryVideo_comboBox;
+QString P_SecondaryVideo_comboBox;
+QString Processor;
+
+
+void NOVAembed::on_P_SPI1_checkBox_toggled(bool checked)
+{
+    ui->P_SPI1_checkBox->setChecked(checked);
+    if ( checked )
+    {
+        ui->P_Audio4_checkBox->setChecked(false);
+        ui->P_Audio4_checkBox->setEnabled(false);
+        ui->P_SPI1_2ndSScheckBox->setEnabled(true);
+        ui->P_SPIdev1_checkBox->setEnabled(true);
+        ui->label_PECSPI1_MISO->setText("ECSPI1_MISO");
+        ui->label_PECSPI1_MOSI->setText("ECSPI1_MOSI");
+        ui->label_PECSPI1_SCK->setText("ECSPI1_SCK");
+        ui->label_PECSPI1_SS0->setText("ECSPI1_SS0");
+    }
+    else
+    {
+        ui->P_Audio4_checkBox->setEnabled(true);
+        ui->P_SPI1_2ndSScheckBox->setChecked(false);
+        ui->P_SPI1_2ndSScheckBox->setEnabled(false);
+        ui->P_SPIdev1_checkBox->setChecked(false);
+        ui->P_SPIdev1_checkBox->setEnabled(false);
+        ui->label_PECSPI1_MISO->setText("GPIO5_IO16");
+        ui->label_PECSPI1_MOSI->setText("GPIO5_IO15");
+        ui->label_PECSPI1_SCK->setText("GPIO5_IO14");
+        ui->label_PECSPI1_SS0->setText("GPIO5_IO17");
+    }
+}
+
+void NOVAembed::on_P_SPI2_checkBox_toggled(bool checked)
+{
+    ui->P_SPI2_checkBox->setChecked(checked);
+    if ( checked )
+    {
+        ui->P_Audio5_checkBox->setChecked(false);
+        ui->P_Audio5_checkBox->setEnabled(false);
+        ui->P_SPI2_2ndSScheckBox->setEnabled(true);
+        ui->P_SPIdev2_checkBox->setEnabled(true);
+        ui->label_PECSPI2_MISO->setText("ECSPI2_MISO");
+        ui->label_PECSPI2_MOSI->setText("ECSPI2_MOSI");
+        ui->label_PECSPI2_SCK->setText("ECSPI2_SCK");
+        ui->label_PECSPI2_SS0->setText("ECSPI2_SS0");
+    }
+    else
+    {
+        ui->P_SPI2_2ndSScheckBox->setChecked(false);
+        ui->P_SPI2_2ndSScheckBox->setEnabled(false);
+        ui->P_Audio5_checkBox->setEnabled(true);
+        ui->P_SPIdev2_checkBox->setChecked(false);
+        ui->P_SPIdev2_checkBox->setEnabled(false);
+        ui->label_PECSPI2_MISO->setText("GPIO5_IO11");
+        ui->label_PECSPI2_MOSI->setText("GPIO5_IO10");
+        ui->label_PECSPI2_SCK->setText("GPIO5_IO13");
+        ui->label_PECSPI2_SS0->setText("GPIO5_IO09");
+    }
+}
+
+void NOVAembed::on_P_SPI1_2ndSScheckBox_toggled(bool checked)
+{
+    if ( checked )
+    {
+        qDebug() << "1";
+        if ( ui->P_SPI1_checkBox->isChecked())
+        {
+            ui->P_SPI1_2ndSScheckBox->setChecked(true);
+            ui->P_SPI2_2ndSScheckBox->setChecked(false);
+            ui->label_PECSPI2_SS1->setText("ECSPI1_SS1");
+            qDebug() << "2";
+        }
+        else
+        {
+            qDebug() << "3";
+            ui->P_SPI1_2ndSScheckBox->setChecked(false);
+            ui->label_PECSPI2_SS1->setText("GPIO5_IO09");
+        }
+    }
+    else
+    {
+        ui->label_PECSPI2_SS1->setText("GPIO5_IO09");
+    }
+}
+
+void NOVAembed::on_P_SPI2_2ndSScheckBox_toggled(bool checked)
+{
+    if ( checked )
+    {
+        if ( ui->P_SPI2_checkBox->isChecked())
+        {
+            ui->P_SPI2_2ndSScheckBox->setChecked(true);
+            ui->P_SPI1_2ndSScheckBox->setChecked(false);
+            ui->label_PECSPI2_SS1->setText("ECSPI2_SS1");
+        }
+        else
+        {
+            ui->P_SPI2_2ndSScheckBox->setChecked(false);
+            ui->label_PECSPI2_SS1->setText("GPIO5_IO09");
+        }
+    }
+    else
+    {
+        ui->label_PECSPI2_SS1->setText("GPIO5_IO09");
+    }
+}
+
+void NOVAembed::on_P_Audio4_checkBox_toggled(bool checked)
+{
+    ui->P_Audio4_checkBox->setChecked(checked);
+    if ( checked )
+    {
+        ui->P_SPI1_checkBox->setChecked(false);
+        ui->P_SPI1_checkBox->setEnabled(false);
+        ui->P_SPI1_2ndSScheckBox->setChecked(false);
+        ui->P_SPI1_2ndSScheckBox->setEnabled(false);
+        ui->P_SPIdev1_checkBox->setChecked(false);
+        ui->P_SPIdev1_checkBox->setEnabled(false);
+        ui->label_PECSPI1_MISO->setText("AUD4_TXFS");
+        ui->label_PECSPI1_MOSI->setText("AUD4_TXD");
+        ui->label_PECSPI1_SCK->setText("AUD4_TXC");
+        ui->label_PECSPI1_SS0->setText("AUD4_RXD");
+        ui->label_PECSPI2_SS1->setText("GPIO5_IO09");
+    }
+    else
+    {
+        ui->P_SPI1_checkBox->setEnabled(true);
+        ui->P_SPI1_2ndSScheckBox->setEnabled(false);
+        ui->label_PECSPI1_MISO->setText("GPIO5_IO16");
+        ui->label_PECSPI1_MOSI->setText("GPIO5_IO15");
+        ui->label_PECSPI1_SCK->setText("GPIO5_IO14");
+        ui->label_PECSPI1_SS0->setText("GPIO5_IO17");
+    }
+}
+
+
+void NOVAembed::on_P_Audio5_checkBox_toggled(bool checked)
+{
+    ui->P_Audio5_checkBox->setChecked(checked);
+    if ( checked )
+    {
+        ui->P_SPI2_checkBox->setChecked(false);
+        ui->P_SPI2_2ndSScheckBox->setChecked(false);
+        ui->P_SPI2_checkBox->setEnabled(false);
+        ui->P_SPI2_2ndSScheckBox->setEnabled(false);
+        ui->P_SPIdev2_checkBox->setChecked(false);
+        ui->P_SPIdev2_checkBox->setEnabled(false);
+        ui->label_PECSPI2_MISO->setText("AUD5_TXFS");
+        ui->label_PECSPI2_MOSI->setText("AUD5_TXD");
+        ui->label_PECSPI2_SCK->setText("AUD5_TXC");
+        ui->label_PECSPI2_SS0->setText("AUD5_RXD");
+        ui->label_PECSPI2_SS1->setText("GPIO5_IO09");
+    }
+    else
+    {
+        ui->P_SPI2_checkBox->setEnabled(true);
+        ui->label_PECSPI2_MISO->setText("GPIO5_IO11");
+        ui->label_PECSPI2_MOSI->setText("GPIO5_IO10");
+        ui->label_PECSPI2_SCK->setText("GPIO5_IO13");
+        ui->label_PECSPI2_SS0->setText("GPIO5_IO09");
+    }
+}
+
+void NOVAembed::on_P_SPI3_checkBox_toggled(bool checked)
+{
+    if (  checked )
+    {
+        ui->P_SPI3_checkBox->setChecked(true);
+        ui->P_SPI3_2ndSScheckBox->setEnabled(true);
+        ui->P_SPIdev3_checkBox->setEnabled(true);
+        ui->label_PECSPI3_MISO->setText("ECSPI3_MISO");
+        ui->label_PECSPI3_MOSI->setText("ECSPI3_MOSI");
+        ui->label_PECSPI3_SCK->setText("ECSPI3_SCK");
+        ui->label_PECSPI3_SS0->setText("ECSPI3_SS0");
+    }
+    else
+    {
+        ui->P_SPI3_2ndSScheckBox->setEnabled(false);
+        ui->P_SPI3_2ndSScheckBox->setChecked(false);
+        ui->P_SPIdev3_checkBox->setChecked(false);
+        ui->P_SPIdev3_checkBox->setEnabled(false);
+        ui->label_PECSPI3_MISO->setText("GPIO4_IO23");
+        ui->label_PECSPI3_MOSI->setText("GPIO4_IO22");
+        ui->label_PECSPI3_SCK->setText("GPIO4_IO21");
+        ui->label_PECSPI3_SS0->setText("GPIO4_IO24");
+        ui->label_PECSPI3_SS1->setText("GPIO4_IO25");
+    }
+}
+
+void NOVAembed::on_P_I2C1_checkBox_toggled(bool checked)
+{
+    ui->P_I2C1_checkBox->setChecked(checked);
+    if (  checked )
+    {
+        ui->P_I2C1_OnJ13checkBox->setEnabled(true);
+        ui->label_PI2C1_SDA->setText("I2C1_SDA");
+        ui->label_PI2C1_SCL->setText("I2C1_SCL");
+    }
+    else
+    {
+        ui->P_I2C1_OnJ13checkBox->setEnabled(false);
+        ui->P_SPI3_2ndSScheckBox->setChecked(false);
+        ui->label_PI2C1_SDA->setText("GPIO5_IO26");
+        ui->label_PI2C1_SCL->setText("GPIO5_IO27");
+    }
+}
+
+void NOVAembed::on_P_I2C1_OnJ13checkBox_toggled(bool checked)
+{
+    ui->P_I2C1_OnJ13checkBox->setChecked(checked);
+    if ( checked )
+    {
+        ui->P_SPI4_checkBox->setChecked(false);
+        ui->P_SPI4_checkBox->setEnabled(false);
+        ui->label_PECSPI4_MISO->setText("GPIO3_IO22");
+        ui->label_PECSPI4_MOSI->setText("I2C1_SDA");
+        ui->label_PECSPI4_SCK->setText("I2C1_SCL");
+        ui->label_PECSPI4_SS0->setText("GPIO3_IO29");
+        ui->label_PI2C1_SDA->setText("GPIO5_IO26");
+        ui->label_PI2C1_SCL->setText("GPIO5_IO27");
+    }
+    else
+    {
+        ui->label_PECSPI4_MOSI->setText("GPIO3_IO28");
+        ui->label_PECSPI4_SCK->setText("GPIO3_IO21");
+        ui->label_PI2C1_SDA->setText("I2C1_SDA");
+        ui->label_PI2C1_SCL->setText("I2C1_SCL");
+        if ( ui->P_SPDIF_OnJ13checkBox->isChecked() == false)
+            ui->P_SPI4_checkBox->setEnabled(true);
+    }
+}
+
+void NOVAembed::on_P_I2C3_checkBox_toggled(bool checked)
+{
+    ui->P_I2C3_checkBox->setChecked(checked);
+    if ( checked )
+    {
+        ui->label_PI2C3_SDA->setText("I2C3_SDA");
+        ui->label_PI2C3_SCL->setText("I2C3_SCL");
+    }
+    else
+    {
+        ui->label_PI2C3_SDA->setText("GPIO3_IO18");
+        ui->label_PI2C3_SCL->setText("GPIO3_IO17");
+    }
+}
+
+
+void NOVAembed::on_P_SPI4_checkBox_toggled(bool checked)
+{
+    ui->P_SPI4_checkBox->setChecked(checked);
+    if ( checked )
+    {
+        ui->P_I2C1_OnJ13checkBox->setEnabled(false);
+        ui->P_SPDIF_OnJ13checkBox->setEnabled(false);
+        ui->P_SPIdev4_checkBox->setEnabled(true);
+        ui->label_PECSPI4_MISO->setText("ECSPI4_MISO");
+        ui->label_PECSPI4_MOSI->setText("ECSPI4_MOSI");
+        ui->label_PECSPI4_SCK->setText("ECSPI4_SCK");
+        ui->label_PECSPI4_SS0->setText("ECSPI4_SS0");
+    }
+    else
+    {
+        ui->P_SPDIF_OnJ13checkBox->setEnabled(true);
+        ui->P_SPIdev4_checkBox->setChecked(false);
+        ui->P_SPIdev4_checkBox->setEnabled(false);
+        ui->label_PECSPI4_MISO->setText("GPIO3_IO22");
+        ui->label_PECSPI4_MOSI->setText("GPIO3_IO28");
+        ui->label_PECSPI4_SCK->setText("GPIO3_IO21");
+        ui->label_PECSPI4_SS0->setText("GPIO3_IO29");
+    }
+}
+
+void NOVAembed::on_P_CCMCLKO1_checkBox_toggled(bool checked)
+{
+    ui->P_CCMCLKO1_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->P_EPIT1_checkBox->setChecked(false);
+        ui->P_EPIT1_checkBox->setEnabled(false);
+        ui->label_PGPIO1_IO00->setText("CCM_CLKO1");
+    }
+    else
+    {
+        ui->label_PGPIO1_IO00->setText("GPIO1_IO00");
+        ui->P_EPIT1_checkBox->setEnabled(true);
+    }
+}
+
+void NOVAembed::on_P_EPIT1_checkBox_toggled(bool checked)
+{
+    ui->P_EPIT1_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->P_CCMCLKO1_checkBox->setChecked(false);
+        ui->P_CCMCLKO1_checkBox->setEnabled(false);
+        ui->label_PGPIO1_IO00->setText("EPIT1_OUT");
+    }
+    else
+    {
+        ui->label_PGPIO1_IO00->setText("GPIO1_IO00");
+        ui->P_CCMCLKO1_checkBox->setEnabled(true);
+    }
+}
+
+void NOVAembed::on_P_PWM1_checkBox_toggled(bool checked)
+{
+    ui->P_PWM1_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->P_WD1_checkBox->setChecked(false);
+        ui->P_WD1_checkBox->setEnabled(false);
+        ui->label_PGPIO4_IO29->setText("PWM1_OUT");
+
+    }
+    else
+    {
+        ui->P_WD1_checkBox->setEnabled(true);
+        ui->label_PGPIO4_IO29->setText("GPIO4_IO29");
+    }
+}
+
+void NOVAembed::on_P_WD1_checkBox_toggled(bool checked)
+{
+    ui->P_WD1_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->P_PWM1_checkBox->setChecked(false);
+        ui->P_PWM1_checkBox->setEnabled(false);
+        ui->label_PGPIO4_IO29->setText("WDOG1_B");
+    }
+    else
+    {
+        ui->P_PWM1_checkBox->setEnabled(true);
+        ui->label_PGPIO4_IO29->setText("GPIO4_IO29");
+    }
+}
+
+void NOVAembed::on_P_SDCARD3_checkBox_toggled(bool checked)
+{
+    ui->P_SDCARD3_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->P_CAN1_checkBox->setChecked(false);
+        ui->P_CAN1_checkBox->setEnabled(false);
+        ui->P_CAN2_checkBox->setChecked(false);
+        ui->P_CAN2_checkBox->setEnabled(false);
+        ui->P_UART2_4WirescheckBox->setChecked(false);
+        ui->P_UART2_4WirescheckBox->setEnabled(false);
+        if ( ui->P_UART2_checkBox->isChecked() == false )
+            ui->P_SDCARD3IS8_checkBox->setEnabled(true);
+        ui->label_PSD3_CMD->setText("SD3_CMD");
+        ui->label_PSD3_CLK->setText("SD3_CLK");
+        ui->label_PSD3_DATA0->setText("SD3_DATA0");
+        ui->label_PSD3_DATA1->setText("SD3_DATA1");
+        ui->label_PSD3_DATA2->setText("SD3_DATA2");
+        ui->label_PSD3_DATA3->setText("SD3_DATA3");
+    }
+    else
+    {
+        ui->P_CAN1_checkBox->setEnabled(true);
+        ui->P_CAN2_checkBox->setEnabled(true);
+        ui->P_UART2_4WirescheckBox->setEnabled(true);
+        ui->P_SDCARD3IS8_checkBox->setChecked(false);
+        ui->P_SDCARD3IS8_checkBox->setEnabled(false);
+        ui->label_PSD3_CMD->setText("GPIO7_IO02");
+        ui->label_PSD3_CLK->setText("GPIO7_IO03");
+        ui->label_PSD3_DATA0->setText("GPIO7_IO04");
+        ui->label_PSD3_DATA1->setText("GPIO7_IO05");
+        ui->label_PSD3_DATA2->setText("GPIO7_IO06");
+        ui->label_PSD3_DATA3->setText("GPIO7_IO07");
+        ui->label_PSD3_DATA4->setText("GPIO7_IO01");
+        ui->label_PSD3_DATA5->setText("GPIO7_IO00");
+        ui->label_PSD3_DATA6->setText("GPIO7_IO18");
+        ui->label_PSD3_DATA7->setText("GPIO7_IO17");
+    }
+}
+
+void NOVAembed::on_P_SDCARD3IS8_checkBox_toggled(bool checked)
+{
+    ui->P_SDCARD3IS8_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->P_UART2_checkBox->setChecked(false);
+        ui->P_UART2_4WirescheckBox->setChecked(false);
+        ui->P_UART2_checkBox->setEnabled(false);
+        ui->P_UART2_4WirescheckBox->setEnabled(false);
+        ui->label_PSD3_DATA4->setText("SD3_DATA4");
+        ui->label_PSD3_DATA5->setText("SD3_DATA5");
+        ui->label_PSD3_DATA6->setText("SD3_DATA6");
+        ui->label_PSD3_DATA7->setText("SD3_DATA7");
+    }
+    else
+    {
+        ui->P_UART2_checkBox->setEnabled(true);
+        ui->P_UART2_4WirescheckBox->setEnabled(true);
+        ui->label_PSD3_DATA4->setText("GPIO7_IO01");
+        ui->label_PSD3_DATA5->setText("GPIO7_IO00");
+        ui->label_PSD3_DATA6->setText("GPIO7_IO18");
+        ui->label_PSD3_DATA7->setText("GPIO7_IO17");
+    }
+}
+
+void NOVAembed::on_P_CAN1_checkBox_toggled(bool checked)
+{
+    ui->P_CAN1_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->P_SDCARD3_checkBox->setChecked(false);
+        ui->P_SDCARD3IS8_checkBox->setChecked(false);
+        ui->P_SDCARD3_checkBox->setEnabled(false);
+        ui->P_SDCARD3IS8_checkBox->setEnabled(false);
+        ui->P_UART2_4WirescheckBox->setChecked(false);
+        ui->P_UART2_4WirescheckBox->setEnabled(false);
+        ui->label_PSD3_CMD->setText("FLEAXCAN1_TX");
+        ui->label_PSD3_CLK->setText("FLEAXCAN1_RX");
+    }
+    else
+    {
+        if ( ui->P_CAN2_checkBox->isChecked() == false)
+        {
+            ui->P_SDCARD3_checkBox->setEnabled(true);
+            ui->P_SDCARD3IS8_checkBox->setEnabled(true);
+        }
+        if ( ui->P_UART2_checkBox->isChecked() == true)
+            ui->P_UART2_4WirescheckBox->setEnabled(true);
+        ui->label_PSD3_CMD->setText("GPIO7_IO02");
+        ui->label_PSD3_CLK->setText("GPIO7_IO03");
+    }
+}
+
+void NOVAembed::on_P_CAN2_checkBox_toggled(bool checked)
+{
+    ui->P_CAN2_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->P_SDCARD3_checkBox->setChecked(false);
+        ui->P_SDCARD3IS8_checkBox->setChecked(false);
+        ui->P_SDCARD3_checkBox->setEnabled(false);
+        ui->P_SDCARD3IS8_checkBox->setEnabled(false);
+        ui->label_PSD3_DATA0->setText("FLEXCAN2_TX");
+        ui->label_PSD3_DATA1->setText("FLEXCAN2_rX");
+    }
+    else
+    {
+        if ( ui->P_CAN1_checkBox->isChecked() == false)
+        {
+            ui->P_SDCARD3_checkBox->setEnabled(true);
+            ui->P_SDCARD3IS8_checkBox->setEnabled(true);
+        }
+        ui->label_PSD3_DATA0->setText("GPIO7_IO04");
+        ui->label_PSD3_DATA1->setText("GPIO7_IO05");
+    }
+}
+
+void NOVAembed::on_P_UART2_checkBox_toggled(bool checked)
+{
+    ui->P_UART2_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->label_PSD3_DATA4->setText("UART2_RXD");
+        ui->label_PSD3_DATA5->setText("UART2_TXD");
+        if ( ui->P_CAN1_checkBox->isChecked() == false)
+            ui->P_UART2_4WirescheckBox->setEnabled(true);
+        ui->P_SDCARD3IS8_checkBox->setChecked(false);
+        ui->P_SDCARD3IS8_checkBox->setEnabled(false);
+    }
+    else
+    {
+        ui->P_UART2_4WirescheckBox->setChecked(false);
+        ui->P_UART2_4WirescheckBox->setEnabled(false);
+        ui->P_SDCARD3IS8_checkBox->setEnabled(true);
+        ui->label_PSD3_DATA4->setText("GPIO7_IO01");
+        ui->label_PSD3_DATA5->setText("GPIO7_IO00");
+    }
+}
+
+void NOVAembed::on_P_UART2_4WirescheckBox_toggled(bool checked)
+{
+    ui->P_UART2_4WirescheckBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->P_SDCARD3_checkBox->setChecked(false);
+        ui->P_SDCARD3IS8_checkBox->setChecked(false);
+        ui->P_SDCARD3_checkBox->setEnabled(false);
+        ui->P_SDCARD3IS8_checkBox->setEnabled(false);
+        ui->P_CAN1_checkBox->setChecked(false);
+        ui->P_CAN1_checkBox->setEnabled(false);
+        ui->label_PSD3_CMD->setText("UART2_CTS_B");
+        ui->label_PSD3_CLK->setText("UART2_RTS_B");
+    }
+    else
+    {
+        ui->P_SDCARD3_checkBox->setEnabled(true);
+        ui->P_CAN1_checkBox->setEnabled(true);
+        ui->label_PSD3_CMD->setText("GPIO7_IO02");
+        ui->label_PSD3_CLK->setText("GPIO7_IO03");
+    }
+}
+
+void NOVAembed::on_P_UART4_checkBox_toggled(bool checked)
+{
+    ui->P_UART4_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->label_PUART4_TXD->setText("UART4_TXD");
+        ui->label_PUART4_RXD->setText("UART4_RXD");
+        ui->P_UART4_4WirescheckBox->setEnabled(true);
+    }
+    else
+    {
+        ui->P_UART4_4WirescheckBox->setChecked(false);
+        ui->P_UART4_4WirescheckBox->setEnabled(false);
+        ui->label_PUART4_TXD->setText("GPIO5_IO30");
+        ui->label_PUART4_RXD->setText("GPIO5_IO31");
+    }
+}
+
+void NOVAembed::on_P_UART4_4WirescheckBox_toggled(bool checked)
+{
+    ui->P_UART4_4WirescheckBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->label_PUART4_RTS_L->setText("UART4_RTS_L");
+        ui->label_PUART4_CTS_L->setText("UART4_CTS_L");
+    }
+    else
+    {
+        ui->label_PUART4_RTS_L->setText("GPIO6_IO02");
+        ui->label_PUART4_CTS_L->setText("GPIO6_IO03");
+    }
+}
+
+void NOVAembed::on_P_Audio6_checkBox_toggled(bool checked)
+{
+    ui->P_Audio6_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->label_PAUD6_TXD->setText("AUD6_TXD");
+        ui->label_PAUD6_RXD->setText("AUD6_RXD");
+        ui->label_PAUD6_TXFS->setText("AUD6_TXFS");
+        ui->label_PAUD6_TXC->setText("AUD6_TXC");
+    }
+    else
+    {
+        ui->label_PAUD6_TXD->setText("GPIO4_IO18");
+        ui->label_PAUD6_RXD->setText("GPIO4_IO20");
+        ui->label_PAUD6_TXFS->setText("GPIO4_IO19");
+        ui->label_PAUD6_TXC->setText("GPIO4_IO17");
+    }
+}
+
+void NOVAembed::on_P_UART1_checkBox_toggled(bool checked)
+{
+    ui->P_UART1_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->label_PUART1_TXD->setText("UART1_TXD");
+        ui->label_PUART1_RXD->setText("UART1_RXD");
+    }
+    else
+    {
+        ui->label_PUART1_TXD->setText("GPIO5_IO28");
+        ui->label_PUART1_RXD->setText("GPIO5_IO29");
+    }
+}
+
+void NOVAembed::on_P_KHZ32_checkBox_toggled(bool checked)
+{
+    ui->P_KHZ32_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->label_P32KHZ_CLK_OUT->setText("32KHZCLK_OUT");
+    }
+    else
+    {
+        ui->label_P32KHZ_CLK_OUT->setText("GPIO1_IO08");
+    }
+}
+
+void NOVAembed::on_P_MHZ24_checkBox_toggled(bool checked)
+{
+    ui->P_MHZ24_checkBox->setChecked(checked);
+    if ( checked)
+    {
+        ui->label_PGPIO3_IO20->setText("24MHZCLK_OUT");
+    }
+    else
+    {
+        ui->label_PGPIO3_IO20->setText("GPIO3_IO20");
+    }
+}
+
+void NOVAembed::on_P_SPDIF_checkBox_toggled(bool checked)
+{
+    ui->P_SPDIF_checkBox->setChecked(checked);
+    if ( checked )
+    {
+        ui->label_PSPDIF_OUT->setText("SPDIF_OUT");
+        if ( ui->P_SPI4_checkBox->isChecked() == false )
+            ui->P_SPDIF_OnJ13checkBox->setEnabled(true);
+    }
+    else
+    {
+        ui->P_SPDIF_OnJ13checkBox->setEnabled(false);
+        ui->label_PSPDIF_OUT->setText("GPIO7_IO12");
+    }
+}
+
+void NOVAembed::on_P_SPDIF_OnJ13checkBox_toggled(bool checked)
+{
+    ui->P_SPDIF_OnJ13checkBox->setChecked(checked);
+    if ( checked )
+    {
+        if ( ui->P_SPDIF_checkBox->isChecked() == true )
+        {
+            ui->label_PSPDIF_OUT->setText("GPIO7_IO12");
+            ui->label_PECSPI4_MISO->setText("SPDIF_OUT");
+            ui->P_SPI4_checkBox->setChecked(false);
+            ui->P_SPI4_checkBox->setEnabled(false);
+            ui->P_SPIdev4_checkBox->setChecked(false);
+            ui->P_SPIdev4_checkBox->setEnabled(false);
+        }
+    }
+    else
+    {
+        ui->label_PSPDIF_OUT->setText("SPDIF_OUT");
+        ui->label_PECSPI4_MISO->setText("GPIO3_IO22");
+        if ( ui->P_I2C1_OnJ13checkBox->isChecked() == false)
+            ui->P_SPI4_checkBox->setEnabled(true);
+    }
+}
+
+
+void set_all_io(void)
+{
+     P_ECSPI1_MISO_comboBox="GPIO5_IO16";
+     P_ECSPI1_MOSI_comboBox="GPIO5_IO15";
+     P_ECSPI1_SS0_comboBox="GPIO5_IO17";
+     P_ECSPI1_SCK_comboBox="GPIO5_IO14";
+     P_ECSPI2_SS0_comboBox = "GPIO5_IO12";
+     P_ECSPI2_SS1_comboBox = "GPIO5_IO09";
+     P_ECSPI2_MISO_comboBox ="GPIO5_IO11";
+     P_ECSPI2_MOSI_comboBox = "GPIO5_IO10";
+     P_ECSPI2_SCK_comboBox = "GPIO5_IO13";
+     P_ECSPI3_MISO_comboBox ="GPIO4_IO23";
+     P_ECSPI3_SCK_comboBox = "GPIO4_IO21";
+     P_ECSPI3_MOSI_comboBox = "GPIO4_IO22";
+     P_ECSPI3_SS0_comboBox = "GPIO4_IO24";
+     P_ECSPI3_SS1_comboBox = "GPIO4_IO25";
+     P_ECSPI4_MISO_comboBox="GPIO3_IO22";
+     P_ECSPI4_MOSI_comboBox = "GPIO3_IO28";
+     P_ECSPI4_SCK_comboBox = "GPIO3_IO21";
+     P_ECSPI4_SS0_comboBox = "GPIO3_IO29";
+     P_I2C3_SCL_comboBox= "GPIO3_IO17";
+     P_I2C3_SDA_comboBox= "GPIO3_IO18";
+     P_KHZ32_CLK_OUT_comboBox = "GPIO1_IO08";
+     P_SD3_CMD_comboBox   ="GPIO7_IO02";
+     P_SD3_CLK_comboBox   ="GPIO7_IO03";
+     P_SD3_DATA0_comboBox ="GPIO7_IO04";
+     P_SD3_DATA1_comboBox ="GPIO7_IO05";
+     P_SD3_DATA2_comboBox ="GPIO7_IO06";
+     P_SD3_DATA3_comboBox ="GPIO7_IO07";
+     P_SD3_DATA4_comboBox ="GPIO7_IO01";
+     P_SD3_DATA5_comboBox ="GPIO7_IO00";
+     P_SD3_DATA6_comboBox ="GPIO6_IO18";
+     P_SD3_DATA7_comboBox ="GPIO6_IO17";
+     P_GPIO3_IO20_comboBox ="GPIO3_IO20";
+     P_GPIO1_IO00_comboBox ="GPIO1_IO00";
+     P_GPIO4_IO29_comboBox ="GPIO4_IO29";
+     P_AUD6_TXD_comboBox  ="GPIO4_IO18";
+     P_AUD6_RXD_comboBox  ="GPIO4_IO20";
+     P_AUD6_TXFS_comboBox ="GPIO4_IO19";
+     P_AUD6_TXC_comboBox  ="GPIO4_IO17";
+     P_I2C1_SDA_comboBox= "GPIO5_IO26";
+     P_I2C1_SCL_comboBox = "GPIO5_IO27";
+     P_UART1_TXD_comboBox ="GPIO5_IO28";
+     P_UART1_RXD_comboBox = "GPIO5_IO29";
+     P_SPDIF_OUT_comboBox= "GPIO7_IO12";
+     P_UART4_RTS_L_comboBox= "GPIO6_IO02";
+     P_UART4_TXD_comboBox= "GPIO5_IO30";
+     P_UART4_RXD_comboBox="GPIO5_IO31";
+     P_UART4_CTS_L_comboBox="GPIO6_IO03";
+     P_I2C1Speed="100000";
+     P_I2C3Speed="100000";
+     P_SATA_checkBox="false";
+     P_PCIe_checkBox="true";
+     P_PrimaryVideo_comboBox="Unset";
+     P_SecondaryVideo_comboBox="Unset";
+     Processor="Unset";
+}
+
+void NOVAembed::P_pin_decode()
+{
+    set_all_io();
+    if ( ui->P_I2C3_checkBox->isChecked() == true )
+    {
+        P_I2C3_SCL_comboBox ="I2C3_SCL";
+        P_I2C3_SDA_comboBox ="I2C3_SDA";
+    }
+    if ( ui->P_I2C1_checkBox->isChecked() == true )
+    {
+        if ( ui->P_I2C1_OnJ13checkBox->isChecked() == true )
+        {
+            P_ECSPI4_MOSI_comboBox = "I2C1_SDA";
+            P_ECSPI4_SCK_comboBox  = "I2C1_SCL";
+        }
+        else
+        {
+            P_I2C1_SDA_comboBox = "I2C1_SDA";
+            P_I2C1_SCL_comboBox  = "I2C1_SCL";
+        }
+    }
+
+    if ( ui->P_SPI1_checkBox->isChecked() == true )
+    {
+        P_ECSPI1_MISO_comboBox ="ECSPI1_MISO";
+        P_ECSPI1_MOSI_comboBox = "ECSPI1_MOSI";
+        P_ECSPI1_SS0_comboBox = "ECSPI1_SS0";
+        P_ECSPI1_SCK_comboBox = "ECSPI1_SCK";
+    }
+    if ( ui->P_SPI2_checkBox->isChecked() == true )
+    {
+        P_ECSPI2_MISO_comboBox ="ECSPI2_MISO";
+        P_ECSPI2_MOSI_comboBox = "ECSPI2_MOSI";
+        P_ECSPI2_SS0_comboBox = "ECSPI2_SS0";
+        P_ECSPI2_SCK_comboBox = "ECSPI2_SCK";
+    }
+    if ( ui->P_SPI3_checkBox->isChecked() == true )
+    {
+        P_ECSPI3_MISO_comboBox ="ECSPI3_MISO";
+        P_ECSPI3_MOSI_comboBox = "ECSPI3_MOSI";
+        P_ECSPI3_SS0_comboBox = "ECSPI3_SS0";
+        P_ECSPI3_SCK_comboBox = "ECSPI3_SCK";
+    }
+    else
+    {
+        P_ECSPI3_MISO_comboBox ="GPIO4_IO23";
+        P_ECSPI3_MOSI_comboBox = "GPIO4_IO22";
+        P_ECSPI3_SS0_comboBox = "GPIO4_IO24";
+        P_ECSPI3_SCK_comboBox = "GPIO4_IO21";
+    }
+    if ( ui->P_SPI4_checkBox->isChecked() == true )
+    {
+        P_ECSPI4_MISO_comboBox ="ECSPI4_MISO";
+        P_ECSPI4_MOSI_comboBox = "ECSPI4_MOSI";
+        P_ECSPI4_SS0_comboBox = "ECSPI4_SS0";
+        P_ECSPI4_SCK_comboBox = "ECSPI4_SCK";
+    }
+    else
+    {
+        if (( ui->P_SPDIF_checkBox->isChecked() == true ) && ( ui->P_SPDIF_OnJ13checkBox->isChecked() == true ))
+            P_ECSPI4_MISO_comboBox ="GPIO3_IO22";
+        if ( ui->P_I2C1_checkBox->isChecked() == false )
+            P_ECSPI4_MOSI_comboBox = "GPIO3_IO28";
+        if (( ui->P_I2C1_checkBox->isChecked() == true ) && ( ui->P_I2C1_OnJ13checkBox->isChecked() == false ))
+            P_ECSPI4_MOSI_comboBox = "GPIO3_IO28";
+        P_ECSPI4_SS0_comboBox = "GPIO3_IO29";
+        if ( ui->P_I2C1_checkBox->isChecked() == false )
+            P_ECSPI4_SCK_comboBox = "GPIO3_IO21";
+        if (( ui->P_I2C1_checkBox->isChecked() == true ) && ( ui->P_I2C1_OnJ13checkBox->isChecked() == false ))
+            P_ECSPI4_SCK_comboBox = "GPIO3_IO21";
+    }
+
+    if (( ui->P_SPDIF_checkBox->isChecked() == true ) && ( ui->P_SPDIF_OnJ13checkBox->isChecked() == false ))
+        P_SPDIF_OUT_comboBox ="SPDIF_OUT";
+    if (( ui->P_SPDIF_checkBox->isChecked() == true ) && ( ui->P_SPDIF_OnJ13checkBox->isChecked() == true ))
+        P_ECSPI4_MISO_comboBox ="SPDIF_OUT";
+
+    if ( ui->P_SPI1_2ndSScheckBox->isChecked() == true )
+        P_ECSPI2_SS1_comboBox = "ECSPI1_SS1";
+    else if ( ui->P_SPI2_2ndSScheckBox->isChecked() == true )
+        P_ECSPI2_SS1_comboBox = "ECSPI2_SS1";
+    else
+        P_ECSPI2_SS1_comboBox = "GPIO5_IO09";
+
+    if ( ui->P_SPI3_2ndSScheckBox->isChecked() == true )
+        P_ECSPI3_SS1_comboBox = "ECSPI3_SS1";
+    else
+        P_ECSPI3_SS1_comboBox = "GPIO4_IO25";
+
+
+    if ( ui->P_Audio4_checkBox->isChecked() == true )
+    {
+        P_ECSPI1_MISO_comboBox ="AUD4_TXFS";
+        P_ECSPI1_MOSI_comboBox = "AUD4_TXD";
+        P_ECSPI1_SS0_comboBox = "AUD4_RXD";
+        P_ECSPI1_SCK_comboBox = "AUD4_TXC";
+    }
+    if (( ui->P_Audio4_checkBox->isChecked() == false ) && ( ui->P_SPI1_checkBox->isChecked() == false ))
+    {
+        P_ECSPI1_MISO_comboBox ="GPIO5_IO16";
+        P_ECSPI1_MOSI_comboBox = "GPIO5_IO15";
+        P_ECSPI1_SS0_comboBox = "GPIO5_IO17";
+        P_ECSPI1_SCK_comboBox = "GPIO5_IO14";
+    }
+    if ( ui->P_Audio5_checkBox->isChecked() == true )
+    {
+        P_ECSPI2_MISO_comboBox ="AUD5_TXD";
+        P_ECSPI2_MOSI_comboBox = "AUD5_TXC";
+        P_ECSPI2_SS0_comboBox = "AUD5_TXFS";
+        P_ECSPI2_SCK_comboBox = "AUD5_RXD";
+    }
+
+    if (( ui->P_Audio5_checkBox->isChecked() == false ) && ( ui->P_SPI2_checkBox->isChecked() == false ))
+    {
+        P_ECSPI2_MISO_comboBox ="GPIO5_IO11";
+        P_ECSPI2_MOSI_comboBox = "GPIO5_IO10";
+        P_ECSPI2_SS0_comboBox = "GPIO5_IO12";
+        P_ECSPI2_SCK_comboBox = "GPIO5_IO13";
+    }
+    if ( ui->P_Audio6_checkBox->isChecked() == true )
+    {
+        P_AUD6_TXD_comboBox ="AUD6_TXD";
+        P_AUD6_RXD_comboBox = "AUD6_TXC";
+        P_AUD6_TXFS_comboBox = "AUD6_TXFS";
+        P_AUD6_TXC_comboBox = "AUD6_RXD";
+    }
+    else
+    {
+        P_AUD6_TXD_comboBox ="GPIO4_IO18";
+        P_AUD6_RXD_comboBox = "GPIO4_IO20";
+        P_AUD6_TXFS_comboBox = "GPIO4_IO19";
+        P_AUD6_TXC_comboBox = "GPIO4_IO17";
+    }
+
+
+    if ( ui->P_SDCARD3_checkBox->isChecked())
+    {
+        P_SD3_CMD_comboBox = "SD3_CMD";
+        P_SD3_CLK_comboBox = "SD3_CLK";
+        P_SD3_DATA0_comboBox = "SD3_DATA0";
+        P_SD3_DATA1_comboBox = "SD3_DATA1";
+        P_SD3_DATA2_comboBox = "SD3_DATA2";
+        P_SD3_DATA3_comboBox = "SD3_DATA3";
+        if ( ui->P_SDCARD3IS8_checkBox->isChecked())
+        {
+            P_SD3_DATA4_comboBox = "SD3_DATA4";
+            P_SD3_DATA5_comboBox = "SD3_DATA5";
+            P_SD3_DATA6_comboBox = "SD3_DATA6";
+            P_SD3_DATA7_comboBox = "SD3_DATA7";
+        }
+    }
+
+    if ( ui->P_CAN1_checkBox->isChecked() == true )
+    {
+        P_SD3_CLK_comboBox = "FLEXCAN1_RX";
+        P_SD3_CMD_comboBox = "FLEXCAN1_TX";
+    }
+
+    if ( ui->P_CAN1_checkBox->isChecked() == true )
+    {
+        P_SD3_CLK_comboBox = "FLEXCAN1_RX";
+        P_SD3_CMD_comboBox = "FLEXCAN1_TX";
+    }
+
+    if ( ui->P_CAN2_checkBox->isChecked() == true )
+    {
+        P_SD3_DATA0_comboBox = "FLEXCAN2_TX";
+        P_SD3_DATA1_comboBox = "FLEXCAN2_RX";
+    }
+    if ( ui->P_UART1_checkBox->isChecked() == true )
+    {
+        P_UART1_TXD_comboBox = "UART1_TXD";
+        P_UART1_RXD_comboBox = "UART1_RXD";
+    }
+    if ( ui->P_UART2_checkBox->isChecked() == true )
+    {
+        P_SD3_DATA4_comboBox = "UART2_RXD";
+        P_SD3_DATA5_comboBox = "UART2_TXD";
+    }
+    if ( ui->P_UART2_4WirescheckBox->isChecked() == true )
+    {
+        P_SD3_CMD_comboBox = "UART2_CTS_B";
+        P_SD3_CLK_comboBox = "UART2_RTS_B";
+    }
+    if ( ui->P_UART4_checkBox->isChecked() == true )
+    {
+        P_UART4_RXD_comboBox = "UART4_RXD";
+        P_UART4_TXD_comboBox = "UART4_TXD";
+    }
+    if ( ui->P_UART4_4WirescheckBox->isChecked() == true )
+    {
+        P_UART4_CTS_L_comboBox = "UART4_CTS_L";
+        P_UART4_RTS_L_comboBox = "UART4_RTS_L";
+    }
+
+    if ( ui->P_KHZ32_checkBox->isChecked() == true )
+    {
+        P_KHZ32_CLK_OUT_comboBox = "32KHZ_CLK_OUT";
+    }
+
+    if ( ui->P_CCMCLKO1_checkBox->isChecked() == true )
+    {
+        P_GPIO1_IO00_comboBox = "CCM_CLKO1";
+    }
+    else
+    {
+        if ( ui->P_EPIT1_checkBox->isChecked() == true )
+            P_GPIO1_IO00_comboBox = "EPIT1_OUT";
+        else
+            P_GPIO1_IO00_comboBox = "GPIO1_IO00";
+    }
+
+    if ( ui->P_PWM1_checkBox->isChecked() == true )
+    {
+        P_GPIO4_IO29_comboBox = "PWM1_OUT";
+    }
+    else
+    {
+        if ( ui->P_WD1_checkBox->isChecked() == true )
+            P_GPIO4_IO29_comboBox = "WDOG1_B";
+        else
+            P_GPIO4_IO29_comboBox = "GPIO1_IO00";
+    }
+    if ( ui->P_MHZ24_checkBox->isChecked() == true )
+    {
+        P_GPIO3_IO20_comboBox = "XTALOSC_REF_CLK_24M";
+    }
+    else
+    {
+        P_GPIO3_IO20_comboBox = "GPIO3_IO20";
+    }
+
+    if ( ui->P_SATA_checkBox->isChecked() )
+        P_SATA_checkBox = "P_SATA_checkBox=true";
+    else
+        P_SATA_checkBox = "P_SATA_checkBox=false";
+
+    if ( ui->P_PCIe_checkBox->isChecked())
+        P_PCIe_checkBox = "P_PCIe_checkBox=true";
+    else
+        P_PCIe_checkBox = "P_PCIe_checkBox=false";
+
+    P_PrimaryVideo_comboBox   = ui->P_PrimaryVideo_comboBox->currentText();
+    P_SecondaryVideo_comboBox = ui->P_SecondaryVideo_comboBox->currentText();
+}
+
+void NOVAembed::P_save_helper(QString fileName , QString Processor_model)
+{
+    QFileInfo fin(fileName);
+    QString bspfbase = fin.baseName();
+    QString fullpathname = "";
+    if ( Processor_model.isEmpty() )
+    {
+        fullpathname = "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/"+ bspfbase+".bspf";
+    }
+    else
+    {
+        fullpathname = "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp/"+Processor_model + "_" + bspfbase+".bspf";
+    }
+    QFile file(fullpathname);
+    if (!file.open(QIODevice::WriteOnly))
+    {
+        QMessageBox::information(this, tr("Unable to open file "),file.errorString());
+        return;
+    }
+
+    P_pin_decode();
+    QTextStream out(&file);
+    out << QString("[P_IOMUX]\n");
+    out << QString("P_ECSPI1_MISO_comboBox="+P_ECSPI1_MISO_comboBox+"\n");
+    out << QString("P_ECSPI1_MOSI_comboBox="+P_ECSPI1_MOSI_comboBox+"\n");
+    out << QString("P_ECSPI1_SS0_comboBox="+P_ECSPI1_SS0_comboBox+"\n");
+    out << QString("P_ECSPI1_SCK_comboBox="+P_ECSPI1_SCK_comboBox+"\n");
+    out << QString("P_ECSPI2_SS0_comboBox="+P_ECSPI2_SS0_comboBox+"\n");
+    out << QString("P_ECSPI2_SS1_comboBox="+P_ECSPI2_SS1_comboBox+"\n");
+    out << QString("P_ECSPI2_MISO_comboBox="+P_ECSPI2_MISO_comboBox+"\n");
+    out << QString("P_ECSPI2_MOSI_comboBox="+P_ECSPI2_MOSI_comboBox+"\n");
+    out << QString("P_ECSPI2_SCK_comboBox="+P_ECSPI2_SCK_comboBox+"\n");
+    out << QString("P_ECSPI3_MISO_comboBox="+P_ECSPI3_MISO_comboBox+"\n");
+    out << QString("P_ECSPI3_SCK_comboBox="+P_ECSPI3_SCK_comboBox+"\n");
+    out << QString("P_ECSPI3_MOSI_comboBox="+P_ECSPI3_MOSI_comboBox+"\n");
+    out << QString("P_ECSPI3_SS0_comboBox="+P_ECSPI3_SS0_comboBox+"\n");
+    out << QString("P_ECSPI3_SS1_comboBox="+P_ECSPI3_SS1_comboBox+"\n");
+    out << QString("P_ECSPI4_MISO_comboBox="+P_ECSPI4_MISO_comboBox+"\n");
+    out << QString("P_ECSPI4_MOSI_comboBox="+P_ECSPI4_MOSI_comboBox+"\n");
+    out << QString("P_ECSPI4_SCK_comboBox="+P_ECSPI4_SCK_comboBox+"\n");
+    out << QString("P_ECSPI4_SS0_comboBox="+P_ECSPI4_SS0_comboBox+"\n");
+    out << QString("P_I2C3_SCL_comboBox="+P_I2C3_SCL_comboBox+"\n");
+    out << QString("P_I2C3_SDA_comboBox="+P_I2C3_SDA_comboBox+"\n");
+    out << QString("P_KHZ32_CLK_OUT_comboBox="+P_KHZ32_CLK_OUT_comboBox+"\n");
+    out << QString("P_SD3_CMD_comboBox="+P_SD3_CMD_comboBox+"\n");
+    out << QString("P_SD3_CLK_comboBox="+P_SD3_CLK_comboBox+"\n");
+    out << QString("P_SD3_DATA0_comboBox="+P_SD3_DATA0_comboBox+"\n");
+    out << QString("P_SD3_DATA1_comboBox="+P_SD3_DATA1_comboBox+"\n");
+    out << QString("P_SD3_DATA2_comboBox="+P_SD3_DATA2_comboBox+"\n");
+    out << QString("P_SD3_DATA3_comboBox="+P_SD3_DATA3_comboBox+"\n");
+    out << QString("P_SD3_DATA4_comboBox="+P_SD3_DATA4_comboBox+"\n");
+    out << QString("P_SD3_DATA5_comboBox="+P_SD3_DATA5_comboBox+"\n");
+    out << QString("P_SD3_DATA6_comboBox="+P_SD3_DATA6_comboBox+"\n");
+    out << QString("P_SD3_DATA7_comboBox="+P_SD3_DATA7_comboBox+"\n");
+    out << QString("P_GPIO3_IO20_comboBox="+P_GPIO3_IO20_comboBox+"\n");
+    out << QString("P_GPIO1_IO00_comboBox="+P_GPIO1_IO00_comboBox+"\n");
+    out << QString("P_GPIO4_IO29_comboBox="+P_GPIO4_IO29_comboBox+"\n");
+    out << QString("P_AUD6_TXD_comboBox="+P_AUD6_TXD_comboBox+"\n");
+    out << QString("P_AUD6_RXD_comboBox="+P_AUD6_RXD_comboBox+"\n");
+    out << QString("P_AUD6_TXFS_comboBox="+P_AUD6_TXFS_comboBox+"\n");
+    out << QString("P_AUD6_TXC_comboBox="+P_AUD6_TXC_comboBox+"\n");
+    out << QString("P_I2C1_SDA_comboBox="+P_I2C1_SDA_comboBox+"\n");
+    out << QString("P_I2C1_SCL_comboBox="+P_I2C1_SCL_comboBox+"\n");
+    out << QString("P_UART1_TXD_comboBox="+P_UART1_TXD_comboBox+"\n");
+    out << QString("P_UART1_RXD_comboBox="+P_UART1_RXD_comboBox+"\n");
+    out << QString("P_SPDIF_OUT_comboBox="+P_SPDIF_OUT_comboBox+"\n");
+    out << QString("P_UART4_RTS_L_comboBox="+P_UART4_RTS_L_comboBox+"\n");
+    out << QString("P_UART4_TXD_comboBox="+P_UART4_TXD_comboBox+"\n");
+    out << QString("P_UART4_RXD_comboBox="+P_UART4_RXD_comboBox+"\n");
+    out << QString("P_UART4_CTS_L_comboBox="+P_UART4_CTS_L_comboBox+"\n");
+    P_I2C1Speed = ui->P_I2C1Speed_lineEdit->text();
+    P_I2C3Speed = ui->P_I2C3Speed_lineEdit->text();
+    out << QString("P_I2C1Speed="+P_I2C1Speed+"\n");
+    out << QString("P_I2C3Speed="+P_I2C3Speed+"\n");
+
+    if ( ui->P_SPIdev1_checkBox->isChecked() )
+        out << QString("P_SPIdev1_checkBox=true\n");
+    else
+        out << QString("P_SPIdev1_checkBox=false\n");
+    if ( ui->P_SPIdev2_checkBox->isChecked() )
+        out << QString("P_SPIdev2_checkBox=true\n");
+    else
+        out << QString("P_SPIdev2_checkBox=false\n");
+    if ( ui->P_SPIdev3_checkBox->isChecked() )
+        out << QString("P_SPIdev3_checkBox=true\n");
+    else
+        out << QString("P_SPIdev3_checkBox=false\n");
+    if ( ui->P_SPIdev4_checkBox->isChecked() )
+        out << QString("P_SPIdev4_checkBox=true\n");
+    else
+        out << QString("P_SPIdev4_checkBox=false\n");
+    if ( +ui->P_PCIe_checkBox->isChecked())
+        out << QString("P_PCIe_checkBox=true\n");
+    else
+        out << QString("P_PCIe_checkBox=false\n");
+    out << QString("PrimaryVideo_comboBox="+P_PrimaryVideo_comboBox+"\n");
+    out << QString("SecondaryVideo_comboBox="+P_SecondaryVideo_comboBox+"\n");
+    if ( Processor_model == "QUAD")
+    {
+        out << QString("Processor=QUAD\n");
+        if ( ui->P_SATA_checkBox->isChecked() )
+            out << QString("P_SATA_checkBox=true\n");
+        else
+            out << QString("P_SATA_checkBox=false\n");
+    }
+    else
+    {
+        if ( Processor_model.isEmpty() )
+        {
+            if ( ui->P_SATA_checkBox->isChecked() )
+                out << QString("P_SATA_checkBox=true\n");
+            else
+                out << QString("P_SATA_checkBox=false\n");
+        }
+        else
+        {
+            out << QString("Processor=SOLO/DL\n");
+            out << QString("P_SATA_checkBox=false\n");
+        }
+    }
+
+    out << QString("\n[P_CONF]\n");
+    out << QString("P_ECSPI1_MISO_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI1_MOSI_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI1_SS0_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI1_SCK_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI2_SS0_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI2_SS1_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI2_MISO_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI2_MOSI_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI2_SCK_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI3_MISO_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI3_SCK_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI3_MOSI_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI3_SS0_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI3_SS1_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI4_MISO_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI4_MOSI_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI4_SCK_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_ECSPI4_SS0_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_I2C3_SCL_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_I2C3_SDA_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_KHZ32_CLK_OUT_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_SD3_CMD_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_SD3_CLK_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_SD3_DATA0_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_SD3_DATA1_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_SD3_DATA2_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_SD3_DATA3_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_SD3_DATA4_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_SD3_DATA5_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_SD3_DATA6_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_SD3_DATA7_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_GPIO3_IO19_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_GPIO3_IO20_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_GPIO1_IO00_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_GPIO4_IO14_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_GPIO4_IO26_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_GPIO4_IO27_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_GPIO4_IO28_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_GPIO4_IO29_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_GPIO6_IO05_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_AUD6_TXD_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_AUD6_RXD_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_AUD6_TXFS_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_AUD6_TXC_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_I2C1_SDA_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_I2C1_SCL_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_UART1_TXD_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_UART1_RXD_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_SPDIF_OUT_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_UART4_RTS_L_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_UART4_TXD_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_UART4_RXD_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("P_UART4_CTS_L_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+
+    file.close();
+    update_status_bar("File "+Last_P_BSPFactoryFile+" saved");
+
+}
+
+
+
+void NOVAembed::on_P_Load_pushButton_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Load BSP Factory File"), "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf",tr("BSP Factory Files (*.bspf)"));
+    if (fileName.isEmpty())
+        return;
+    else
+    {
+        on_P_Clear_pushButton_clicked();
+        P_load_BSPF_File(fileName);
+        update_status_bar("File "+Last_P_BSPFactoryFile+" loaded");
+
+    }
+}
+
+void NOVAembed::P_load_BSPF_File(QString fileName)
+{
+QString strKeyFunc("P_IOMUX/");
+QSettings * func_settings = 0;
+
+    Last_P_BSPFactoryFile = fileName;
+    storeNOVAembed_ini();
+
+    set_all_io();
+    func_settings = new QSettings( fileName, QSettings::IniFormat );
+    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI1_MISO_comboBox") == "ECSPI1_MISO" )
+        on_P_SPI1_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI2_MISO_comboBox") == "ECSPI2_MISO" )
+        on_P_SPI2_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI3_MISO_comboBox") == "ECSPI3_MISO" )
+        on_P_SPI3_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI4_MISO_comboBox") == "ECSPI4_MISO" )
+        on_P_SPI4_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI2_SS1_comboBox") == "ECSPI1_SS1" )
+        on_P_SPI1_2ndSScheckBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI2_SS1_comboBox") == "ECSPI2_SS1" )
+        on_P_SPI2_2ndSScheckBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI1_MISO_comboBox") == "AUD4_TXFS" )
+        on_P_Audio4_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI2_MISO_comboBox") == "AUD5_TXD" )
+        on_P_Audio5_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_AUD6_TXD_comboBox") == "AUD6_TXD" )
+        on_P_Audio6_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI4_MOSI_comboBox") == "I2C1_SDA" )
+    {
+        on_P_I2C1_checkBox_toggled(true);
+        on_P_I2C1_OnJ13checkBox_toggled(true);
+    }
+    if ( P_getvalue(strKeyFunc, func_settings , "P_I2C1_SDA_comboBox") == "I2C1_SDA" )
+        on_P_I2C1_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_I2C3_SCL_comboBox") == "I2C3_SCL" )
+        on_P_I2C3_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SD3_CMD_comboBox") == "FLEXCAN1_TX" )
+        on_P_CAN1_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SD3_DATA0_comboBox") == "FLEXCAN2_TX" )
+        on_P_CAN2_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_UART1_TXD_comboBox") == "UART1_TXD" )
+        on_P_UART1_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SD3_DATA4_comboBox") == "UART2_RXD" )
+        on_P_UART2_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SD3_CMD_comboBox") == "UART2_CTS_B" )
+        on_P_UART2_4WirescheckBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_UART4_TXD_comboBox") == "UART4_TXD" )
+        on_P_UART4_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_UART4_RTS_L_comboBox") == "UART4_RTS_L" )
+        on_P_UART4_4WirescheckBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_KHZ32_CLK_OUT_comboBox") == "32KHZ_CLK_OUT" )
+        on_P_KHZ32_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_GPIO3_IO20_comboBox") == "XTALOSC_REF_CLK_24M" )
+        on_P_MHZ24_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_GPIO1_IO00_comboBox") == "CCM_CLKO1" )
+        on_P_CCMCLKO1_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_GPIO1_IO00_comboBox") == "EPIT1_OUT" )
+        on_P_EPIT1_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_GPIO4_IO29_comboBox") == "PWM1_OUT" )
+        on_P_PWM1_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_GPIO4_IO29_comboBox") == "WDOG1_B" )
+        on_P_WD1_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SD3_CMD_comboBox") == "SD3_CMD" )
+        on_P_SDCARD3_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SD3_DATA4_comboBox") == "SD3_DATA4" )
+        on_P_SDCARD3IS8_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SD3_DATA4_comboBox") == "SD3_DATA4" )
+        on_P_SDCARD3IS8_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SPDIF_OUT_comboBox") == "SPDIF_OUT" )
+        on_P_SPDIF_checkBox_toggled(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_ECSPI4_MISO_comboBox") == "SPDIF_OUT" )
+    {
+        on_P_SPDIF_checkBox_toggled(true);
+        on_P_SPDIF_OnJ13checkBox_toggled(true);
+    }
+    ui->P_I2C1Speed_lineEdit->setText(P_getvalue(strKeyFunc, func_settings , "P_I2C1Speed"));
+    ui->P_I2C3Speed_lineEdit->setText(P_getvalue(strKeyFunc, func_settings , "P_I2C3Speed"));
+
+    ui->P_SPIdev1_checkBox->setChecked(false);
+    ui->P_SPIdev2_checkBox->setChecked(false);
+    ui->P_SPIdev3_checkBox->setChecked(false);
+    ui->P_SPIdev4_checkBox->setChecked(false);
+
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SPIdev1_checkBox") == "true" )
+        ui->P_SPIdev1_checkBox->setChecked(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SPIdev2_checkBox") == "true" )
+        ui->P_SPIdev2_checkBox->setChecked(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SPIdev3_checkBox") == "true" )
+        ui->P_SPIdev3_checkBox->setChecked(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SPIdev4_checkBox") == "true" )
+        ui->P_SPIdev4_checkBox->setChecked(true);
+
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SATA_checkBox") == "true" )
+        ui->P_SATA_checkBox->setChecked(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_PCIe_checkBox") == "true" )
+        ui->P_PCIe_checkBox->setChecked(true);
+    ui->P_PrimaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "PrimaryVideo_comboBox"));
+    ui->P_SecondaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SecondaryVideo_comboBox"));
+}
+
+void NOVAembed::on_P_Clear_pushButton_clicked()
+{
+    ui->P_PrimaryVideo_comboBox->setCurrentIndex(0);
+    ui->P_SecondaryVideo_comboBox->setCurrentIndex(0);
+    ui->P_SPI1_checkBox->setChecked(false);
+    ui->P_SPI2_checkBox->setChecked(false);
+    ui->P_SPI3_checkBox->setChecked(false);
+    ui->P_SPI4_checkBox->setChecked(false);
+    ui->P_SPI1_2ndSScheckBox->setChecked(false);
+    ui->P_SPI1_2ndSScheckBox->setEnabled(false);
+    ui->P_SPI2_2ndSScheckBox->setChecked(false);
+    ui->P_SPI2_2ndSScheckBox->setEnabled(false);
+    ui->P_SPI3_2ndSScheckBox->setChecked(false);
+    ui->P_SPI3_2ndSScheckBox->setEnabled(false);
+    ui->P_SPIdev1_checkBox->setChecked(false);
+    ui->P_SPIdev2_checkBox->setChecked(false);
+    ui->P_SPIdev3_checkBox->setChecked(false);
+    ui->P_SPIdev4_checkBox->setChecked(false);
+    ui->P_SPIdev1_checkBox->setEnabled(false);
+    ui->P_SPIdev2_checkBox->setEnabled(false);
+    ui->P_SPIdev3_checkBox->setEnabled(false);
+    ui->P_SPIdev4_checkBox->setEnabled(false);
+
+    ui->P_Audio4_checkBox->setChecked(false);
+    ui->P_Audio5_checkBox->setChecked(false);
+    ui->P_Audio6_checkBox->setChecked(false);
+
+    ui->P_CAN1_checkBox->setChecked(false);
+    ui->P_CAN2_checkBox->setChecked(false);
+
+    ui->P_CCMCLKO1_checkBox->setChecked(false);
+    ui->P_EPIT1_checkBox->setChecked(false);
+
+    ui->P_I2C1_checkBox->setChecked(false);
+    ui->P_I2C1_OnJ13checkBox->setChecked(false);
+    ui->P_I2C1_OnJ13checkBox->setEnabled(false);
+    ui->P_I2C3_checkBox->setChecked(false);
+
+    ui->P_KHZ32_checkBox->setChecked(false);
+    ui->P_MHZ24_checkBox->setChecked(false);
+    ui->P_PWM1_checkBox->setChecked(false);
+    ui->P_PCIe_checkBox->setChecked(false);
+    ui->P_SATA_checkBox->setChecked(false);
+    ui->P_SPDIF_checkBox->setChecked(false);
+    ui->P_SPDIF_OnJ13checkBox->setChecked(false);
+    ui->P_SPDIF_OnJ13checkBox->setEnabled(false);
+    ui->P_UART1_checkBox->setChecked(false);
+    ui->P_UART2_checkBox->setChecked(false);
+    ui->P_UART4_checkBox->setChecked(false);
+    ui->P_UART2_4WirescheckBox->setChecked(false);
+    ui->P_UART2_4WirescheckBox->setEnabled(false);
+    ui->P_UART4_4WirescheckBox->setChecked(false);
+    ui->P_UART4_4WirescheckBox->setEnabled(false);
+
+    ui->P_SDCARD3_checkBox->setChecked(false);
+    ui->P_SDCARD3IS8_checkBox->setChecked(false);
+    ui->P_SDCARD3IS8_checkBox->setEnabled(false);
+/* FILIPPO */
+
+    ui->label_PECSPI1_MISO->setText("GPIO5_IO16");
+    ui->label_PECSPI1_MOSI->setText("GPIO5_IO15");
+    ui->label_PECSPI1_SS0->setText("GPIO5_IO17");
+    ui->label_PECSPI1_SCK->setText("GPIO5_IO14");
+    ui->label_PECSPI2_SS0 ->setText( "GPIO5_IO12");
+    ui->label_PECSPI2_SS1 ->setText( "GPIO5_IO09");
+    ui->label_PECSPI2_MISO ->setText("GPIO5_IO11");
+    ui->label_PECSPI2_MOSI ->setText( "GPIO5_IO10");
+    ui->label_PECSPI2_SCK ->setText( "GPIO5_IO13");
+    ui->label_PECSPI3_MISO ->setText("GPIO4_IO23");
+    ui->label_PECSPI3_SCK ->setText( "GPIO4_IO21");
+    ui->label_PECSPI3_MOSI ->setText( "GPIO4_IO22");
+    ui->label_PECSPI3_SS0 ->setText( "GPIO4_IO24");
+    ui->label_PECSPI3_SS1 ->setText( "GPIO4_IO25");
+    ui->label_PECSPI4_MISO->setText("GPIO3_IO22");
+    ui->label_PECSPI4_MOSI ->setText( "GPIO3_IO28");
+    ui->label_PECSPI4_SCK ->setText( "GPIO3_IO21");
+    ui->label_PECSPI4_SS0 ->setText( "GPIO3_IO29");
+    ui->label_PI2C3_SCL->setText( "GPIO3_IO17");
+    ui->label_PI2C3_SDA->setText( "GPIO3_IO18");
+    ui->label_P32KHZ_CLK_OUT ->setText( "GPIO1_IO08");
+    ui->label_PSD3_CMD->setText("GPIO7_IO02");
+    ui->label_PSD3_CLK->setText("GPIO7_IO03");
+    ui->label_PSD3_DATA0->setText("GPIO7_IO04");
+    ui->label_PSD3_DATA1->setText("GPIO7_IO05");
+    ui->label_PSD3_DATA2->setText("GPIO7_IO06");
+    ui->label_PSD3_DATA3->setText("GPIO7_IO07");
+    ui->label_PSD3_DATA4->setText("GPIO7_IO01");
+    ui->label_PSD3_DATA5->setText("GPIO7_IO00");
+    ui->label_PSD3_DATA6->setText("GPIO7_IO18");
+    ui->label_PSD3_DATA7->setText("GPIO7_IO17");
+    ui->label_PGPIO3_IO20 ->setText("GPIO3_IO20");
+    ui->label_PGPIO1_IO00 ->setText("GPIO1_IO00");
+    ui->label_PGPIO4_IO29 ->setText("GPIO4_IO29");
+    ui->label_PAUD6_TXD  ->setText("GPIO4_IO18");
+    ui->label_PAUD6_RXD  ->setText("GPIO4_IO20");
+    ui->label_PAUD6_TXFS ->setText("GPIO4_IO19");
+    ui->label_PAUD6_TXC  ->setText("GPIO4_IO17");
+    ui->label_PI2C1_SDA->setText( "GPIO5_IO26");
+    ui->label_PI2C1_SCL ->setText( "GPIO5_IO27");
+    ui->label_PUART1_TXD ->setText("GPIO5_IO28");
+    ui->label_PUART1_RXD ->setText( "GPIO5_IO29");
+    ui->label_PSPDIF_OUT->setText( "GPIO7_IO12");
+    ui->label_PUART4_RTS_L->setText( "GPIO6_IO02");
+    ui->label_PUART4_TXD->setText( "GPIO5_IO30");
+    ui->label_PUART4_RXD->setText("GPIO5_IO31");
+    ui->label_PUART4_CTS_L->setText("GPIO6_IO03");
+
+    ui->label_PSD3_CMD->setText("GPIO7_IO02");
+    ui->label_PSD3_CLK->setText("GPIO7_IO03");
+    ui->label_PSD3_DATA0->setText("GPIO7_IO04");
+    ui->label_PSD3_DATA1->setText("GPIO7_IO05");
+    ui->label_PSD3_DATA2->setText("GPIO7_IO06");
+    ui->label_PSD3_DATA3->setText("GPIO7_IO07");
+    ui->label_PSD3_DATA4->setText("GPIO7_IO01");
+    ui->label_PSD3_DATA5->setText("GPIO7_IO00");
+    ui->label_PSD3_DATA6->setText("GPIO7_IO18");
+    ui->label_PSD3_DATA7->setText("GPIO7_IO17");
+
+}
+
+
+void NOVAembed::on_P_Save_pushButton_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf",tr(".bspf (*.bspf)"));
+    P_save_helper(fileName,"QUAD");
+    P_save_helper(fileName,"SDL");
+    P_save_helper(fileName,"");
+    Last_P_BSPFactoryFile = fileName;
+    storeNOVAembed_ini();
+}
 
 void NOVAembed::on_P_Generate_pushButton_clicked()
 {
@@ -2078,10 +2009,11 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
     QString SDL_FileNameNoExtension  = "SDL_"+fi.baseName();
     QString QUAD_FileNameNoExtension = "QUAD_"+fi.baseName();
 
-    save_helper(Last_P_BSPFactoryFile,"QUAD");
-    save_helper(Last_P_BSPFactoryFile,"SDL");
+    P_save_helper(QUAD_FileNameNoExtension,"QUAD");
+    P_save_helper(SDL_FileNameNoExtension,"SDL");
+    P_save_helper(fi.baseName(),"");
 
-    update_status_bar("Generating dtb "+FileNameNoExtension+".dtb ...");
+    update_status_bar("Generating dtb "+SDL_FileNameNoExtension+".dtb and "+QUAD_FileNameNoExtension+" ...");
     if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
     {
         update_status_bar("Unable to create /tmp/script");
@@ -2103,34 +2035,25 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
     scriptfile.close();
     if ( run_script() == 0)
     {
-        update_status_bar("DTB "+FileNameNoExtension+".dtb compiled, dtb is in /Devel/NOVAsom_SDK/DtbUserWorkArea/"+FileNameNoExtension+".dtb");
-        Last_P_BSPFactoryFile = "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/"+FileNameNoExtension+".bspf";
-        ui->UserBSPFselectedlineEdit->setText(Last_P_BSPFactoryFile);
-
+        update_status_bar(fi.baseName()+".dtb compiled, dtb is in /Devel/NOVAsom_SDK/DtbUserWorkArea folder as "+SDL_FileNameNoExtension+".dtb and "+QUAD_FileNameNoExtension+".dtb");
         const char *str;
         QByteArray ba;
-        QString syscmd_quad = "rm /Devel/NOVAsom_SDK/Deploy/imx6q-novasomP.dtb ; cp /Devel/NOVAsom_SDK/DtbUserWorkArea/QUAD_"+FileNameNoExtension+".dtb /Devel/NOVAsom_SDK/Deploy/imx6q-novasomP.dtb ; chmod 777 /Devel/NOVAsom_SDK/Deploy/imx6q-novasomP.dtb";
-        QString syscmd_sdl = "rm /Devel/NOVAsom_SDK/Deploy/imx6sdl-novasomP.dtb ; cp /Devel/NOVAsom_SDK/DtbUserWorkArea/SDL_"+FileNameNoExtension+".dtb /Devel/NOVAsom_SDK/Deploy/imx6sdl-novasomP.dtb ; chmod 777 /Devel/NOVAsom_SDK/Deploy/imx6sdl-novasomP.dtb";
+        QString syscmd_quad = "cp /Devel/NOVAsom_SDK/DtbUserWorkArea/"+QUAD_FileNameNoExtension+".dtb /Devel/NOVAsom_SDK/Deploy/imx6q-novasomP.dtb ; chmod 777 /Devel/NOVAsom_SDK/Deploy/imx6q-novasomP.dtb";
+        QString syscmd_sdl  = "cp /Devel/NOVAsom_SDK/DtbUserWorkArea/"+SDL_FileNameNoExtension+".dtb /Devel/NOVAsom_SDK/Deploy/imx6sdl-novasomP.dtb ; chmod 777 /Devel/NOVAsom_SDK/Deploy/imx6sdl-novasomP.dtb";
 
         ba = syscmd_quad.toLatin1();
         str = ba.data();
         system(str);
-        qDebug() << str;
         ba = syscmd_sdl.toLatin1();
         str = ba.data();
         system(str);
-        qDebug() << str;
-
         storeNOVAembed_ini();
     }
     else
-        update_status_bar("Error compiling "+FileNameNoExtension+".dtb");
+        update_status_bar("Error compiling "+fi.baseName()+".dtb");
 }
 
-void NOVAembed::on_P_StartPEasyPin_pushButton_clicked()
-{
-    system("/Devel/NOVAsom_SDK/Qt/NOVAembed/build-P_EasyPin-Desktop-Debug/P_EasyPin &");
-}
+
 /*****************************************************************************************************************************************************************************************/
 /*                                                                             P BSP Factory END                                                                                         */
 /*****************************************************************************************************************************************************************************************/
