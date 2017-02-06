@@ -18,7 +18,7 @@
 /*                                                                              Global variables                                                                                         */
 /*****************************************************************************************************************************************************************************************/
 
-QString Version = "1.0.4.1 rc8";
+QString Version = "1.0.4.2";
 QString Configuration = "Standard";
 QString FileSystemName = "";
 QString DeployedFileSystemName = "";

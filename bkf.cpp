@@ -572,6 +572,12 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
 
 void NOVAembed::on_GenerateFileSystem_pushButton_clicked()
 {
+    QString testing = ui->NewFileSystemSelectedlineEdit->text().remove(" ");
+    if ( testing != ui->NewFileSystemSelectedlineEdit->text() )
+    {
+        update_status_bar("Spaces in File System name not allowed");
+        return;
+    }
     QFile scriptfile("/tmp/script");
     update_status_bar("Creating file system "+ui->NewFileSystemSelectedlineEdit->text()+" ...");
 
