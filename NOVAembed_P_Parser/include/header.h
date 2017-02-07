@@ -154,6 +154,13 @@
             model = \"imx-audio-hdmi\";\n\
             hdmi-controller = <&hdmi_audio>;\n\
     };\n\
+    backlight_lvds {\n\
+            compatible = \"pwm-backlight\";\n\
+            pwms = <&pwm1 0 5000000>;\n\
+            brightness-levels = <0 4 8 16 32 64 128 255>;\n\
+            default-brightness-level = <4>;\n\
+            status = \"okay\";\n\
+    };\n\
 "
 
 #define dtsi_header_hdmivideo1920_mxcfb1_defs "\
@@ -245,104 +252,6 @@
 };\n\
 "
 
-
-/*
-#define dtsi_header_hdmivideo1920_defs "\
-    mxcfb1: fb@0 {\n\
-            compatible = \"fsl,mxc_sdc_fb\";\n\
-            disp_dev = \"hdmi\";\n\
-            interface_pix_fmt = \"RGB24\";\n\
-            mode_str =\"1920x1080M@60\";\n\
-            default_bpp = <24>;\n\
-            int_clk = <0>;\n\
-            late_init = <0>;\n\
-            status = \"okay\";\n\
-    };\n\
-    mxcfb2: fb@1 {\n\
-            compatible = \"fsl,mxc_sdc_fb\";\n\
-            disp_dev = \"ldb\";\n\
-            interface_pix_fmt = \"RGB666\";\n\
-            default_bpp = <16>;\n\
-            int_clk = <0>;\n\
-            late_init = <0>;\n\
-            status = \"okay\";\n\
-    };\n\
-    mxcfb3: fb@2 {\n\
-            compatible = \"fsl,mxc_sdc_fb\";\n\
-            disp_dev = \"ldb\";\n\
-            interface_pix_fmt = \"RGB666\";\n\
-            default_bpp = <16>;\n\
-            int_clk = <0>;\n\
-            late_init = <0>;\n\
-            status = \"disabled\";\n\
-    };\n\
-};\n\
-"
-
-#define dtsi_header_hdmivideo1280_defs "\
-    mxcfb1: fb@0 {\n\
-            compatible = \"fsl,mxc_sdc_fb\";\n\
-            disp_dev = \"hdmi\";\n\
-            interface_pix_fmt = \"RGB24\";\n\
-            mode_str =\"1280x720M@60\";\n\
-            default_bpp = <24>;\n\
-            int_clk = <0>;\n\
-            late_init = <0>;\n\
-            status = \"okay\";\n\
-    };\n\
-    mxcfb2: fb@1 {\n\
-            compatible = \"fsl,mxc_sdc_fb\";\n\
-            disp_dev = \"ldb\";\n\
-            interface_pix_fmt = \"RGB666\";\n\
-            default_bpp = <16>;\n\
-            int_clk = <0>;\n\
-            late_init = <0>;\n\
-            status = \"okay\";\n\
-    };\n\
-    mxcfb3: fb@2 {\n\
-            compatible = \"fsl,mxc_sdc_fb\";\n\
-            disp_dev = \"ldb\";\n\
-            interface_pix_fmt = \"RGB666\";\n\
-            default_bpp = <16>;\n\
-            int_clk = <0>;\n\
-            late_init = <0>;\n\
-            status = \"disabled\";\n\
-    };\n\
-};\n\
-"
-#define dtsi_header_lvdsvideo_defs "\
-    mxcfb1: fb@0 {\n\
-            compatible = \"fsl,mxc_sdc_fb\";\n\
-            disp_dev = \"ldb\";\n\
-            interface_pix_fmt = \"RGB666\";\n\
-            default_bpp = <24>;\n\
-            int_clk = <0>;\n\
-            late_init = <0>;\n\
-            status = \"okay\";\n\
-    };\n\
-    mxcfb2: fb@1 {\n\
-            compatible = \"fsl,mxc_sdc_fb\";\n\
-            disp_dev = \"ldb\";\n\
-            interface_pix_fmt = \"RGB666\";\n\
-            default_bpp = <16>;\n\
-            int_clk = <0>;\n\
-            late_init = <0>;\n\
-            status = \"okay\";\n\
-    };\n\
-    mxcfb3: fb@2 {\n\
-            compatible = \"fsl,mxc_sdc_fb\";\n\
-            disp_dev = \"ldb\";\n\
-            interface_pix_fmt = \"RGB666\";\n\
-            default_bpp = <16>;\n\
-            int_clk = <0>;\n\
-            late_init = <0>;\n\
-            status = \"disabled\";\n\
-    };\n\
-};\n\
-"
-*/
-
-
 #define dtsi_header2_defs "\
 &fec {\n\
         pinctrl-names = \"default\";\n\
@@ -378,6 +287,11 @@
                 compatible = \"fsl,imx6-hdmi-i2c\";\n\
                 reg = <0x50>;\n\
         };\n\
+};\n\
+&pwm1 {\n\
+        pinctrl-names = \"default\";\n\
+        pinctrl-0 = <&pinctrl_pwm1>;\n\
+        status = \"okay\";\n\
 };\n\
 &ssi1 {\n\
         fsl,mode = \"i2s-slave\";\n\
@@ -596,7 +510,6 @@
 };\n\
 "
 
-
 #define ecspi4_dev_4_defs "\
 &ecspi4 {\n\
         fsl,spi-num-chipselects = <1>;\n\
@@ -704,11 +617,6 @@
 };\n\
 "
 
-/*
-
-
-
-        */
 #define uart1_defs "\
 &uart1 {\n\
         pinctrl-names = \"default\";\n\
@@ -869,6 +777,11 @@
         pinctrl_edt_ft5x06: edt-ft5x06grp {\n\
                 fsl,pinmux-ids = <\n\
                         MX6QDL_PAD_GPIO_6__GPIO1_IO06 \n\
+                >;\n\
+        };\n\
+        pinctrl_pwm1: pwm1grp {\n\
+                fsl,pins = <\n\
+                        MX6QDL_PAD_GPIO_9__PWM1_OUT 0x1b0b1\n\
                 >;\n\
         };\n\
 "

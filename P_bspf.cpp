@@ -1665,8 +1665,10 @@ void NOVAembed::P_save_helper(QString fileName , QString Processor_model)
         out << QString("P_PCIe_checkBox=true\n");
     else
         out << QString("P_PCIe_checkBox=false\n");
-    out << QString("PrimaryVideo_comboBox="+P_PrimaryVideo_comboBox+"\n");
-    out << QString("SecondaryVideo_comboBox="+P_SecondaryVideo_comboBox+"\n");
+    out << QString("PrimaryVideo_comboBox="+ui->P_PrimaryVideo_comboBox->currentText()+"\n");
+    out << QString("SecondaryVideo_comboBox="+ui->P_SecondaryVideo_comboBox->currentText()+"\n");
+    P_PrimaryVideo_comboBox   = ui->P_PrimaryVideo_comboBox->currentText();
+    P_SecondaryVideo_comboBox = ui->P_SecondaryVideo_comboBox->currentText();
     if ( Processor_model == "QUAD")
     {
         out << QString("Processor=QUAD\n");
@@ -1763,6 +1765,8 @@ void NOVAembed::on_P_Load_pushButton_clicked()
         on_P_Clear_pushButton_clicked();
         P_load_BSPF_File(fileName);
         update_status_bar("File "+Last_P_BSPFactoryFile+" loaded");
+        QFileInfo fi(fileName);
+        ui->P_Current_BSPF_File_label->setText(fi.baseName()+".bspf");
 
     }
 }
@@ -1992,6 +1996,8 @@ void NOVAembed::on_P_Clear_pushButton_clicked()
 void NOVAembed::on_P_Save_pushButton_clicked()
 {
     QString fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf",tr(".bspf (*.bspf)"));
+    QFileInfo fi(fileName);
+    ui->P_Current_BSPF_File_label->setText(fi.baseName()+".bspf");
     P_save_helper(fileName,"QUAD");
     P_save_helper(fileName,"SDL");
     P_save_helper(fileName,"");
@@ -2003,8 +2009,11 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
 {
     QFile scriptfile("/tmp/script");
     QFileInfo fi(Last_P_BSPFactoryFile);
+    ui->P_Current_BSPF_File_label->setText(fi.baseName()+".bspf");
     QString SDL_FileNameNoExtension  = "SDL_"+fi.baseName();
     QString QUAD_FileNameNoExtension = "QUAD_"+fi.baseName();
+
+
 
     P_save_helper(QUAD_FileNameNoExtension,"QUAD");
     P_save_helper(SDL_FileNameNoExtension,"SDL");
