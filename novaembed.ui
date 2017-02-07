@@ -232,19 +232,6 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="KernelMakeDTB_pushButton">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>80</y>
-         <width>90</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Make DTBs</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="kernel_Valid_label">
        <property name="geometry">
         <rect>

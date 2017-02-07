@@ -1640,6 +1640,10 @@ void NOVAembed::P_save_helper(QString fileName , QString Processor_model)
     out << QString("P_UART4_TXD_comboBox="+P_UART4_TXD_comboBox+"\n");
     out << QString("P_UART4_RXD_comboBox="+P_UART4_RXD_comboBox+"\n");
     out << QString("P_UART4_CTS_L_comboBox="+P_UART4_CTS_L_comboBox+"\n");
+    if ( ui->P_I2C1Speed_lineEdit->text().isEmpty() )
+        ui->P_I2C1Speed_lineEdit->setText("100000");
+    if ( ui->P_I2C3Speed_lineEdit->text().isEmpty() )
+        ui->P_I2C3Speed_lineEdit->setText("100000");
     P_I2C1Speed = ui->P_I2C1Speed_lineEdit->text();
     P_I2C3Speed = ui->P_I2C3Speed_lineEdit->text();
     out << QString("P_I2C1Speed="+P_I2C1Speed+"\n");
@@ -1775,6 +1779,8 @@ void NOVAembed::P_load_BSPF_File(QString fileName)
 {
 QString strKeyFunc("P_IOMUX/");
 QSettings * func_settings = 0;
+
+    on_P_Clear_pushButton_clicked();
 
     Last_P_BSPFactoryFile = fileName;
     storeNOVAembed_ini();

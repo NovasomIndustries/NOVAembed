@@ -496,7 +496,6 @@ void NOVAembed::on_tab_currentChanged(int index)
 
             ui->P_cbit_lineEdit->setText(CfgBitDefaultValue);
             ui->P_Decoded_CFG_Bits_lineEdit->setText("0x00000000");
-            P_load_BSPF_File(Last_P_BSPFactoryFile);
             QFileInfo fi(Last_P_BSPFactoryFile);
             if ( ! fi.exists())
             {
@@ -507,9 +506,11 @@ void NOVAembed::on_tab_currentChanged(int index)
                 QString base = fi.baseName();
                 if ( base != "" )
                     ui->P_Current_BSPF_File_label->setText(base+".bspf");
+                P_load_BSPF_File(Last_P_BSPFactoryFile);
                 update_status_bar("BSP Factory : Loaded file "+Last_P_BSPFactoryFile);
             }
         }
+        /*
         else
         {
             P_load_BSPF_File(Last_P_BSPFactoryFile);
@@ -526,6 +527,7 @@ void NOVAembed::on_tab_currentChanged(int index)
                 update_status_bar("BSP Factory : Loaded file "+Last_P_BSPFactoryFile);
             }
         }
+        */
         break;
     }
 }

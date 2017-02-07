@@ -237,29 +237,6 @@ void NOVAembed::on_KernelReCompile_pushButton_clicked()
     storeNOVAembed_ini();
 }
 
-void NOVAembed::on_KernelMakeDTB_pushButton_clicked()
-{
-    QFile scriptfile("/tmp/script");
-    update_status_bar("Making DTBs ...");
-
-    if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
-    {
-        update_status_bar("Unable to create /tmp/script");
-        return;
-    }
-    QTextStream out(&scriptfile);
-    out << QString("#!/bin/sh\n");
-    out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
-    out << QString("./kmake_dtbs linux-imx_4.1.15_1.2.0_ga > /Devel/NOVAsom_SDK/Logs/kmakedtbs.log\n");
-    out << QString("echo $? > /tmp/result\n");
-
-    scriptfile.close();
-    if ( run_script() == 0)
-        update_status_bar("DTBs re-built succesfully");
-    else
-        update_status_bar("DTBs Build error");
-}
-
 /* File System */
 void NOVAembed::on_SelectFileSystem_pushButton_clicked()
 {

@@ -150,8 +150,6 @@ private slots:
 
     void on_Video_comboBox_currentIndexChanged(const QString &arg1);
 
-    void on_KernelMakeDTB_pushButton_clicked();
-
     void on_P_Generate_pushButton_clicked();
 
     void on_UserBSPFSelect_pushButton_clicked();

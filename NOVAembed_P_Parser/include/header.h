@@ -599,20 +599,54 @@
         pinctrl-0 = <&pinctrl_i2c3>;\n\
         status = \"okay\";\n\
 "
-
-#define i2c3_defs_bottom "\
-        eeprom@50 {\n\
-                compatible = \"at,24c16\";\n\
-                reg = <0x50>;\n\
-                pagesize = <16>;\n\
-        };\n\
-        polytouch: edt-ft5x06@38 {\n\
+/*
+        polytouch2: edt-ft5x06@38 {\n\
                 compatible = \"edt,edt-ft5x06\";\n\
                 reg = <0x38>;\n\
                 pinctrl-names = \"default\";\n\
-                pinctrl-0 = <&pinctrl_edt_ft5x06>;\n\
+                pinctrl-0 = <&pinctrl_i2ctouch_irq>;\n\
                 interrupt-parent = <&gpio1>;\n\
                 interrupts = <6 0>;\n\
+        };\n\
+
+        polytouch1: eeti@04 {\n\
+                compatible = \"eeti,egalax_ts\";\n\
+                reg = <0x04>;\n\
+                pinctrl-names = \"default\";\n\
+                pinctrl-0 = <&pinctrl_i2ctouch_irq>;\n\
+                interrupt-parent = <&gpio1>;\n\
+                interrupts = <6 0>;\n\
+                wakeup-gpios = <&gpio5 16 GPIO_ACTIVE_LOW>;\n\
+                linux,wakeup;\n\
+        };\n\
+
+*/
+
+#define i2c3_defs_bottom "\
+        eeprom@50 {\n\
+                compatible = \"at,24c01\";\n\
+                reg = <0x50>;\n\
+                pagesize = <16>;\n\
+        };\n\
+        polytouch1: eeti@04 {\n\
+                compatible = \"eeti,egalax_ts\";\n\
+                reg = <0x04>;\n\
+                pinctrl-names = \"default\";\n\
+                pinctrl-0 = <&pinctrl_i2ctouch_irq>;\n\
+                interrupt-parent = <&gpio1>;\n\
+                interrupts = <6 0>;\n\
+                wakeup-gpios = <&gpio5 5 GPIO_ACTIVE_HIGH>;\n\
+                linux,wakeup;\n\
+        };\n\
+        polytouch2: edt-ft5x06@38 {\n\
+                compatible = \"edt,edt-ft5x06\";\n\
+                reg = <0x38>;\n\
+                pinctrl-names = \"default\";\n\
+                pinctrl-0 = <&pinctrl_i2ctouch_irq>;\n\
+                interrupt-parent = <&gpio1>;\n\
+                interrupts = <6 0>;\n\
+                reset-gpios = <&gpio4 30 GPIO_ACTIVE_LOW>;\n\
+                wake-gpios = <&gpio4 31 GPIO_ACTIVE_HIGH>;\n\
         };\n\
 };\n\
 "
@@ -774,7 +808,7 @@
                 MX6QDL_PAD_SD4_DAT7__SD4_DATA7          0x17059\n\
             >;\n\
         };\n\
-        pinctrl_edt_ft5x06: edt-ft5x06grp {\n\
+        pinctrl_i2ctouch_irq: i2ctouch_irqgrp {\n\
                 fsl,pinmux-ids = <\n\
                         MX6QDL_PAD_GPIO_6__GPIO1_IO06 \n\
                 >;\n\
