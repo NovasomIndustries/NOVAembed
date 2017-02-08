@@ -158,7 +158,7 @@
             compatible = \"pwm-backlight\";\n\
             pwms = <&pwm1 0 5000000>;\n\
             brightness-levels = <0 4 8 16 32 64 128 255>;\n\
-            default-brightness-level = <4>;\n\
+            default-brightness-level = <7>;\n\
             status = \"okay\";\n\
     };\n\
 "
@@ -218,10 +218,10 @@
     mxcfb1: fb@0 {\n\
             compatible = \"fsl,mxc_sdc_fb\";\n\
             disp_dev = \"ldb\";\n\
-            interface_pix_fmt = \"RGB666\";\n\
+            interface_pix_fmt = \"RGB24\";\n\
             default_bpp = <24>;\n\
             int_clk = <0>;\n\
-            late_init = <0>;\n\
+            late_init = <1>;\n\
             status = \"okay\";\n\
     };\n\
 "
@@ -823,53 +823,6 @@
 #define dtsi_lvds_header_defs "\
 &ldb {\n\
 	status = \"okay\";\n\
-"
-
-#define dtsi_lvds_ch0_800x480_defs "\
-        lvds-channel@0 {\n\
-                fsl,data-mapping = \"spwg\";\n\
-                fsl,data-width = <18>;\n\
-                primary;\n\
-                status = \"okay\";\n\
-                crtc = \"ipu1-di0\";\n\
-                display-timings {\n\
-                        native-mode = <&timing0>;\n\
-                        timing0: LVDS-800X480 {\n\
-                                clock-frequency = <33000000>;\n\
-                                hactive = <800>;\n\
-                                vactive = <480>;\n\
-                                hback-porch = <220>;\n\
-                                hfront-porch = <40>;\n\
-                                vback-porch = <21>;\n\
-                                vfront-porch = <7>;\n\
-                                hsync-len = <60>;\n\
-                                vsync-len = <10>;\n\
-                        };\n\
-                };\n\
-        };\n\
-"
-#define dtsi_lvds_ch1_800x480_defs "\
-        lvds-channel@0 {\n\
-                fsl,data-mapping = \"spwg\";\n\
-                fsl,data-width = <18>;\n\
-                primary;\n\
-                status = \"okay\";\n\
-                crtc = \"ipu1-di1\";\n\
-                display-timings {\n\
-                        native-mode = <&timing0>;\n\
-                        timing0: LVDS-800X480 {\n\
-                                clock-frequency = <33000000>;\n\
-                                hactive = <800>;\n\
-                                vactive = <480>;\n\
-                                hback-porch = <220>;\n\
-                                hfront-porch = <40>;\n\
-                                vback-porch = <21>;\n\
-                                vfront-porch = <7>;\n\
-                                hsync-len = <60>;\n\
-                                vsync-len = <10>;\n\
-                        };\n\
-                };\n\
-        };\n\
 "
 
 #define dtsi_lvds_footer_defs "\

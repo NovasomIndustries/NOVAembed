@@ -507,6 +507,7 @@ void NOVAembed::on_tab_currentChanged(int index)
                 if ( base != "" )
                     ui->P_Current_BSPF_File_label->setText(base+".bspf");
                 P_load_BSPF_File(Last_P_BSPFactoryFile);
+                ui->P_Generate_pushButton->setText("Save "+fi.baseName()+".bspf and Generate "+fi.baseName()+".dtb");
                 update_status_bar("BSP Factory : Loaded file "+Last_P_BSPFactoryFile);
             }
         }

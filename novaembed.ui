@@ -3195,9 +3195,9 @@
       <widget class="QPushButton" name="P_Load_pushButton">
        <property name="geometry">
         <rect>
-         <x>190</x>
+         <x>160</x>
          <y>10</y>
-         <width>131</width>
+         <width>81</width>
          <height>21</height>
         </rect>
        </property>
@@ -3208,9 +3208,9 @@
       <widget class="QPushButton" name="P_Save_pushButton">
        <property name="geometry">
         <rect>
-         <x>190</x>
+         <x>160</x>
          <y>30</y>
-         <width>131</width>
+         <width>81</width>
          <height>21</height>
         </rect>
        </property>
@@ -3221,9 +3221,9 @@
       <widget class="QPushButton" name="P_Generate_pushButton">
        <property name="geometry">
         <rect>
-         <x>410</x>
+         <x>250</x>
          <y>10</y>
-         <width>131</width>
+         <width>301</width>
          <height>21</height>
         </rect>
        </property>

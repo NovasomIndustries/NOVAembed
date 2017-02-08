@@ -37,6 +37,8 @@
 		<Unit filename="lvds_defs/lvds_1024x600_ch1_parserinput" />
 		<Unit filename="lvds_defs/lvds_1024x768_ch0_parserinput" />
 		<Unit filename="lvds_defs/lvds_1024x768_ch1_parserinput" />
+		<Unit filename="lvds_defs/lvds_1280x800_ch0_parserinput" />
+		<Unit filename="lvds_defs/lvds_1280x800_ch1_parserinput" />
 		<Unit filename="lvds_defs/lvds_800x480_ch0_parserinput" />
 		<Unit filename="lvds_defs/lvds_800x480_ch1_parserinput" />
 		<Unit filename="lvds_defs/lvds_800x600_ch0_parserinput" />
