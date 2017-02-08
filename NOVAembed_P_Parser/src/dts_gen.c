@@ -622,37 +622,56 @@ void process_lvds_channels(void)
 char    ldb[4096];
 
     sprintf(ldb,dtsi_lvds_header_defs);
-    if (strstr(file_contents,"PrimaryVideo_comboBox=LVDS 800x480"))
+    if (strstr(file_contents,"PrimaryVideocomboBox=LVDS 800x480"))
     {
         strcat(ldb,lvds_800x480_ch0_parserinput);
+        printf("PrimaryVideo   : LVDS  800x480\n");
     }
     if (strstr(file_contents,"PrimaryVideo_comboBox=LVDS 800x600"))
     {
         strcat(ldb,lvds_800x600_ch0_parserinput);
+        printf("PrimaryVideo   : LVDS  800x600\n");
     }
     if (strstr(file_contents,"PrimaryVideo_comboBox=LVDS 1024x600"))
     {
         strcat(ldb,lvds_1024x600_ch0_parserinput);
+        printf("PrimaryVideo   : LVDS 1024x600\n");
     }
     if (strstr(file_contents,"PrimaryVideo_comboBox=LVDS 1024x768"))
     {
         strcat(ldb,lvds_1024x768_ch0_parserinput);
+        printf("PrimaryVideo   : LVDS 1024x768\n");
     }
+    if (strstr(file_contents,"PrimaryVideo_comboBox=LVDS 1280x800"))
+    {
+        strcat(ldb,lvds_1280x800_ch0_parserinput);
+        printf("PrimaryVideo   : LVDS 1280x800\n");
+    }
+
     if (strstr(file_contents,"SecondaryVideo_comboBox=LVDS 800x480"))
     {
         strcat(ldb,lvds_800x480_ch1_parserinput);
+        printf("SecondaryVideo : LVDS  800x480\n");
     }
     if (strstr(file_contents,"SecondaryVideo_comboBox=LVDS 800x600"))
     {
         strcat(ldb,lvds_800x600_ch1_parserinput);
+        printf("SecondaryVideo : LVDS  800x600\n");
     }
     if (strstr(file_contents,"SecondaryVideo_comboBox=LVDS 1024x600"))
     {
         strcat(ldb,lvds_1024x600_ch1_parserinput);
+        printf("SecondaryVideo : LVDS 1024x600\n");
     }
     if (strstr(file_contents,"SecondaryVideo_comboBox=LVDS 1024x768"))
     {
         strcat(ldb,lvds_1024x768_ch1_parserinput);
+        printf("SecondaryVideo : LVDS 1024x768\n");
+    }
+    if (strstr(file_contents,"SecondaryVideo_comboBox=LVDS 1280x800"))
+    {
+        strcat(ldb,lvds_1280x800_ch1_parserinput);
+        printf("SecondaryVideo : LVDS 1280x800\n");
     }
     strcat(ldb,dtsi_lvds_footer_defs);
     strcat(dtsifile_dump,ldb);

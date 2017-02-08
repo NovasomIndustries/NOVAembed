@@ -72,10 +72,6 @@ private slots:
 
     void on_Meld_pushButton_clicked();
 
-    void on_MeldChooseFile1_pushButton_clicked();
-
-    void on_MeldChooseFile2_pushButton_clicked();
-
     void on_P_PD_100K_checkBox_clicked();
 
     void on_P_PU_100K_checkBox_clicked();

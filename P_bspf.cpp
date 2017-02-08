@@ -2019,12 +2019,13 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
     QString SDL_FileNameNoExtension  = "SDL_"+fi.baseName();
     QString QUAD_FileNameNoExtension = "QUAD_"+fi.baseName();
 
+    on_P_Save_pushButton_clicked();
 
-
+    /*
     P_save_helper(QUAD_FileNameNoExtension,"QUAD");
     P_save_helper(SDL_FileNameNoExtension,"SDL");
     P_save_helper(fi.baseName(),"");
-
+    */
     update_status_bar("Generating dtb "+SDL_FileNameNoExtension+".dtb and "+QUAD_FileNameNoExtension+" ...");
     if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
     {

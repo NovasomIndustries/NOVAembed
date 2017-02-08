@@ -1400,6 +1400,11 @@
        </item>
        <item>
         <property name="text">
+         <string>LVDS 1280x800</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>LVDS 1024x768</string>
         </property>
        </item>
@@ -2031,6 +2036,11 @@
        </item>
        <item>
         <property name="text">
+         <string>LVDS 1280x800</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>LVDS 1366x768</string>
         </property>
        </item>
@@ -2092,6 +2102,11 @@
        <item>
         <property name="text">
          <string>LVDS 1024x768</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1280x800</string>
         </property>
        </item>
        <item>
@@ -48414,57 +48429,11 @@
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="MeldChooseFile1_pushButton">
-      <property name="geometry">
-       <rect>
-        <x>170</x>
-        <y>90</y>
-        <width>111</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Choose file 1</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="MeldChooseFile2_pushButton">
-      <property name="geometry">
-       <rect>
-        <x>170</x>
-        <y>120</y>
-        <width>111</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Choose file 2</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="MeldFile1_lineEdit">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>90</y>
-        <width>531</width>
-        <height>27</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="MeldFile2_lineEdit">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>120</y>
-        <width>531</width>
-        <height>27</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QPushButton" name="QtCreator_pushButton">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>180</y>
+        <y>160</y>
         <width>121</width>
         <height>41</height>
        </rect>

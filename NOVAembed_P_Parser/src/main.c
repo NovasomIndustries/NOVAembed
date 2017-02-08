@@ -12,6 +12,8 @@ char        lvds_1024x600_ch0_parserinput[1024];
 char        lvds_1024x600_ch1_parserinput[1024];
 char        lvds_1024x768_ch0_parserinput[1024];
 char        lvds_1024x768_ch1_parserinput[1024];
+char        lvds_1280x800_ch0_parserinput[1024];
+char        lvds_1280x800_ch1_parserinput[1024];
 
 
 void read_parserinput(void)
@@ -28,6 +30,8 @@ char fname[256];
     bzero(lvds_1024x600_ch1_parserinput,sizeof(lvds_1024x600_ch1_parserinput));
     bzero(lvds_1024x768_ch0_parserinput,sizeof(lvds_1024x768_ch0_parserinput));
     bzero(lvds_1024x768_ch1_parserinput,sizeof(lvds_1024x768_ch1_parserinput));
+    bzero(lvds_1280x800_ch0_parserinput,sizeof(lvds_1280x800_ch0_parserinput));
+    bzero(lvds_1280x800_ch1_parserinput,sizeof(lvds_1280x800_ch1_parserinput));
 
     sprintf(fname,"%s/lvds_800x480_ch0_parserinput",parserinput_dir);
     if ( (fpin = fopen(fname,"r" ) ))
@@ -56,16 +60,12 @@ char fname[256];
     }
 
     sprintf(fname,"%s/lvds_1024x600_ch0_parserinput",parserinput_dir);
-    printf("%s\n" ,fname );
     if ( (fpin = fopen(fname,"r" ) ))
     {
-        printf("File %s/lvds_1024x600_ch0_parserinput found 1\n" ,parserinput_dir );
         fread(lvds_1024x600_ch0_parserinput, sizeof(lvds_1024x600_ch0_parserinput), 1, fpin);
-        printf("File %s/lvds_1024x600_ch0_parserinput found 2\n" ,parserinput_dir );
         fclose(fpin);
     }
-    else
-        printf("File %s/lvds_1024x600_ch0_parserinput not found\n" ,parserinput_dir );
+
     sprintf(fname,"%s/lvds_1024x600_ch1_parserinput",parserinput_dir);
     if ( (fpin = fopen(fname,"r" ) ))
     {
@@ -84,7 +84,18 @@ char fname[256];
         fread(lvds_1024x768_ch1_parserinput, sizeof(lvds_1024x768_ch1_parserinput), 1, fpin);
         fclose(fpin);
     }
-
+    sprintf(fname,"%s/lvds_1280x800_ch0_parserinput",parserinput_dir);
+    if ( (fpin = fopen(fname,"r" ) ))
+    {
+        fread(lvds_1280x800_ch0_parserinput, sizeof(lvds_1280x800_ch0_parserinput), 1, fpin);
+        fclose(fpin);
+    }
+    sprintf(fname,"%s/lvds_1280x800_ch1_parserinput",parserinput_dir);
+    if ( (fpin = fopen(fname,"r" ) ))
+    {
+        fread(lvds_1280x800_ch1_parserinput, sizeof(lvds_1280x800_ch1_parserinput), 1, fpin);
+        fclose(fpin);
+    }
 }
 
 int main(int argc, char *argv[])

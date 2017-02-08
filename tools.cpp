@@ -31,32 +31,9 @@ void NOVAembed::on_Meld_pushButton_clicked()
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("echo 0 > /tmp/result\n");
-    out << QString("meld "+ui->MeldFile1_lineEdit->text()+" "+ui->MeldFile2_lineEdit->text() +"\n");
+    out << QString("meld\n");
     scriptfile.close();
     run_script();
-}
-
-
-void NOVAembed::on_MeldChooseFile1_pushButton_clicked()
-{
-    QString fileName1 = QFileDialog::getOpenFileName(this,tr("Load BSP Factory File"), "/Devel/NOVAsom_SDK/NOVAembed_Settings",tr("BSP Factory Files (*.bspf)"));
-    if (fileName1.isEmpty())
-        return;
-    else
-    {
-        ui->MeldFile1_lineEdit->setText(fileName1);
-    }
-}
-
-void NOVAembed::on_MeldChooseFile2_pushButton_clicked()
-{
-    QString fileName2 = QFileDialog::getOpenFileName(this,tr("Load BSP Factory File"), "/Devel/NOVAsom_SDK/NOVAembed_Settings",tr("BSP Factory Files (*.bspf)"));
-    if (fileName2.isEmpty())
-        return;
-    else
-    {
-        ui->MeldFile2_lineEdit->setText(fileName2);
-    }
 }
 
 void NOVAembed::on_QtCreator_pushButton_clicked()

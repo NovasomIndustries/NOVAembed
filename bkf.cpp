@@ -505,6 +505,10 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     {
         NOVAsomParamsName = "NOVAsomParams_LVDS_1366x768";
     }
+    if ( ui->Video_comboBox->currentText() == "LVDS 1280x800")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_1280x800";
+    }
     if ( ui->Video_comboBox->currentText() == "LVDS 1024x768")
     {
         NOVAsomParamsName = "NOVAsomParams_LVDS_1024x768";
