@@ -2019,6 +2019,7 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
 {
     // Save .bspf and Generate .dtb
     //P_Generate_pushButton
+    /*
     QFile scriptfile("/tmp/script");
     QFileInfo fi(Last_P_BSPFactoryFile);
     qDebug() << fi.baseName()+".bspf";
@@ -2030,6 +2031,23 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
     P_save_helper(QUAD_FileNameNoExtension,"QUAD");
     P_save_helper(SDL_FileNameNoExtension,"SDL");
     P_save_helper(fi.baseName(),"");
+    */
+
+    QFile scriptfile("/tmp/script");
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), Last_P_BSPFactoryFile,tr(".bspf (*.bspf)"));
+    if ( fileName.isEmpty() )
+        return;
+    QFileInfo fi(fileName);
+    ui->P_Current_BSPF_File_label->setText(fi.baseName()+".bspf");
+    ui->P_Generate_pushButton->setText("Save "+fi.baseName()+".bspf and Generate "+fi.baseName()+".dtb");
+    P_save_helper(fileName,"QUAD");
+    P_save_helper(fileName,"SDL");
+    P_save_helper(fileName,"");
+    Last_P_BSPFactoryFile = fileName;
+    storeNOVAembed_ini();
+
+    QString SDL_FileNameNoExtension  = "SDL_"+fi.baseName();
+    QString QUAD_FileNameNoExtension = "QUAD_"+fi.baseName();
 
     update_status_bar("Generating dtb "+SDL_FileNameNoExtension+".dtb and "+QUAD_FileNameNoExtension+" ...");
     if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
