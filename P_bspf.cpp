@@ -1919,7 +1919,7 @@ void NOVAembed::on_P_Clear_pushButton_clicked()
     ui->P_KHZ32_checkBox->setChecked(false);
     ui->P_MHZ24_checkBox->setChecked(false);
     ui->P_PWM1_checkBox->setChecked(false);
-    ui->P_PCIe_checkBox->setChecked(false);
+    ui->P_PCIe_checkBox->setChecked(true);
     ui->P_SATA_checkBox->setChecked(false);
     ui->P_SPDIF_checkBox->setChecked(false);
     ui->P_SPDIF_OnJ13checkBox->setChecked(false);

@@ -7,7 +7,7 @@
                 display-timings {
                         native-mode = <&timing0>;
                 	timing0: LVDS-1280X800 {
-                        	clock-frequency = <65000>;
+                        	clock-frequency = <65000000>;
 	                        hactive = <1280>;
         	                vactive = <800>;
                 	        hfront-porch = <25>;

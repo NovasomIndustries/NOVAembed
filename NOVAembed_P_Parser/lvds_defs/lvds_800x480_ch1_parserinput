@@ -5,8 +5,8 @@
                 status = "okay";
                 crtc = "ipu1-di1";
                 display-timings {
-                        native-mode = <&timing1>;
-                        timing1: LVDS-800X480 {
+                        native-mode = <&timing_wvga1>;
+                        timing_wvga1: LVDS-800X480 {
                                 clock-frequency = <33000000>;
                                 hactive = <800>;
                                 vactive = <480>;

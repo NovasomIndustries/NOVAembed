@@ -221,7 +221,7 @@
             interface_pix_fmt = \"RGB24\";\n\
             default_bpp = <24>;\n\
             int_clk = <0>;\n\
-            late_init = <1>;\n\
+            late_init = <0>;\n\
             status = \"okay\";\n\
     };\n\
 "
@@ -624,9 +624,9 @@
 
 #define i2c3_defs_bottom "\
         eeprom@50 {\n\
-                compatible = \"at,24c01\";\n\
+                compatible = \"at,24c16\";\n\
                 reg = <0x50>;\n\
-                pagesize = <16>;\n\
+                pagesize = <32>;\n\
         };\n\
         polytouch1: eeti@04 {\n\
                 compatible = \"eeti,egalax_ts\";\n\

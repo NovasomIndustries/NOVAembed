@@ -18,7 +18,7 @@
 /*                                                                              Global variables                                                                                         */
 /*****************************************************************************************************************************************************************************************/
 
-QString Version = "1.0.4.2rc0";
+QString Version = "1.0.4.2rc1";
 QString Configuration = "Standard";
 QString FileSystemName = "";
 QString DeployedFileSystemName = "";
@@ -54,40 +54,31 @@ NOVAembed::NOVAembed(QWidget *parent) :
     ui(new Ui::NOVAembed)
 {
 int     copy_required_files = 0;
-QString linux_version="linux-imx_4.1.15_1.2.0_ga";
 
     /* Initialize user area */
     if ( ! QDir("/Devel/NOVAsom_SDK/DtbUserWorkArea").exists() )
     {
-        //qDebug() << "mkdir /Devel/NOVAsom_SDK/DtbUserWorkArea";
-        QDir().mkdir("/Devel/NOVAsom_SDK/DtbUserWorkArea");
-        //qDebug() << "mkdir /Devel/NOVAsom_SDK/DtbUserWorkArea";
-        QDir().mkdir("/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf");
+        QMessageBox::information(this, tr("DtbUserWorkArea"),"DtbUserWorkArea not found. Creating a new one!");
+        system("mkdir -p /Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp");
         copy_required_files = 1;
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf").exists() )
     {
-        //qDebug() << "mkdir /Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf";
-        QDir().mkdir("/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf");
+        system("mkdir -p /Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp");
         copy_required_files = 1;
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp").exists() )
-        QDir().mkdir("/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp");
+        system("mkdir -p /Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp");
     if ( copy_required_files == 1 )
     {
-        QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/imx6dl.dtsi", "/Devel/NOVAsom_SDK/DtbUserWorkArea/imx6dl.dtsi");
-        QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/imx6dl-pinfunc.h", "/Devel/NOVAsom_SDK/DtbUserWorkArea/imx6dl-pinfunc.h");
-        QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/imx6qdl.dtsi", "/Devel/NOVAsom_SDK/DtbUserWorkArea/imx6qdl.dtsi");
-        QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/skeleton.dtsi", "/Devel/NOVAsom_SDK/DtbUserWorkArea/skeleton.dtsi");
-        QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/imx6q.dtsi", "/Devel/NOVAsom_SDK/DtbUserWorkArea/imx6q.dtsi");
-        QFile::copy("/Devel/NOVAsom_SDK/Kernel/"+linux_version+"/arch/arm/boot/dts/imx6q-pinfunc.h", "/Devel/NOVAsom_SDK/DtbUserWorkArea/imx6q-pinfunc.h");
+        system("cp /Devel/NOVAsom_SDK/Utils/DtbBaseFiles/* /Devel/NOVAsom_SDK/DtbUserWorkArea/.");
     }
     QString fileName = "/Devel/NOVAsom_SDK/NOVAembed_Settings/NOVAembed.ini";
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly))
     {
         //qDebug() << "NOVAembed.ini not found";
-        QMessageBox::information(this, tr("NOVAembed.ini"),"NOVAembed.ini not found. Creating a new one");
+        QMessageBox::information(this, tr("NOVAembed.ini"),"NOVAembed.ini not found. Creating a new one!");
         if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings").exists() )
         {
             //qDebug() << "mkdir /Devel/NOVAsom_SDK/NOVAembed_Settings";
