@@ -619,15 +619,15 @@
                 wakeup-gpios = <&gpio5 16 GPIO_ACTIVE_LOW>;\n\
                 linux,wakeup;\n\
         };\n\
-
-*/
-
-#define i2c3_defs_bottom "\
         eeprom@50 {\n\
                 compatible = \"at,24c16\";\n\
                 reg = <0x50>;\n\
                 pagesize = <32>;\n\
         };\n\
+
+*/
+
+#define i2c3_defs_bottom "\
         polytouch1: eeti@04 {\n\
                 compatible = \"eeti,egalax_ts\";\n\
                 reg = <0x04>;\n\
