@@ -135,6 +135,29 @@
                 gpio = <&gpio2 4 0>;\n\
                 enable-active-high;\n\
         };\n\
+        lvds_power: lvds_power {\n\
+                compatible = \"regulator-fixed\";\n\
+                pinctrl-names = \"default\";\n\
+                pinctrl-0 = <&lvds_enable_reg>;\n\
+                regulator-name = \"lvds_power\";\n\
+                regulator-min-microvolt = <3300000>;\n\
+                regulator-max-microvolt = <3300000>;\n\
+                gpio = <&gpio4 5 0>;\n\
+                enable-active-high;\n\
+                regulator-always-on;\n\
+        };\n\
+        lvds_bl_power: lvds_bl_power {\n\
+                compatible = \"regulator-fixed\";\n\
+                pinctrl-names = \"default\";\n\
+                pinctrl-0 = <&lvds_bl_enable_reg>;\n\
+                regulator-name = \"lvds_bl_power\";\n\
+                regulator-min-microvolt = <5000000>;\n\
+                regulator-max-microvolt = <5000000>;\n\
+                startup-delay-us = <70000>;\n\
+                gpio = <&gpio7 13 0>;\n\
+                enable-active-high;\n\
+                regulator-always-on;\n\
+        };\n\
 		snvs_reg: vsnvs {\n\
 			regulator-min-microvolt = <1000000>;\n\
 			regulator-max-microvolt = <3000000>;\n\
@@ -154,9 +177,10 @@
             model = \"imx-audio-hdmi\";\n\
             hdmi-controller = <&hdmi_audio>;\n\
     };\n\
-    backlight_lvds {\n\
+    backlight {\n\
             compatible = \"pwm-backlight\";\n\
             pwms = <&pwm1 0 5000000>;\n\
+            power-supply = <&lvds_bl_power>;\n\
             brightness-levels = <0 4 8 16 32 64 128 255>;\n\
             default-brightness-level = <7>;\n\
             status = \"okay\";\n\
@@ -599,33 +623,6 @@
         pinctrl-0 = <&pinctrl_i2c3>;\n\
         status = \"okay\";\n\
 "
-/*
-        polytouch2: edt-ft5x06@38 {\n\
-                compatible = \"edt,edt-ft5x06\";\n\
-                reg = <0x38>;\n\
-                pinctrl-names = \"default\";\n\
-                pinctrl-0 = <&pinctrl_i2ctouch_irq>;\n\
-                interrupt-parent = <&gpio1>;\n\
-                interrupts = <6 0>;\n\
-        };\n\
-
-        polytouch1: eeti@04 {\n\
-                compatible = \"eeti,egalax_ts\";\n\
-                reg = <0x04>;\n\
-                pinctrl-names = \"default\";\n\
-                pinctrl-0 = <&pinctrl_i2ctouch_irq>;\n\
-                interrupt-parent = <&gpio1>;\n\
-                interrupts = <6 0>;\n\
-                wakeup-gpios = <&gpio5 16 GPIO_ACTIVE_LOW>;\n\
-                linux,wakeup;\n\
-        };\n\
-        eeprom@50 {\n\
-                compatible = \"at,24c16\";\n\
-                reg = <0x50>;\n\
-                pagesize = <32>;\n\
-        };\n\
-
-*/
 
 #define i2c3_defs_bottom "\
         polytouch1: eeti@04 {\n\
@@ -759,6 +756,16 @@
             fsl,pins = <\n\
                 MX6QDL_PAD_GPIO_2__GPIO1_IO02           0x1b0b1\n\
             >;\n\
+        };\n\
+        lvds_enable_reg: lvdsgrp {\n\
+                fsl,pins = <\n\
+                        MX6QDL_PAD_GPIO_18__GPIO7_IO13  0x17059\n\
+                >;\n\
+        };\n\
+        lvds_bl_enable_reg: lvdsblgrp {\n\
+                fsl,pins = <\n\
+                        MX6QDL_PAD_GPIO_19__GPIO4_IO05  0x17059\n\
+                >;\n\
         };\n\
         pinctrl_pcie: pciegrp {\n\
             fsl,pins = <\n\

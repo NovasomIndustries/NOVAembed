@@ -6,7 +6,7 @@
                 crtc = "ipu1-di0";
                 display-timings {
                         native-mode = <&timing_svga0>;
-                        timing_svga0: LVDS-800X600 {
+                        timing_svga0: LVDS-svga800x600 {
                                 clock-frequency = <29580000>;
                                 hactive = <800>;
                                 vactive = <600>;
