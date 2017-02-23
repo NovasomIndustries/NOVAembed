@@ -242,8 +242,8 @@
     mxcfb1: fb@0 {\n\
             compatible = \"fsl,mxc_sdc_fb\";\n\
             disp_dev = \"ldb\";\n\
-            interface_pix_fmt = \"RGB24\";\n\
-            default_bpp = <24>;\n\
+            interface_pix_fmt = \"RGB666\";\n\
+            default_bpp = <18>;\n\
             int_clk = <0>;\n\
             late_init = <0>;\n\
             status = \"okay\";\n\

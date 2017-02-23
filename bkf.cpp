@@ -530,11 +530,21 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     QFileInfo fi(ui->UserBSPFselectedlineEdit->text());
     sdl_dtb = "SDL_"+fi.baseName()+".dtb";
     q_dtb = "QUAD_"+fi.baseName()+".dtb";
+    QFileInfo fileinfo("/Devel/NOVAsom_SDK/Deploy/uInitrd");
+    qDebug() << fileinfo.size();
+    int filesize = 96000;
+    if ( fileinfo.size() > 32000000 )
+        filesize = 128000;
+    if ( fileinfo.size() > 64000000 )
+        filesize = 192000;
+    QString s = QString::number(filesize);
+    qDebug() << "Requested initram size is "+filesize;
 
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
-    out << QString("cp BootParameters/"+NOVAsomParamsName+" ../Deploy/NOVAsomParams\n");
+    out << QString("echo \"setramsize=setenv rdsize "+s+"\" > ../Deploy/NOVAsomParams\n");
+    out << QString("cat BootParameters/"+NOVAsomParamsName+" >> ../Deploy/NOVAsomParams\n");
     out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" "+ UserEnabled +"> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
     if (( ui->UserAutoRun_checkBox->isChecked() == true) && (ui->UserAutoRunSelectedlineEdit->text().isEmpty() == false ))
         out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
