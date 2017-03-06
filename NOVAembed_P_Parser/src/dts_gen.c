@@ -589,7 +589,7 @@ void process_videos_header(void)
 {
 char    mxcfb[1024];
 
-    printf("***\n");
+    //printf("***\n");
     if (strstr(file_contents,"PrimaryVideo_comboBox=HDMI"))
     {
         if (strstr(file_contents,"PrimaryVideo_comboBox=HDMI 1920x1080"))
@@ -629,8 +629,8 @@ char    mxcfb[1024];
         strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb3_18_defs);
     }
     strcat(mxcfb,dtsi_footer_video_defs);
-    printf("%s\n",mxcfb);
-    printf("***\n");
+    //printf("%s\n",mxcfb);
+    //printf("***\n");
     strcat(dtsifile_dump,mxcfb);
 }
 

@@ -301,7 +301,7 @@
        <rect>
         <x>360</x>
         <y>80</y>
-        <width>331</width>
+        <width>511</width>
         <height>111</height>
        </rect>
       </property>
@@ -337,7 +337,7 @@
       <widget class="QPushButton" name="KernelCompile_pushButton">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>170</x>
          <y>70</y>
          <width>151</width>
          <height>31</height>
@@ -355,7 +355,7 @@
       <widget class="QPushButton" name="KernelXconfig_pushButton">
        <property name="geometry">
         <rect>
-         <x>90</x>
+         <x>170</x>
          <y>30</y>
          <width>71</width>
          <height>31</height>
@@ -368,7 +368,7 @@
       <widget class="QPushButton" name="KernelReCompile_pushButton">
        <property name="geometry">
         <rect>
-         <x>170</x>
+         <x>340</x>
          <y>70</y>
          <width>151</width>
          <height>31</height>
@@ -414,7 +414,7 @@
       <widget class="QLabel" name="kernel_Valid_label">
        <property name="geometry">
         <rect>
-         <x>280</x>
+         <x>460</x>
          <y>20</y>
          <width>32</width>
          <height>32</height>
@@ -1317,7 +1317,7 @@
        <rect>
         <x>360</x>
         <y>200</y>
-        <width>331</width>
+        <width>511</width>
         <height>381</height>
        </rect>
       </property>
@@ -1353,7 +1353,7 @@
       <widget class="QPushButton" name="Write_uSD_pushButton">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>90</x>
          <y>340</y>
          <width>311</width>
          <height>31</height>
@@ -1371,7 +1371,7 @@
       <widget class="QComboBox" name="UserPartition_comboBox">
        <property name="geometry">
         <rect>
-         <x>200</x>
+         <x>300</x>
          <y>50</y>
          <width>51</width>
          <height>21</height>
@@ -1419,7 +1419,7 @@
       <widget class="QLineEdit" name="UserPartition1Size_lineEdit">
        <property name="geometry">
         <rect>
-         <x>200</x>
+         <x>300</x>
          <y>70</y>
          <width>51</width>
          <height>21</height>
@@ -1429,7 +1429,7 @@
       <widget class="QLineEdit" name="UserPartition2Size_lineEdit">
        <property name="geometry">
         <rect>
-         <x>200</x>
+         <x>300</x>
          <y>90</y>
          <width>51</width>
          <height>21</height>
@@ -1499,7 +1499,7 @@
       <widget class="QComboBox" name="uSD_Device_comboBox">
        <property name="geometry">
         <rect>
-         <x>130</x>
+         <x>300</x>
          <y>120</y>
          <width>51</width>
          <height>21</height>
@@ -1557,9 +1557,9 @@
       <widget class="QComboBox" name="Video_comboBox">
        <property name="geometry">
         <rect>
-         <x>130</x>
+         <x>300</x>
          <y>150</y>
-         <width>191</width>
+         <width>201</width>
          <height>21</height>
         </rect>
        </property>
@@ -1650,7 +1650,7 @@
         <rect>
          <x>90</x>
          <y>200</y>
-         <width>231</width>
+         <width>411</width>
          <height>21</height>
         </rect>
        </property>
@@ -1686,7 +1686,7 @@
         <rect>
          <x>90</x>
          <y>260</y>
-         <width>231</width>
+         <width>411</width>
          <height>21</height>
         </rect>
        </property>
@@ -1694,7 +1694,7 @@
       <widget class="QPushButton" name="Write_AutoRun_pushButton">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>90</x>
          <y>280</y>
          <width>311</width>
          <height>31</height>
@@ -1756,8 +1756,8 @@
      <widget class="QFrame" name="frame_32">
       <property name="geometry">
        <rect>
-        <x>700</x>
-        <y>200</y>
+        <x>880</x>
+        <y>80</y>
         <width>361</width>
         <height>161</height>
        </rect>
