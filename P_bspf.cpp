@@ -1649,6 +1649,15 @@ void NOVAembed::P_save_helper(QString fileName , QString Processor_model)
     out << QString("P_I2C1Speed="+P_I2C1Speed+"\n");
     out << QString("P_I2C3Speed="+P_I2C3Speed+"\n");
 
+    if ( ui->P_PriVideo_24bit_checkBox->isChecked() )
+        out << QString("P_PriVideo_24bit_checkBox=true\n");
+    else
+        out << QString("P_PriVideo_24bit_checkBox=false\n");
+    if ( ui->P_SecVideo_24bit_checkBox->isChecked() )
+        out << QString("P_SecVideo_24bit_checkBox=true\n");
+    else
+        out << QString("P_SecVideo_24bit_checkBox=false\n");
+
     if ( ui->P_SPIdev1_checkBox->isChecked() )
         out << QString("P_SPIdev1_checkBox=true\n");
     else

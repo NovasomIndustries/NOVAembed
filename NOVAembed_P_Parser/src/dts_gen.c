@@ -589,19 +589,29 @@ void process_videos_header(void)
 {
 char    mxcfb[1024];
 
+    printf("***\n");
     if (strstr(file_contents,"PrimaryVideo_comboBox=HDMI"))
     {
         if (strstr(file_contents,"PrimaryVideo_comboBox=HDMI 1920x1080"))
             sprintf(mxcfb,dtsi_header_hdmivideo1920_mxcfb1_defs);
         else
             sprintf(mxcfb,dtsi_header_hdmivideo1280_mxcfb1_defs);
-        strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb2_defs);
-        strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb3_defs);
+        if ( strstr(file_contents,"P_SecVideo_24bit_checkBox=true"))
+            strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb2_24_defs);
+        else
+            strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb2_18_defs);
+        strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb3_18_defs);
     }
 
     if (strstr(file_contents,"PrimaryVideo_comboBox=LVDS"))
     {
-        sprintf(mxcfb,dtsi_header_lvdsvideo_mxcfb1_defs);
+        printf("PrimaryVideo_comboBox=LVDS\n");
+
+        if ( strstr(file_contents,"P_PriVideo_24bit_checkBox=true"))
+            sprintf(mxcfb,dtsi_header_lvdsvideo_mxcfb1_24_defs);
+        else
+            sprintf(mxcfb,dtsi_header_lvdsvideo_mxcfb1_18_defs);
+
         if (strstr(file_contents,"SecondaryVideo_comboBox=HDMI"))
         {
             if (strstr(file_contents,"SecondaryVideo_comboBox=HDMI 1920x1080"))
@@ -610,10 +620,17 @@ char    mxcfb[1024];
                 strcat(mxcfb,dtsi_header_hdmivideo1280_mxcfb2_defs);
         }
         else
-            strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb2_defs);
-        strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb3_defs);
+        {
+            if ( strstr(file_contents,"P_SecVideo_24bit_checkBox=true"))
+                strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb2_24_defs);
+            else
+                strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb2_18_defs);
+        }
+        strcat(mxcfb,dtsi_header_lvdsvideo_mxcfb3_18_defs);
     }
     strcat(mxcfb,dtsi_footer_video_defs);
+    printf("%s\n",mxcfb);
+    printf("***\n");
     strcat(dtsifile_dump,mxcfb);
 }
 

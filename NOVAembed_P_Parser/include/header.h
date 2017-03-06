@@ -238,7 +238,18 @@
     };\n\
 "
 
-#define dtsi_header_lvdsvideo_mxcfb1_defs "\
+#define dtsi_header_lvdsvideo_mxcfb1_24_defs "\
+    mxcfb1: fb@0 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB24\";\n\
+            default_bpp = <18>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+"
+#define dtsi_header_lvdsvideo_mxcfb1_18_defs "\
     mxcfb1: fb@0 {\n\
             compatible = \"fsl,mxc_sdc_fb\";\n\
             disp_dev = \"ldb\";\n\
@@ -249,7 +260,7 @@
             status = \"okay\";\n\
     };\n\
 "
-#define dtsi_header_lvdsvideo_mxcfb2_defs "\
+#define dtsi_header_lvdsvideo_mxcfb2_24_defs "\
     mxcfb2: fb@1 {\n\
             compatible = \"fsl,mxc_sdc_fb\";\n\
             disp_dev = \"ldb\";\n\
@@ -260,11 +271,33 @@
             status = \"okay\";\n\
     };\n\
 "
-#define dtsi_header_lvdsvideo_mxcfb3_defs "\
+#define dtsi_header_lvdsvideo_mxcfb2_18_defs "\
+    mxcfb2: fb@1 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB666\";\n\
+            default_bpp = <24>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+"
+#define dtsi_header_lvdsvideo_mxcfb3_24_defs "\
     mxcfb3: fb@2 {\n\
             compatible = \"fsl,mxc_sdc_fb\";\n\
             disp_dev = \"ldb\";\n\
             interface_pix_fmt = \"RGB24\";\n\
+            default_bpp = <24>;\n\
+            int_clk = <0>;\n\
+            late_init = <0>;\n\
+            status = \"okay\";\n\
+    };\n\
+"
+#define dtsi_header_lvdsvideo_mxcfb3_18_defs "\
+    mxcfb3: fb@2 {\n\
+            compatible = \"fsl,mxc_sdc_fb\";\n\
+            disp_dev = \"ldb\";\n\
+            interface_pix_fmt = \"RGB666\";\n\
             default_bpp = <24>;\n\
             int_clk = <0>;\n\
             late_init = <0>;\n\

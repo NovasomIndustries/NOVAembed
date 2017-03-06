@@ -72,7 +72,7 @@
         </font>
        </property>
        <property name="text">
-        <string>HARDWARE USER MANUAL</string>
+        <string>Hardware User Manual</string>
        </property>
       </widget>
       <widget class="QPushButton" name="P_QSG_pushButton">
@@ -90,7 +90,7 @@
         </font>
        </property>
        <property name="text">
-        <string>QUICK START GUIDE</string>
+        <string>Quick Start Guide</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_17">
@@ -168,7 +168,7 @@
        </font>
       </property>
       <property name="text">
-       <string>CHECK FOR UPDATES</string>
+       <string>Check for Updates</string>
       </property>
      </widget>
      <widget class="QFrame" name="frame_31">
@@ -263,7 +263,7 @@
        </font>
       </property>
       <property name="text">
-       <string>GET DOCUMENTATION AND SUPPORT AT</string>
+       <string>Get Documentation and Support</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_29">
@@ -349,7 +349,7 @@
         </font>
        </property>
        <property name="text">
-        <string>COMPILE</string>
+        <string>Compile</string>
        </property>
       </widget>
       <widget class="QPushButton" name="KernelXconfig_pushButton">
@@ -380,7 +380,7 @@
         </font>
        </property>
        <property name="text">
-        <string>REBUILD ALL</string>
+        <string>Rebuild ALL</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_80">
@@ -494,7 +494,7 @@
         </font>
        </property>
        <property name="text">
-        <string>DEPLOY</string>
+        <string>Deploy</string>
        </property>
       </widget>
       <widget class="QPushButton" name="SelectFileSystem_pushButton">
@@ -530,7 +530,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>BUILDROOT MENU CONFIG</string>
+        <string>buildroot Menu Config</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="NewFileSystemSelectedlineEdit">
@@ -599,7 +599,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>GENERATE</string>
+        <string>Generate</string>
        </property>
       </widget>
       <widget class="QComboBox" name="NewFileSystemConfigurationcomboBox">
@@ -676,7 +676,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>BUSYBOX MENU CONFIG</string>
+        <string>busybox Menu Config</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="ThisIsReferenceServer_checkBox">
@@ -1252,7 +1252,7 @@
         </font>
        </property>
        <property name="text">
-        <string>COMPILE</string>
+        <string>Compile</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_93">
@@ -1365,7 +1365,7 @@
         </font>
        </property>
        <property name="text">
-        <string>WRITE MICRO SD</string>
+        <string>Write uSD</string>
        </property>
       </widget>
       <widget class="QComboBox" name="UserPartition_comboBox">
@@ -1701,7 +1701,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>WRITE AUTORUN ONLY</string>
+        <string>Write autorun Only</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_61">
@@ -1874,7 +1874,7 @@
         </font>
        </property>
        <property name="text">
-        <string>WRITE MICRO SD</string>
+        <string>Write uSD</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_120">
@@ -2367,7 +2367,7 @@
       <widget class="QLabel" name="label_70">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>230</x>
          <y>36</y>
          <width>91</width>
          <height>31</height>
@@ -2387,7 +2387,7 @@
       <widget class="QComboBox" name="P_PrimaryVideo_comboBox">
        <property name="geometry">
         <rect>
-         <x>410</x>
+         <x>340</x>
          <y>40</y>
          <width>131</width>
          <height>27</height>
@@ -2447,7 +2447,7 @@
       <widget class="QLabel" name="label_124">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>230</x>
          <y>70</y>
          <width>111</width>
          <height>21</height>
@@ -2467,7 +2467,7 @@
       <widget class="QComboBox" name="P_SecondaryVideo_comboBox">
        <property name="geometry">
         <rect>
-         <x>410</x>
+         <x>340</x>
          <y>70</y>
          <width>131</width>
          <height>27</height>
@@ -2565,9 +2565,9 @@
       <widget class="QLabel" name="label_25">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>230</x>
          <y>20</y>
-         <width>241</width>
+         <width>311</width>
          <height>20</height>
         </rect>
        </property>
@@ -2581,10 +2581,50 @@
         </font>
        </property>
        <property name="text">
-        <string>VIDEO                                                                    </string>
+        <string>VIDEO                                                                                              </string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="P_PriVideo_24bit_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>480</x>
+         <y>40</y>
+         <width>71</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>24 bit</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="P_SecVideo_24bit_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>480</x>
+         <y>70</y>
+         <width>71</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>24 bit</string>
        </property>
       </widget>
      </widget>
@@ -3287,7 +3327,7 @@
         </font>
        </property>
        <property name="text">
-        <string>SET DEFAULT CFG BITS TO</string>
+        <string>Set defaults to</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_136">
@@ -3328,7 +3368,7 @@
         </font>
        </property>
        <property name="text">
-        <string>RESET ALL PINS TO I/O</string>
+        <string>Reset ALL pins to I/O</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_cbit_lineEdit">
@@ -3864,7 +3904,7 @@
         </font>
        </property>
        <property name="text">
-        <string>CREATE CFG BITS</string>
+        <string>Create CFG bits</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_CFG_Bits_lineEdit">
@@ -3900,7 +3940,7 @@
         </font>
        </property>
        <property name="text">
-        <string>DECODE CFG BITS</string>
+        <string>Decode  CFG bits</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="P_Decoded_CFG_Bits_lineEdit">
@@ -4058,7 +4098,7 @@
         </font>
        </property>
        <property name="text">
-        <string>SAVE CURRENT .bspf AND GENERATE .dtb</string>
+        <string>Save current .bspf and generate .dtb</string>
        </property>
       </widget>
      </widget>
@@ -49232,8 +49272,8 @@
        <rect>
         <x>10</x>
         <y>30</y>
-        <width>121</width>
-        <height>101</height>
+        <width>231</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
@@ -49259,9 +49299,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>250</y>
-        <width>121</width>
-        <height>101</height>
+        <y>150</y>
+        <width>231</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
@@ -49287,9 +49327,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>140</y>
-        <width>121</width>
-        <height>101</height>
+        <y>90</y>
+        <width>231</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
