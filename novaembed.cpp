@@ -402,7 +402,10 @@ void NOVAembed::on_tab_currentChanged(int index)
             if ( Last_P_BSPFactoryFile.length() < 2)
                 ui->UserBSPFselectedlineEdit->setText("Not Initialized");
             else
+            {
+                P_load_BSPF_File(Last_P_BSPFactoryFile);
                 ui->UserBSPFselectedlineEdit->setText(Last_P_BSPFactoryFile);
+            }
         }
         if ( ui->Board_comboBox->currentText() == "U Series")
         {

@@ -507,7 +507,13 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     }
     if ( ui->Video_comboBox->currentText() == "LVDS 1280x800")
     {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_1280x800";
+        if ( BoardModel == "NOVAsomP" )
+        {
+            if ( ui->P_PriVideo_24bit_checkBox->isChecked() == true)
+                NOVAsomParamsName = "NOVAsomParams_LVDS_1280x800_24";
+            else
+                NOVAsomParamsName = "NOVAsomParams_LVDS_1280x800_18";
+        }
     }
     if ( ui->Video_comboBox->currentText() == "LVDS 1024x768")
     {
@@ -531,14 +537,14 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     sdl_dtb = "SDL_"+fi.baseName()+".dtb";
     q_dtb = "QUAD_"+fi.baseName()+".dtb";
     QFileInfo fileinfo("/Devel/NOVAsom_SDK/Deploy/uInitrd");
-    qDebug() << fileinfo.size();
+    //qDebug() << fileinfo.size();
     int filesize = 96000;
     if ( fileinfo.size() > 32000000 )
         filesize = 128000;
     if ( fileinfo.size() > 64000000 )
         filesize = 192000;
     QString s = QString::number(filesize);
-    qDebug() << "Requested initram size is "+filesize;
+    //qDebug() << "Requested initram size is "+filesize;
 
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");

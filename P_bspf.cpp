@@ -1885,6 +1885,13 @@ QSettings * func_settings = 0;
         ui->P_PCIe_checkBox->setChecked(true);
     ui->P_PrimaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "PrimaryVideo_comboBox"));
     ui->P_SecondaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SecondaryVideo_comboBox"));
+    ui->P_PriVideo_24bit_checkBox->setChecked(false);
+    ui->P_SecVideo_24bit_checkBox->setChecked(false);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_PriVideo_24bit_checkBox") == "true" )
+        ui->P_PriVideo_24bit_checkBox->setChecked(true);
+    if ( P_getvalue(strKeyFunc, func_settings , "P_SecVideo_24bit_checkBox") == "true" )
+        ui->P_SecVideo_24bit_checkBox->setChecked(true);
+
 }
 
 void NOVAembed::on_P_Clear_pushButton_clicked()
