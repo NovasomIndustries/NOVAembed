@@ -1870,6 +1870,55 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QLineEdit" name="initRdSize_lineEdit">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>130</y>
+         <width>51</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_103">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>130</y>
+         <width>111</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>initRd size in kbytes</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_81">
+       <property name="geometry">
+        <rect>
+         <x>320</x>
+         <y>130</y>
+         <width>141</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Leave empty for auto size</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </widget>
      <widget class="QFrame" name="frame_32">
       <property name="geometry">
@@ -3983,7 +4032,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Load .bspf</string>
+        <string>Save .bspf</string>
        </property>
       </widget>
       <widget class="QPushButton" name="P_Generate_pushButton">

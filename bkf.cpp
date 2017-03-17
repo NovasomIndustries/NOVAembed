@@ -543,6 +543,10 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     if ( fileinfo.size() > 64000000 )
         filesize = 192000;
     QString s = QString::number(filesize);
+    if ( ui->initRdSize_lineEdit->text() != "")
+        s = ui->initRdSize_lineEdit->text();
+    //QString s = QString::number(filesize);
+
 
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
