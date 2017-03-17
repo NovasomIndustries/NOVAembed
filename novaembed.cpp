@@ -238,19 +238,19 @@ void NOVAembed::compile_NewFileSystemFileSystemConfigurationcomboBox()
     if (ui->Board_comboBox->currentText() == "P Series")
     {
         str = "PClass_Buildroot_*.config";
-        ui->Video_comboBox->setVisible(true);
+        ui->PrimaryVideo_comboBox->setVisible(true);
         ui->VideoVisible_label->setVisible(true);
     }
     else if (ui->Board_comboBox->currentText() == "S Series")
     {
         str = "SClass_Buildroot_*.config";
-        ui->Video_comboBox->setVisible(true);
+        ui->PrimaryVideo_comboBox->setVisible(true);
         ui->VideoVisible_label->setVisible(true);
     }
     else if (ui->Board_comboBox->currentText() == "U Series")
     {
         str = "UClass_Buildroot_*.config";
-        ui->Video_comboBox->setVisible(false);
+        ui->PrimaryVideo_comboBox->setVisible(false);
         ui->VideoVisible_label->setVisible(false);
     }
     else
@@ -349,7 +349,7 @@ void NOVAembed::on_tab_currentChanged(int index)
     case 1 : // BKF Tab
         /* File system config files */
         ui->Board_comboBox->setCurrentText(_Board_comboBox);
-        ui->Video_comboBox->setCurrentText(CurrentVideo);
+        ui->PrimaryVideo_comboBox->setCurrentText(CurrentVideo);
         ui->UserPartition_comboBox->setCurrentText(NumberOfUserPartitions);
         compile_NewFileSystemFileSystemConfigurationcomboBox();
         compile_ExtFS_comboBox();

@@ -489,45 +489,45 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
         BoardModel = "NOVAsomU";
     }
 
-    if ( ui->Video_comboBox->currentText() == "HDMI 1920x1080 ( FHD )")
+    if ( ui->PrimaryVideo_comboBox->currentText() == "HDMI 1920x1080")
     {
         NOVAsomParamsName = "NOVAsomParams_HDMI_1920x1080";
     }
-    if ( ui->Video_comboBox->currentText() == "HDMI 1280x720 ( HD )")
+    if ( ui->PrimaryVideo_comboBox->currentText() == "HDMI 1280x720" )
     {
         NOVAsomParamsName = "NOVAsomParams_HDMI_1280x720";
     }
-    if ( ui->Video_comboBox->currentText() == "LVDS 1920x1080 ( Dual Channel FHD )")
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1920x1080 2Ch")
     {
         NOVAsomParamsName = "NOVAsomParams_LVDS_1920x10802CH";
     }
-    if ( ui->Video_comboBox->currentText() == "LVDS 1366x768")
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1366x768")
     {
         NOVAsomParamsName = "NOVAsomParams_LVDS_1366x768";
     }
-    if ( ui->Video_comboBox->currentText() == "LVDS 1280x800")
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1280x800")
     {
         if ( BoardModel == "NOVAsomP" )
         {
-            if ( ui->P_PriVideo_24bit_checkBox->isChecked() == true)
+            if ( ui->PriVideo_24bit_checkBox->isChecked() == true)
                 NOVAsomParamsName = "NOVAsomParams_LVDS_1280x800_24";
             else
                 NOVAsomParamsName = "NOVAsomParams_LVDS_1280x800_18";
         }
     }
-    if ( ui->Video_comboBox->currentText() == "LVDS 1024x768")
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1024x768")
     {
         NOVAsomParamsName = "NOVAsomParams_LVDS_1024x768";
     }
-    if ( ui->Video_comboBox->currentText() == "LVDS 1024x600")
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1024x600")
     {
         NOVAsomParamsName = "NOVAsomParams_LVDS_1024x600";
     }
-    if ( ui->Video_comboBox->currentText() == "LVDS 800x600")
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 800x600")
     {
         NOVAsomParamsName = "NOVAsomParams_LVDS_800x600";
     }
-    if ( ui->Video_comboBox->currentText() == "LVDS 800x480")
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 800x480")
     {
         NOVAsomParamsName = "NOVAsomParams_LVDS_800x480";
     }
@@ -537,14 +537,12 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     sdl_dtb = "SDL_"+fi.baseName()+".dtb";
     q_dtb = "QUAD_"+fi.baseName()+".dtb";
     QFileInfo fileinfo("/Devel/NOVAsom_SDK/Deploy/uInitrd");
-    //qDebug() << fileinfo.size();
     int filesize = 96000;
     if ( fileinfo.size() > 32000000 )
         filesize = 128000;
     if ( fileinfo.size() > 64000000 )
         filesize = 192000;
     QString s = QString::number(filesize);
-    //qDebug() << "Requested initram size is "+filesize;
 
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");

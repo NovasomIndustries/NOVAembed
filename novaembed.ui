@@ -111,7 +111,7 @@
         </font>
        </property>
        <property name="text">
-        <string>NOVASOM P</string>
+        <string>NOVAsom P</string>
        </property>
       </widget>
      </widget>
@@ -204,7 +204,7 @@
         </font>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#9d9d9d;&quot;&gt;NOVASOM S&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#9d9d9d;&quot;&gt;NOVAsom S&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </widget>
@@ -241,7 +241,7 @@
         </font>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#9d9d9d;&quot;&gt;NOVASOM U&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#9d9d9d;&quot;&gt;NOVAsom U&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </widget>
@@ -328,7 +328,7 @@
         </font>
        </property>
        <property name="text">
-        <string>KERNEL</string>
+        <string>Kernel</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -473,7 +473,7 @@
         </font>
        </property>
        <property name="text">
-        <string>FILE SYSTEM</string>
+        <string>File System</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -560,7 +560,7 @@
         </font>
        </property>
        <property name="text">
-        <string>SELECT AN EXISTING FILE SYSTEM</string>
+        <string>Select an existing File System</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -583,7 +583,7 @@
         </font>
        </property>
        <property name="text">
-        <string>GENERATE A NEW FILE SYSTEM</string>
+        <string>Generate a new File System</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1191,7 +1191,7 @@
         </font>
        </property>
        <property name="text">
-        <string>REFERENCE SERVER</string>
+        <string>Reference server</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1231,7 +1231,7 @@
         </font>
        </property>
        <property name="text">
-        <string>BOOT LOADER</string>
+        <string>Boot Loader</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1344,7 +1344,7 @@
         </font>
        </property>
        <property name="text">
-        <string>WRITE MICRO SD</string>
+        <string>Write MicroSD</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1365,13 +1365,13 @@
         </font>
        </property>
        <property name="text">
-        <string>Write uSD</string>
+        <string>Write microSD</string>
        </property>
       </widget>
       <widget class="QComboBox" name="UserPartition_comboBox">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>250</x>
          <y>50</y>
          <width>51</width>
          <height>21</height>
@@ -1396,7 +1396,7 @@
       <widget class="QLabel" name="label_60">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>0</x>
          <y>50</y>
          <width>141</width>
          <height>20</height>
@@ -1410,7 +1410,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Ext3 USER PARTITIONS</string>
+        <string>Ext3 user partitions</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1419,7 +1419,7 @@
       <widget class="QLineEdit" name="UserPartition1Size_lineEdit">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>250</x>
          <y>70</y>
          <width>51</width>
          <height>21</height>
@@ -1429,7 +1429,7 @@
       <widget class="QLineEdit" name="UserPartition2Size_lineEdit">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>250</x>
          <y>90</y>
          <width>51</width>
          <height>21</height>
@@ -1499,8 +1499,8 @@
       <widget class="QComboBox" name="uSD_Device_comboBox">
        <property name="geometry">
         <rect>
-         <x>300</x>
-         <y>120</y>
+         <x>250</x>
+         <y>110</y>
          <width>51</width>
          <height>21</height>
         </rect>
@@ -1534,8 +1534,8 @@
       <widget class="QLabel" name="label_102">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>120</y>
+         <x>0</x>
+         <y>110</y>
          <width>111</width>
          <height>20</height>
         </rect>
@@ -1548,73 +1548,18 @@
         </font>
        </property>
        <property name="text">
-        <string>MICRO SD DEVICE</string>
+        <string>MicroSD Device</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QComboBox" name="Video_comboBox">
-       <property name="geometry">
-        <rect>
-         <x>300</x>
-         <y>150</y>
-         <width>201</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <item>
-        <property name="text">
-         <string>HDMI 1920x1080 ( FHD )</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>HDMI 1280x720 ( HD )</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1920x1080 ( Dual Channel FHD )</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1366x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1280x800</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1024x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1024x600</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 800x600</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 800x480</string>
-        </property>
-       </item>
-      </widget>
       <widget class="QLabel" name="VideoVisible_label">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>150</y>
-         <width>81</width>
+         <x>0</x>
+         <y>160</y>
+         <width>101</width>
          <height>20</height>
         </rect>
        </property>
@@ -1626,7 +1571,7 @@
         </font>
        </property>
        <property name="text">
-        <string>BOOT VIDEO</string>
+        <string>Primary video</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1636,7 +1581,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>200</y>
+         <y>230</y>
          <width>81</width>
          <height>21</height>
         </rect>
@@ -1649,7 +1594,7 @@
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>200</y>
+         <y>230</y>
          <width>411</width>
          <height>21</height>
         </rect>
@@ -1659,7 +1604,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>240</y>
+         <y>260</y>
          <width>21</width>
          <height>21</height>
         </rect>
@@ -1672,7 +1617,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>260</y>
+         <y>280</y>
          <width>81</width>
          <height>21</height>
         </rect>
@@ -1685,7 +1630,7 @@
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>260</y>
+         <y>280</y>
          <width>411</width>
          <height>21</height>
         </rect>
@@ -1695,7 +1640,7 @@
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>280</y>
+         <y>300</y>
          <width>311</width>
          <height>31</height>
         </rect>
@@ -1707,9 +1652,9 @@
       <widget class="QLabel" name="label_61">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>180</y>
-         <width>41</width>
+         <x>0</x>
+         <y>210</y>
+         <width>111</width>
          <height>20</height>
         </rect>
        </property>
@@ -1722,7 +1667,7 @@
         </font>
        </property>
        <property name="text">
-        <string>BSPF</string>
+        <string>Select BSPF file</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1732,7 +1677,7 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>240</y>
+         <y>260</y>
          <width>71</width>
          <height>20</height>
         </rect>
@@ -1746,7 +1691,180 @@
         </font>
        </property>
        <property name="text">
-        <string>AUTORUN</string>
+        <string>AutoRun</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="PriVideo_24bit_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>430</x>
+         <y>160</y>
+         <width>71</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>24 bit</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="SecondaryVideo_comboBox">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>180</y>
+         <width>151</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <item>
+        <property name="text">
+         <string>LVDS 800x480</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 800x600</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1024x600</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1024x768</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1280x800</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1366x768</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1920x1080 2Ch</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QCheckBox" name="SecVideo_24bit_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>430</x>
+         <y>180</y>
+         <width>71</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>24 bit</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="PrimaryVideo_comboBox">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>160</y>
+         <width>151</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <item>
+        <property name="text">
+         <string>HDMI 1920x1080</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>HDMI 1280x720</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 800x480</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 800x600</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1024x600</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1024x768</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1280x800</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1366x768</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LVDS 1920x1080 2Ch</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="VideoVisible_label_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>180</y>
+         <width>111</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Secondary video</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1785,7 +1903,7 @@
         </font>
        </property>
        <property name="text">
-        <string>PRE COMPILED FILE SYSTEMS</string>
+        <string>Pre compiled File Systems</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1823,7 +1941,7 @@
         </font>
        </property>
        <property name="text">
-        <string>FILE SYSTEM</string>
+        <string>File System</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1874,7 +1992,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Write uSD</string>
+        <string>Write microSD</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_120">
@@ -1894,7 +2012,7 @@
         </font>
        </property>
        <property name="text">
-        <string>MICRO SD DEVICE</string>
+        <string>microSD Device</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1956,7 +2074,7 @@
         </font>
        </property>
        <property name="text">
-        <string>BOARD</string>
+        <string>Board</string>
        </property>
       </widget>
       <widget class="QComboBox" name="Board_comboBox">
@@ -2364,156 +2482,6 @@
         <string>SPDIF</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_70">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>36</y>
-         <width>91</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>PRIMARY VIDEO</string>
-       </property>
-      </widget>
-      <widget class="QComboBox" name="P_PrimaryVideo_comboBox">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>40</y>
-         <width>131</width>
-         <height>27</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-        </font>
-       </property>
-       <item>
-        <property name="text">
-         <string>HDMI 1920x1080</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>HDMI 1280x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 800x480</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 800x600</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1024x600</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1024x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1280x800</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1366x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1920x1080 2Ch</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QLabel" name="label_124">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>70</y>
-         <width>111</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>SECONDARY VIDEO</string>
-       </property>
-      </widget>
-      <widget class="QComboBox" name="P_SecondaryVideo_comboBox">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>70</y>
-         <width>131</width>
-         <height>27</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-        </font>
-       </property>
-       <item>
-        <property name="text">
-         <string>LVDS 800x480</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 800x600</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1024x600</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1024x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1280x800</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1366x768</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>LVDS 1920x1080 2Ch</string>
-        </property>
-       </item>
-      </widget>
       <widget class="QLabel" name="label_23">
        <property name="geometry">
         <rect>
@@ -2531,7 +2499,7 @@
         </font>
        </property>
        <property name="text">
-        <string>AUDIO &amp; VIDEO</string>
+        <string>Audio</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -2560,71 +2528,6 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_25">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>20</y>
-         <width>311</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <italic>true</italic>
-         <bold>true</bold>
-         <underline>true</underline>
-        </font>
-       </property>
-       <property name="text">
-        <string>VIDEO                                                                                              </string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="P_PriVideo_24bit_checkBox">
-       <property name="geometry">
-        <rect>
-         <x>480</x>
-         <y>40</y>
-         <width>71</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>24 bit</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="P_SecVideo_24bit_checkBox">
-       <property name="geometry">
-        <rect>
-         <x>480</x>
-         <y>70</y>
-         <width>71</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>24 bit</string>
        </property>
       </widget>
      </widget>

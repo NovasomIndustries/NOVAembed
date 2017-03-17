@@ -1566,8 +1566,8 @@ void NOVAembed::P_pin_decode()
     else
         P_PCIe_checkBox = "P_PCIe_checkBox=false";
 
-    P_PrimaryVideo_comboBox   = ui->P_PrimaryVideo_comboBox->currentText();
-    P_SecondaryVideo_comboBox = ui->P_SecondaryVideo_comboBox->currentText();
+    P_PrimaryVideo_comboBox   = ui->PrimaryVideo_comboBox->currentText();
+    P_SecondaryVideo_comboBox = ui->SecondaryVideo_comboBox->currentText();
 }
 
 void NOVAembed::P_save_helper(QString fileName , QString Processor_model)
@@ -1649,11 +1649,11 @@ void NOVAembed::P_save_helper(QString fileName , QString Processor_model)
     out << QString("P_I2C1Speed="+P_I2C1Speed+"\n");
     out << QString("P_I2C3Speed="+P_I2C3Speed+"\n");
 
-    if ( ui->P_PriVideo_24bit_checkBox->isChecked() )
+    if ( ui->PriVideo_24bit_checkBox->isChecked() )
         out << QString("P_PriVideo_24bit_checkBox=true\n");
     else
         out << QString("P_PriVideo_24bit_checkBox=false\n");
-    if ( ui->P_SecVideo_24bit_checkBox->isChecked() )
+    if ( ui->SecVideo_24bit_checkBox->isChecked() )
         out << QString("P_SecVideo_24bit_checkBox=true\n");
     else
         out << QString("P_SecVideo_24bit_checkBox=false\n");
@@ -1678,10 +1678,10 @@ void NOVAembed::P_save_helper(QString fileName , QString Processor_model)
         out << QString("P_PCIe_checkBox=true\n");
     else
         out << QString("P_PCIe_checkBox=false\n");
-    out << QString("PrimaryVideo_comboBox="+ui->P_PrimaryVideo_comboBox->currentText()+"\n");
-    out << QString("SecondaryVideo_comboBox="+ui->P_SecondaryVideo_comboBox->currentText()+"\n");
-    P_PrimaryVideo_comboBox   = ui->P_PrimaryVideo_comboBox->currentText();
-    P_SecondaryVideo_comboBox = ui->P_SecondaryVideo_comboBox->currentText();
+    out << QString("PrimaryVideo_comboBox="+ui->PrimaryVideo_comboBox->currentText()+"\n");
+    out << QString("SecondaryVideo_comboBox="+ui->SecondaryVideo_comboBox->currentText()+"\n");
+    P_PrimaryVideo_comboBox   = ui->PrimaryVideo_comboBox->currentText();
+    P_SecondaryVideo_comboBox = ui->SecondaryVideo_comboBox->currentText();
     if ( Processor_model == "QUAD")
     {
         out << QString("Processor=QUAD\n");
@@ -1883,21 +1883,21 @@ QSettings * func_settings = 0;
         ui->P_SATA_checkBox->setChecked(true);
     if ( P_getvalue(strKeyFunc, func_settings , "P_PCIe_checkBox") == "true" )
         ui->P_PCIe_checkBox->setChecked(true);
-    ui->P_PrimaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "PrimaryVideo_comboBox"));
-    ui->P_SecondaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SecondaryVideo_comboBox"));
-    ui->P_PriVideo_24bit_checkBox->setChecked(false);
-    ui->P_SecVideo_24bit_checkBox->setChecked(false);
+    ui->PrimaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "PrimaryVideo_comboBox"));
+    ui->SecondaryVideo_comboBox->setCurrentText(P_getvalue(strKeyFunc, func_settings , "P_SecondaryVideo_comboBox"));
+    ui->PriVideo_24bit_checkBox->setChecked(false);
+    ui->SecVideo_24bit_checkBox->setChecked(false);
     if ( P_getvalue(strKeyFunc, func_settings , "P_PriVideo_24bit_checkBox") == "true" )
-        ui->P_PriVideo_24bit_checkBox->setChecked(true);
+        ui->PriVideo_24bit_checkBox->setChecked(true);
     if ( P_getvalue(strKeyFunc, func_settings , "P_SecVideo_24bit_checkBox") == "true" )
-        ui->P_SecVideo_24bit_checkBox->setChecked(true);
+        ui->SecVideo_24bit_checkBox->setChecked(true);
 
 }
 
 void NOVAembed::on_P_Clear_pushButton_clicked()
 {
-    ui->P_PrimaryVideo_comboBox->setCurrentIndex(0);
-    ui->P_SecondaryVideo_comboBox->setCurrentIndex(0);
+    ui->PrimaryVideo_comboBox->setCurrentIndex(0);
+    ui->SecondaryVideo_comboBox->setCurrentIndex(0);
     ui->P_SPI1_checkBox->setChecked(false);
     ui->P_SPI2_checkBox->setChecked(false);
     ui->P_SPI3_checkBox->setChecked(false);
