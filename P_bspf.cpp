@@ -2075,65 +2075,18 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
         update_status_bar(fi.baseName()+".dtb compiled, dtb is in /Devel/NOVAsom_SDK/DtbUserWorkArea folder as "+SDL_FileNameNoExtension+".dtb and "+QUAD_FileNameNoExtension+".dtb");
         const char *str;
         QByteArray ba;
-        QString syscmd_quad = "cp /Devel/NOVAsom_SDK/DtbUserWorkArea/"+QUAD_FileNameNoExtension+".dtb /Devel/NOVAsom_SDK/Deploy/imx6q-novasomP.dtb ; chmod 777 /Devel/NOVAsom_SDK/Deploy/imx6q-novasomP.dtb";
-        QString syscmd_sdl  = "cp /Devel/NOVAsom_SDK/DtbUserWorkArea/"+SDL_FileNameNoExtension+".dtb /Devel/NOVAsom_SDK/Deploy/imx6sdl-novasomP.dtb ; chmod 777 /Devel/NOVAsom_SDK/Deploy/imx6sdl-novasomP.dtb";
 
+        QString syscmd_quad = "cp /Devel/NOVAsom_SDK/DtbUserWorkArea/"+QUAD_FileNameNoExtension+".dtb /Devel/NOVAsom_SDK/Deploy/imx6q-novasomP.dtb ; chmod 777 /Devel/NOVAsom_SDK/Deploy/imx6q-novasomP.dtb";
         ba = syscmd_quad.toLatin1();
         str = ba.data();
         system(str);
+
+        QString syscmd_sdl  = "cp /Devel/NOVAsom_SDK/DtbUserWorkArea/"+SDL_FileNameNoExtension+".dtb /Devel/NOVAsom_SDK/Deploy/imx6sdl-novasomP.dtb ; chmod 777 /Devel/NOVAsom_SDK/Deploy/imx6sdl-novasomP.dtb";
         ba = syscmd_sdl.toLatin1();
         str = ba.data();
         system(str);
 
-        QString NOVAsomParamsName;
-
-        if ( ui->PrimaryVideo_comboBox->currentText() == "HDMI 1920x1080")
-        {
-            NOVAsomParamsName = "NOVAsomParams_HDMI_1920x1080";
-        }
-        if ( ui->PrimaryVideo_comboBox->currentText() == "HDMI 1280x720" )
-        {
-            NOVAsomParamsName = "NOVAsomParams_HDMI_1280x720";
-        }
-        if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1920x1080 2Ch")
-        {
-            NOVAsomParamsName = "NOVAsomParams_LVDS_1920x10802CH";
-        }
-        if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1366x768")
-        {
-            NOVAsomParamsName = "NOVAsomParams_LVDS_1366x768";
-        }
-        if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1280x800")
-        {
-            if ( ui->PriVideo_24bit_checkBox->isChecked() == true)
-                NOVAsomParamsName = "NOVAsomParams_LVDS_1280x800_24";
-            else
-                NOVAsomParamsName = "NOVAsomParams_LVDS_1280x800_18";
-        }
-        if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1024x768")
-        {
-            NOVAsomParamsName = "NOVAsomParams_LVDS_1024x768";
-        }
-        if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1024x600")
-        {
-            NOVAsomParamsName = "NOVAsomParams_LVDS_1024x600";
-        }
-        if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 800x600")
-        {
-            NOVAsomParamsName = "NOVAsomParams_LVDS_800x600";
-        }
-        if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 800x480")
-        {
-            NOVAsomParamsName = "NOVAsomParams_LVDS_800x480";
-        }
-        QString syscmd_params = "cp /Devel/NOVAsom_SDK/Utils/BootParameters/"+NOVAsomParamsName+" /Devel/NOVAsom_SDK/Deploy/NOVAsomParams";
-        ba = syscmd_params.toLatin1();
-        str = ba.data();
-        system(str);
-        ba = syscmd_sdl.toLatin1();
-        str = ba.data();
-        system(str);
-
+        NOVAsom_Params_helper();
         storeNOVAembed_ini();
     }
     else

@@ -458,6 +458,68 @@ void NOVAembed::on_uSD_Device_comboBox_currentIndexChanged(const QString &arg1)
     storeNOVAembed_ini();
 }
 
+void NOVAembed::NOVAsom_Params_helper()
+{
+    QString NOVAsomParamsName;
+    const char *str;
+    QByteArray ba;
+
+    if ( ui->PrimaryVideo_comboBox->currentText() == "HDMI 1920x1080")
+    {
+        NOVAsomParamsName = "NOVAsomParams_HDMI_1920x1080";
+    }
+    if ( ui->PrimaryVideo_comboBox->currentText() == "HDMI 1280x720" )
+    {
+        NOVAsomParamsName = "NOVAsomParams_HDMI_1280x720";
+    }
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1920x1080 2Ch")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_1920x10802CH";
+    }
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1366x768")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_1366x768";
+    }
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1280x800")
+    {
+        if ( ui->PriVideo_24bit_checkBox->isChecked() == true)
+            NOVAsomParamsName = "NOVAsomParams_LVDS_1280x800_24";
+        else
+            NOVAsomParamsName = "NOVAsomParams_LVDS_1280x800_18";
+    }
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1024x768")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_1024x768";
+    }
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1024x600")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_1024x600";
+    }
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 800x600")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_800x600";
+    }
+    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 800x480")
+    {
+        NOVAsomParamsName = "NOVAsomParams_LVDS_800x480";
+    }
+
+    QFileInfo fileinfo("/Devel/NOVAsom_SDK/Deploy/uInitrd");
+    int filesize = 96000;
+    if ( fileinfo.size() > 32000000 )
+        filesize = 128000;
+    if ( fileinfo.size() > 64000000 )
+        filesize = 192000;
+    QString s = QString::number(filesize);
+    if ( ui->initRdSize_lineEdit->text() != "")
+        s = ui->initRdSize_lineEdit->text();
+
+    QString syscmd_params = "echo \"setramsize=setenv rdsize "+s+"\" > /Devel/NOVAsom_SDK/Deploy/NOVAsomParams; cat /Devel/NOVAsom_SDK/Utils/BootParameters/"+NOVAsomParamsName+" >> /Devel/NOVAsom_SDK/Deploy/NOVAsomParams";
+    ba = syscmd_params.toLatin1();
+    str = ba.data();
+    system(str);
+}
+
 void NOVAembed::on_Write_uSD_pushButton_clicked()
 {
     /*uSD_Device_comboBox*/
@@ -489,71 +551,17 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
         BoardModel = "NOVAsomU";
     }
 
-    if ( ui->PrimaryVideo_comboBox->currentText() == "HDMI 1920x1080")
-    {
-        NOVAsomParamsName = "NOVAsomParams_HDMI_1920x1080";
-    }
-    if ( ui->PrimaryVideo_comboBox->currentText() == "HDMI 1280x720" )
-    {
-        NOVAsomParamsName = "NOVAsomParams_HDMI_1280x720";
-    }
-    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1920x1080 2Ch")
-    {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_1920x10802CH";
-    }
-    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1366x768")
-    {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_1366x768";
-    }
-    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1280x800")
-    {
-        if ( BoardModel == "NOVAsomP" )
-        {
-            if ( ui->PriVideo_24bit_checkBox->isChecked() == true)
-                NOVAsomParamsName = "NOVAsomParams_LVDS_1280x800_24";
-            else
-                NOVAsomParamsName = "NOVAsomParams_LVDS_1280x800_18";
-        }
-    }
-    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1024x768")
-    {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_1024x768";
-    }
-    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 1024x600")
-    {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_1024x600";
-    }
-    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 800x600")
-    {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_800x600";
-    }
-    if ( ui->PrimaryVideo_comboBox->currentText() == "LVDS 800x480")
-    {
-        NOVAsomParamsName = "NOVAsomParams_LVDS_800x480";
-    }
+    NOVAsom_Params_helper();
 
     UserEnabled = "user";
     QFileInfo fi(ui->UserBSPFselectedlineEdit->text());
     sdl_dtb = "SDL_"+fi.baseName()+".dtb";
     q_dtb = "QUAD_"+fi.baseName()+".dtb";
-    QFileInfo fileinfo("/Devel/NOVAsom_SDK/Deploy/uInitrd");
-    int filesize = 96000;
-    if ( fileinfo.size() > 32000000 )
-        filesize = 128000;
-    if ( fileinfo.size() > 64000000 )
-        filesize = 192000;
-    QString s = QString::number(filesize);
-    if ( ui->initRdSize_lineEdit->text() != "")
-        s = ui->initRdSize_lineEdit->text();
-    //QString s = QString::number(filesize);
-
 
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
-    out << QString("echo \"setramsize=setenv rdsize "+s+"\" > ../Deploy/NOVAsomParams\n");
-    out << QString("cat BootParameters/"+NOVAsomParamsName+" >> ../Deploy/NOVAsomParams\n");
-    out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" "+ UserEnabled +"> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
+    out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" "+ UserEnabled +" > /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
     if (( ui->UserAutoRun_checkBox->isChecked() == true) && (ui->UserAutoRunSelectedlineEdit->text().isEmpty() == false ))
         out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
 
