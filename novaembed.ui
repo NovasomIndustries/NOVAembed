@@ -2025,6 +2025,11 @@
          <string>sde</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>sdf</string>
+        </property>
+       </item>
       </widget>
       <widget class="QPushButton" name="ExtFS_Write_uSD_pushButton">
        <property name="geometry">
