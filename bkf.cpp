@@ -579,6 +579,11 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
 
 void NOVAembed::on_GenerateFileSystem_pushButton_clicked()
 {
+    if ( ui->NewFileSystemSelectedlineEdit->text().isEmpty())
+    {
+        update_status_bar("File System name can't be empty");
+        return;
+    }
     QString testing = ui->NewFileSystemSelectedlineEdit->text().remove(" ");
     if ( testing != ui->NewFileSystemSelectedlineEdit->text() )
     {
