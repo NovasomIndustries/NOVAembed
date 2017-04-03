@@ -236,6 +236,54 @@ void NOVAembed::on_KernelReCompile_pushButton_clicked()
         ui->frame_5->setEnabled(true);
     storeNOVAembed_ini();
 }
+QString LinuxSplashLogos =  "/Devel/NOVAsom6_SDK/Utils/LinuxSplashLogos/";
+QString CurrentSplashName =  "";
+
+void NOVAembed::on_KernelSplash_pushButton_clicked()
+{
+
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"/Devel/NOVAsom_SDK/Utils/LinuxSplashLogos",tr("Image File (*.png)"));
+    qDebug() << fileName;
+    if ( fileName == "" ) // Hit cancel
+    {
+        return;
+        qDebug() << "Cancel hit";
+    }
+    QFileInfo fileInfo(fileName );
+    QString TheName(fileInfo.baseName());
+    CurrentSplashName = TheName;
+    qDebug() << TheName;
+    qDebug() << fileName;
+    ui->SplashImageNameLabel->setText(TheName+".png");
+    ui->SplashThumb->setPixmap(QPixmap(fileName) );
+}
+
+
+void NOVAembed::on_KernelCompileSplash_pushButton_clicked()
+{
+    QString kernel_name = "linux-3.0.101-4.1.0-NOVAsom6";
+    QFile scriptfile("/tmp/script");
+    if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
+    {
+        update_status_bar("Unable to create /tmp/script");
+        return;
+    }
+    QTextStream out(&scriptfile);
+    kernel_name = "linux-imx_4.1.15_1.2.0_ga";
+
+    out << QString("#!/bin/sh\n");
+    out << QString("/Devel/NOVAsom_SDK/Utils/CreateLogo /Devel/NOVAsom_SDK/Utils/LinuxSplashLogos/"+CurrentSplashName+".png "+kernel_name+"\n");
+    out << QString("echo $? > /tmp/result\n");
+    scriptfile.close();
+    //system("cp /tmp/script /tmp/createlogo");
+    if ( run_script() == 0)
+    {
+        update_status_bar("Splash set");
+        on_KernelCompile_pushButton_clicked();
+    }
+    else
+        update_status_bar("Error setting splash");
+}
 
 /* File System */
 void NOVAembed::on_SelectFileSystem_pushButton_clicked()

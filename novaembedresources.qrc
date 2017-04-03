@@ -21,5 +21,7 @@
         <file>Icons/j13.jpg</file>
         <file>Icons/valid.png</file>
         <file>Icons/invalid.png</file>
+        <file>Icons/NOVAsomP800x480.png</file>
+        <file>Icons/NOVAsomPgradient800x480.png</file>
     </qresource>
 </RCC>

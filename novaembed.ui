@@ -302,7 +302,7 @@
         <x>360</x>
         <y>80</y>
         <width>511</width>
-        <height>111</height>
+        <height>151</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -337,15 +337,15 @@
       <widget class="QPushButton" name="KernelCompile_pushButton">
        <property name="geometry">
         <rect>
-         <x>170</x>
-         <y>70</y>
-         <width>151</width>
-         <height>31</height>
+         <x>380</x>
+         <y>100</y>
+         <width>111</width>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <pointsize>10</pointsize>
+         <pointsize>9</pointsize>
         </font>
        </property>
        <property name="text">
@@ -358,7 +358,7 @@
          <x>170</x>
          <y>30</y>
          <width>71</width>
-         <height>31</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
@@ -368,15 +368,15 @@
       <widget class="QPushButton" name="KernelReCompile_pushButton">
        <property name="geometry">
         <rect>
-         <x>340</x>
-         <y>70</y>
-         <width>151</width>
-         <height>31</height>
+         <x>380</x>
+         <y>120</y>
+         <width>111</width>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <pointsize>10</pointsize>
+         <pointsize>9</pointsize>
         </font>
        </property>
        <property name="text">
@@ -387,7 +387,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>10</y>
+         <y>0</y>
          <width>71</width>
          <height>51</height>
         </rect>
@@ -439,6 +439,90 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QPushButton" name="KernelSplash_pushButton">
+       <property name="geometry">
+        <rect>
+         <x>170</x>
+         <y>70</y>
+         <width>191</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Select Splash Image</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="SplashThumb">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>59</y>
+         <width>141</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="novaembedresources.qrc">:/Icons/NOVAsomPgradient800x480.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="SplashImageNameLabel">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>130</y>
+         <width>141</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Default Splash Image</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="KernelCompileSplash_pushButton">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>70</y>
+         <width>111</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Set Splash Image</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QFrame" name="frame_4">
       <property name="geometry">
@@ -483,14 +567,14 @@
        <property name="geometry">
         <rect>
          <x>9</x>
-         <y>340</y>
+         <y>320</y>
          <width>321</width>
-         <height>31</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <pointsize>10</pointsize>
+         <pointsize>9</pointsize>
         </font>
        </property>
        <property name="text">
@@ -526,7 +610,7 @@
          <x>10</x>
          <y>300</y>
          <width>151</width>
-         <height>31</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
@@ -672,7 +756,7 @@
          <x>170</x>
          <y>300</y>
          <width>161</width>
-         <height>31</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
@@ -1248,7 +1332,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>10</pointsize>
+         <pointsize>9</pointsize>
         </font>
        </property>
        <property name="text">
@@ -1316,9 +1400,9 @@
       <property name="geometry">
        <rect>
         <x>360</x>
-        <y>200</y>
+        <y>240</y>
         <width>511</width>
-        <height>381</height>
+        <height>341</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1354,14 +1438,14 @@
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>340</y>
+         <y>310</y>
          <width>311</width>
-         <height>31</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <pointsize>10</pointsize>
+         <pointsize>9</pointsize>
         </font>
        </property>
        <property name="text">
@@ -1472,7 +1556,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>9</y>
+         <y>10</y>
          <width>71</width>
          <height>41</height>
         </rect>
@@ -1604,7 +1688,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>260</y>
+         <y>250</y>
          <width>21</width>
          <height>21</height>
         </rect>
@@ -1617,7 +1701,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>280</y>
+         <y>270</y>
          <width>81</width>
          <height>21</height>
         </rect>
@@ -1630,7 +1714,7 @@
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>280</y>
+         <y>270</y>
          <width>411</width>
          <height>21</height>
         </rect>
@@ -1640,9 +1724,9 @@
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>300</y>
+         <y>290</y>
          <width>311</width>
-         <height>31</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
@@ -1677,7 +1761,7 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>260</y>
+         <y>250</y>
          <width>71</width>
          <height>20</height>
         </rect>
@@ -2042,7 +2126,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>10</pointsize>
+         <pointsize>9</pointsize>
         </font>
        </property>
        <property name="text">

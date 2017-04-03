@@ -219,6 +219,10 @@ private slots:
     void on_P_Clear_pushButton_clicked();
 
 
+    void on_KernelSplash_pushButton_clicked();
+
+    void on_KernelCompileSplash_pushButton_clicked();
+
 private:
     Ui::NOVAembed *ui;
 };
