@@ -427,8 +427,8 @@ void process_ecspi1_5(void)
     sprintf(ecspi1_5->mosi_pin_name,"MX6QDL_PAD_DISP0_DAT21__ECSPI1_MOSI");
     sprintf(ecspi1_5->miso_pin_name,"MX6QDL_PAD_DISP0_DAT22__ECSPI1_MISO");
     sprintf(ecspi1_5->sclk_pin_name,"MX6QDL_PAD_DISP0_DAT20__ECSPI1_SCLK");
-    sprintf(ecspi1_5->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT23__ECSPI1_SS0");
-    sprintf(ecspi1_5->ss1_pin_name,"MX6QDL_PAD_DISP0_DAT15__ECSPI1_SS1");
+    sprintf(ecspi1_5->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT23__GPIO5_IO17");
+    sprintf(ecspi1_5->ss1_pin_name,"MX6QDL_PAD_DISP0_DAT15__GPIO5_IO09");
     sprintf(ecspi1_5->pin_config[0],"100b1");
     sprintf(ecspi1_5->pin_config[1],"100b1");
     sprintf(ecspi1_5->pin_config[2],"100b1");
@@ -445,7 +445,7 @@ void process_ecspi1_4(void)
     sprintf(ecspi1_4->mosi_pin_name,"MX6QDL_PAD_DISP0_DAT21__ECSPI1_MOSI");
     sprintf(ecspi1_4->miso_pin_name,"MX6QDL_PAD_DISP0_DAT22__ECSPI1_MISO");
     sprintf(ecspi1_4->sclk_pin_name,"MX6QDL_PAD_DISP0_DAT20__ECSPI1_SCLK");
-    sprintf(ecspi1_4->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT23__ECSPI1_SS0");
+    sprintf(ecspi1_4->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT23__GPIO5_IO17");
     sprintf(ecspi1_4->pin_config[0],"100b1");
     sprintf(ecspi1_4->pin_config[1],"100b1");
     sprintf(ecspi1_4->pin_config[2],"100b1");
@@ -461,8 +461,8 @@ void process_ecspi2_5(void)
     sprintf(ecspi2_5->mosi_pin_name,"MX6QDL_PAD_DISP0_DAT16__ECSPI2_MOSI");
     sprintf(ecspi2_5->miso_pin_name,"MX6QDL_PAD_DISP0_DAT17__ECSPI2_MISO");
     sprintf(ecspi2_5->sclk_pin_name,"MX6QDL_PAD_DISP0_DAT19__ECSPI2_SCLK");
-    sprintf(ecspi2_5->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT18__ECSPI2_SS0");
-    sprintf(ecspi2_5->ss1_pin_name,"MX6QDL_PAD_DISP0_DAT15__ECSPI2_SS1");
+    sprintf(ecspi2_5->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT18__GPIO5_IO12");
+    sprintf(ecspi2_5->ss1_pin_name,"MX6QDL_PAD_DISP0_DAT15__GPIO5_IO09");
     sprintf(ecspi2_5->pin_config[0],"100b1");
     sprintf(ecspi2_5->pin_config[1],"100b1");
     sprintf(ecspi2_5->pin_config[2],"100b1");
@@ -479,7 +479,7 @@ void process_ecspi2_4(void)
     sprintf(ecspi2_4->mosi_pin_name,"MX6QDL_PAD_DISP0_DAT16__ECSPI2_MOSI");
     sprintf(ecspi2_4->miso_pin_name,"MX6QDL_PAD_DISP0_DAT17__ECSPI2_MISO");
     sprintf(ecspi2_4->sclk_pin_name,"MX6QDL_PAD_DISP0_DAT19__ECSPI2_SCLK");
-    sprintf(ecspi2_4->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT18__ECSPI2_SS0");
+    sprintf(ecspi2_4->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT18__GPIO5_IO12");
     sprintf(ecspi2_4->pin_config[0],"100b1");
     sprintf(ecspi2_4->pin_config[1],"100b1");
     sprintf(ecspi2_4->pin_config[2],"100b1");
@@ -495,8 +495,8 @@ void process_ecspi3_5(void)
     sprintf(ecspi3_5->mosi_pin_name,"MX6QDL_PAD_DISP0_DAT1__ECSPI3_MOSI");
     sprintf(ecspi3_5->miso_pin_name,"MX6QDL_PAD_DISP0_DAT2__ECSPI3_MISO");
     sprintf(ecspi3_5->sclk_pin_name,"MX6QDL_PAD_DISP0_DAT0__ECSPI3_SCLK");
-    sprintf(ecspi3_5->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT3__ECSPI3_SS0");
-    sprintf(ecspi3_5->ss1_pin_name,"MX6QDL_PAD_DISP0_DAT4__ECSPI3_SS1");
+    sprintf(ecspi3_5->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT3__GPIO4_IO24");
+    sprintf(ecspi3_5->ss1_pin_name,"MX6QDL_PAD_DISP0_DAT4__GPIO4_IO25");
     sprintf(ecspi3_5->pin_config[0],"100b1");
     sprintf(ecspi3_5->pin_config[1],"100b1");
     sprintf(ecspi3_5->pin_config[2],"100b1");
@@ -513,7 +513,7 @@ void process_ecspi3_4(void)
     sprintf(ecspi3_4->mosi_pin_name,"MX6QDL_PAD_DISP0_DAT1__ECSPI3_MOSI");
     sprintf(ecspi3_4->miso_pin_name,"MX6QDL_PAD_DISP0_DAT2__ECSPI3_MISO");
     sprintf(ecspi3_4->sclk_pin_name,"MX6QDL_PAD_DISP0_DAT0__ECSPI3_SCLK");
-    sprintf(ecspi3_4->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT3__ECSPI3_SS0");
+    sprintf(ecspi3_4->ss0_pin_name,"MX6QDL_PAD_DISP0_DAT3__GPIO4_IO24");
     sprintf(ecspi3_4->pin_config[0],"100b1");
     sprintf(ecspi3_4->pin_config[1],"100b1");
     sprintf(ecspi3_4->pin_config[2],"100b1");
@@ -529,7 +529,7 @@ void process_ecspi4(void)
     sprintf(ecspi4->mosi_pin_name,"MX6QDL_PAD_EIM_D28__ECSPI4_MOSI");
     sprintf(ecspi4->miso_pin_name,"MX6QDL_PAD_EIM_D22__ECSPI4_MISO");
     sprintf(ecspi4->sclk_pin_name,"MX6QDL_PAD_EIM_D21__ECSPI4_SCLK");
-    sprintf(ecspi4->ss0_pin_name, "MX6QDL_PAD_EIM_D29__ECSPI4_SS0");
+    sprintf(ecspi4->ss0_pin_name, "MX6QDL_PAD_EIM_D29__GPIO3_IO29");
     sprintf(ecspi4->pin_config[0],"100b1");
     sprintf(ecspi4->pin_config[1],"100b1");
     sprintf(ecspi4->pin_config[2],"100b1");
