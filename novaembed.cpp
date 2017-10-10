@@ -18,7 +18,7 @@
 /*                                                                              Global variables                                                                                         */
 /*****************************************************************************************************************************************************************************************/
 
-QString Version = "1.0.4.2rc3";
+QString Version = "1.0.4.3rc1";
 QString Configuration = "Standard";
 QString FileSystemName = "";
 QString DeployedFileSystemName = "";
@@ -77,7 +77,7 @@ int     copy_required_files = 0;
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly))
     {
-        //qDebug() << "NOVAembed.ini not found";
+        //qDebug() << "NOVAembed.ini not found !!";
         QMessageBox::information(this, tr("NOVAembed.ini"),"NOVAembed.ini not found. Creating a new one!");
         if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings").exists() )
         {
@@ -88,6 +88,7 @@ int     copy_required_files = 0;
     }
     else
     {
+        //qDebug() << "NOVAembed.ini found";
         QString strKeyConf("NOVAembed Configuration/");
         QSettings * config = 0;
         config = new QSettings( fileName, QSettings::IniFormat );
@@ -118,6 +119,9 @@ int     copy_required_files = 0;
         BootValid = settings->value( strKeySettings + "BootValid", "r").toString();
         FSValid = settings->value( strKeySettings + "FSValid", "r").toString();
         KernelValid = settings->value( strKeySettings + "KernelValid", "r").toString();
+        //qDebug() << "NOVAembed"+BootValid;
+        //qDebug() << "NOVAembed"+FSValid;
+        //qDebug() << "NOVAembed"+KernelValid;
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf").exists() )
     {
@@ -170,7 +174,6 @@ int     copy_required_files = 0;
     {
         ui->tab->insertTab(2,TOOL_stab,"Tools");
     }
-
 }
 
 NOVAembed::~NOVAembed()
@@ -227,7 +230,9 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("BootValid="+BootValid+"\n");
     out << QString("FSValid="+FSValid+"\n");
     out << QString("KernelValid="+KernelValid+"\n");
-
+    //qDebug() << "storeNOVAembed_ini"+BootValid;
+    //qDebug() << "storeNOVAembed_ini"+FSValid;
+    //qDebug() << "storeNOVAembed_ini"+KernelValid;
     file.close();
 }
 
@@ -341,6 +346,9 @@ int NOVAembed::update_status_bar(QString StatusBarContent)
 /*****************************************************************************************************************************************************************************************/
 void NOVAembed::on_tab_currentChanged(int index)
 {
+    //qDebug() << "on_tab_currentChanged"+BootValid;
+    //qDebug() << "on_tab_currentChanged"+FSValid;
+    //qDebug() << "on_tab_currentChanged"+KernelValid;
     switch ( index)
     {
     case 0 : // Welcome Tab
@@ -351,15 +359,15 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->Board_comboBox->setCurrentText(_Board_comboBox);
         ui->PrimaryVideo_comboBox->setCurrentText(CurrentVideo);
         ui->UserPartition_comboBox->setCurrentText(NumberOfUserPartitions);
+
         compile_NewFileSystemFileSystemConfigurationcomboBox();
         compile_ExtFS_comboBox();
-
         on_ThisIsReferenceServer_checkBox_clicked(true);
+
         ui->iperror_label->setVisible(false);
         ui->REFERENCE_SERVER_label->setEnabled(false);
         ui->REFERENCE_SERVER_lineEdit->setEnabled(false);
         ui->ThisIsReferenceServer_checkBox->setChecked(true);
-
         if ( BootValid == "OK")
         {
             ui->uboot_Valid_label->setPixmap(QPixmap(":/Icons/valid.png"));
@@ -390,6 +398,16 @@ void NOVAembed::on_tab_currentChanged(int index)
             ui->frame_5->setEnabled(true);
 
 
+        ui->VideoVisible_label->setVisible(true);
+        ui->VideoVisible_label_2->setVisible(true);
+        ui->PrimaryVideo_comboBox->setVisible(true);
+        ui->SecondaryVideo_comboBox->setVisible(true);
+        ui->PriVideo_24bit_checkBox->setVisible(true);
+        ui->SecVideo_24bit_checkBox->setVisible(true);
+        ui->label_61->setVisible(true);
+        ui->UserBSPFSelect_pushButton->setVisible(true);
+        ui->UserBSPFselectedlineEdit->setVisible(true);
+
         if ( ui->Board_comboBox->currentText() == "S Series")
         {
             if ( Last_S_BSPFactoryFile.length() < 2)
@@ -413,6 +431,16 @@ void NOVAembed::on_tab_currentChanged(int index)
                 ui->UserBSPFselectedlineEdit->setText("Not Initialized");
             else
                 ui->UserBSPFselectedlineEdit->setText(Last_U_BSPFactoryFile);
+
+            ui->VideoVisible_label->setVisible(false);
+            ui->VideoVisible_label_2->setVisible(false);
+            ui->PrimaryVideo_comboBox->setVisible(false);
+            ui->SecondaryVideo_comboBox->setVisible(false);
+            ui->PriVideo_24bit_checkBox->setVisible(false);
+            ui->SecVideo_24bit_checkBox->setVisible(false);
+            ui->label_61->setVisible(false);
+            ui->UserBSPFSelect_pushButton->setVisible(false);
+            ui->UserBSPFselectedlineEdit->setVisible(false);
         }
 
         if ( AutoRunSelected == "true" )

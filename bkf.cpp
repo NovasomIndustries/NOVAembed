@@ -51,14 +51,7 @@ void NOVAembed::on_Video_comboBox_currentIndexChanged(const QString &arg1)
 void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
 {
     _Board_comboBox = arg1;
-    ui->FileSystemSelectedlineEdit->setText("");
-    ui->uboot_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
-    ui->fs_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
-    ui->kernel_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
-    BootValid = "INVALID";
-    FSValid = "INVALID";
-    KernelValid = "INVALID";
-    ui->frame_5->setEnabled(false);
+
     if ( arg1 == "S Series")
     {
         CurrentBSPF_Tab = "S BSP Factory";
@@ -84,6 +77,21 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
     ui->tab->insertTab(3,TOOL_stab,"Tools");
 
     compile_NewFileSystemFileSystemConfigurationcomboBox();
+
+    if (( arg1 == "S Series") && ( CurrentBSPF_Tab == "S BSP Factory"))
+        return;
+    if (( arg1 == "P Series") && ( CurrentBSPF_Tab == "P BSP Factory"))
+        return;
+    if (( arg1 == "U Series") && ( CurrentBSPF_Tab == "U BSP Factory"))
+        return;
+    ui->FileSystemSelectedlineEdit->setText("");
+    ui->uboot_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+    ui->fs_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+    ui->kernel_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
+    BootValid = "INVALID";
+    FSValid = "INVALID";
+    KernelValid = "INVALID";
+    ui->frame_5->setEnabled(false);
 
     storeNOVAembed_ini();
 }
@@ -141,7 +149,10 @@ void NOVAembed::on_KernelXconfig_pushButton_clicked()
     }
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
-    out << QString("cd /Devel/NOVAsom_SDK/Kernel/linux-imx_4.1.15_1.2.0_ga\n");
+    if ( ui->Board_comboBox->currentText() == "P Series")
+        out << QString("cd /Devel/NOVAsom_SDK/Kernel/linux-imx_4.1.15_1.2.0_ga\n");
+    if ( ui->Board_comboBox->currentText() == "U Series")
+        out << QString("cd /Devel/NOVAsom_SDK/Kernel/linux-imx_4.1.43\n");
     out << QString(". ../../Utils/SourceMe\n");
     out << QString("make xconfig\n");
     out << QString("echo $? > /tmp/result\n");
@@ -178,7 +189,10 @@ void NOVAembed::on_KernelCompile_pushButton_clicked()
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
-    out << QString("./kmake linux-imx_4.1.15_1.2.0_ga > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+    if ( ui->Board_comboBox->currentText() == "P Series")
+        out << QString("./kmake linux-imx_4.1.15_1.2.0_ga > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+    if ( ui->Board_comboBox->currentText() == "U Series")
+        out << QString("./kmakeU linux-imx_4.1.43 > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
     out << QString("echo $? > /tmp/result\n");
 
     scriptfile.close();
@@ -214,7 +228,10 @@ void NOVAembed::on_KernelReCompile_pushButton_clicked()
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
-    out << QString("./kremake linux-imx_4.1.15_1.2.0_ga > /Devel/NOVAsom_SDK/Logs/kremake.log\n");
+    if ( ui->Board_comboBox->currentText() == "P Series")
+        out << QString("./kremake linux-imx_4.1.15_1.2.0_ga > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+    if ( ui->Board_comboBox->currentText() == "U Series")
+        out << QString("./kremakeU linux-imx_4.1.43 > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
     out << QString("echo $? > /tmp/result\n");
 
     scriptfile.close();
@@ -269,7 +286,10 @@ void NOVAembed::on_KernelCompileSplash_pushButton_clicked()
         return;
     }
     QTextStream out(&scriptfile);
-    kernel_name = "linux-imx_4.1.15_1.2.0_ga";
+    if ( ui->Board_comboBox->currentText() == "P Series")
+        kernel_name = "linux-imx_4.1.15_1.2.0_ga";
+    if ( ui->Board_comboBox->currentText() == "U Series")
+        kernel_name = "linux-imx_4.1.43";
 
     out << QString("#!/bin/sh\n");
     out << QString("/Devel/NOVAsom_SDK/Utils/CreateLogo /Devel/NOVAsom_SDK/Utils/LinuxSplashLogos/"+CurrentSplashName+".png "+kernel_name+"\n");
@@ -609,9 +629,15 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
-    out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" "+ UserEnabled +" > /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
-    if (( ui->UserAutoRun_checkBox->isChecked() == true) && (ui->UserAutoRunSelectedlineEdit->text().isEmpty() == false ))
-        out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/uSD_Write\n");
+    if ( ui->Board_comboBox->currentText() == "U Series")
+        out << QString("./Uflash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" > /Devel/NOVAsom_SDK/Logs/Uflash.log\n");
+    else
+        out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" "+ UserEnabled +" > /Devel/NOVAsom_SDK/Logs/uSD_Write.log\n");
+
+    if (( ui->UserAutoRun_checkBox->isChecked() == true) && (ui->UserAutoRunSelectedlineEdit->text().isEmpty() == false ) && ( ui->Board_comboBox->currentText() == "U Series"))
+        out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/Uflash.log\n");
+    else
+        out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/uSD_Write.log\n");
 
     out << QString("echo $? > /tmp/result\n");
     scriptfile.close();
