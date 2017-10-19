@@ -2007,7 +2007,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>150</y>
+         <y>120</y>
          <width>491</width>
          <height>20</height>
         </rect>
@@ -4492,14 +4492,14 @@
         <font>
          <pointsize>10</pointsize>
          <weight>75</weight>
-         <italic>true</italic>
+         <italic>false</italic>
          <bold>true</bold>
-         <underline>true</underline>
+         <underline>false</underline>
          <kerning>true</kerning>
         </font>
        </property>
        <property name="text">
-        <string>CURRENT BSP FILE:</string>
+        <string>Current BSPF file :</string>
        </property>
       </widget>
       <widget class="QLabel" name="P_Current_BSPF_File_label">
@@ -4520,7 +4520,7 @@
         </font>
        </property>
        <property name="text">
-        <string>test01.bspf</string>
+        <string>uninitialized.bspf</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

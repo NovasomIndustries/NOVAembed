@@ -1567,7 +1567,9 @@ void NOVAembed::P_pin_decode()
         P_PCIe_checkBox = "P_PCIe_checkBox=false";
 
     P_PrimaryVideo_comboBox   = ui->PrimaryVideo_comboBox->currentText();
+    //qDebug() << P_PrimaryVideo_comboBox;
     P_SecondaryVideo_comboBox = ui->SecondaryVideo_comboBox->currentText();
+    //qDebug() << P_SecondaryVideo_comboBox;
 }
 
 void NOVAembed::P_save_helper(QString fileName , QString Processor_model)
@@ -1679,6 +1681,7 @@ void NOVAembed::P_save_helper(QString fileName , QString Processor_model)
     else
         out << QString("P_PCIe_checkBox=false\n");
     out << QString("PrimaryVideo_comboBox="+ui->PrimaryVideo_comboBox->currentText()+"\n");
+    //qDebug() << ui->PrimaryVideo_comboBox->currentText();
     out << QString("SecondaryVideo_comboBox="+ui->SecondaryVideo_comboBox->currentText()+"\n");
     P_PrimaryVideo_comboBox   = ui->PrimaryVideo_comboBox->currentText();
     P_SecondaryVideo_comboBox = ui->SecondaryVideo_comboBox->currentText();
@@ -2034,10 +2037,11 @@ void NOVAembed::on_P_Save_pushButton_clicked()
 void NOVAembed::on_P_Generate_pushButton_clicked()
 {
     // Save .bspf and Generate .dtb
-    QFile scriptfile("/tmp/script");
     QString fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), Last_P_BSPFactoryFile,tr(".bspf (*.bspf)"));
     if ( fileName.isEmpty() )
         return;
+
+    QFile scriptfile("/tmp/script");
     QFileInfo fi(fileName);
     ui->P_Current_BSPF_File_label->setText(fi.baseName()+".bspf");
     ui->P_Generate_pushButton->setText("Save "+fi.baseName()+".bspf and Generate "+fi.baseName()+".dtb");

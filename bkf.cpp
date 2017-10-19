@@ -27,7 +27,8 @@ extern  QString UserPartition1Size;
 extern  QString UserPartition2Size;
 extern  QString uSD_Device;
 extern  QString CurrentBSPF_Tab;
-extern  QString CurrentVideo;
+extern  QString CurrentPrimaryVideo;
+extern  QString CurrentSecondaryVideo;
 extern  QString AutoRunSelected;
 extern  QString AutoRunFolder;
 
@@ -43,8 +44,10 @@ QWidget *current_stab;
 
 void NOVAembed::on_Video_comboBox_currentIndexChanged(const QString &arg1)
 {
+    /*
     CurrentVideo = arg1;
     storeNOVAembed_ini();
+    */
 }
 
 
@@ -260,17 +263,17 @@ void NOVAembed::on_KernelSplash_pushButton_clicked()
 {
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"/Devel/NOVAsom_SDK/Utils/LinuxSplashLogos",tr("Image File (*.png)"));
-    qDebug() << fileName;
+    //qDebug() << fileName;
     if ( fileName == "" ) // Hit cancel
     {
         return;
-        qDebug() << "Cancel hit";
+        //qDebug() << "Cancel hit";
     }
     QFileInfo fileInfo(fileName );
     QString TheName(fileInfo.baseName());
     CurrentSplashName = TheName;
-    qDebug() << TheName;
-    qDebug() << fileName;
+    //qDebug() << TheName;
+    //qDebug() << fileName;
     ui->SplashImageNameLabel->setText(TheName+".png");
     ui->SplashThumb->setPixmap(QPixmap(fileName) );
 }
@@ -571,7 +574,8 @@ void NOVAembed::NOVAsom_Params_helper()
     {
         NOVAsomParamsName = "NOVAsomParams_LVDS_800x480";
     }
-
+    CurrentPrimaryVideo = NOVAsomParamsName;
+    //qDebug() << NOVAsomParamsName;
     QFileInfo fileinfo("/Devel/NOVAsom_SDK/Deploy/uInitrd");
     int filesize = 96000;
     if ( fileinfo.size() > 32000000 )

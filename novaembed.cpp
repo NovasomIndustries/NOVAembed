@@ -18,7 +18,7 @@
 /*                                                                              Global variables                                                                                         */
 /*****************************************************************************************************************************************************************************************/
 
-QString Version = "1.0.4.3rc1";
+QString Version = "1.0.4.3rc2";
 QString Configuration = "Standard";
 QString FileSystemName = "";
 QString DeployedFileSystemName = "";
@@ -34,7 +34,8 @@ QString UserPartition1Size = "1";
 QString UserPartition2Size = "1";
 QString uSD_Device = "sdb";
 QString CurrentBSPF_Tab = "";
-QString CurrentVideo = "";
+QString CurrentPrimaryVideo = "";
+QString CurrentSecondaryVideo = "";
 QString AutoRunSelected = "";
 QString AutoRunFolder = "";
 QString BootValid = "INVALID";
@@ -88,13 +89,12 @@ int     copy_required_files = 0;
     }
     else
     {
-        //qDebug() << "NOVAembed.ini found";
         QString strKeyConf("NOVAembed Configuration/");
         QSettings * config = 0;
         config = new QSettings( fileName, QSettings::IniFormat );
         Configuration = config->value( strKeyConf + "Configuration", "r").toString();
-        if ( Configuration == "r" )
-            Configuration = "Standard";
+        if ( Configuration !=  Version )
+            storeNOVAembed_ini();
         QString strKeySettings("NOVAembed General Settings/");
         QSettings * settings = 0;
         settings = new QSettings( fileName, QSettings::IniFormat );
@@ -113,15 +113,18 @@ int     copy_required_files = 0;
         UserPartition2Size = settings->value( strKeySettings + "UserPartition2Size", "r").toString();
         uSD_Device = settings->value( strKeySettings + "uSD_Device", "r").toString();
         CurrentBSPF_Tab = settings->value( strKeySettings + "CurrentBSPF_Tab", "r").toString();
-        CurrentVideo = settings->value( strKeySettings + "CurrentVideo", "r").toString();
+        CurrentPrimaryVideo = settings->value( strKeySettings + "CurrentPrimaryVideo", "r").toString();
+        CurrentSecondaryVideo = settings->value( strKeySettings + "CurrentSecondaryVideo", "r").toString();
         AutoRunSelected = settings->value( strKeySettings + "AutoRunSelected", "r").toString();
         AutoRunFolder = settings->value( strKeySettings + "AutoRunFolder", "r").toString();
         BootValid = settings->value( strKeySettings + "BootValid", "r").toString();
         FSValid = settings->value( strKeySettings + "FSValid", "r").toString();
         KernelValid = settings->value( strKeySettings + "KernelValid", "r").toString();
-        //qDebug() << "NOVAembed"+BootValid;
-        //qDebug() << "NOVAembed"+FSValid;
-        //qDebug() << "NOVAembed"+KernelValid;
+        /*
+        qDebug() << "NOVAembed"+BootValid;
+        qDebug() << "NOVAembed"+FSValid;
+        qDebug() << "NOVAembed"+KernelValid;
+        */
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf").exists() )
     {
@@ -149,31 +152,24 @@ int     copy_required_files = 0;
     ui->tab->removeTab(3);
     ui->tab->removeTab(2);
 
-    qDebug() << CurrentBSPF_Tab;
-    if ( Configuration == "Standard")
+    //qDebug() << CurrentBSPF_Tab;
+    if (CurrentBSPF_Tab == "P BSP Factory")
     {
-        if (CurrentBSPF_Tab == "P BSP Factory")
-        {
-            ui->tab->insertTab(2,PBSP_stab,"P BSP Factory");
-        }
-        else if (CurrentBSPF_Tab == "S BSP Factory")
-        {
-            ui->tab->insertTab(2,SBSP_stab,"S BSP Factory");
-        }
-        else if (CurrentBSPF_Tab == "U BSP Factory")
-        {
-            ui->tab->insertTab(2,UBSP_stab,"U BSP Factory");
-        }
-        else
-        {
-            ui->tab->insertTab(2,PBSP_stab,"P BSP Factory");
-        }
-        ui->tab->insertTab(3,TOOL_stab,"Tools");
+        ui->tab->insertTab(2,PBSP_stab,"P BSP Factory");
+    }
+    else if (CurrentBSPF_Tab == "S BSP Factory")
+    {
+        ui->tab->insertTab(2,SBSP_stab,"S BSP Factory");
+    }
+    else if (CurrentBSPF_Tab == "U BSP Factory")
+    {
+        ui->tab->insertTab(2,UBSP_stab,"U BSP Factory");
     }
     else
     {
-        ui->tab->insertTab(2,TOOL_stab,"Tools");
+        ui->tab->insertTab(2,PBSP_stab,"P BSP Factory");
     }
+    ui->tab->insertTab(3,TOOL_stab,"Tools");
 }
 
 NOVAembed::~NOVAembed()
@@ -209,7 +205,7 @@ void NOVAembed::storeNOVAembed_ini()
     }
     QTextStream out(&file);
     out << QString("[NOVAembed Configuration]\n");
-    out << QString("Configuration="+Configuration+"\n");
+    out << QString("Configuration="+Version+"\n");
     out << QString("[NOVAembed General Settings]\n");
     out << QString("FileSystemName="+FileSystemName+"\n");
     out << QString("DeployedFileSystemName="+DeployedFileSystemName+"\n");
@@ -226,13 +222,16 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("AutoRunSelected="+AutoRunSelected+"\n");
     out << QString("AutoRunFolder="+AutoRunFolder+"\n");
     out << QString("CurrentBSPF_Tab="+CurrentBSPF_Tab+"\n");
-    out << QString("CurrentVideo="+CurrentVideo+"\n");
+    out << QString("CurrentPrimaryVideo="+CurrentPrimaryVideo+"\n");
+    out << QString("CurrentSecondaryVideo="+CurrentSecondaryVideo+"\n");
     out << QString("BootValid="+BootValid+"\n");
     out << QString("FSValid="+FSValid+"\n");
     out << QString("KernelValid="+KernelValid+"\n");
-    //qDebug() << "storeNOVAembed_ini"+BootValid;
-    //qDebug() << "storeNOVAembed_ini"+FSValid;
-    //qDebug() << "storeNOVAembed_ini"+KernelValid;
+    /*
+    qDebug() << "storeNOVAembed_ini"+BootValid;
+    qDebug() << "storeNOVAembed_ini"+FSValid;
+    qDebug() << "storeNOVAembed_ini"+KernelValid;
+    */
     file.close();
 }
 
@@ -356,8 +355,11 @@ void NOVAembed::on_tab_currentChanged(int index)
         break;
     case 1 : // BKF Tab
         /* File system config files */
+        //qDebug() << CurrentPrimaryVideo;
+
         ui->Board_comboBox->setCurrentText(_Board_comboBox);
-        ui->PrimaryVideo_comboBox->setCurrentText(CurrentVideo);
+        ui->PrimaryVideo_comboBox->setCurrentText(CurrentPrimaryVideo);
+        ui->SecondaryVideo_comboBox->setCurrentText(CurrentSecondaryVideo);
         ui->UserPartition_comboBox->setCurrentText(NumberOfUserPartitions);
 
         compile_NewFileSystemFileSystemConfigurationcomboBox();
@@ -419,7 +421,10 @@ void NOVAembed::on_tab_currentChanged(int index)
         if ( ui->Board_comboBox->currentText() == "P Series")
         {
             if ( Last_P_BSPFactoryFile.length() < 2)
+            {
                 ui->UserBSPFselectedlineEdit->setText("Not Initialized");
+                Last_P_BSPFactoryFile = "/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/uninitialized.bspf";
+            }
             else
             {
                 P_load_BSPF_File(Last_P_BSPFactoryFile);
@@ -429,7 +434,10 @@ void NOVAembed::on_tab_currentChanged(int index)
         if ( ui->Board_comboBox->currentText() == "U Series")
         {
             if ( Last_U_BSPFactoryFile.length() < 2)
+            {
                 ui->UserBSPFselectedlineEdit->setText("Not Initialized");
+                Last_U_BSPFactoryFile = "/Devel/NOVAsom_SDK/DtbUserWorkArea/UClass_bspf/uninitialized.bspf";
+            }
             else
                 ui->UserBSPFselectedlineEdit->setText(Last_U_BSPFactoryFile);
 
