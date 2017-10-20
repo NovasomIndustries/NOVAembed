@@ -168,7 +168,11 @@ int     copy_required_files = 0;
     else
     {
         ui->tab->insertTab(2,PBSP_stab,"P BSP Factory");
+        CurrentBSPF_Tab = "P BSP Factory";
+        //qDebug() << "Insert default P BSP Factory";
+
     }
+    //qDebug() << CurrentBSPF_Tab;
     ui->tab->insertTab(3,TOOL_stab,"Tools");
 }
 
@@ -348,6 +352,7 @@ void NOVAembed::on_tab_currentChanged(int index)
     //qDebug() << "on_tab_currentChanged"+BootValid;
     //qDebug() << "on_tab_currentChanged"+FSValid;
     //qDebug() << "on_tab_currentChanged"+KernelValid;
+    //qDebug() << index;
     switch ( index)
     {
     case 0 : // Welcome Tab
@@ -508,8 +513,11 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->uSD_Device_comboBox->setCurrentText(uSD_Device);
         break;
     case 2 : // BSP Factory
+        //qDebug() << CurrentBSPF_Tab;
+
         if (CurrentBSPF_Tab == "P BSP Factory")
         {
+            //qDebug() << "P BSP Factory";
             ui->P_SATA_checkBox->setChecked(false);
             ui->P_PCIe_checkBox->setChecked(true);
             ui->P_PUPD_frame->setEnabled(false);
