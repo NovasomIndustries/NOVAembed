@@ -678,6 +678,18 @@
                 reset-gpios = <&gpio4 30 GPIO_ACTIVE_LOW>;\n\
                 wake-gpios = <&gpio4 31 GPIO_ACTIVE_HIGH>;\n\
         };\n\
+        polytouch3: gt911@5d {\n\
+                compatible = \"goodix,gt911\";\n\
+                pinctrl-names = \"default\";\n\
+                pinctrl-0 = <&pinctrl_i2ctouch_irq>;\n\
+                reg = <0x5d>;\n\
+                substitute-i2c-address = <0x2c>;\n\
+                esd-recovery-timeout-ms = <2000>;\n\
+                interrupt-parent = <&gpio1>;\n\
+                interrupts-extended = <&gpio1 6 IRQ_TYPE_LEVEL_HIGH>;\n\
+                irq-gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>;\n\
+                reset-gpios = <&gpio4 30 GPIO_ACTIVE_LOW>;\n\
+        };\n\
 };\n\
 "
 
