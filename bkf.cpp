@@ -44,6 +44,14 @@ QWidget *current_stab;
 
 void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
 {
+
+    if (( arg1 == "S Series") && ( CurrentBSPF_Tab == "S BSP Factory"))
+        return;
+    if (( arg1 == "P Series") && ( CurrentBSPF_Tab == "P BSP Factory"))
+        return;
+    if (( arg1 == "U Series") && ( CurrentBSPF_Tab == "U BSP Factory"))
+        return;
+
     _Board_comboBox = arg1;
 
     if ( arg1 == "S Series")
@@ -72,12 +80,6 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
 
     compile_NewFileSystemFileSystemConfigurationcomboBox();
 
-    if (( arg1 == "S Series") && ( CurrentBSPF_Tab == "S BSP Factory"))
-        return;
-    if (( arg1 == "P Series") && ( CurrentBSPF_Tab == "P BSP Factory"))
-        return;
-    if (( arg1 == "U Series") && ( CurrentBSPF_Tab == "U BSP Factory"))
-        return;
     ui->FileSystemSelectedlineEdit->setText("");
     ui->uboot_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
     ui->fs_Valid_label->setPixmap(QPixmap(":/Icons/invalid.png"));
@@ -790,11 +792,11 @@ void NOVAembed::on_Write_AutoRun_pushButton_clicked()
         update_status_bar("AutoRun Write error");
 }
 
-
-
 void NOVAembed::on_PrimaryVideo_comboBox_currentTextChanged(const QString &arg1)
 {
+    //qDebug() << "Parameter : "+arg1;
     CurrentPrimaryVideo = ui->PrimaryVideo_comboBox->currentText();
+    //qDebug() << "CurrentPrimaryVideo : "+CurrentPrimaryVideo;
 }
 
 /*****************************************************************************************************************************************************************************************/

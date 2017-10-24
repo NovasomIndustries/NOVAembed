@@ -119,11 +119,6 @@ int     copy_required_files = 0;
         BootValid = settings->value( strKeySettings + "BootValid", "r").toString();
         FSValid = settings->value( strKeySettings + "FSValid", "r").toString();
         KernelValid = settings->value( strKeySettings + "KernelValid", "r").toString();
-        /*
-        qDebug() << "NOVAembed"+BootValid;
-        qDebug() << "NOVAembed"+FSValid;
-        qDebug() << "NOVAembed"+KernelValid;
-        */
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf").exists() )
     {
@@ -154,7 +149,6 @@ int     copy_required_files = 0;
     ui->tab->removeTab(3);
     ui->tab->removeTab(2);
 
-    //qDebug() << CurrentBSPF_Tab;
     if (CurrentBSPF_Tab == "P BSP Factory")
     {
         ui->tab->insertTab(2,PBSP_stab,"P BSP Factory");
@@ -171,10 +165,7 @@ int     copy_required_files = 0;
     {
         ui->tab->insertTab(2,PBSP_stab,"P BSP Factory");
         CurrentBSPF_Tab = "P BSP Factory";
-        //qDebug() << "Insert default P BSP Factory";
-
     }
-    //qDebug() << CurrentBSPF_Tab;
     ui->tab->insertTab(3,TOOL_stab,"Tools");
 }
 
@@ -233,11 +224,6 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("BootValid="+BootValid+"\n");
     out << QString("FSValid="+FSValid+"\n");
     out << QString("KernelValid="+KernelValid+"\n");
-    /*
-    qDebug() << "storeNOVAembed_ini"+BootValid;
-    qDebug() << "storeNOVAembed_ini"+FSValid;
-    qDebug() << "storeNOVAembed_ini"+KernelValid;
-    */
     file.close();
 }
 
@@ -269,8 +255,11 @@ void NOVAembed::compile_NewFileSystemFileSystemConfigurationcomboBox()
     QStringList BuildrootnameFilter(str);
     QStringList BuildrootfilesList = BuildrootDir.entryList(BuildrootnameFilter);
 
+    ui->NewFileSystemConfigurationcomboBox->clear();
+    /*
     for(int i=0;i<BuildrootfilesList.count();i++)
         ui->NewFileSystemConfigurationcomboBox->removeItem(i);
+        */
     for(int i=0;i<BuildrootfilesList.count();i++)
     {
         str = BuildrootfilesList[i];
@@ -291,7 +280,6 @@ void NOVAembed::compile_ExtFS_comboBox()
 
     for(int i=0;i<ExternalFileSystemsfilesList.count();i++)
         ui->ExtFS_comboBox->removeItem(i);
-    //qDebug() << "Start of external file system list";
     for(int i=0;i<ExternalFileSystemsfilesList.count();i++)
     {
         str = ExternalFileSystemsfilesList[i];
@@ -304,9 +292,6 @@ void NOVAembed::compile_ExtFS_comboBox()
     ui->ExtFS_comboBox->setCurrentIndex(0);
     QPixmap fspixmap (":/Icons/"+ui->ExtFS_comboBox->currentText()+".png");
     ui->FileSystemLogo->setPixmap(fspixmap);
-    //qDebug() << "Pixmap :/Icons/"+ui->ExtFS_comboBox->currentText()+".png";
-    //qDebug() << "End of external file system list";
-
 }
 
 void NOVAembed:: local_sleep(int ms)
@@ -331,8 +316,6 @@ int NOVAembed::run_script(void)
     file.close();
     content.chop(1);
     this->setCursor(Qt::ArrowCursor);
-    //qDebug() << content;
-
     return content.toInt();
 }
 
@@ -351,16 +334,6 @@ int NOVAembed::update_status_bar(QString StatusBarContent)
 /*****************************************************************************************************************************************************************************************/
 void NOVAembed::on_tab_currentChanged(int index)
 {
-    //qDebug() << "on_tab_currentChanged"+BootValid;
-    //qDebug() << "on_tab_currentChanged"+FSValid;
-    //qDebug() << "on_tab_currentChanged"+KernelValid;
-    //qDebug() << index;
-/*
-    ui->PrimaryVideo_comboBox->setCurrentText(CurrentPrimaryVideo);
-    ui->SecondaryVideo_comboBox->setCurrentText(CurrentSecondaryVideo);
-    */
-    qDebug() << "On "+CurrentPrimaryVideo;
-
     switch ( index)
     {
     case 0 : // Welcome Tab
@@ -518,8 +491,6 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->uSD_Device_comboBox->setCurrentText(uSD_Device);
         break;
     case 2 : // BSP Factory
-
-
         if (CurrentBSPF_Tab == "P BSP Factory")
         {
             //qDebug() << "P BSP Factory";
@@ -604,7 +575,6 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
     int result = run_script();
     if (  result >= 0)
     {
-        //qDebug() << result;
         if ( result > 0 )
         {
             QString s = QString::number(result);
@@ -619,4 +589,5 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
     else
         update_status_bar("Update error");
 }
+
 
