@@ -23,5 +23,7 @@
         <file>Icons/invalid.png</file>
         <file>Icons/NOVAsomP800x480.png</file>
         <file>Icons/NOVAsomPgradient800x480.png</file>
+        <file>Icons/Web-Icon-Blue.png</file>
+        <file>Icons/pdf-icon.png</file>
     </qresource>
 </RCC>

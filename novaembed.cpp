@@ -18,7 +18,7 @@
 /*                                                                              Global variables                                                                                         */
 /*****************************************************************************************************************************************************************************************/
 
-QString Version = "1.0.4.3rc2";
+QString Version = "1.0.4.3rc3";
 QString Configuration = "Standard";
 QString FileSystemName = "";
 QString DeployedFileSystemName = "";
@@ -55,7 +55,6 @@ NOVAembed::NOVAembed(QWidget *parent) :
     ui(new Ui::NOVAembed)
 {
 int     copy_required_files = 0;
-
     /* Initialize user area */
     if ( ! QDir("/Devel/NOVAsom_SDK/DtbUserWorkArea").exists() )
     {
@@ -140,6 +139,9 @@ int     copy_required_files = 0;
     }
 
     ui->setupUi(this);
+
+    ui->linklabel->setOpenExternalLinks(true);
+    ui->linklabel->setText("<a href=\"http://www.novasomindustries.com\">Novasom Industries</a>");
 
     ui->FileSystemSelectedlineEdit->setText(FileSystemName);
     ui->UserPartition_comboBox->setCurrentText(NumberOfUserPartitions);
