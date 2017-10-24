@@ -25,5 +25,6 @@
         <file>Icons/NOVAsomPgradient800x480.png</file>
         <file>Icons/Web-Icon-Blue.png</file>
         <file>Icons/pdf-icon.png</file>
+        <file>Icons/animation.gif</file>
     </qresource>
 </RCC>

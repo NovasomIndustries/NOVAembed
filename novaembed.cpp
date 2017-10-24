@@ -13,6 +13,7 @@
 #include <QDesktopServices>
 //#include <QHostInfo>
 #include <QDirIterator>
+#include <QMovie>
 
 /*****************************************************************************************************************************************************************************************/
 /*                                                                              Global variables                                                                                         */
@@ -134,6 +135,10 @@ int     copy_required_files = 0;
     }
 
     ui->setupUi(this);
+
+    QMovie *movie = new QMovie(":/Icons/animation.gif");
+    ui->movie_label->setMovie(movie);
+    movie->start();
 
     ui->linklabel->setOpenExternalLinks(true);
     ui->linklabel->setText("<a href=\"http://www.novasomindustries.com\">Novasom Industries</a>");
