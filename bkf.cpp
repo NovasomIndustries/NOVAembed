@@ -42,15 +42,6 @@ QWidget *current_stab;
 /*                                                                               BKF Tab                                                                                                 */
 /*****************************************************************************************************************************************************************************************/
 
-void NOVAembed::on_Video_comboBox_currentIndexChanged(const QString &arg1)
-{
-    /*
-    CurrentVideo = arg1;
-    storeNOVAembed_ini();
-    */
-}
-
-
 void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
 {
     _Board_comboBox = arg1;
@@ -574,8 +565,8 @@ void NOVAembed::NOVAsom_Params_helper()
     {
         NOVAsomParamsName = "NOVAsomParams_LVDS_800x480";
     }
-    CurrentPrimaryVideo = NOVAsomParamsName;
-    //qDebug() << NOVAsomParamsName;
+    qDebug() << CurrentPrimaryVideo;
+    qDebug() << ui->PrimaryVideo_comboBox->currentText();
     QFileInfo fileinfo("/Devel/NOVAsom_SDK/Deploy/uInitrd");
     int filesize = 96000;
     if ( fileinfo.size() > 32000000 )
@@ -797,6 +788,13 @@ void NOVAembed::on_Write_AutoRun_pushButton_clicked()
     }
     else
         update_status_bar("AutoRun Write error");
+}
+
+
+
+void NOVAembed::on_PrimaryVideo_comboBox_currentTextChanged(const QString &arg1)
+{
+    CurrentPrimaryVideo = ui->PrimaryVideo_comboBox->currentText();
 }
 
 /*****************************************************************************************************************************************************************************************/

@@ -2050,9 +2050,10 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
     P_save_helper(fileName,"");
     Last_P_BSPFactoryFile = fileName;
     storeNOVAembed_ini();
-
     QString SDL_FileNameNoExtension  = "SDL_"+fi.baseName();
     QString QUAD_FileNameNoExtension = "QUAD_"+fi.baseName();
+
+
 
     update_status_bar("Generating dtb "+SDL_FileNameNoExtension+".dtb and "+QUAD_FileNameNoExtension+" ...");
     if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
@@ -2060,6 +2061,9 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
         update_status_bar("Unable to create /tmp/script");
         return;
     }
+    if ( ui->EditBeforeGenerate_checkBox->isChecked())
+        update_status_bar("User editing dtsi file");
+
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("[ ! -d /Devel/NOVAsom_SDK/DtbUserWorkArea ] && mkdir /Devel/NOVAsom_SDK/DtbUserWorkArea\n");
@@ -2067,8 +2071,12 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
     if ( ui->Board_comboBox->currentText() == "P Series")
     {
         out << QString("/Devel/NOVAsom_SDK/Qt/NOVAembed/NOVAembed/NOVAembed_P_Parser/bin/Debug/NOVAembed_P_Parser /Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp/"+SDL_FileNameNoExtension+".bspf > /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
+        if ( ui->EditBeforeGenerate_checkBox->isChecked())
+            out << QString("gedit /Devel/NOVAsom_SDK/DtbUserWorkArea/"+SDL_FileNameNoExtension+".dtsi\n");
         out << QString("./user_dtb_compile "+SDL_FileNameNoExtension+" P >> /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
         out << QString("/Devel/NOVAsom_SDK/Qt/NOVAembed/NOVAembed/NOVAembed_P_Parser/bin/Debug/NOVAembed_P_Parser /Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp/"+QUAD_FileNameNoExtension+".bspf >> /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
+        if ( ui->EditBeforeGenerate_checkBox->isChecked())
+            out << QString("gedit /Devel/NOVAsom_SDK/DtbUserWorkArea/"+QUAD_FileNameNoExtension+".dtsi\n");
         out << QString("./user_dtb_compile "+QUAD_FileNameNoExtension+" P >> /Devel/NOVAsom_SDK/Logs/P_bspf.log\n");
     }
     out << QString("echo $? > /tmp/result\n");
@@ -2096,6 +2104,7 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
     else
         update_status_bar("Error compiling "+fi.baseName()+".dtb");
 }
+
 
 
 /*****************************************************************************************************************************************************************************************/

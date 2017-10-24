@@ -355,6 +355,12 @@ void NOVAembed::on_tab_currentChanged(int index)
     //qDebug() << "on_tab_currentChanged"+FSValid;
     //qDebug() << "on_tab_currentChanged"+KernelValid;
     //qDebug() << index;
+/*
+    ui->PrimaryVideo_comboBox->setCurrentText(CurrentPrimaryVideo);
+    ui->SecondaryVideo_comboBox->setCurrentText(CurrentSecondaryVideo);
+    */
+    qDebug() << "On "+CurrentPrimaryVideo;
+
     switch ( index)
     {
     case 0 : // Welcome Tab
@@ -362,11 +368,8 @@ void NOVAembed::on_tab_currentChanged(int index)
         break;
     case 1 : // BKF Tab
         /* File system config files */
-        //qDebug() << CurrentPrimaryVideo;
 
         ui->Board_comboBox->setCurrentText(_Board_comboBox);
-        ui->PrimaryVideo_comboBox->setCurrentText(CurrentPrimaryVideo);
-        ui->SecondaryVideo_comboBox->setCurrentText(CurrentSecondaryVideo);
         ui->UserPartition_comboBox->setCurrentText(NumberOfUserPartitions);
 
         compile_NewFileSystemFileSystemConfigurationcomboBox();
@@ -515,7 +518,7 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->uSD_Device_comboBox->setCurrentText(uSD_Device);
         break;
     case 2 : // BSP Factory
-        //qDebug() << CurrentBSPF_Tab;
+
 
         if (CurrentBSPF_Tab == "P BSP Factory")
         {

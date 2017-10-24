@@ -144,8 +144,6 @@ private slots:
 
     void on_CheckUpdate_pushButton_clicked();
 
-    void on_Video_comboBox_currentIndexChanged(const QString &arg1);
-
     void on_P_Generate_pushButton_clicked();
 
     void on_UserBSPFSelect_pushButton_clicked();
@@ -222,6 +220,8 @@ private slots:
     void on_KernelSplash_pushButton_clicked();
 
     void on_KernelCompileSplash_pushButton_clicked();
+
+    void on_PrimaryVideo_comboBox_currentTextChanged(const QString &arg1);
 
 private:
     Ui::NOVAembed *ui;
