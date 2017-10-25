@@ -235,6 +235,8 @@ private slots:
 
     void on_ViewDtbCompileLog_pushButton_clicked();
 
+    void on_AddFileSystemConfig_pushButton_clicked();
+
 private:
     Ui::NOVAembed *ui;
 };

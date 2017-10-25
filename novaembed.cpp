@@ -596,4 +596,3 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
 }
 
 
-

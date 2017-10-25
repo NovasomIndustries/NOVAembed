@@ -1052,7 +1052,7 @@
        <property name="geometry">
         <rect>
          <x>9</x>
-         <y>330</y>
+         <y>340</y>
          <width>321</width>
          <height>21</height>
         </rect>
@@ -1070,7 +1070,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>300</y>
+         <y>290</y>
          <width>151</width>
          <height>21</height>
         </rect>
@@ -1111,7 +1111,7 @@
        <property name="geometry">
         <rect>
          <x>170</x>
-         <y>300</y>
+         <y>290</y>
          <width>161</width>
          <height>21</height>
         </rect>
@@ -1124,7 +1124,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>270</y>
+         <y>260</y>
          <width>221</width>
          <height>21</height>
         </rect>
@@ -1140,7 +1140,7 @@
        <property name="geometry">
         <rect>
          <x>200</x>
-         <y>250</y>
+         <y>240</y>
          <width>121</width>
          <height>21</height>
         </rect>
@@ -1153,7 +1153,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>280</y>
+         <y>270</y>
          <width>321</width>
          <height>20</height>
         </rect>
@@ -1619,7 +1619,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>250</y>
+         <y>240</y>
          <width>121</width>
          <height>20</height>
         </rect>
@@ -1730,7 +1730,7 @@
          <x>10</x>
          <y>140</y>
          <width>321</width>
-         <height>101</height>
+         <height>91</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -1812,7 +1812,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>70</y>
+          <y>60</y>
           <width>301</width>
           <height>21</height>
          </rect>
@@ -1833,6 +1833,19 @@
        </property>
        <property name="text">
         <string>View file system  log</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="AddFileSystemConfig_pushButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>310</y>
+         <width>321</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Add these configs to available configurations</string>
        </property>
       </widget>
      </widget>

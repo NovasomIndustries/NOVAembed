@@ -457,15 +457,28 @@ void NOVAembed::on_FileSystemDeploy_pushButton_clicked()
         update_status_bar("Unable to create /tmp/script");
         return;
     }
+
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"\n");
     if ( ui->Board_comboBox->currentText() == "S Series")
+    {
+        out << QString("cp .config board/novasis/NOVAsomS/Init/etc/buildroot.config\n");
+        out << QString("cp BusyBox.config board/novasis/NOVAsomS/Init/etc/busybox.config\n");
         out << QString("make  > /Devel/NOVAsom_SDK/Logs/FileSystem_Smake.log\n");
+    }
     if ( ui->Board_comboBox->currentText() == "P Series")
+    {
+        out << QString("cp .config board/novasis/NOVAsomP/Init/etc/buildroot.config\n");
+        out << QString("cp BusyBox.config board/novasis/NOVAsomP/Init/etc/busybox.config\n");
         out << QString("make > /Devel/NOVAsom_SDK/Logs/FileSystem_Pmake.log\n");
+    }
     if ( ui->Board_comboBox->currentText() == "U Series")
+    {
+        out << QString("cp .config board/novasis/NOVAsomU/Init/etc/buildroot.config\n");
+        out << QString("cp BusyBox.config board/novasis/NOVAsomU/Init/etc/busybox.config\n");
         out << QString("make > /Devel/NOVAsom_SDK/Logs/FileSystem_Umake.log\n");
+    }
     out << QString("echo $? > /tmp/result\n");
 
     scriptfile.close();
@@ -715,6 +728,18 @@ void NOVAembed::on_GenerateFileSystem_pushButton_clicked()
     }
     else
         update_status_bar("File System Creation error");
+}
+
+void NOVAembed::on_AddFileSystemConfig_pushButton_clicked()
+{
+    if ( ui->Board_comboBox->currentText() == "P Series")
+        QFile::copy("/Devel/NOVAsom_SDK/FileSystem/"+ui->NewFileSystemSelectedlineEdit->text()+"/.config", "/Devel/NOVAsom_SDK/Utils/Configurations/PClass_Buildroot_"+ui->NewFileSystemSelectedlineEdit->text()+".config");
+    if ( ui->Board_comboBox->currentText() == "U Series")
+        QFile::copy("/Devel/NOVAsom_SDK/FileSystem/"+ui->NewFileSystemSelectedlineEdit->text()+"/.config", "/Devel/NOVAsom_SDK/Utils/Configurations/UClass_Buildroot_"+ui->NewFileSystemSelectedlineEdit->text()+".config");
+
+    QFile::copy("/Devel/NOVAsom_SDK/FileSystem/"+ui->NewFileSystemSelectedlineEdit->text()+"/BusyBox.config", "/Devel/NOVAsom_SDK/Utils/Configurations/BusyBox_"+ui->NewFileSystemSelectedlineEdit->text()+".config");
+
+    compile_NewFileSystemFileSystemConfigurationcomboBox();
 }
 
 /* External file systems */
