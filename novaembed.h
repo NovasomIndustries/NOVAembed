@@ -223,6 +223,18 @@ private slots:
 
     void on_PrimaryVideo_comboBox_currentTextChanged(const QString &arg1);
 
+    void on_ViewBootLog_pushButton_clicked();
+
+    void on_ViewFSLog_pushButton_clicked();
+
+    void on_ViewKernelLog_pushButton_clicked();
+
+    void on_ViewuSDwriteLog_pushButton_clicked();
+
+    void on_ViewPreCompiledLog_pushButton_clicked();
+
+    void on_ViewDtbCompileLog_pushButton_clicked();
+
 private:
     Ui::NOVAembed *ui;
 };

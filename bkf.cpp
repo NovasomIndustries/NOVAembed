@@ -645,15 +645,11 @@ void NOVAembed::on_Write_uSD_pushButton_clicked()
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
     if ( ui->Board_comboBox->currentText() == "U Series")
-        out << QString("./Uflash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" > /Devel/NOVAsom_SDK/Logs/Uflash.log\n");
+        out << QString("./Uflash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" > /Devel/NOVAsom_SDK/Logs/uSD_Write.log\n");
     else
         out << QString("./uSd_flash "+NumberOfUserPartitions+" "+UserPartition1Size+" "+UserPartition2Size+" /dev/"+uSD_Device+" "+BoardModel+" "+sdl_dtb+" "+q_dtb+" "+ UserEnabled +" > /Devel/NOVAsom_SDK/Logs/uSD_Write.log\n");
 
-    if (( ui->UserAutoRun_checkBox->isChecked() == true) && (ui->UserAutoRunSelectedlineEdit->text().isEmpty() == false ) && ( ui->Board_comboBox->currentText() == "U Series"))
-        out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/Uflash.log\n");
-    else
-        out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/uSD_Write.log\n");
-
+    out << QString("./store_application_storage "+ui->UserAutoRunSelectedlineEdit->text()+" /dev/"+uSD_Device+" >> /Devel/NOVAsom_SDK/Logs/uSD_Write.log\n");
     out << QString("echo $? > /tmp/result\n");
     scriptfile.close();
     if ( run_script() == 0)
@@ -735,7 +731,7 @@ void NOVAembed::on_ExtFS_Write_uSD_pushButton_clicked()
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
-    out << QString("./flashP_ExtFs /dev/"+ui->ExtFS_uSD_Device_comboBox->currentText()+" /Devel/NOVAsom_SDK/ExternalFileSystems/"+ ui->ExtFS_comboBox->currentText()+" > /Devel/NOVAsom_SDK/Logs/extfs_log \n");
+    out << QString("./flashP_ExtFs /dev/"+ui->ExtFS_uSD_Device_comboBox->currentText()+" /Devel/NOVAsom_SDK/ExternalFileSystems/"+ ui->ExtFS_comboBox->currentText()+" > /Devel/NOVAsom_SDK/Logs/extfs.log \n");
     out << QString("echo $? > /tmp/result\n");
     scriptfile.close();
     if ( run_script() == 0)
@@ -832,6 +828,47 @@ void NOVAembed::on_PrimaryVideo_comboBox_currentTextChanged(const QString &arg1)
     //qDebug() << "Parameter : "+arg1;
     CurrentPrimaryVideo = ui->PrimaryVideo_comboBox->currentText();
     //qDebug() << "CurrentPrimaryVideo : "+CurrentPrimaryVideo;
+}
+
+void NOVAembed::on_ViewBootLog_pushButton_clicked()
+{
+    if ( ui->Board_comboBox->currentText() == "P Series")
+        system("gedit /Devel/NOVAsom_SDK/Logs/umakeP.log");
+    if ( ui->Board_comboBox->currentText() == "U Series")
+        system("gedit /Devel/NOVAsom_SDK/Logs/umakeU.log");
+    if ( ui->Board_comboBox->currentText() == "S Series")
+        system("gedit /Devel/NOVAsom_SDK/Logs/umakeS.log");
+}
+
+
+
+void NOVAembed::on_ViewFSLog_pushButton_clicked()
+{
+    if ( ui->Board_comboBox->currentText() == "P Series")
+        system("gedit /Devel/NOVAsom_SDK/Logs/FileSystem_Pmake.log");
+    if ( ui->Board_comboBox->currentText() == "U Series")
+        system("gedit /Devel/NOVAsom_SDK/Logs/FileSystem_Umake.log");
+    if ( ui->Board_comboBox->currentText() == "S Series")
+        system("gedit /Devel/NOVAsom_SDK/Logs/FileSystem_Smake.log");
+}
+
+void NOVAembed::on_ViewKernelLog_pushButton_clicked()
+{
+    system("gedit /Devel/NOVAsom_SDK/Logs/kmake.log");
+}
+
+
+
+void NOVAembed::on_ViewuSDwriteLog_pushButton_clicked()
+{
+    system("gedit /Devel/NOVAsom_SDK/Logs/uSD_Write.log");
+}
+
+
+
+void NOVAembed::on_ViewPreCompiledLog_pushButton_clicked()
+{
+    system("gedit /Devel/NOVAsom_SDK/Logs/extfs.log");
 }
 
 /*****************************************************************************************************************************************************************************************/

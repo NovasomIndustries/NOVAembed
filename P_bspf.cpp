@@ -2106,6 +2106,10 @@ void NOVAembed::on_P_Generate_pushButton_clicked()
 }
 
 
+void NOVAembed::on_ViewDtbCompileLog_pushButton_clicked()
+{
+   system("gedit /Devel/NOVAsom_SDK/Logs/P_bspf.log");
+}
 
 /*****************************************************************************************************************************************************************************************/
 /*                                                                             P BSP Factory END                                                                                         */
