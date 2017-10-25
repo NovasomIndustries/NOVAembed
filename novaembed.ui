@@ -994,9 +994,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>200</y>
+        <y>170</y>
         <width>341</width>
-        <height>361</height>
+        <height>391</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1033,7 +1033,7 @@
        <property name="geometry">
         <rect>
          <x>9</x>
-         <y>320</y>
+         <y>360</y>
          <width>321</width>
          <height>21</height>
         </rect>
@@ -1047,145 +1047,17 @@
         <string>Deploy</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="SelectFileSystem_pushButton">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>70</y>
-         <width>91</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Browse</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="FileSystemSelectedlineEdit">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>70</y>
-         <width>231</width>
-         <height>21</height>
-        </rect>
-       </property>
-      </widget>
       <widget class="QPushButton" name="LaunchMenuConfig_pushButton">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>300</y>
+         <y>340</y>
          <width>151</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
         <string>buildroot Menu Config</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="NewFileSystemSelectedlineEdit">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>150</y>
-         <width>191</width>
-         <height>21</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_7">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>50</y>
-         <width>321</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <italic>true</italic>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Select an existing File System</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_8">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>110</y>
-         <width>321</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <italic>true</italic>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Generate a new File System</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="GenerateFileSystem_pushButton">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>170</y>
-         <width>321</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Generate</string>
-       </property>
-      </widget>
-      <widget class="QComboBox" name="NewFileSystemConfigurationcomboBox">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>130</y>
-         <width>191</width>
-         <height>21</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>130</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Select Configuration</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_9">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>150</y>
-         <width>121</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>New File System Name</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_95">
@@ -1220,7 +1092,7 @@
        <property name="geometry">
         <rect>
          <x>170</x>
-         <y>300</y>
+         <y>340</y>
          <width>161</width>
          <height>21</height>
         </rect>
@@ -1233,7 +1105,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>240</y>
+         <y>310</y>
          <width>221</width>
          <height>21</height>
         </rect>
@@ -1249,7 +1121,7 @@
        <property name="geometry">
         <rect>
          <x>200</x>
-         <y>220</y>
+         <y>290</y>
          <width>121</width>
          <height>21</height>
         </rect>
@@ -1262,7 +1134,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>260</y>
+         <y>320</y>
          <width>321</width>
          <height>20</height>
         </rect>
@@ -1728,7 +1600,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>220</y>
+         <y>290</y>
          <width>121</width>
          <height>20</height>
         </rect>
@@ -1747,6 +1619,190 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QLabel" name="label_10">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>120</y>
+         <width>341</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+         <underline>false</underline>
+        </font>
+       </property>
+       <property name="text">
+        <string>OR</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_14">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>321</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QPushButton" name="SelectFileSystem_pushButton">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>71</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Browse</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="FileSystemSelectedlineEdit">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>30</y>
+          <width>221</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_7">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>321</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <italic>true</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Select an existing File System</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="frame_9">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>150</y>
+         <width>321</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="label_8">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>321</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <italic>true</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Generate a new File System</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>111</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Select Configuration</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="NewFileSystemConfigurationcomboBox">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>20</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_9">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>121</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>New File System Name</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="NewFileSystemSelectedlineEdit">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>40</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="GenerateFileSystem_pushButton">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>70</y>
+          <width>301</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Generate</string>
+        </property>
+       </widget>
+      </widget>
      </widget>
      <widget class="QFrame" name="frame_2">
       <property name="geometry">
@@ -1754,7 +1810,7 @@
         <x>10</x>
         <y>80</y>
         <width>341</width>
-        <height>111</height>
+        <height>81</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1791,9 +1847,9 @@
        <property name="geometry">
         <rect>
          <x>9</x>
-         <y>70</y>
+         <y>50</y>
          <width>321</width>
-         <height>31</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -1837,7 +1893,7 @@
        <property name="geometry">
         <rect>
          <x>290</x>
-         <y>20</y>
+         <y>10</y>
          <width>32</width>
          <height>32</height>
         </rect>

@@ -14,6 +14,7 @@
 //#include <QHostInfo>
 #include <QDirIterator>
 #include <QNetworkInterface>
+#include <QDialog>
 
 extern  QString FileSystemName;
 extern  QString DeployedFileSystemName;
@@ -186,9 +187,15 @@ void NOVAembed::on_KernelCompile_pushButton_clicked()
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
     if ( ui->Board_comboBox->currentText() == "P Series")
-        out << QString("./kmake linux-imx_4.1.15_1.2.0_ga > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+    {
+        out << QString("echo linux-imx_4.1.15_1.2.0_ga > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+        out << QString("./kmake linux-imx_4.1.15_1.2.0_ga >> /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+    }
     if ( ui->Board_comboBox->currentText() == "U Series")
-        out << QString("./kmakeU linux-imx_4.1.43 > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+    {
+        out << QString("echo linux-imx_4.1.43 > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+        out << QString("./kmakeU linux-imx_4.1.43 >> /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+    }
     out << QString("echo $? > /tmp/result\n");
 
     scriptfile.close();
@@ -225,9 +232,15 @@ void NOVAembed::on_KernelReCompile_pushButton_clicked()
     out << QString("#!/bin/sh\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
     if ( ui->Board_comboBox->currentText() == "P Series")
-        out << QString("./kremake linux-imx_4.1.15_1.2.0_ga > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+    {
+        out << QString("echo linux-imx_4.1.15_1.2.0_ga > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+        out << QString("./kremake linux-imx_4.1.15_1.2.0_ga >> /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+    }
     if ( ui->Board_comboBox->currentText() == "U Series")
-        out << QString("./kremakeU linux-imx_4.1.43 > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+    {
+        out << QString("echo linux-imx_4.1.43 > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+        out << QString("./kremakeU linux-imx_4.1.43 >> /Devel/NOVAsom_SDK/Logs/kmake.log\n");
+    }
     out << QString("echo $? > /tmp/result\n");
 
     scriptfile.close();
@@ -410,6 +423,11 @@ void NOVAembed::on_ThisIsReferenceServer_checkBox_clicked(bool checked)
 
 void NOVAembed::on_FileSystemDeploy_pushButton_clicked()
 {
+    if ( ui->FileSystemSelectedlineEdit->text().isEmpty())
+    {
+        update_status_bar("File system name is empty");
+        return;
+    }
     QHostAddress myIP;
     QString IP=ui->REFERENCE_SERVER_lineEdit->text();
 
@@ -654,6 +672,23 @@ void NOVAembed::on_GenerateFileSystem_pushButton_clicked()
     {
         update_status_bar("File System name can't be empty");
         return;
+    }
+    if ( QDir("/Devel/NOVAsom_SDK/FileSystem/"+ui->NewFileSystemSelectedlineEdit->text()).exists() )
+    {
+        update_status_bar("A file system called "+ui->NewFileSystemSelectedlineEdit->text()+" already exists");
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "A file system called "+ui->NewFileSystemSelectedlineEdit->text()+" already exists      ","Overwrite?", QMessageBox::Yes|QMessageBox::No);
+        if (reply == QMessageBox::Yes)
+        {
+            qDebug() << "Yes was clicked";
+            QDir dir( "/Devel/NOVAsom_SDK/FileSystem/"+ui->NewFileSystemSelectedlineEdit->text() );
+            dir.removeRecursively();
+        }
+        else
+        {
+            qDebug() << "Yes was *not* clicked";
+            return;
+        }
     }
     QString testing = ui->NewFileSystemSelectedlineEdit->text().remove(" ");
     if ( testing != ui->NewFileSystemSelectedlineEdit->text() )
