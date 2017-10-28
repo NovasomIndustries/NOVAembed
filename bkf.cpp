@@ -59,16 +59,19 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
     {
         CurrentBSPF_Tab = "S BSP Factory";
         current_stab = SBSP_stab;
+        ui->PreCompiledFileSystem_frame->setVisible(true);
     }
     if ( arg1 == "U Series")
     {
         CurrentBSPF_Tab = "U BSP Factory";
         current_stab = UBSP_stab;
+        ui->PreCompiledFileSystem_frame->setVisible(false);
     }
     if ( arg1 == "P Series")
     {
         CurrentBSPF_Tab = "P BSP Factory";
         current_stab = PBSP_stab;
+        ui->PreCompiledFileSystem_frame->setVisible(true);
     }
     /* hide Tools for recompose order */
     ui->tab->removeTab(3);

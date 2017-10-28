@@ -916,7 +916,7 @@
         <rect>
          <x>170</x>
          <y>60</y>
-         <width>191</width>
+         <width>111</width>
          <height>21</height>
         </rect>
        </property>
@@ -2839,7 +2839,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QFrame" name="frame_32">
+     <widget class="QFrame" name="PreCompiledFileSystem_frame">
       <property name="geometry">
        <rect>
         <x>880</x>

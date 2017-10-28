@@ -405,6 +405,7 @@ void NOVAembed::on_tab_currentChanged(int index)
                 ui->UserBSPFselectedlineEdit->setText("Not Initialized");
             else
                 ui->UserBSPFselectedlineEdit->setText(Last_S_BSPFactoryFile);
+            ui->PreCompiledFileSystem_frame->setVisible(true);
         }
         if ( ui->Board_comboBox->currentText() == "P Series")
         {
@@ -418,6 +419,7 @@ void NOVAembed::on_tab_currentChanged(int index)
                 P_load_BSPF_File(Last_P_BSPFactoryFile);
                 ui->UserBSPFselectedlineEdit->setText(Last_P_BSPFactoryFile);
             }
+            ui->PreCompiledFileSystem_frame->setVisible(true);
         }
         if ( ui->Board_comboBox->currentText() == "U Series")
         {
@@ -439,6 +441,7 @@ void NOVAembed::on_tab_currentChanged(int index)
             ui->UserBSPFSelect_pushButton->setVisible(false);
             ui->UserBSPFselectedlineEdit->setVisible(false);
             ui->NOVAsomU_Note->setVisible(true);
+            ui->PreCompiledFileSystem_frame->setVisible(false);
         }
 
         if ( AutoRunSelected == "true" )
