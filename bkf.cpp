@@ -60,11 +60,32 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
         CurrentBSPF_Tab = "S BSP Factory";
         current_stab = SBSP_stab;
         ui->PreCompiledFileSystem_frame->setVisible(true);
+        ui->VideoVisible_label->setVisible(true);
+        ui->VideoVisible_label_2->setVisible(true);
+        ui->PrimaryVideo_comboBox->setVisible(true);
+        ui->SecondaryVideo_comboBox->setVisible(true);
+        ui->PriVideo_24bit_checkBox->setVisible(true);
+        ui->SecVideo_24bit_checkBox->setVisible(true);
+        ui->label_61->setVisible(true);
+        ui->UserBSPFSelect_pushButton->setVisible(true);
+        ui->UserBSPFselectedlineEdit->setVisible(true);
+        ui->NOVAsomU_Note->setVisible(false);
     }
     if ( arg1 == "U Series")
     {
         CurrentBSPF_Tab = "U BSP Factory";
         current_stab = UBSP_stab;
+        ui->PreCompiledFileSystem_frame->setVisible(false);
+        ui->VideoVisible_label->setVisible(false);
+        ui->VideoVisible_label_2->setVisible(false);
+        ui->PrimaryVideo_comboBox->setVisible(false);
+        ui->SecondaryVideo_comboBox->setVisible(false);
+        ui->PriVideo_24bit_checkBox->setVisible(false);
+        ui->SecVideo_24bit_checkBox->setVisible(false);
+        ui->label_61->setVisible(false);
+        ui->UserBSPFSelect_pushButton->setVisible(false);
+        ui->UserBSPFselectedlineEdit->setVisible(false);
+        ui->NOVAsomU_Note->setVisible(true);
         ui->PreCompiledFileSystem_frame->setVisible(false);
     }
     if ( arg1 == "P Series")
@@ -72,6 +93,16 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
         CurrentBSPF_Tab = "P BSP Factory";
         current_stab = PBSP_stab;
         ui->PreCompiledFileSystem_frame->setVisible(true);
+        ui->VideoVisible_label->setVisible(true);
+        ui->VideoVisible_label_2->setVisible(true);
+        ui->PrimaryVideo_comboBox->setVisible(true);
+        ui->SecondaryVideo_comboBox->setVisible(true);
+        ui->PriVideo_24bit_checkBox->setVisible(true);
+        ui->SecVideo_24bit_checkBox->setVisible(true);
+        ui->label_61->setVisible(true);
+        ui->UserBSPFSelect_pushButton->setVisible(true);
+        ui->UserBSPFselectedlineEdit->setVisible(true);
+        ui->NOVAsomU_Note->setVisible(false);
     }
     /* hide Tools for recompose order */
     ui->tab->removeTab(3);
