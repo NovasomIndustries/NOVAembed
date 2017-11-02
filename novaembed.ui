@@ -3082,11 +3082,6 @@
          <string>U Series</string>
         </property>
        </item>
-       <item>
-        <property name="text">
-         <string>S Series</string>
-        </property>
-       </item>
       </widget>
      </widget>
     </widget>
