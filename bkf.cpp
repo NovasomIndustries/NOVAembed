@@ -467,17 +467,25 @@ void NOVAembed::on_FileSystemDeploy_pushButton_clicked()
 
     if( myIP.setAddress(ui->REFERENCE_SERVER_lineEdit->text()) )
     {
-        //qDebug()<<"Valid IP Address";
-        ui->iperror_label->setVisible(false);
-        QString command1 = "echo \"REFERENCE_SERVER="+IP+"\" > /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"/board/novasis/NOVAsomP/Init/etc/sysconfig/system_vars";
-        QByteArray ba1 = command1.toLatin1();
-        const char *c_str1 = ba1.data();
-        //qDebug() << 1_str2;
-        system(c_str1);
+        if ( ui->Board_comboBox->currentText() == "P Series")
+        {
+            ui->iperror_label->setVisible(false);
+            QString command1 = "echo \"REFERENCE_SERVER="+IP+"\" > /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"/board/novasis/NOVAsomP/Init/etc/sysconfig/system_vars";
+            QByteArray ba1 = command1.toLatin1();
+            const char *c_str1 = ba1.data();
+            system(c_str1);
+        }
+        if ( ui->Board_comboBox->currentText() == "U Series")
+        {
+            ui->iperror_label->setVisible(false);
+            QString command1 = "echo \"REFERENCE_SERVER="+IP+"\" > /Devel/NOVAsom_SDK/FileSystem/"+ui->FileSystemSelectedlineEdit->text()+"/board/novasis/NOVAsomU/Init/etc/sysconfig/system_vars";
+            QByteArray ba1 = command1.toLatin1();
+            const char *c_str1 = ba1.data();
+            system(c_str1);
+        }
     }
     else
     {
-        //qDebug()<<"Invalid IP address";
         ui->iperror_label->setVisible(true);
         update_status_bar("Invalid IP address");
         return;
