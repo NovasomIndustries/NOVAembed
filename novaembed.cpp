@@ -42,10 +42,11 @@ QString AutoRunFolder = "";
 QString BootValid = "INVALID";
 QString FSValid = "INVALID";
 QString KernelValid = "INVALID";
+QString CurrentDevelopment = "Stable";
 QString uSDwriteValid = "INVALID";
 
 extern  void storeNOVAembed_ini();
-QWidget *PBSP_stab,*UBSP_stab,*SBSP_stab,*TOOL_stab;
+QWidget *PBSP_stab,*UBSP_stab,*SBSP_stab,*TOOL_stab,*TOOL_devel;
 
 /*****************************************************************************************************************************************************************************************/
 /*                                                                                    Code                                                                                               */
@@ -120,6 +121,7 @@ int     copy_required_files = 0;
         BootValid = settings->value( strKeySettings + "BootValid", "r").toString();
         FSValid = settings->value( strKeySettings + "FSValid", "r").toString();
         KernelValid = settings->value( strKeySettings + "KernelValid", "r").toString();
+        CurrentDevelopment = settings->value( strKeySettings + "CurrentDevelopment", "r").toString();
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf").exists() )
     {
@@ -229,6 +231,8 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("BootValid="+BootValid+"\n");
     out << QString("FSValid="+FSValid+"\n");
     out << QString("KernelValid="+KernelValid+"\n");
+    out << QString("CurrentDevelopment="+CurrentDevelopment+"\n");
+
     file.close();
 }
 
@@ -535,6 +539,23 @@ void NOVAembed::on_tab_currentChanged(int index)
                 update_status_bar("BSP Factory : Loaded file "+Last_P_BSPFactoryFile);
             }
         }
+        if (CurrentBSPF_Tab == "U BSP Factory")
+        {
+            QFileInfo fi(Last_U_BSPFactoryFile);
+            if ( ! fi.exists())
+            {
+                update_status_bar("BSP Factory : File "+fi.baseName()+".bspf not found, reverting to default");
+            }
+            else
+            {
+                QString base = fi.baseName();
+                if ( base != "" )
+                    ui->U_Current_BSPF_File_label->setText(base+".bspf");
+                U_load_BSPF_File(Last_U_BSPFactoryFile);
+                ui->U_Generate_pushButton->setText("Save "+fi.baseName()+".bspf and Generate "+fi.baseName()+".dtb");
+                update_status_bar("BSP Factory : Loaded file "+Last_U_BSPFactoryFile);
+            }
+        }
         /*
         else
         {
@@ -597,5 +618,4 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
     else
         update_status_bar("Update error");
 }
-
 

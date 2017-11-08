@@ -237,6 +237,40 @@ private slots:
 
     void on_AddFileSystemConfig_pushButton_clicked();
 
+    void on_U_Clear_pushButton_clicked();
+
+    void on_U_SetCFGbits_pushButton_clicked();
+
+    void on_U_SPI4_checkBox_toggled(bool checked);
+
+    void on_U_CAN1_checkBox_toggled(bool checked);
+
+    void on_U_I2C2_checkBox_toggled(bool checked);
+
+    void on_U_UART6_checkBox_toggled(bool checked);
+
+    void on_U_Audio1_checkBox_toggled(bool checked);
+
+    void on_U_SPDIF_checkBox_toggled(bool checked);
+
+    void on_U_PWM2_checkBox_toggled(bool checked);
+
+    void on_UPriVideo_24bit_checkBox_toggled(bool checked);
+
+    void on_U_UART5_4WirescheckBox_toggled(bool checked);
+
+    void on_U_Load_pushButton_clicked();
+
+    void on_U_Save_pushButton_clicked();
+
+    void on_U_Generate_pushButton_clicked();
+
+    void on_U_ViewDtbCompileLog_pushButton_clicked();
+
+    void U_load_BSPF_File(QString fileName);
+
+    void U_save_helper(QString fileName);
+
 private:
     Ui::NOVAembed *ui;
 };

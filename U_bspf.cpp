@@ -11,32 +11,292 @@
 #include <QUrl>
 #include <QtCore>
 #include <QDesktopServices>
-//#include <QHostInfo>
 #include <QDirIterator>
 
-
-extern  QString FileSystemName;
-extern  QString DeployedFileSystemName;
-extern  QString FileSystemConfigName;
-extern  QString _Board_comboBox;
 extern  QString Last_U_BSPFactoryFile;
 
+QString U_GPIO01_IO09_comboBox="GPIO01_IO09";
+QString U_GPIO01_IO10_comboBox="GPIO01_IO10";
+QString U_GPIO04_IO01_comboBox="GPIO04_IO01";
+QString U_GPIO04_IO02_comboBox="GPIO04_IO02";
+QString U_GPIO04_IO06_comboBox="GPIO04_IO06";
+QString U_GPIO04_IO07_comboBox="GPIO04_IO07";
+QString U_GPIO04_IO08_comboBox="GPIO04_IO08";
+QString U_GPIO04_IO09_comboBox="GPIO04_IO09";
+QString U_GPIO04_IO17_comboBox="GPIO04_IO17";
+QString U_GPIO04_IO18_comboBox="GPIO04_IO18";
+QString U_GPIO04_IO19_comboBox="GPIO04_IO19";
+QString U_GPIO04_IO20_comboBox="GPIO04_IO20";
+QString U_GPIO04_IO23_comboBox="GPIO04_IO23";
+QString U_GPIO04_IO24_comboBox="GPIO04_IO24";
+QString U_I2C2Speed="100000";
+QString U_PrimaryVideo_comboBox;
 
-/*****************************************************************************************************************************************************************************************/
-/*                                                                             U BSP Factory                                                                                             */
-/*****************************************************************************************************************************************************************************************/
 
-void NOVAembed::on_U_Load_pushButton_clicked()
+void NOVAembed::U_save_helper(QString fileName)
 {
+    QFileInfo fin(fileName);
+    QString bspfbase = fin.baseName();
+    QString fullpathname = "";
 
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Load BSP Factory File"), "/Devel/NOVAsom_SDK/NOVAembed_Settings",tr("BSP Factory Files (*.bspf)"));
-    if (fileName.isEmpty())
+    fullpathname = "/Devel/NOVAsom_SDK/DtbUserWorkArea/UClass_bspf/"+ bspfbase+".bspf";
+
+    QFile file(fullpathname);
+    if (!file.open(QIODevice::WriteOnly))
+    {
+        QMessageBox::information(this, tr("Unable to open file "),file.errorString());
         return;
+    }
+
+    QTextStream out(&file);
+    out << QString("[U_IOMUX]\n");
+    out << QString("U_GPIO01_IO09_comboBox="+U_GPIO01_IO09_comboBox+"\n");
+    out << QString("U_GPIO01_IO10_comboBox="+U_GPIO01_IO10_comboBox+"\n");
+    out << QString("U_GPIO04_IO01_comboBox="+U_GPIO04_IO01_comboBox+"\n");
+    out << QString("U_GPIO04_IO02_comboBox="+U_GPIO04_IO02_comboBox+"\n");
+    out << QString("U_GPIO04_IO06_comboBox="+U_GPIO04_IO06_comboBox+"\n");
+    out << QString("U_GPIO04_IO07_comboBox="+U_GPIO04_IO07_comboBox+"\n");
+    out << QString("U_GPIO04_IO08_comboBox="+U_GPIO04_IO08_comboBox+"\n");
+    out << QString("U_GPIO04_IO09_comboBox="+U_GPIO04_IO09_comboBox+"\n");
+    out << QString("U_GPIO04_IO17_comboBox="+U_GPIO04_IO17_comboBox+"\n");
+    out << QString("U_GPIO04_IO18_comboBox="+U_GPIO04_IO18_comboBox+"\n");
+    out << QString("U_GPIO04_IO19_comboBox="+U_GPIO04_IO19_comboBox+"\n");
+    out << QString("U_GPIO04_IO20_comboBox="+U_GPIO04_IO20_comboBox+"\n");
+    out << QString("U_GPIO04_IO23_comboBox="+U_GPIO04_IO23_comboBox+"\n");
+    out << QString("U_GPIO04_IO24_comboBox="+U_GPIO04_IO24_comboBox+"\n");
+
+
+    if ( ui->U_I2C2Speed_lineEdit->text().isEmpty() )
+        ui->U_I2C2Speed_lineEdit->setText("100000");
+    U_I2C2Speed = ui->U_I2C2Speed_lineEdit->text();
+    out << QString("U_I2C2Speed="+U_I2C2Speed+"\n");
+
+
+    if ( ui->U_SPIdev4_checkBox->isChecked() )
+        out << QString("U_SPIdev4_checkBox=true\n");
+    else
+        out << QString("U_SPIdev4_checkBox=false\n");
+
+    out << QString("U_PrimaryVideo_comboBox="+ui->U_PrimaryVideo_comboBox->currentText()+"\n");
+    U_PrimaryVideo_comboBox   = ui->U_PrimaryVideo_comboBox->currentText();
+    if ( ui->U_PrimaryVideo_24bit_comboBox->isChecked() )
+        out << QString("U_PrimaryVideo_24bit_comboBox=true\n");
+    else
+        out << QString("U_PrimaryVideo_24bit_comboBox=false\n");
+
+    out << QString("\n[U_CONF]\n");
+    out << QString("U_GPIO01_IO09_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO01_IO10_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO04_IO01_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO04_IO02_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO04_IO06_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO04_IO07_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO04_IO08_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO04_IO09_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO04_IO17_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO04_IO18_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO04_IO19_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO04_IO20_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO04_IO23_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    out << QString("U_GPIO04_IO24_cbit="+ui->P_cbit_lineEdit->text()+"\n");
+    file.close();
+    update_status_bar("File "+Last_U_BSPFactoryFile+" saved");
+    Last_U_BSPFactoryFile = fileName;
+    storeNOVAembed_ini();
+
+}
+
+void NOVAembed::on_U_Clear_pushButton_clicked()
+{
+    on_U_SPI4_checkBox_toggled(false);
+    on_U_I2C2_checkBox_toggled(false);
+    on_U_CAN1_checkBox_toggled(false);
+    on_U_UART6_checkBox_toggled(false);
+    on_U_UART5_4WirescheckBox_toggled(false);
+    on_U_SPDIF_checkBox_toggled(false);
+    on_U_PWM2_checkBox_toggled(false);
+    ui->U_PrimaryVideo_24bit_comboBox->setChecked(false);
+}
+
+void NOVAembed::on_U_SetCFGbits_pushButton_clicked()
+{
+}
+
+void NOVAembed::on_U_SPI4_checkBox_toggled(bool checked)
+{
+    if ( checked )
+    {
+        ui->label_UGPIO04_IO06->setText("ECSPI4_SCLK");
+        ui->label_UGPIO04_IO07->setText("ECSPI4_MOSI");
+        ui->label_UGPIO04_IO08->setText("ECSPI4_MISO");
+        ui->label_UGPIO04_IO09->setText("ECSPI4_SS0");
+        ui->U_SPIdev4_checkBox->setEnabled(true);
+        U_GPIO04_IO06_comboBox="ECSPI4_SCLK";
+        U_GPIO04_IO07_comboBox="ECSPI4_MOSI";
+        U_GPIO04_IO08_comboBox="ECSPI4_MISO";
+        U_GPIO04_IO09_comboBox="ECSPI4_SS0";
+        ui->U_SPI4_checkBox->setChecked(true);
+    }
     else
     {
-        U_load_BSPF_File(fileName);
+        ui->U_SPI4_checkBox->setChecked(false);
+        ui->label_UGPIO04_IO07->setText("GPIO04_IO07");
+        ui->label_UGPIO04_IO08->setText("GPIO04_IO08");
+        ui->label_UGPIO04_IO06->setText("GPIO04_IO06");
+        ui->label_UGPIO04_IO09->setText("GPIO04_IO09");
+        ui->U_SPIdev4_checkBox->setEnabled(false);
+        U_GPIO04_IO06_comboBox="GPIO04_IO06";
+        U_GPIO04_IO07_comboBox="GPIO04_IO07";
+        U_GPIO04_IO08_comboBox="GPIO04_IO08";
+        U_GPIO04_IO09_comboBox="GPIO04_IO09";
+        ui->U_SPI4_checkBox->setChecked(false);
+    }
+
+}
+
+
+
+void NOVAembed::on_U_I2C2_checkBox_toggled(bool checked)
+{
+    if ( checked )
+    {
+        ui->label_UGPIO04_IO19->setText("I2C2_SDA");
+        ui->label_UGPIO04_IO20->setText("I2C2_SCL");
+        ui->U_I2C2Speed_lineEdit->setEnabled(true);
+        U_GPIO04_IO19_comboBox="I2C2_SDA";
+        U_GPIO04_IO20_comboBox="I2C2_SCL";
+        ui->U_I2C2_checkBox->setChecked(true);
+
+    }
+    else
+    {
+        ui->U_I2C2_checkBox->setChecked(false);
+        ui->label_UGPIO04_IO19->setText("GPIO04_IO19");
+        ui->label_UGPIO04_IO20->setText("GPIO04_IO20");
+        ui->U_I2C2Speed_lineEdit->setEnabled(false);
+        U_GPIO04_IO19_comboBox="GPIO04_IO19";
+        U_GPIO04_IO20_comboBox="GPIO04_IO20";
+        ui->U_I2C2_checkBox->setChecked(false);
+
     }
 }
+
+
+void NOVAembed::on_U_CAN1_checkBox_toggled(bool checked)
+{
+    if ( checked )
+    {
+        ui->label_UGPIO04_IO02->setText("CAN1_TX");
+        ui->label_UGPIO04_IO02->setText("CAN1_RX");
+        U_GPIO04_IO01_comboBox="CAN1_TX";
+        U_GPIO04_IO02_comboBox="CAN1_RX";
+        ui->U_CAN1_checkBox->setChecked(true);
+
+    }
+    else
+    {
+        ui->U_CAN1_checkBox->setChecked(false);
+        ui->label_UGPIO04_IO02->setText("GPIO04_IO01");
+        ui->label_UGPIO04_IO02->setText("GPIO04_IO02");
+        U_GPIO04_IO01_comboBox="GPIO04_IO01";
+        U_GPIO04_IO02_comboBox="GPIO04_IO02";
+        ui->U_CAN1_checkBox->setChecked(false);
+    }
+}
+
+
+void NOVAembed::on_U_UART6_checkBox_toggled(bool checked)
+{
+    if ( checked )
+    {
+        ui->label_UGPIO04_IO17->setText("UART6_TX");
+        ui->label_UGPIO04_IO18->setText("UART6_RX");
+        U_GPIO04_IO17_comboBox="UART6_TX";
+        U_GPIO04_IO18_comboBox="UART6_RX";
+        ui->U_UART6_checkBox->setChecked(true);
+    }
+    else
+    {
+        ui->U_UART6_checkBox->setChecked(false);
+        ui->label_UGPIO04_IO17->setText("GPIO04_IO17");
+        ui->label_UGPIO04_IO18->setText("GPIO04_IO18");
+        U_GPIO04_IO17_comboBox="GPIO04_IO17";
+        U_GPIO04_IO18_comboBox="GPIO04_IO18";
+        ui->U_UART6_checkBox->setChecked(false);
+    }
+}
+
+
+void NOVAembed::on_U_UART5_4WirescheckBox_toggled(bool checked)
+{
+    if ( checked )
+    {
+        ui->label_UGPIO4_IO23->setText("UART5_RTS");
+        ui->label_UGPIO4_IO24->setText("UART5_CTS");
+        U_GPIO04_IO23_comboBox="UART5_RTS";
+        U_GPIO04_IO24_comboBox="UART5_CTS";
+        ui->U_UART5_4WirescheckBox->setChecked(true);
+
+    }
+    else
+    {
+        ui->U_UART5_4WirescheckBox->setChecked(false);
+        ui->label_UGPIO4_IO23->setText("GPIO4_IO23");
+        ui->label_UGPIO4_IO24->setText("GPIO4_IO24");
+        U_GPIO04_IO23_comboBox="GPIO04_IO23";
+        U_GPIO04_IO24_comboBox="GPIO04_IO24";
+        ui->U_UART5_4WirescheckBox->setChecked(false);
+    }
+}
+void NOVAembed::on_U_Audio1_checkBox_toggled(bool checked)
+{
+
+}
+
+void NOVAembed::on_U_SPDIF_checkBox_toggled(bool checked)
+{
+    if ( checked )
+    {
+        ui->label_UGPIO1_IO10->setText("SPDIF_OUT");
+        U_GPIO01_IO10_comboBox="SPDIF_OUT";
+        ui->U_SPDIF_checkBox->setChecked(true);
+    }
+    else
+    {
+        ui->U_SPDIF_checkBox->setChecked(false);
+        ui->label_UGPIO1_IO10->setText("GPIO1_IO10");
+        U_GPIO01_IO10_comboBox="GPIO01_IO10";
+        ui->U_SPDIF_checkBox->setChecked(false);
+    }
+}
+
+
+void NOVAembed::on_U_PWM2_checkBox_toggled(bool checked)
+{
+    if ( checked )
+    {
+        ui->label_UGPIO01_IO09->setText("PWM2");
+        U_GPIO01_IO09_comboBox="PWM2";
+        ui->U_PWM2_checkBox->setChecked(true);
+    }
+    else
+    {
+        ui->label_UGPIO01_IO09->setText("GPIO01_IO09");
+        U_GPIO01_IO09_comboBox="GPIO01_IO09";
+        ui->U_PWM2_checkBox->setChecked(false);
+    }
+}
+
+
+
+void NOVAembed::on_UPriVideo_24bit_checkBox_toggled(bool checked)
+{
+    if ( checked )
+        ui->U_PrimaryVideo_24bit_comboBox->setChecked(true);
+    else
+        ui->U_PrimaryVideo_24bit_comboBox->setChecked(false);
+}
+
 
 QString U_getvalue(QString strKey, QSettings *settings , QString entry)
 {
@@ -48,684 +308,124 @@ void NOVAembed::U_load_BSPF_File(QString fileName)
 QString strKeyFunc("U_IOMUX/");
 QSettings * func_settings = 0;
 
-    on_U_Default_pushButton_clicked();
-    QFileInfo fi(fileName);
-    QString base = fi.baseName();
-    if ( base != "" )
-        ui->U_Current_BSPF_File_label->setText(base+".bspf");
+    on_U_Clear_pushButton_clicked();
+
+    Last_U_BSPFactoryFile = fileName;
+    //storeNOVAembed_ini();
 
     func_settings = new QSettings( fileName, QSettings::IniFormat );
+    //qDebug() << U_getvalue(strKeyFunc, func_settings , "U_GPIO04_IO06_comboBox");
 
-    ui->U_ECSPI2_SS0_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_ECSPI2_SS0_comboBox"));
-    ui->U_ECSPI2_MISO_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_ECSPI2_MISO_comboBox"));
-    ui->U_ECSPI2_MOSI_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_ECSPI2_MOSI_comboBox"));
-    ui->U_ECSPI2_SCK_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_ECSPI2_SCK_comboBox"));
-    ui->U_ECSPI3_MISO_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_ECSPI3_MISO_comboBox"));
-    ui->U_ECSPI3_SCK_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_ECSPI3_SCK_comboBox"));
-    ui->U_ECSPI3_MOSI_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_ECSPI3_MOSI_comboBox"));
-    ui->U_ECSPI3_SS0_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_ECSPI3_SS0_comboBox"));
-    ui->U_I2C3_SCL_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_I2C3_SCL_comboBox"));
-    ui->U_I2C3_SDA_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_I2C3_SDA_comboBox"));
-    ui->U_KHZ32_CLK_OUT_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_SD3_CMD_comboBox"));
-    ui->U_GPIO3_IO20_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_GPIO3_IO20_comboBox"));
-    ui->U_GPIO1_IO00_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_GPIO1_IO00_comboBox"));
-    ui->U_GPIO4_IO29_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_GPIO4_IO29_comboBox"));
-    ui->U_I2C1_SDA_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_I2C1_SDA_comboBox"));
-    ui->U_I2C1_SCL_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_I2C1_SCL_comboBox"));
-    ui->U_SPDIF_OUT_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_SPDIF_OUT_comboBox"));
-    ui->U_defaultVideo_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_defaultVideo_comboBox"));
+    if ( U_getvalue(strKeyFunc, func_settings , "U_GPIO04_IO06_comboBox") == "ECSPI4_SCLK" )
+        on_U_SPI4_checkBox_toggled(true);
+    if ( U_getvalue(strKeyFunc, func_settings , "U_GPIO04_IO19_comboBox") == "I2C2_SDA" )
+        on_U_I2C2_checkBox_toggled(true);
+    if ( U_getvalue(strKeyFunc, func_settings , "U_GPIO04_IO01_comboBox") == "CAN1_TX" )
+        on_U_CAN1_checkBox_toggled(true);
+    if ( U_getvalue(strKeyFunc, func_settings , "U_GPIO04_IO17_comboBox") == "UART6_TX" )
+        on_U_UART6_checkBox_toggled(true);
+    if ( U_getvalue(strKeyFunc, func_settings , "U_GPIO04_IO23_comboBox") == "UART5_RTS" )
+        on_U_UART5_4WirescheckBox_toggled(true);
+    if ( U_getvalue(strKeyFunc, func_settings , "U_GPIO01_IO10_comboBox") == "SPDIF_OUT" )
+        on_U_SPDIF_checkBox_toggled(true);
+    if ( U_getvalue(strKeyFunc, func_settings , "U_GPIO01_IO09_comboBox") == "PWM2" )
+        on_U_PWM2_checkBox_toggled(true);
 
 
-    QString strKeyConf("U_CONF/");
-    QSettings * conf_settings = 0;
-    conf_settings = new QSettings( fileName, QSettings::IniFormat );
-
-    ui->U_ECSPI2_SS0_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_ECSPI2_SS0_cbit"));
-    ui->U_ECSPI2_MISO_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_ECSPI2_MISO_cbit"));
-    ui->U_ECSPI2_MOSI_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_ECSPI2_MOSI_cbit"));
-    ui->U_ECSPI2_SCK_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_ECSPI2_SCK_cbit"));
-    ui->U_ECSPI3_MISO_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_ECSPI3_MISO_cbit"));
-    ui->U_ECSPI3_SCK_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_ECSPI3_SCK_cbit"));
-    ui->U_ECSPI3_MOSI_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_ECSPI3_MOSI_cbit"));
-    ui->U_ECSPI3_SS0_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_ECSPI3_SS0_cbit"));
-    ui->U_I2C3_SCL_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_I2C3_SCL_cbit"));
-    ui->U_I2C3_SDA_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_I2C3_SDA_cbit"));
-    ui->U_KHZ32_CLK_OUT_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_KHZ32_CLK_OUT_cbit"));
-    ui->U_GPIO3_IO19_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_GPIO3_IO19_cbit"));
-    ui->U_GPIO3_IO20_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_GPIO3_IO20_cbit"));
-    ui->U_GPIO1_IO00_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_GPIO1_IO00_cbit"));
-    ui->U_GPIO4_IO14_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_GPIO4_IO14_cbit"));
-    ui->U_GPIO4_IO26_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_GPIO4_IO26_cbit"));
-    ui->U_GPIO4_IO27_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_GPIO4_IO27_cbit"));
-    ui->U_GPIO4_IO28_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_GPIO4_IO28_cbit"));
-    ui->U_GPIO4_IO29_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_GPIO4_IO29_cbit"));
-    ui->U_GPIO6_IO05_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_GPIO6_IO05_cbit"));
-    ui->U_I2C1_SDA_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_I2C1_SDA_cbit"));
-    ui->U_I2C1_SCL_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_I2C1_SCL_cbit"));
-    ui->U_SPDIF_OUT_lineEdit->setText(U_getvalue(strKeyConf, conf_settings , "U_SPDIF_OUT_cbit"));
+    ui->U_I2C2Speed_lineEdit->setText(U_getvalue(strKeyFunc, func_settings , "U_I2C2Speed"));
+    ui->U_SPIdev4_checkBox->setChecked(false);
+    ui->U_PrimaryVideo_comboBox->setCurrentText(U_getvalue(strKeyFunc, func_settings , "U_PrimaryVideo_comboBox"));
+    if ( U_getvalue(strKeyFunc, func_settings , "U_PrimaryVideo_24bit_comboBox") == "true")
+        on_UPriVideo_24bit_checkBox_toggled(true);
 }
 
-void NOVAembed::on_U_Save_pushButton_clicked()
+void NOVAembed::on_U_Load_pushButton_clicked()
 {
-    QString croped_fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), "/Devel/NOVAsom_SDK/NOVAembed_Settings",tr(".bspf (*.bspf)"));
-    QString fileName=croped_fileName.section(".",0,0);
-    fileName = fileName+".bspf";
-    //qDebug() << "fileName :"+fileName;
-
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Load BSP Factory File"), "/Devel/NOVAsom_SDK/DtbUserWorkArea/UClass_bspf",tr("BSP Factory Files (*.bspf)"));
     if (fileName.isEmpty())
         return;
     else
     {
-        QFile file(fileName);
-        if (!file.open(QIODevice::WriteOnly))
-        {
-            QMessageBox::information(this, tr("Unable to open file"),file.errorString());
-            return;
-        }
-        //qDebug() << "fileName :"+fileName;
-
-        QTextStream out(&file);
-        out << QString("[U_IOMUX]\n");
-        out << QString("U_ECSPI2_SS0_comboBox="+ui->U_ECSPI2_SS0_comboBox->currentText()+"\n");
-        out << QString("U_ECSPI2_MISO_comboBox="+ui->U_ECSPI2_MISO_comboBox->currentText()+"\n");
-        out << QString("U_ECSPI2_MOSI_comboBox="+ui->U_ECSPI2_MOSI_comboBox->currentText()+"\n");
-        out << QString("U_ECSPI2_SCK_comboBox="+ui->U_ECSPI2_SCK_comboBox->currentText()+"\n");
-        out << QString("U_ECSPI3_MISO_comboBox="+ui->U_ECSPI3_MISO_comboBox->currentText()+"\n");
-        out << QString("U_ECSPI3_SCK_comboBox="+ui->U_ECSPI3_SCK_comboBox->currentText()+"\n");
-        out << QString("U_ECSPI3_MOSI_comboBox="+ui->U_ECSPI3_MOSI_comboBox->currentText()+"\n");
-        out << QString("U_ECSPI3_SS0_comboBox="+ui->U_ECSPI3_SS0_comboBox->currentText()+"\n");
-        out << QString("U_I2C3_SCL_comboBox="+ui->U_I2C3_SCL_comboBox->currentText()+"\n");
-        out << QString("U_I2C3_SDA_comboBox="+ui->U_I2C3_SDA_comboBox->currentText()+"\n");
-        out << QString("U_KHZ32_CLK_OUT_comboBox="+ui->U_KHZ32_CLK_OUT_comboBox->currentText()+"\n");
-        out << QString("U_GPIO3_IO20_comboBox="+ui->U_GPIO3_IO20_comboBox->currentText()+"\n");
-        out << QString("U_GPIO1_IO00_comboBox="+ui->U_GPIO1_IO00_comboBox->currentText()+"\n");
-        out << QString("U_GPIO4_IO29_comboBox="+ui->U_GPIO4_IO29_comboBox->currentText()+"\n");
-        out << QString("U_I2C1_SDA_comboBox="+ui->U_I2C1_SDA_comboBox->currentText()+"\n");
-        out << QString("U_I2C1_SCL_comboBox="+ui->U_I2C1_SCL_comboBox->currentText()+"\n");
-        out << QString("U_SPDIF_OUT_comboBox="+ui->U_SPDIF_OUT_comboBox->currentText()+"\n");
-        out << QString("defaultVideo_comboBox="+ui->U_defaultVideo_comboBox->currentText()+"\n");
-
-        out << QString("\n[U_CONF]\n");
-        out << QString("U_ECSPI2_SS0_cbit="+ui->U_ECSPI2_SS0_lineEdit->text()+"\n");
-        out << QString("U_ECSPI2_MISO_cbit="+ui->U_ECSPI2_MISO_lineEdit->text()+"\n");
-        out << QString("U_ECSPI2_MOSI_cbit="+ui->U_ECSPI2_MOSI_lineEdit->text()+"\n");
-        out << QString("U_ECSPI2_SCK_cbit="+ui->U_ECSPI2_SCK_lineEdit->text()+"\n");
-        out << QString("U_ECSPI3_MISO_cbit="+ui->U_ECSPI3_MISO_lineEdit->text()+"\n");
-        out << QString("U_ECSPI3_SCK_cbit="+ui->U_ECSPI3_SCK_lineEdit->text()+"\n");
-        out << QString("U_ECSPI3_MOSI_cbit="+ui->U_ECSPI3_MOSI_lineEdit->text()+"\n");
-        out << QString("U_ECSPI3_SS0_cbit="+ui->U_ECSPI3_SS0_lineEdit->text()+"\n");
-        out << QString("U_I2C3_SCL_cbit="+ui->U_I2C3_SCL_lineEdit->text()+"\n");
-        out << QString("U_I2C3_SDA_cbit="+ui->U_I2C3_SDA_lineEdit->text()+"\n");
-        out << QString("U_KHZ32_CLK_OUT_cbit="+ui->U_KHZ32_CLK_OUT_lineEdit->text()+"\n");
-        out << QString("U_GPIO3_IO19_cbit="+ui->U_GPIO3_IO19_lineEdit->text()+"\n");
-        out << QString("U_GPIO3_IO20_cbit="+ui->U_GPIO3_IO20_lineEdit->text()+"\n");
-        out << QString("U_GPIO1_IO00_cbit="+ui->U_GPIO1_IO00_lineEdit->text()+"\n");
-        out << QString("U_GPIO4_IO14_cbit="+ui->U_GPIO4_IO14_lineEdit->text()+"\n");
-        out << QString("U_GPIO4_IO26_cbit="+ui->U_GPIO4_IO26_lineEdit->text()+"\n");
-        out << QString("U_GPIO4_IO27_cbit="+ui->U_GPIO4_IO27_lineEdit->text()+"\n");
-        out << QString("U_GPIO4_IO28_cbit="+ui->U_GPIO4_IO28_lineEdit->text()+"\n");
-        out << QString("U_GPIO4_IO29_cbit="+ui->U_GPIO4_IO29_lineEdit->text()+"\n");
-        out << QString("U_GPIO6_IO05_cbit="+ui->U_GPIO6_IO05_lineEdit->text()+"\n");
-        out << QString("U_I2C1_SDA_cbit="+ui->U_I2C1_SDA_lineEdit->text()+"\n");
-        out << QString("U_I2C1_SCL_cbit="+ui->U_I2C1_SCL_lineEdit->text()+"\n");
-        out << QString("U_SPDIF_OUT_cbit="+ui->U_SPDIF_OUT_lineEdit->text()+"\n");
-
-        file.close();
+        U_load_BSPF_File(fileName);
+        update_status_bar("File "+Last_U_BSPFactoryFile+" loaded");
+        QFileInfo fi(fileName);
+        ui->U_Current_BSPF_File_label->setText(fi.baseName()+".bspf");
+        ui->U_Generate_pushButton->setText("Save "+fi.baseName()+".bspf and Generate "+fi.baseName()+".dtb");
         Last_U_BSPFactoryFile = fileName;
-        QFileInfo fi(Last_U_BSPFactoryFile);
-        QString base = fi.baseName();
-        if ( base != "" )
-            ui->U_Current_BSPF_File_label->setText(base+".bspf");
         storeNOVAembed_ini();
     }
 }
 
-void NOVAembed::on_U_Default_pushButton_clicked()
+void NOVAembed::on_U_Save_pushButton_clicked()
 {
-    ui->U_ECSPI2_SS0_comboBox->setCurrentIndex(0);
-    ui->U_ECSPI2_MISO_comboBox->setCurrentIndex(0);
-    ui->U_ECSPI2_MOSI_comboBox->setCurrentIndex(0);
-    ui->U_ECSPI2_SCK_comboBox->setCurrentIndex(0);
-    ui->U_ECSPI3_MISO_comboBox->setCurrentIndex(0);
-    ui->U_ECSPI3_SCK_comboBox->setCurrentIndex(0);
-    ui->U_ECSPI3_MOSI_comboBox->setCurrentIndex(0);
-    ui->U_ECSPI3_SS0_comboBox->setCurrentIndex(0);
-    ui->U_I2C3_SCL_comboBox->setCurrentIndex(0);
-    ui->U_I2C3_SDA_comboBox->setCurrentIndex(0);
-    ui->U_KHZ32_CLK_OUT_comboBox->setCurrentIndex(0);
-    ui->U_GPIO3_IO20_comboBox->setCurrentIndex(0);
-    ui->U_GPIO1_IO00_comboBox->setCurrentIndex(0);
-    ui->U_GPIO4_IO29_comboBox->setCurrentIndex(0);
-    ui->U_I2C1_SDA_comboBox->setCurrentIndex(0);
-    ui->U_I2C1_SCL_comboBox->setCurrentIndex(0);
-    ui->U_SPDIF_OUT_comboBox->setCurrentIndex(0);
-    ui->U_defaultVideo_comboBox->setCurrentIndex(0);
-
-    ui->U_ECSPI2_SS0_lineEdit->setText("0x80000000");
-    ui->U_ECSPI2_MISO_lineEdit->setText("0x80000000");
-    ui->U_ECSPI2_MOSI_lineEdit->setText("0x80000000");
-    ui->U_ECSPI2_SCK_lineEdit->setText("0x80000000");
-    ui->U_ECSPI3_MISO_lineEdit->setText("0x80000000");
-    ui->U_ECSPI3_SCK_lineEdit->setText("0x80000000");
-    ui->U_ECSPI3_MOSI_lineEdit->setText("0x80000000");
-    ui->U_ECSPI3_SS0_lineEdit->setText("0x80000000");
-    ui->U_I2C3_SCL_lineEdit->setText("0x80000000");
-    ui->U_I2C3_SDA_lineEdit->setText("0x80000000");
-    ui->U_KHZ32_CLK_OUT_lineEdit->setText("0x80000000");
-    ui->U_GPIO3_IO20_lineEdit->setText("0x80000000");
-    ui->U_GPIO1_IO00_lineEdit->setText("0x80000000");
-    ui->U_GPIO4_IO29_lineEdit->setText("0x80000000");
-    ui->U_I2C1_SDA_lineEdit->setText("0x80000000");
-    ui->U_I2C1_SCL_lineEdit->setText("0x80000000");
-    ui->U_SPDIF_OUT_lineEdit->setText("0x80000000");
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), Last_U_BSPFactoryFile,tr(".bspf (*.bspf)"));
+    if ( fileName.isEmpty() )
+        return;
+    QFileInfo fi(fileName);
+    ui->U_Current_BSPF_File_label->setText(fi.baseName()+".bspf");
+    ui->U_Generate_pushButton->setText("Save "+fi.baseName()+".bspf and Generate "+fi.baseName()+".dtb");
+    U_save_helper(fileName);
 }
 
-void NOVAembed::U_disable_all(void)
+void NOVAembed::on_U_Generate_pushButton_clicked()
 {
-    ui->U_PUPD_frame->setEnabled(false);
-    ui->U_Speed_frame->setEnabled(false);
-    ui->U_SRE_frame->setEnabled(false);
-    ui->U_DSE_frame->setEnabled(false);
-    ui->U_PUE_checkBox->setEnabled(false);
-    ui->U_SION_checkBox->setEnabled(false);
-    ui->U_ODE_checkBox->setEnabled(false);
-    ui->U_PKE_checkBox->setEnabled(false);
-    ui->U_HYS_PAD_CTL_checkBox->setEnabled(false);
-    ui->U_DSE_Disable_checkBox->setEnabled(false);
-    ui->U_NO_PAD_CTL_checkBox->setEnabled(true);
-    ui->U_NO_PAD_CTL_checkBox->setChecked(true);
-}
+    // Save .bspf and Generate .dtb
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save .bspf"), Last_U_BSPFactoryFile,tr(".bspf (*.bspf)"));
+    if ( fileName.isEmpty() )
+        return;
 
-void NOVAembed::U_enable_all(void)
-{
-    ui->U_PUPD_frame->setEnabled(true);
-    ui->U_Speed_frame->setEnabled(true);
-    ui->U_SRE_frame->setEnabled(true);
-    ui->U_DSE_frame->setEnabled(true);
-    ui->U_PUE_checkBox->setEnabled(true);
-    ui->U_SION_checkBox->setEnabled(true);
-    ui->U_ODE_checkBox->setEnabled(true);
-    ui->U_PKE_checkBox->setEnabled(true);
-    ui->U_HYS_PAD_CTL_checkBox->setEnabled(true);
-    ui->U_DSE_Disable_checkBox->setEnabled(true);
-    ui->U_NO_PAD_CTL_checkBox->setEnabled(true);
-    ui->U_NO_PAD_CTL_checkBox->setChecked(false);
-}
-void NOVAembed::on_U_CreateCFGBits_pushButton_clicked()
-{
-    int  value = 0;
-     /*
-     CONFIG bits definition:
-     NO_PAD_CTL                      (1 << 31)
-     SION                            (1 << 30)
-     PAD_CTL_HYS                     (1 << 16)
-     PAD_CTL_PUS_100K_DOWN           (0 << 14)
-     PAD_CTL_PUS_47K_UP              (1 << 14)
-     PAD_CTL_PUS_100K_UP             (2 << 14)
-     PAD_CTL_PUS_22K_UP              (3 << 14)
-     PAD_CTL_PUE                     (1 << 13)
-     PAD_CTL_PKE                     (1 << 12)
-     PAD_CTL_ODE                     (1 << 11)
-     PAD_CTL_SPEED_LOW               (1 << 6)
-     PAD_CTL_SPEED_MED               (2 << 6)
-     PAD_CTL_SPEED_HIGH              (3 << 6)
-     PAD_CTL_DSE_DISABLE             (0 << 3)
-     PAD_CTL_DSE_34ohm               (7 << 3)
-     PAD_CTL_DSE_40ohm               (6 << 3)
-     PAD_CTL_DSE_48ohm               (5 << 3)
-     PAD_CTL_DSE_60ohm               (4 << 3)
-     PAD_CTL_DSE_80ohm               (3 << 3)
-     PAD_CTL_DSE_120ohm              (2 << 3)
-     PAD_CTL_DSE_240ohm              (1 << 3)
-     PAD_CTL_SRE_FAST                (1 << 0)
-     PAD_CTL_SRE_SLOW                (0 << 0)
+    QFile scriptfile("/tmp/script");
+    QFileInfo fi(fileName);
+    ui->U_Current_BSPF_File_label->setText(fi.baseName()+".bspf");
+    ui->U_Generate_pushButton->setText("Save "+fi.baseName()+".bspf and Generate "+fi.baseName()+".dtb");
+    U_save_helper(fileName);
+    Last_U_BSPFactoryFile = fileName;
+    //storeNOVAembed_ini();
+    QString FileNameNoExtension  = fi.baseName();
 
-     */
 
-    if ( ui->U_NO_PAD_CTL_checkBox->isChecked() == true )
-        value = 1 << 31;
-    else
+
+    update_status_bar("Generating dtb "+FileNameNoExtension+".dtb ...");
+    if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
     {
-        if ( ui->U_SION_checkBox->isChecked() == true )
-            value |= 1 << 30;
-        if ( ui->U_HYS_PAD_CTL_checkBox->isChecked() == true )
-            value |= 1 << 16;
-        if ( ui->U_PUE_checkBox->isChecked() == true )
-        {
-            value |= 1 << 13;
-            if ( ui->U_PD_100K_checkBox->isChecked() == true )
-                value |= 0 << 14;
-            if ( ui->U_PU_100K_checkBox->isChecked() == true )
-                value |= 2 << 14;
-            if ( ui->U_PU_47K_checkBox->isChecked() == true )
-                value |= 1 << 14;
-            if ( ui->U_PU_22K_checkBox->isChecked() == true )
-                value |= 3 << 14;
-        }
-        if ( ui->U_PKE_checkBox->isChecked() == true )
-            value |= 1 << 12;
-        if ( ui->U_ODE_checkBox->isChecked() == true )
-            value |= 1 << 11;
-        if ( ui->U_SPEED_Low_checkBox->isChecked() == true )
-            value |= 1 << 6;
-        if ( ui->U_SPEED_Mid_checkBox->isChecked() == true )
-            value |= 2 << 6;
-        if ( ui->U_SPEED_High_checkBox->isChecked() == true )
-            value |= 3 << 6;
-        if ( ui->U_DSE_Disable_checkBox->isChecked() == true )
-            value |= 0 << 3;
-        else
-        {
-            if ( ui->U_DSE_34_checkBox->isChecked() == true )
-                value |= 7 << 3;
-            if ( ui->U_DSE_40_checkBox->isChecked() == true )
-                value |= 6 << 3;
-            if ( ui->U_DSE_48_checkBox->isChecked() == true )
-                value |= 5 << 3;
-            if ( ui->U_DSE_60_checkBox->isChecked() == true )
-                value |= 4 << 3;
-            if ( ui->U_DSE_80_checkBox->isChecked() == true )
-                value |= 3 << 3;
-            if ( ui->U_DSE_120_checkBox->isChecked() == true )
-                value |= 2 << 3;
-            if ( ui->U_DSE_240_checkBox->isChecked() == true )
-                value |= 1 << 3;
-        }
-        if ( ui->U_SRE_Fast_checkBox->isChecked() == true )
-            value |= 1 << 0;
-        if ( ui->U_SRE_Slow_checkBox->isChecked() == true )
-            value |= 0 << 0;
+        update_status_bar("Unable to create /tmp/script");
+        return;
+    }
+    if ( ui->EditBeforeGenerate_checkBox->isChecked())
+        update_status_bar("User editing dtsi file");
 
-     }
-     char result[16];
-     sprintf(result,"0x%08x",value);
-     ui->U_CFG_Bits_lineEdit->setText(result);
-}
+    QTextStream out(&scriptfile);
+    out << QString("#!/bin/sh\n");
+    out << QString("[ ! -d /Devel/NOVAsom_SDK/DtbUserWorkArea ] && mkdir /Devel/NOVAsom_SDK/DtbUserWorkArea\n");
+    out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
+    out << QString("/Devel/NOVAsom_SDK/Qt/NOVAembed/NOVAembed/NOVAembed_U_Parser/bin/Debug/NOVAembed_U_Parser /Devel/NOVAsom_SDK/DtbUserWorkArea/UClass_bspf/"+FileNameNoExtension+".bspf > /Devel/NOVAsom_SDK/Logs/U_bspf.log\n");
+    if ( ui->EditBeforeGenerate_checkBox->isChecked())
+        out << QString("gedit /Devel/NOVAsom_SDK/DtbUserWorkArea/"+FileNameNoExtension+".dts\n");
+    out << QString("./user_dtb_compile "+FileNameNoExtension+" U >> /Devel/NOVAsom_SDK/Logs/U_bspf.log\n");
+    out << QString("echo $? > /tmp/result\n");
 
-
-#define    NO_PAD_CTL                      (unsigned int )(1 << 31)
-#define    SION                            (unsigned int )(1 << 30)
-#define    PAD_CTL_HYS                     (unsigned int )(1 << 16)
-#define    PAD_CTL_PUS_100K_DOWN           (unsigned int )(0 << 14)
-#define    PAD_CTL_PUS_47K_UP              (unsigned int )(1 << 14)
-#define    PAD_CTL_PUS_100K_UP             (unsigned int )(2 << 14)
-#define    PAD_CTL_PUS_22K_UP              (unsigned int )(3 << 14)
-#define    PAD_CTL_PUE                     (unsigned int )(1 << 13)
-#define    PAD_CTL_PKE                     (unsigned int )(1 << 12)
-#define    PAD_CTL_ODE                     (unsigned int )(1 << 11)
-#define    PAD_CTL_SPEED_LOW               (unsigned int )(1 << 6)
-#define    PAD_CTL_SPEED_MED               (unsigned int )(2 << 6)
-#define    PAD_CTL_SPEED_HIGH              (unsigned int )(3 << 6)
-#define    PAD_CTL_DSE_DISABLE             (unsigned int )(0 << 3)
-#define    PAD_CTL_DSE_34ohm               (unsigned int )(7 << 3)
-#define    PAD_CTL_DSE_40ohm               (unsigned int )(6 << 3)
-#define    PAD_CTL_DSE_48ohm               (unsigned int )(5 << 3)
-#define    PAD_CTL_DSE_60ohm               (unsigned int )(4 << 3)
-#define    PAD_CTL_DSE_80ohm               (unsigned int )(3 << 3)
-#define    PAD_CTL_DSE_120ohm              (unsigned int )(2 << 3)
-#define    PAD_CTL_DSE_240ohm              (unsigned int )(1 << 3)
-#define    PAD_CTL_SRE_FAST                (unsigned int )(1 << 0)
-#define    PAD_CTL_SRE_SLOW                (unsigned int )(0 << 0)
-#define    PAD_DSE_MASK                    (unsigned int )(0xfe)
-void NOVAembed::on_U_DecodeCFGBits_pushButton_clicked()
-{
-    bool ok=1;
-    QString a = ui->U_Decoded_CFG_Bits_lineEdit->text().right(8);
-    unsigned int value = a.toUInt(&ok,16);
-    //qDebug()  << "value = 0x" << QString::number(value, 16);
-
-    if ( (unsigned int )(value & NO_PAD_CTL) == NO_PAD_CTL )
+    scriptfile.close();
+    if ( run_script() == 0)
     {
-        ui->U_NO_PAD_CTL_checkBox->setChecked(true);
-        ui->U_DSE_Disable_checkBox->setEnabled(false);
-        ui->U_DSE_frame->setEnabled(false);
-        ui->U_Speed_frame->setEnabled(false);
-        ui->U_SRE_frame->setEnabled(false);
-        ui->U_PUE_checkBox->setEnabled(false);
-        ui->U_PUPD_frame->setEnabled(false);
-        ui->U_ODE_checkBox->setEnabled(false);
-        ui->U_PKE_checkBox->setEnabled(false);
-        ui->U_SION_checkBox->setEnabled(false);
-        ui->U_HYS_PAD_CTL_checkBox->setEnabled(false);
+        update_status_bar(fi.baseName()+".dtb compiled, dtb is in /Devel/NOVAsom_SDK/DtbUserWorkArea folder as "+FileNameNoExtension+".dtb");
+        const char *str;
+        QByteArray ba;
+
+        QString syscmd_quad = "cp /Devel/NOVAsom_SDK/DtbUserWorkArea/"+FileNameNoExtension+".dtb /Devel/NOVAsom_SDK/Deploy/novasomu.dtb ; chmod 777 /Devel/NOVAsom_SDK/Deploy/novasomu.dtb";
+        ba = syscmd_quad.toLatin1();
+        str = ba.data();
+        system(str);
+
+
+        NOVAsom_Params_helper();
+        //storeNOVAembed_ini();
     }
     else
-    {
-        ui->U_NO_PAD_CTL_checkBox->setChecked(false);
-        ui->U_DSE_Disable_checkBox->setEnabled(true);
-        ui->U_DSE_frame->setEnabled(true);
-        ui->U_Speed_frame->setEnabled(true);
-        ui->U_SRE_frame->setEnabled(true);
-        ui->U_PUE_checkBox->setEnabled(true);
-        ui->U_PUPD_frame->setEnabled(true);
-        ui->U_ODE_checkBox->setEnabled(true);
-        ui->U_PKE_checkBox->setEnabled(true);
-        ui->U_SION_checkBox->setEnabled(true);
-        ui->U_HYS_PAD_CTL_checkBox->setEnabled(true);
-    }
-
-    ui->U_SION_checkBox->setChecked(false);
-    ui->U_HYS_PAD_CTL_checkBox->setChecked(false);
-    if ( (unsigned int )(value & SION) == SION )
-        ui->U_SION_checkBox->setChecked(true);
-    if ( (unsigned int )(value & PAD_CTL_HYS) == PAD_CTL_HYS )
-        ui->U_HYS_PAD_CTL_checkBox->setChecked(true);
-
-    ui->U_PU_47K_checkBox->setChecked(false);
-    ui->U_PU_100K_checkBox->setChecked(false);
-    ui->U_PU_22K_checkBox->setChecked(false);
-    ui->U_PD_100K_checkBox->setChecked(false);
-    ui->U_PUE_checkBox->setChecked(false);
-    ui->U_PKE_checkBox->setChecked(false);
-
-    if ( (unsigned int )(value & PAD_CTL_PUS_47K_UP) == PAD_CTL_PUS_47K_UP )
-    {
-        ui->U_PU_47K_checkBox->setChecked(true);
-        ui->U_PUE_checkBox->setChecked(true);
-    }
-    else if ( (unsigned int )(value & PAD_CTL_PUS_100K_UP) == PAD_CTL_PUS_100K_UP )
-    {
-        ui->U_PU_100K_checkBox->setChecked(true);
-        ui->U_PUE_checkBox->setChecked(true);
-    }
-    else if ( (unsigned int )(value & PAD_CTL_PUS_22K_UP) == PAD_CTL_PUS_22K_UP )
-    {
-        ui->U_PU_22K_checkBox->setChecked(true);
-        ui->U_PUE_checkBox->setChecked(true);
-    }
-    else if ( (unsigned int )(value & PAD_CTL_PUE) == PAD_CTL_PUE )
-    {
-        ui->U_PD_100K_checkBox->setChecked(true);
-        ui->U_PUE_checkBox->setChecked(true);
-    }
-
-    if ( (unsigned int )(value & PAD_CTL_PKE) == PAD_CTL_PKE )
-    {
-        ui->U_PUE_checkBox->setChecked(false);
-        ui->U_PUPD_frame->setEnabled(false);
-    }
-    if ( (unsigned int )(value & PAD_CTL_ODE) == PAD_CTL_ODE )
-    {
-        ui->U_ODE_checkBox->setChecked(true);
-        //ui->PUE_checkBox->setChecked(false);
-        //ui->PUPD_frame->setEnabled(false);
-    }
-
-
-    ui->U_SPEED_Low_checkBox->setChecked(false);
-    ui->U_SPEED_Mid_checkBox->setChecked(false);
-    ui->U_SPEED_High_checkBox->setChecked(false);
-    if ( (unsigned int )(value & PAD_CTL_SPEED_LOW) == PAD_CTL_SPEED_LOW )
-        ui->U_SPEED_Low_checkBox->setChecked(true);
-    else if ( (unsigned int )(value & PAD_CTL_SPEED_MED) == PAD_CTL_SPEED_MED )
-        ui->U_SPEED_Mid_checkBox->setChecked(true);
-    else if ( (unsigned int )(value & PAD_CTL_SPEED_HIGH) == PAD_CTL_SPEED_HIGH )
-        ui->U_SPEED_High_checkBox->setChecked(true);
-
-    ui->U_DSE_34_checkBox->setChecked(false);
-    ui->U_DSE_40_checkBox->setChecked(false);
-    ui->U_DSE_48_checkBox->setChecked(false);
-    ui->U_DSE_60_checkBox->setChecked(false);
-    ui->U_DSE_80_checkBox->setChecked(false);
-    ui->U_DSE_120_checkBox->setChecked(false);
-    ui->U_DSE_240_checkBox->setChecked(false);
-    if ( (unsigned int )(value & PAD_CTL_DSE_34ohm) == PAD_CTL_DSE_34ohm )
-        ui->U_DSE_34_checkBox->setChecked(true);
-    else if ( (unsigned int )(value & PAD_CTL_DSE_40ohm) == PAD_CTL_DSE_40ohm )
-        ui->U_DSE_40_checkBox->setChecked(true);
-    else if ( (unsigned int )(value & PAD_CTL_DSE_48ohm) == PAD_CTL_DSE_48ohm )
-        ui->U_DSE_48_checkBox->setChecked(true);
-    else if ( (unsigned int )(value & PAD_CTL_DSE_60ohm) == PAD_CTL_DSE_60ohm )
-        ui->U_DSE_60_checkBox->setChecked(true);
-    else if ( (unsigned int )(value & PAD_CTL_DSE_80ohm) == PAD_CTL_DSE_80ohm )
-        ui->U_DSE_80_checkBox->setChecked(true);
-    else if ( (unsigned int )(value & PAD_CTL_DSE_120ohm) == PAD_CTL_DSE_120ohm )
-        ui->U_DSE_120_checkBox->setChecked(true);
-    else if ( (unsigned int )(value & PAD_CTL_DSE_240ohm) == PAD_CTL_DSE_240ohm )
-        ui->U_DSE_240_checkBox->setChecked(true);
-    else
-    {
-        ui->U_DSE_34_checkBox->setChecked(false);
-        ui->U_DSE_40_checkBox->setChecked(false);
-        ui->U_DSE_48_checkBox->setChecked(false);
-        ui->U_DSE_60_checkBox->setChecked(false);
-        ui->U_DSE_80_checkBox->setChecked(false);
-        ui->U_DSE_120_checkBox->setChecked(false);
-        ui->U_DSE_240_checkBox->setChecked(false);
-        ui->U_DSE_Disable_checkBox->setChecked(true);
-        ui->U_DSE_frame->setEnabled(false);
-    }
-
-    ui->U_SRE_Fast_checkBox->setChecked(false);
-    ui->U_SRE_Slow_checkBox->setChecked(false);
-    if ( (unsigned int )(value & PAD_CTL_SRE_FAST) == PAD_CTL_SRE_FAST )
-    {
-        ui->U_SRE_Fast_checkBox->setChecked(true);
-    }
-    else
-    {
-        ui->U_SRE_Slow_checkBox->setChecked(true);
-    }
+        update_status_bar("Error compiling "+fi.baseName()+".dtb");
 
 }
 
-
-
-void NOVAembed::on_U_SION_checkBox_clicked()
+void NOVAembed::on_U_ViewDtbCompileLog_pushButton_clicked()
 {
-
+    system("gedit /Devel/NOVAsom_SDK/Logs/U_bspf.log");
 }
-
-void NOVAembed::on_U_NO_PAD_CTL_checkBox_clicked()
-{
-    if ( ui->U_NO_PAD_CTL_checkBox->isChecked() == true )
-        U_disable_all();
-    else
-        U_enable_all();
-}
-
-
-void NOVAembed::on_U_SPEED_Low_checkBox_clicked()
-{
-    if ( ui->U_SPEED_Low_checkBox->isChecked() == true )
-    {
-        ui->U_SPEED_Mid_checkBox->setChecked(false);
-        ui->U_SPEED_High_checkBox->setChecked(false);
-    }
-}
-
-void NOVAembed::on_U_SPEED_Mid_checkBox_clicked()
-{
-    if ( ui->U_SPEED_Mid_checkBox->isChecked() == true )
-    {
-        ui->U_SPEED_Low_checkBox->setChecked(false);
-        ui->U_SPEED_High_checkBox->setChecked(false);
-    }
-}
-
-void NOVAembed::on_U_SPEED_High_checkBox_clicked()
-{
-    if ( ui->U_SPEED_High_checkBox->isChecked() == true )
-    {
-        ui->U_SPEED_Low_checkBox->setChecked(false);
-        ui->U_SPEED_Mid_checkBox->setChecked(false);
-    }
-}
-
-
-void NOVAembed::on_U_SRE_Fast_checkBox_clicked()
-{
-    if ( ui->U_SRE_Fast_checkBox->isChecked() == true )
-        ui->U_SRE_Slow_checkBox->setChecked(false);
-}
-
-void NOVAembed::on_U_SRE_Slow_checkBox_clicked()
-{
-    if ( ui->U_SRE_Slow_checkBox->isChecked() == true )
-        ui->U_SRE_Fast_checkBox->setChecked(false);
-}
-
-void NOVAembed::on_U_PUE_checkBox_clicked()
-{
-    if ( ui->U_PUE_checkBox->isChecked() == true )
-        ui->U_PUPD_frame->setEnabled(false);
-    else
-        ui->U_PUPD_frame->setEnabled(true);
-}
-
-
-void NOVAembed::on_U_PD_100K_checkBox_clicked()
-{
-    if ( ui->U_PD_100K_checkBox->isChecked() == true )
-    {
-        ui->U_PU_100K_checkBox->setChecked(false);
-        ui->U_PU_47K_checkBox->setChecked(false);
-        ui->U_PU_22K_checkBox->setChecked(false);
-    }
-}
-
-void NOVAembed::on_U_PU_100K_checkBox_clicked()
-{
-    if ( ui->U_PU_100K_checkBox->isChecked() == true )
-    {
-        ui->U_PD_100K_checkBox->setChecked(false);
-        ui->U_PU_47K_checkBox->setChecked(false);
-        ui->U_PU_22K_checkBox->setChecked(false);
-    }
-}
-
-void NOVAembed::on_U_PU_47K_checkBox_clicked()
-{
-    if ( ui->U_PU_47K_checkBox->isChecked() == true )
-    {
-        ui->U_PD_100K_checkBox->setChecked(false);
-        ui->U_PU_100K_checkBox->setChecked(false);
-        ui->U_PU_22K_checkBox->setChecked(false);
-    }
-}
-
-void NOVAembed::on_U_PU_22K_checkBox_clicked()
-{
-    if ( ui->U_PU_22K_checkBox->isChecked() == true )
-    {
-        ui->U_PD_100K_checkBox->setChecked(false);
-        ui->U_PU_100K_checkBox->setChecked(false);
-        ui->U_PU_47K_checkBox->setChecked(false);
-    }
-}
-
-void NOVAembed::on_U_ODE_checkBox_clicked()
-{
-
-}
-
-
-void NOVAembed::on_U_PKE_checkBox_clicked()
-{
-
-}
-
-
-
-void NOVAembed::on_U_DSE_Disable_checkBox_clicked()
-{
-    if ( ui->U_DSE_Disable_checkBox->isChecked() == true )
-        ui->U_DSE_frame->setEnabled(false);
-    else
-        ui->U_DSE_frame->setEnabled(true);
-}
-
-void NOVAembed::on_U_DSE_34_checkBox_clicked()
-{
-    if ( ui->U_DSE_34_checkBox->isChecked() == true )
-    {
-        ui->U_DSE_40_checkBox->setChecked(false);
-        ui->U_DSE_48_checkBox->setChecked(false);
-        ui->U_DSE_60_checkBox->setChecked(false);
-        ui->U_DSE_80_checkBox->setChecked(false);
-        ui->U_DSE_120_checkBox->setChecked(false);
-        ui->U_DSE_240_checkBox->setChecked(false);
-    }
-}
-
-void NOVAembed::on_U_DSE_40_checkBox_clicked()
-{
-    if ( ui->U_DSE_40_checkBox->isChecked() == true )
-    {
-        ui->U_DSE_34_checkBox->setChecked(false);
-        ui->U_DSE_48_checkBox->setChecked(false);
-        ui->U_DSE_60_checkBox->setChecked(false);
-        ui->U_DSE_80_checkBox->setChecked(false);
-        ui->U_DSE_120_checkBox->setChecked(false);
-        ui->U_DSE_240_checkBox->setChecked(false);
-    }
-}
-
-void NOVAembed::on_U_DSE_48_checkBox_clicked()
-{
-    if ( ui->U_DSE_48_checkBox->isChecked() == true )
-    {
-        ui->U_DSE_34_checkBox->setChecked(false);
-        ui->U_DSE_40_checkBox->setChecked(false);
-        ui->U_DSE_60_checkBox->setChecked(false);
-        ui->U_DSE_80_checkBox->setChecked(false);
-        ui->U_DSE_120_checkBox->setChecked(false);
-        ui->U_DSE_240_checkBox->setChecked(false);
-    }
-}
-
-void NOVAembed::on_U_DSE_60_checkBox_clicked()
-{
-    if ( ui->U_DSE_60_checkBox->isChecked() == true )
-    {
-        ui->U_DSE_34_checkBox->setChecked(false);
-        ui->U_DSE_40_checkBox->setChecked(false);
-        ui->U_DSE_48_checkBox->setChecked(false);
-        ui->U_DSE_80_checkBox->setChecked(false);
-        ui->U_DSE_120_checkBox->setChecked(false);
-        ui->U_DSE_240_checkBox->setChecked(false);
-    }
-}
-
-void NOVAembed::on_U_DSE_80_checkBox_clicked()
-{
-    if ( ui->U_DSE_80_checkBox->isChecked() == true )
-    {
-        ui->U_DSE_34_checkBox->setChecked(false);
-        ui->U_DSE_40_checkBox->setChecked(false);
-        ui->U_DSE_48_checkBox->setChecked(false);
-        ui->U_DSE_60_checkBox->setChecked(false);
-        ui->U_DSE_120_checkBox->setChecked(false);
-        ui->U_DSE_240_checkBox->setChecked(false);
-    }
-}
-
-void NOVAembed::on_U_DSE_120_checkBox_clicked()
-{
-    if ( ui->U_DSE_120_checkBox->isChecked() == true )
-    {
-        ui->U_DSE_34_checkBox->setChecked(false);
-        ui->U_DSE_40_checkBox->setChecked(false);
-        ui->U_DSE_48_checkBox->setChecked(false);
-        ui->U_DSE_60_checkBox->setChecked(false);
-        ui->U_DSE_80_checkBox->setChecked(false);
-        ui->U_DSE_240_checkBox->setChecked(false);
-    }
-}
-
-void NOVAembed::on_U_DSE_240_checkBox_clicked()
-{
-    if ( ui->U_DSE_240_checkBox->isChecked() == true )
-    {
-        ui->U_DSE_34_checkBox->setChecked(false);
-        ui->U_DSE_40_checkBox->setChecked(false);
-        ui->U_DSE_48_checkBox->setChecked(false);
-        ui->U_DSE_60_checkBox->setChecked(false);
-        ui->U_DSE_80_checkBox->setChecked(false);
-        ui->U_DSE_120_checkBox->setChecked(false);
-    }
-}
-
-/*****************************************************************************************************************************************************************************************/
-/*                                                                             U BSP Factory END                                                                                         */
-/*****************************************************************************************************************************************************************************************/
-
