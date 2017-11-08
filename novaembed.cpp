@@ -71,11 +71,10 @@ int     copy_required_files = 0;
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/DtbUserWorkArea/UClass_bspf").exists() )
     {
-        system("mkdir -p /Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp");
+        system("mkdir -p /Devel/NOVAsom_SDK/DtbUserWorkArea/UClass_bspf/temp");
         copy_required_files = 1;
     }
-    if ( ! QDir("/Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp").exists() )
-        system("mkdir -p /Devel/NOVAsom_SDK/DtbUserWorkArea/PClass_bspf/temp");
+
     if ( copy_required_files == 1 )
     {
         system("cp /Devel/NOVAsom_SDK/Utils/DtbBaseFiles/* /Devel/NOVAsom_SDK/DtbUserWorkArea/.");
