@@ -380,10 +380,7 @@ void NOVAembed::on_U_Generate_pushButton_clicked()
     ui->U_Generate_pushButton->setText("Save "+fi.baseName()+".bspf and Generate "+fi.baseName()+".dtb");
     U_save_helper(fileName);
     Last_U_BSPFactoryFile = fileName;
-    //storeNOVAembed_ini();
     QString FileNameNoExtension  = fi.baseName();
-
-
 
     update_status_bar("Generating dtb "+FileNameNoExtension+".dtb ...");
     if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
@@ -391,7 +388,7 @@ void NOVAembed::on_U_Generate_pushButton_clicked()
         update_status_bar("Unable to create /tmp/script");
         return;
     }
-    if ( ui->EditBeforeGenerate_checkBox->isChecked())
+    if ( ui->U_EditBeforeGenerate_checkBox->isChecked())
         update_status_bar("User editing dtsi file");
 
     QTextStream out(&scriptfile);
@@ -399,7 +396,7 @@ void NOVAembed::on_U_Generate_pushButton_clicked()
     out << QString("[ ! -d /Devel/NOVAsom_SDK/DtbUserWorkArea ] && mkdir /Devel/NOVAsom_SDK/DtbUserWorkArea\n");
     out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
     out << QString("/Devel/NOVAsom_SDK/Qt/NOVAembed/NOVAembed/NOVAembed_U_Parser/bin/Debug/NOVAembed_U_Parser /Devel/NOVAsom_SDK/DtbUserWorkArea/UClass_bspf/"+FileNameNoExtension+".bspf > /Devel/NOVAsom_SDK/Logs/U_bspf.log\n");
-    if ( ui->EditBeforeGenerate_checkBox->isChecked())
+    if ( ui->U_EditBeforeGenerate_checkBox->isChecked())
         out << QString("gedit /Devel/NOVAsom_SDK/DtbUserWorkArea/"+FileNameNoExtension+".dts\n");
     out << QString("./user_dtb_compile "+FileNameNoExtension+" U >> /Devel/NOVAsom_SDK/Logs/U_bspf.log\n");
     out << QString("echo $? > /tmp/result\n");
