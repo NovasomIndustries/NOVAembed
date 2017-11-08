@@ -69,7 +69,6 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
         ui->label_61->setVisible(true);
         ui->UserBSPFSelect_pushButton->setVisible(true);
         ui->UserBSPFselectedlineEdit->setVisible(true);
-        ui->NOVAsomU_Note->setVisible(false);
     }
     if ( arg1 == "U Series")
     {
@@ -85,7 +84,6 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
         ui->label_61->setVisible(false);
         ui->UserBSPFSelect_pushButton->setVisible(false);
         ui->UserBSPFselectedlineEdit->setVisible(false);
-        ui->NOVAsomU_Note->setVisible(true);
         ui->PreCompiledFileSystem_frame->setVisible(false);
     }
     if ( arg1 == "P Series")
@@ -102,7 +100,6 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
         ui->label_61->setVisible(true);
         ui->UserBSPFSelect_pushButton->setVisible(true);
         ui->UserBSPFselectedlineEdit->setVisible(true);
-        ui->NOVAsomU_Note->setVisible(false);
     }
     /* hide Tools for recompose order */
     ui->tab->removeTab(3);

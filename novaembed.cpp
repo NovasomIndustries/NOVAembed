@@ -401,7 +401,6 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->label_61->setVisible(true);
         ui->UserBSPFSelect_pushButton->setVisible(true);
         ui->UserBSPFselectedlineEdit->setVisible(true);
-        ui->NOVAsomU_Note->setVisible(false);
 
         if ( ui->Board_comboBox->currentText() == "S Series")
         {
@@ -444,7 +443,6 @@ void NOVAembed::on_tab_currentChanged(int index)
             ui->label_61->setVisible(false);
             ui->UserBSPFSelect_pushButton->setVisible(false);
             ui->UserBSPFselectedlineEdit->setVisible(false);
-            ui->NOVAsomU_Note->setVisible(true);
             ui->PreCompiledFileSystem_frame->setVisible(false);
         }
 
