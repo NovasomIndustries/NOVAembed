@@ -207,7 +207,6 @@ void NOVAembed::on_KernelXconfig_pushButton_clicked()
 void NOVAembed::on_KernelCompile_pushButton_clicked()
 {
     QFile scriptfile("/tmp/script");
-    update_status_bar("Compiling linux ...");
 
     if ( ! scriptfile.open(QIODevice::WriteOnly | QIODevice::Text) )
     {
@@ -216,14 +215,21 @@ void NOVAembed::on_KernelCompile_pushButton_clicked()
     }
     QTextStream out(&scriptfile);
     out << QString("#!/bin/sh\n");
-    out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
     if ( ui->Board_comboBox->currentText() == "P Series")
     {
+        out << QString("cd /Devel/NOVAsom_SDK/Deploy\n");
+        out << QString("rm zImage ; ln -s ../Kernel/linux-imx_4.1.15_1.2.0_ga/arch/arm/boot/zImage\n");
+        out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
+        update_status_bar("Compiling linux 4.1.15_1.2.0_ga ...");
         out << QString("echo linux-imx_4.1.15_1.2.0_ga > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
         out << QString("./kmake linux-imx_4.1.15_1.2.0_ga >> /Devel/NOVAsom_SDK/Logs/kmake.log\n");
     }
     if ( ui->Board_comboBox->currentText() == "U Series")
     {
+        out << QString("cd /Devel/NOVAsom_SDK/Deploy\n");
+        out << QString("rm zImage ; ln -s ../Kernel/linux-imx_4.1.43/arch/arm/boot/zImage\n");
+        out << QString("cd /Devel/NOVAsom_SDK/Utils\n");
+        update_status_bar("Compiling linux 4.1.43 ...");
         out << QString("echo linux-imx_4.1.43 > /Devel/NOVAsom_SDK/Logs/kmake.log\n");
         out << QString("./kmakeU linux-imx_4.1.43 >> /Devel/NOVAsom_SDK/Logs/kmake.log\n");
     }
