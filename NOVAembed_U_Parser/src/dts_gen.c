@@ -1,14 +1,14 @@
 #include "../include/NOVAembed_U_parser.h"
 #include "../include/header.h"
 
-char    dtsfile_dump[18000];
+char    dtsfile_dump[32768];
 char    file_name[32],file_name_noext[32],dir_name[256];
 char    file_name_dts[128],file_name_dtsi[128];
 char    hog[1024];
 char    gpio_hogs[2048];
 
 
-
+#if 0
 void process_sf(void)
 {
 char    sf[1024];
@@ -85,10 +85,11 @@ char    t[128];
         strcat (sf,"        };\n");
         strcat(dtsfile_dump,sf);
     }
-    sprintf (sf,"    };\n");
+    sprintf (sf,"  };\n");
     strcat (sf," };\n");
     strcat(dtsfile_dump,sf);
 }
+#endif // 0
 
 int extract_speed(char *speed_var_ptr)
 {
@@ -127,7 +128,8 @@ char    t[1024];
         sprintf(t,pwm2_pins);
         strcat(dtsfile_dump,t);
     }
-
+    sprintf (t,"  };");
+    strcat(dtsfile_dump,t);
 }
 
 void process_special_devs_defs(void)
@@ -171,6 +173,7 @@ int     speed;
         sprintf(t,pwm2_defs);
         strcat(dtsfile_dump,t);
     }
+    strcat(dtsfile_dump,lcd_defs);
 }
 
 
@@ -181,7 +184,6 @@ FILE    *fpout_dts;
     sprintf(dtsfile_dump,dts_header);
     process_special_devs_pins();
     strcat(dtsfile_dump,dts_footer);
-
     process_special_devs_defs();
     if ( (fpout_dts = fopen(file_name_dts,"w" ) ))
     {

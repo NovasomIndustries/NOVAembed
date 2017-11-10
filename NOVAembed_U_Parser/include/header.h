@@ -342,14 +342,6 @@ imx6ul-ddr3-arm2 {\n\
         MX6UL_PAD_CSI_VSYNC__ESAI_TX4_RX1        0x1b0b0\n\
         >;\n\
     };\n\
-    pinctrl_lcdif_ctrl: lcdifctrlgrp {\n\
-        fsl,pins = <\n\
-        MX6UL_PAD_LCD_CLK__LCDIF_CLK	    0x79\n\
-        MX6UL_PAD_LCD_ENABLE__LCDIF_ENABLE  0x79\n\
-        MX6UL_PAD_LCD_HSYNC__LCDIF_HSYNC    0x79\n\
-        MX6UL_PAD_LCD_VSYNC__LCDIF_VSYNC    0x79\n\
-        >;\n\
-    };\n\
     pinctrl_pwm1: pmw1grp {\n\
         fsl,pins = <\n\
         MX6UL_PAD_GPIO1_IO08__PWM1_OUT   0x110b0\n\
@@ -434,7 +426,42 @@ imx6ul-ddr3-arm2 {\n\
         MX6UL_PAD_LCD_RESET__GPIO3_IO04          0x1b0b1\n\
         >;\n\
     };\n\
-  };\n\
+    pinctrl_lcdif_dat: lcdifdatgrp {\n\
+        fsl,pins = <\n\
+        MX6UL_PAD_LCD_DATA00__LCDIF_DATA00  0x79\n\
+        MX6UL_PAD_LCD_DATA01__LCDIF_DATA01  0x79\n\
+        MX6UL_PAD_LCD_DATA02__LCDIF_DATA02  0x79\n\
+        MX6UL_PAD_LCD_DATA03__LCDIF_DATA03  0x79\n\
+        MX6UL_PAD_LCD_DATA04__LCDIF_DATA04  0x79\n\
+        MX6UL_PAD_LCD_DATA05__LCDIF_DATA05  0x79\n\
+        MX6UL_PAD_LCD_DATA06__LCDIF_DATA06  0x79\n\
+        MX6UL_PAD_LCD_DATA07__LCDIF_DATA07  0x79\n\
+        MX6UL_PAD_LCD_DATA08__LCDIF_DATA08  0x79\n\
+        MX6UL_PAD_LCD_DATA09__LCDIF_DATA09  0x79\n\
+        MX6UL_PAD_LCD_DATA10__LCDIF_DATA10  0x79\n\
+        MX6UL_PAD_LCD_DATA11__LCDIF_DATA11  0x79\n\
+        MX6UL_PAD_LCD_DATA12__LCDIF_DATA12  0x79\n\
+        MX6UL_PAD_LCD_DATA13__LCDIF_DATA13  0x79\n\
+        MX6UL_PAD_LCD_DATA14__LCDIF_DATA14  0x79\n\
+        MX6UL_PAD_LCD_DATA15__LCDIF_DATA15  0x79\n\
+        MX6UL_PAD_LCD_DATA16__LCDIF_DATA16  0x79\n\
+        MX6UL_PAD_LCD_DATA17__LCDIF_DATA17  0x79\n\
+        MX6UL_PAD_LCD_DATA18__LCDIF_DATA18  0x79\n\
+        MX6UL_PAD_LCD_DATA19__LCDIF_DATA19  0x79\n\
+        MX6UL_PAD_LCD_DATA20__LCDIF_DATA20  0x79\n\
+        MX6UL_PAD_LCD_DATA21__LCDIF_DATA21  0x79\n\
+        MX6UL_PAD_LCD_DATA22__LCDIF_DATA22  0x79\n\
+        MX6UL_PAD_LCD_DATA23__LCDIF_DATA23  0x79\n\
+        >;\n\
+    };\n\
+    pinctrl_lcdif_ctrl: lcdifctrlgrp {\n\
+        fsl,pins = <\n\
+        MX6UL_PAD_LCD_CLK__LCDIF_CLK        0x79\n\
+        MX6UL_PAD_LCD_ENABLE__LCDIF_ENABLE  0x79\n\
+        MX6UL_PAD_LCD_HSYNC__LCDIF_HSYNC    0x79\n\
+        MX6UL_PAD_LCD_VSYNC__LCDIF_VSYNC    0x79\n\
+        >;\n\
+    };\n\
 "
 
 #define dts_footer "\n\
@@ -568,4 +595,40 @@ imx6ul-ddr3-arm2 {\n\
         MX6UL_PAD_UART3_RTS_B__FLEXCAN1_RX        0xb0\n\
         >;\n\
     };\n\
+"
+
+#define lcd_defs "\
+&lcdif\n\
+{\n\
+    pinctrl-names = \"default\";\n\
+    pinctrl-0 = <&pinctrl_lcdif_dat\n\
+                 &pinctrl_lcdif_ctrl>;\n\
+    display = <&display0>;\n\
+    status = \"okay\";\n\
+    display0: display \n\
+    {\n\
+        bits-per-pixel = <16>;\n\
+        bus-width = <24>;\n\
+        display-timings \n\
+        {\n\
+            native-mode = <&timing0>;\n\
+            timing0: timing0 \n\
+            {\n\
+                clock-frequency = <30000000>;\n\
+                hactive = <800>;\n\
+                vactive = <480>;\n\
+                hback-porch = <64>;\n\
+                hfront-porch = <64>;\n\
+                vback-porch = <22>;\n\
+                vfront-porch = <23>;\n\
+                hsync-len = <10>;\n\
+                vsync-len = <10>;\n\
+                hsync-active = <0>;\n\
+                vsync-active = <0>;\n\
+                de-active = <1>;\n\
+                pixelclk-active = <0>;\n\
+            };\n\
+        };\n\
+    };\n\
+};\n\
 "
