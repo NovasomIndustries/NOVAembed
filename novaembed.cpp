@@ -19,7 +19,7 @@
 /*                                                                              Global variables                                                                                         */
 /*****************************************************************************************************************************************************************************************/
 
-QString Version = "1.0.4.3rc3";
+QString Version = "1.0.4.3rc4";
 QString Configuration = "Standard";
 QString FileSystemName = "";
 QString DeployedFileSystemName = "";
@@ -44,6 +44,8 @@ QString FSValid = "INVALID";
 QString KernelValid = "INVALID";
 QString CurrentDevelopment = "Stable";
 QString uSDwriteValid = "INVALID";
+QString CurrentSplashName =  "NOVAsomP800x480.png";
+
 
 extern  void storeNOVAembed_ini();
 QWidget *PBSP_stab,*UBSP_stab,*SBSP_stab,*TOOL_stab,*TOOL_devel;
@@ -125,6 +127,7 @@ int     copy_required_files = 0;
         BootValid = settings->value( strKeySettings + "BootValid", "r").toString();
         FSValid = settings->value( strKeySettings + "FSValid", "r").toString();
         KernelValid = settings->value( strKeySettings + "KernelValid", "r").toString();
+        CurrentSplashName = settings->value( strKeySettings + "CurrentSplashName", "r").toString();
         CurrentDevelopment = settings->value( strKeySettings + "CurrentDevelopment", "r").toString();
     }
     if ( ! QDir("/Devel/NOVAsom_SDK/NOVAembed_Settings/PClass_bspf").exists() )
@@ -235,6 +238,7 @@ void NOVAembed::storeNOVAembed_ini()
     out << QString("BootValid="+BootValid+"\n");
     out << QString("FSValid="+FSValid+"\n");
     out << QString("KernelValid="+KernelValid+"\n");
+    out << QString("CurrentSplashName="+CurrentSplashName+"\n");
     out << QString("CurrentDevelopment="+CurrentDevelopment+"\n");
 
     file.close();
@@ -357,6 +361,7 @@ void NOVAembed::on_tab_currentChanged(int index)
 
         ui->Board_comboBox->setCurrentText(_Board_comboBox);
         ui->UserPartition_comboBox->setCurrentText(NumberOfUserPartitions);
+        ui->SplashImageNameLabel->setText(CurrentSplashName+".png");
 
         compile_NewFileSystemFileSystemConfigurationcomboBox();
         compile_ExtFS_comboBox();
