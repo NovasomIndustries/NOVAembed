@@ -362,6 +362,7 @@ void NOVAembed::on_tab_currentChanged(int index)
         ui->Board_comboBox->setCurrentText(_Board_comboBox);
         ui->UserPartition_comboBox->setCurrentText(NumberOfUserPartitions);
         ui->SplashImageNameLabel->setText(CurrentSplashName+".png");
+        ui->SplashThumb->setPixmap(QPixmap("/Devel/NOVAsom_SDK/Utils/LinuxSplashLogos/"+CurrentSplashName+".png") );
 
         compile_NewFileSystemFileSystemConfigurationcomboBox();
         compile_ExtFS_comboBox();
