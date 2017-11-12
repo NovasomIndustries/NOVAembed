@@ -625,5 +625,11 @@ void NOVAembed::on_CheckUpdate_pushButton_clicked()
     }
     else
         update_status_bar("Update error");
+
 }
 
+
+void NOVAembed::on_ViewUpdatesLog_pushButton_clicked()
+{
+    system("gedit /Devel/NOVAsom_SDK/Logs/update.log");
+}

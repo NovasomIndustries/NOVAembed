@@ -271,6 +271,8 @@ private slots:
 
     void U_save_helper(QString fileName);
 
+    void on_ViewUpdatesLog_pushButton_clicked();
+
 private:
     Ui::NOVAembed *ui;
 };
