@@ -635,3 +635,4 @@ void NOVAembed::on_ViewUpdatesLog_pushButton_clicked()
 {
     system("gedit /Devel/NOVAsom_SDK/Logs/update.log");
 }
+

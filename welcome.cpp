@@ -25,3 +25,8 @@ void NOVAembed::on_P_QSG_pushButton_clicked()
     system("qpdfview /Devel/NOVAsom_SDK/Doc/NI150316-QSG-P-V1.0.pdf");
 
 }
+
+void NOVAembed::on_P_HUM_pushButton_3_clicked()
+{
+    system("qpdfview /Devel/NOVAsom_SDK/Doc/SUM-NOVAembed-V1.0.pdf");
+}

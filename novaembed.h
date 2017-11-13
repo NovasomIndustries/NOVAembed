@@ -273,6 +273,8 @@ private slots:
 
     void on_ViewUpdatesLog_pushButton_clicked();
 
+    void on_P_HUM_pushButton_3_clicked();
+
 private:
     Ui::NOVAembed *ui;
 };
