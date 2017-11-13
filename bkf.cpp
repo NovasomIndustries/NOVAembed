@@ -82,8 +82,10 @@ void NOVAembed::on_Board_comboBox_currentIndexChanged(const QString &arg1)
         ui->PriVideo_24bit_checkBox->setVisible(false);
         ui->SecVideo_24bit_checkBox->setVisible(false);
         ui->label_61->setVisible(false);
+        /*
         ui->UserBSPFSelect_pushButton->setVisible(false);
         ui->UserBSPFselectedlineEdit->setVisible(false);
+        */
         ui->PreCompiledFileSystem_frame->setVisible(false);
     }
     if ( arg1 == "P Series")
