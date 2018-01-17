@@ -1,0 +1,23 @@
+        lvds-channel@0 {
+                fsl,data-mapping = "jeida";
+                fsl,data-width = <24>;
+                primary;
+                status = "okay";
+                crtc = "ipu1-di0";
+                display-timings {
+                        native-mode = <&timing1_1366x768>;
+                        timing1_1366x768: LVDS-1366x768 {
+                                clock-frequency = <63900000>;
+                                hactive = <1366>;
+                                vactive = <768>;
+                                hback-porch = <50>;
+                                hfront-porch = <50>;
+                                vback-porch = <10>;
+                                vfront-porch = <10>;
+                                hsync-len = <40>;
+                                vsync-len = <5>;
+
+                        };
+                };
+        };
+
